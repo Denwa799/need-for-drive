@@ -31,7 +31,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "lint": "eslint --ext. .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src --fix",
     "test": "craco test",
     "eject": "craco eject",
     "deploy": "gh-pages -d build",

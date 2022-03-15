@@ -1,14 +1,16 @@
 import React from 'react';
-import { Button } from 'antd';
 import 'antd/dist/antd.less';
 import styles from './App.module.less';
+import AppRouter from './components/AppRouter/AppRouter';
+import Navigation from './components/ui/Navigation/Navigation';
 
-function App() {
+const App = () => {
   return (
     <div className={styles.App}>
-      <Button type="primary">Работает</Button>
+      <Navigation />
+      <AppRouter />
     </div>
   );
-}
+};
 
 export default App;
