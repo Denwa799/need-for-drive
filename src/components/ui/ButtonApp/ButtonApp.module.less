@@ -1,0 +1,19 @@
+@import './src/utils/varuables';
+
+.ButtonApp {
+  font-size: 18px;
+  font-weight: 500;
+  height: 48px;
+  width: 250px;
+  background: linear-gradient(to right, @app-primary-color, @app-second-gradient-color);
+  transition: @transition;
+}
+
+.ButtonApp:hover {
+  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
+  background: linear-gradient(to right, @app-primary-color, @app-second-gradient-color);
+  filter: brightness(90%);
+}
+.ButtonApp:active {
+  filter: brightness(80%);
+}

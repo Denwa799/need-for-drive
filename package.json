@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://denwa799.github.io/need-for-drive/",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",

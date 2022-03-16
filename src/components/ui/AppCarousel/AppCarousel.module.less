@@ -1,0 +1,84 @@
+@import './src/utils/varuables';
+
+.AppCarousel {
+  background-color: @app-primary-black;
+
+  .carouselContent {
+    padding: 245px 96px 0 96px;
+    height: 100vh;
+    width: 100%;
+    color: @app-primary-white;
+    box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+  }
+
+  .carouselImg1 {
+    background: url("../../../assets/img/slider/1.svg") no-repeat center;
+    background-size: cover;
+  }
+  .carouselImg2 {
+    background: url("../../../assets/img/slider/2.svg") no-repeat center;
+    background-size: cover;
+  }
+  .carouselImg3 {
+    background: url("../../../assets/img/slider/3.svg") no-repeat center;
+    background-size: cover;
+  }
+  .carouselImg4 {
+    background: url("../../../assets/img/slider/4.svg") no-repeat center;
+    background-size: cover;
+  }
+
+  .prevArrow {
+    position: absolute;
+    height: 100vh;
+    width: 7%;
+    color: @app-primary-white;
+    font-size: 26px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: @transition;
+  }
+
+  .prevArrow:hover {
+    background-color: @app-primary-color__opacity20;
+  }
+
+
+  .nextArrow {
+    position: absolute;
+    left: 93%;
+    top: 0;
+    width: 7%;
+    height: 100vh;
+    color: @app-primary-white;
+    font-size: 26px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: @transition;
+  }
+
+  .nextArrow:hover {
+    background-color: @app-primary-color__opacity20;
+  }
+
+  .carouselText {
+    font-size: 24px;
+    line-height: 1;
+    font-weight: lighter;
+  }
+
+  .text__white {
+    // Необходимо добавить импортент, так как ant design не дает в title поменять цвет с черного на белый
+    color: @app-primary-white!important;
+  }
+}
