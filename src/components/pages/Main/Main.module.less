@@ -4,29 +4,66 @@
   min-height: 100vh;
 
   .Nav {
-    padding-top: 32px;
+    position: relative;
+    height: 100vh;
     text-align: center;
     background-color: @app-second-black;
-    color: @app-primary-white;
+
+    .burger {
+      padding-top: 43px;
+      color: @app-primary-white;
+    }
+
+    .langButton {
+      display: flex;
+      justify-content: center;
+      color: @app-primary-color;
+    }
+
+    .navFooter {
+      position: absolute;
+      width: 100%;
+      bottom: 10px;
+    }
+
+  }
+
+  .mainContent {
+    position: relative;
+    height: 100vh;
+
+    .header {
+      padding-top: 32px;
+    }
+
+    .Logo {
+      color: @app-primary-color;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .headerIcn {
+      padding-right: 5px;
+    }
+
+    .body {
+      padding-top: 116px;
+
+      .button {
+        margin-top: 60px
+      }
+    }
+
+    .mainFooter {
+      position: absolute;
+      width: 100%;
+      bottom: 20px;
+    }
   }
 
   .container {
     padding-left: 9%;
     padding-right: 9%;
-  }
-
-  .header {
-    padding-top: 32px;
-  }
-
-  .Logo {
-    color: @app-primary-color;
-    font-size: 30px;
-    font-weight: bold;
-  }
-
-  .headerIcn {
-    padding-right: 5px;
   }
 
   .text__darkGray {
@@ -45,7 +82,7 @@
     font-weight: bold;
   }
 
-  .header__right {
+  .text__right {
     display: flex;
     align-items: center;
     justify-content: end;
@@ -56,14 +93,10 @@
   }
 
   .text__light {
-    font-weight: lighter;
+    font-weight: 300;
   }
 
-  .body {
-    padding-top: 116px;
-
-    .button {
-      margin-top: 60px
-    }
+  .carousel {
+    height: 100vh;
   }
 }

@@ -5,6 +5,7 @@ import styles from './Main.module.less';
 import ButtonApp from '../../ui/ButtonApp/ButtonApp';
 import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import LocationSvg from '../../ui/CustomIcns/LocationSvg';
+import ButtonChange from '../../ui/ButtonChange/ButtonChange';
 
 const { Title, Text } = Typography;
 
@@ -13,14 +14,23 @@ const Main: FC = () => {
     <Layout>
       <Row className={styles.Main}>
         <Col span={1} className={styles.Nav}>
-          нав
+          <Row>
+            <Col span={24} className={styles.burger}>
+              нав
+            </Col>
+          </Row>
+          <Row className={`${styles.navFooter}`}>
+            <Col span={24} className={styles.langButton}>
+              <ButtonChange>Eng</ButtonChange>
+            </Col>
+          </Row>
         </Col>
-        <Col span={12}>
-          <Row className={`${styles.container} ${styles.header}`} align="middle">
+        <Col span={12} className={styles.mainContent}>
+          <Row className={`${styles.container} ${styles.header}`}>
             <Col span={12} className={styles.Logo}>
               Need for drive
             </Col>
-            <Col span={12} className={`${styles.header__right} ${styles.text__darkGray}`}>
+            <Col span={12} className={`${styles.text__right} ${styles.text__darkGray}`}>
               <Icon className={styles.headerIcn} component={LocationSvg} />
               Ульяновск
             </Col>
@@ -42,8 +52,16 @@ const Main: FC = () => {
               <ButtonApp />
             </Col>
           </Row>
+          <Row className={`${styles.container} ${styles.mainFooter}`}>
+            <Col span={12} className={styles.text__darkGray}>
+              © 2016-2019 «Need for drive»
+            </Col>
+            <Col span={12} className={`${styles.text__right}`}>
+              8 (495) 234-22-44
+            </Col>
+          </Row>
         </Col>
-        <Col span={11}>
+        <Col span={11} className={`${styles.carousel}`}>
           <AppCarousel />
         </Col>
       </Row>
