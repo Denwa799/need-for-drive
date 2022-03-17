@@ -6,6 +6,7 @@ import ButtonApp from '../../ui/ButtonApp/ButtonApp';
 import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import LocationSvg from '../../ui/CustomIcns/LocationSvg';
 import ButtonChange from '../../ui/ButtonChange/ButtonChange';
+import Navbar from '../../ui/Nabvar/Navbar';
 
 const { Title, Text } = Typography;
 
@@ -16,7 +17,7 @@ const Main: FC = () => {
         <Col span={1} className={styles.Nav}>
           <Row>
             <Col span={24} className={styles.burger}>
-              нав
+              <Navbar />
             </Col>
           </Row>
           <Row className={`${styles.navFooter}`}>
