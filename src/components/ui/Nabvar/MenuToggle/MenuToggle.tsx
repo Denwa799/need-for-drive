@@ -6,9 +6,9 @@ interface MenuToggleProps {
   onOpen: (menu: boolean) => void;
 }
 
-const MenuToggle: FC<MenuToggleProps> = (props) => {
+const MenuToggle: FC<MenuToggleProps> = ({ onOpen }) => {
   function clickHandler() {
-    props.onOpen(true);
+    onOpen(true);
   }
 
   return (

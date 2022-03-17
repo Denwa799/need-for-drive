@@ -4,18 +4,11 @@ import Parking from '../components/pages/Parking/Parking';
 import Insurance from '../components/pages/Insurance/Insurance';
 import Petrol from '../components/pages/Petrol/Petrol';
 import Service from '../components/pages/Service/Service';
+import { RouteNames } from '../utils/routes';
 
 interface IRoute {
   path: string;
   component: React.ComponentType;
-}
-
-export enum RouteNames {
-  MAIN = '/',
-  PARKING = '/parking',
-  INSURANCE = '/insurance',
-  PETROL = '/petrol',
-  SERVICE = '/service',
 }
 
 export const publicRoutes: IRoute[] = [

@@ -1,9 +1,9 @@
-import { Drawer, Menu } from 'antd';
 import React, { FC, useState } from 'react';
+import { Drawer, Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.less';
-import { RouteNames } from '../../../router';
 import MenuToggle from './MenuToggle/MenuToggle';
+import { RouteNames } from '../../../utils/routes';
 
 const Navbar: FC = () => {
   const [visible, setVisible] = useState(false);
@@ -32,17 +32,17 @@ const Navbar: FC = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item key={1}>
-            <NavLink to={RouteNames.INSURANCE} onClick={handleClose}>
+            <NavLink to="/" onClick={handleClose}>
               СТРАХОВАНИЕ
             </NavLink>
           </Menu.Item>
           <Menu.Item key={2}>
-            <NavLink to={RouteNames.PETROL} onClick={handleClose}>
+            <NavLink to="/" onClick={handleClose}>
               БЕНЗИН
             </NavLink>
           </Menu.Item>
           <Menu.Item key={3}>
-            <NavLink to={RouteNames.SERVICE} onClick={handleClose}>
+            <NavLink to="/" onClick={handleClose}>
               ОБСЛУЖИВАНИЕ
             </NavLink>
           </Menu.Item>
