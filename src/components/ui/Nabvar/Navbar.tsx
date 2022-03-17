@@ -1,9 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Drawer, Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
+import Icon from '@ant-design/icons';
 import styles from './Navbar.module.less';
 import MenuToggle from './MenuToggle/MenuToggle';
 import { RouteNames } from '../../../utils/routes';
+import TelegramSvg from '../CustomIcns/TelegramSvg';
+import FacebookSvg from '../CustomIcns/FacebookSvg';
+import InstagramSvg from '../CustomIcns/InstagramSvg';
 
 const Navbar: FC = () => {
   const [visible, setVisible] = useState(false);
@@ -24,29 +28,35 @@ const Navbar: FC = () => {
         placement="left"
         onClose={handleClose}
         key="left"
+        size="large"
       >
-        <Menu className={styles.Menu} theme="light">
+        <Menu className={styles.Menu} theme="dark">
           <Menu.Item key={0}>
-            <NavLink to={RouteNames.PARKING} onClick={handleClose}>
+            <NavLink to={RouteNames.PARKING} onClick={handleClose} className={styles.link}>
               ПАРКОВКА
             </NavLink>
           </Menu.Item>
           <Menu.Item key={1}>
-            <NavLink to="/" onClick={handleClose}>
+            <NavLink to={RouteNames.INSURANCE} onClick={handleClose}>
               СТРАХОВАНИЕ
             </NavLink>
           </Menu.Item>
           <Menu.Item key={2}>
-            <NavLink to="/" onClick={handleClose}>
+            <NavLink to={RouteNames.PETROL} onClick={handleClose}>
               БЕНЗИН
             </NavLink>
           </Menu.Item>
           <Menu.Item key={3}>
-            <NavLink to="/" onClick={handleClose}>
+            <NavLink to={RouteNames.SERVICE} onClick={handleClose}>
               ОБСЛУЖИВАНИЕ
             </NavLink>
           </Menu.Item>
         </Menu>
+        <div className={styles.networksIcons}>
+          <Icon className={styles.icon} component={TelegramSvg} />
+          <Icon className={styles.icon} component={FacebookSvg} />
+          <Icon className={styles.icon} component={InstagramSvg} />
+        </div>
       </Drawer>
       <MenuToggle onOpen={handleOpen} />
     </div>

@@ -1,14 +1,38 @@
-@import './src/utils/varuables';
+@import '../../../utils/variables';
 
 .Navbar {
   height: 60px;
   width: 100%;
+  color: @app-primary-white;
 }
 
 .Menu {
-  font-size: 20px;
+  font-size: 32px;
+  background: @app-navbar-color;
+  padding-top: 260px;
+  padding-left: 100px;
 }
 
 .Drawer svg {
+  margin-top: 25px;
   font-size: 25px;
+  color: @app-primary-white;
+}
+
+.networksIcons {
+  display: flex;
+  padding-left: 115px;
+}
+
+.icon {
+  padding-right: 24px;
+}
+
+.icon svg {
+  cursor: pointer;
+}
+
+.icon svg:hover path {
+  fill: @app-primary-color;
+  transition: @transition;
 }

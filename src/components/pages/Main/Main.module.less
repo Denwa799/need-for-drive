@@ -1,4 +1,4 @@
-@import './src/utils/varuables';
+@import '../../../utils/variables';
 
 .Main {
   min-height: 100vh;
@@ -14,18 +14,16 @@
       color: @app-primary-white;
     }
 
-    .langButton {
-      display: flex;
-      justify-content: center;
-      color: @app-primary-color;
-    }
-
     .navFooter {
       position: absolute;
       width: 100%;
       bottom: 10px;
-    }
 
+      .langButton {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   .mainContent {
