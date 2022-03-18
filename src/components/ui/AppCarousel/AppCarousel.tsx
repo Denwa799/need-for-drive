@@ -18,7 +18,7 @@ const AppCarousel: FC = () => {
       <button type="button" className={styles.prevArrow} onClick={handlePrev}>
         <LeftOutlined />
       </button>
-      <Carousel ref={carouselRef} className={styles.carousel}>
+      <Carousel ref={carouselRef} className={styles.carousel} autoplay>
         <div className={`${styles.carouselContent} ${styles.carouselImg1}`}>
           <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
             Бесплатная парковка
