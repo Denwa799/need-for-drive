@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/need-for-drive/static/css/main.0ce1b2aa.css",
+    "main.css": "/need-for-drive/static/css/main.a58abfe0.css",
     "main.js": "/need-for-drive/static/js/main.ae9fc978.js",
-    "static/media/4.svg": "/need-for-drive/static/media/4.c2bf2a637ee8babbcecf.svg",
-    "static/media/1.svg": "/need-for-drive/static/media/1.db80aa5667c9bf1ba10b.svg",
-    "static/media/3.svg": "/need-for-drive/static/media/3.604ad31fcb4d5ff2f472.svg",
-    "static/media/2.svg": "/need-for-drive/static/media/2.b2df74639ad1b61060c8.svg",
+    "static/media/4.webp": "/need-for-drive/static/media/4.ad6412592490b68fb224.webp",
+    "static/media/3.webp": "/need-for-drive/static/media/3.223a5d67847be67895d7.webp",
+    "static/media/1.webp": "/need-for-drive/static/media/1.5c704a8f53e8b8b09fd4.webp",
+    "static/media/2.webp": "/need-for-drive/static/media/2.6c7c0c60b49de59b401a.webp",
     "static/media/Robotomediumitalic.ttf": "/need-for-drive/static/media/Robotomediumitalic.35abcf5eb54b0c398e52.ttf",
     "static/media/Robotoitalic.ttf": "/need-for-drive/static/media/Robotoitalic.727137e411cf490757ce.ttf",
     "static/media/Robotolightitalic.ttf": "/need-for-drive/static/media/Robotolightitalic.0af29016d4a1e7a3cc4e.ttf",
@@ -43,11 +43,11 @@
     "static/media/Roboto.woff2": "/need-for-drive/static/media/Roboto.806e04d8241d87f99a68.woff2",
     "static/media/Robotothin.woff2": "/need-for-drive/static/media/Robotothin.30581100ea069d04b86a.woff2",
     "index.html": "/need-for-drive/index.html",
-    "main.0ce1b2aa.css.map": "/need-for-drive/static/css/main.0ce1b2aa.css.map",
+    "main.a58abfe0.css.map": "/need-for-drive/static/css/main.a58abfe0.css.map",
     "main.ae9fc978.js.map": "/need-for-drive/static/js/main.ae9fc978.js.map"
   },
   "entrypoints": [
-    "static/css/main.0ce1b2aa.css",
+    "static/css/main.a58abfe0.css",
     "static/js/main.ae9fc978.js"
   ]
 }
