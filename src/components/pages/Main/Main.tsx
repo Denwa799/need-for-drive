@@ -7,10 +7,13 @@ import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import LocationSvg from '../../ui/CustomIcns/LocationSvg';
 import ButtonChange from '../../ui/ButtonChange/ButtonChange';
 import Navbar from '../../ui/Nabvar/Navbar';
+import { MainPageSlider } from './slider';
 
 const { Title, Text } = Typography;
 
 const Main: FC = () => {
+  const slider = MainPageSlider;
+
   return (
     <Row className={styles.Main}>
       <Col xl={1} lg={2} md={2} sm={2} xs={24} className={styles.Nav}>
@@ -84,7 +87,7 @@ const Main: FC = () => {
         </Layout.Footer>
       </Col>
       <Col xl={11} lg={9} md={9} className={`${styles.carousel}`}>
-        <AppCarousel />
+        <AppCarousel items={slider} />
       </Col>
     </Row>
   );

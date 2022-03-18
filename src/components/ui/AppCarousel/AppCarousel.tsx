@@ -6,7 +6,18 @@ import ButtonApp from '../ButtonApp/ButtonApp';
 
 const { Title, Text } = Typography;
 
-const AppCarousel: FC = () => {
+interface IAppCarousel {
+  items: {
+    key: string;
+    title: string;
+    text: string;
+    backgroundClassName: string;
+    button: string;
+    btnBackground?: string;
+  }[];
+}
+
+const AppCarousel: FC<IAppCarousel> = ({ items }) => {
   // Невозможно дать конкретный тип, так как должен быть сложный объект компоненты carousel
   const carouselRef = useRef<any>(null);
 
@@ -19,51 +30,19 @@ const AppCarousel: FC = () => {
         <LeftOutlined />
       </button>
       <Carousel ref={carouselRef} className={styles.carousel} autoplay>
-        <div className={`${styles.carouselContent} ${styles.carouselImg1}`}>
-          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
-            Бесплатная парковка
-          </Title>
-          <Text className={`${styles.carouselText} ${styles.text__white}`}>
-            Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а
-            также в аэропортах
-          </Text>
-          <div className={`${styles.button} ${styles.buttonGreen}`}>
-            <ButtonApp>Подробнее</ButtonApp>
-          </div>
-        </div>
-        <div className={`${styles.carouselContent} ${styles.carouselImg2}`}>
-          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
-            Страховка
-          </Title>
-          <Text className={`${styles.carouselText} ${styles.text__white} `}>
-            Полная страховка страховка автомобиля
-          </Text>
-          <div className={`${styles.button} ${styles.buttonBlue}`}>
-            <ButtonApp>Подробнее</ButtonApp>
-          </div>
-        </div>
-        <div className={`${styles.carouselContent} ${styles.carouselImg3}`}>
-          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
-            Бензин
-          </Title>
-          <Text className={`${styles.carouselText} ${styles.text__white} `}>
-            Полный бак на любой заправке города за наш счёт
-          </Text>
-          <div className={`${styles.button} ${styles.buttonRed}`}>
-            <ButtonApp>Подробнее</ButtonApp>
-          </div>
-        </div>
-        <div className={`${styles.carouselContent} ${styles.carouselImg4}`}>
-          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
-            Обслуживание
-          </Title>
-          <Text className={`${styles.carouselText} ${styles.text__white} `}>
-            Автомобиль проходит еженедельное ТО
-          </Text>
-          <div className={`${styles.button} ${styles.buttonPurple}`}>
-            <ButtonApp>Подробнее</ButtonApp>
-          </div>
-        </div>
+        {items.map((item) => {
+          return (
+            <div key={item.key} className={`${styles.carouselContent} ${item.backgroundClassName}`}>
+              <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
+                {item.title}
+              </Title>
+              <Text className={`${styles.carouselText} ${styles.text__white}`}>{item.text}</Text>
+              <div className={`${styles.button}`}>
+                <ButtonApp background={item.btnBackground}>{item.button}</ButtonApp>
+              </div>
+            </div>
+          );
+        })}
       </Carousel>
       <button type="button" className={styles.nextArrow} onClick={handleNext}>
         <RightOutlined />
