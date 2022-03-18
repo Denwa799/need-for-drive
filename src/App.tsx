@@ -6,7 +6,7 @@ import styles from './App.module.less';
 function App() {
   return (
     <div className={styles.App}>
-      <Button type="primary">Работает</Button>
+      <Button type="primary">Создал ветку Review</Button>
     </div>
   );
 }
