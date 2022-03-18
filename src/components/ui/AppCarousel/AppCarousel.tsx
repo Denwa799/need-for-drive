@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import { Carousel, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import styles from './AppCarousel.module.less';
@@ -6,12 +6,18 @@ import styles from './AppCarousel.module.less';
 const { Title, Text } = Typography;
 
 const AppCarousel: FC = () => {
+  // Невозможно дать конкретный тип, так как должен быть сложный объект компоненты carousel
+  const carouselRef = useRef<any>(null);
+
+  const handleNext = () => carouselRef.current.next();
+  const handlePrev = () => carouselRef.current.prev();
+
   return (
     <div className={styles.AppCarousel}>
-      <button type="button" className={styles.prevArrow}>
+      <button type="button" className={styles.prevArrow} onClick={handlePrev}>
         <LeftOutlined />
       </button>
-      <Carousel>
+      <Carousel ref={carouselRef} className={styles.carousel} autoplay>
         <div className={`${styles.carouselContent} ${styles.carouselImg1}`}>
           <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
             Бесплатная парковка
@@ -46,7 +52,7 @@ const AppCarousel: FC = () => {
           </Text>
         </div>
       </Carousel>
-      <button type="button" className={styles.nextArrow}>
+      <button type="button" className={styles.nextArrow} onClick={handleNext}>
         <RightOutlined />
       </button>
     </div>

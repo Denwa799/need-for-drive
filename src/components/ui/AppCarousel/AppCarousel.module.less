@@ -3,33 +3,6 @@
 .AppCarousel {
   background-color: @app-primary-black;
 
-  .carouselContent {
-    padding: 245px 96px 0 96px;
-    height: 100vh;
-    width: 100%;
-    color: @app-primary-white;
-    box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
-  }
-
-  .carouselImg1 {
-    background: url("../../../assets/img/slider/1.svg") no-repeat center;
-    background-size: cover;
-  }
-  .carouselImg2 {
-    background: url("../../../assets/img/slider/2.svg") no-repeat center;
-    background-size: cover;
-  }
-  .carouselImg3 {
-    background: url("../../../assets/img/slider/3.svg") no-repeat center;
-    background-size: cover;
-  }
-  .carouselImg4 {
-    background: url("../../../assets/img/slider/4.svg") no-repeat center;
-    background-size: cover;
-  }
-
   .prevArrow {
     position: absolute;
     height: 100vh;
@@ -71,31 +44,70 @@
     background-color: @app-primary-color__opacity20;
   }
 
-  .carouselText {
-    font-size: 24px;
-    line-height: 1;
-    font-weight: lighter;
+  .carousel {
+
+    .carouselContent {
+      padding: 245px 96px 0 96px;
+      height: 100vh;
+      width: 100%;
+      color: @app-primary-white;
+      box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+      -webkit-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+
+      .carouselText {
+        font-size: 24px;
+        line-height: 1;
+        font-weight: lighter;
+      }
+
+      .text__white {
+        color: @app-primary-white;
+      }
+
+    }
+
+    .carouselImg1 {
+      background: url("../../../assets/img/slider/1.svg") no-repeat center;
+      background-size: cover;
+    }
+    .carouselImg2 {
+      background: url("../../../assets/img/slider/2.svg") no-repeat center;
+      background-size: cover;
+    }
+    .carouselImg3 {
+      background: url("../../../assets/img/slider/3.svg") no-repeat center;
+      background-size: cover;
+    }
+    .carouselImg4 {
+      background: url("../../../assets/img/slider/4.svg") no-repeat center;
+      background-size: cover;
+    }
+
+    ul li button {
+      border-radius: 50%;
+      opacity: 1;
+    }
   }
 
-  .carouselContent .text__white {
-    color: @app-primary-white;
-  }
 }
-
 
 @media (max-width: 1200px) {
   .AppCarousel {
-    .carouselContent {
-      padding: 245px 60px 0 60px;
+    .carousel {
+      .carouselContent {
+        padding: 245px 60px 0 60px;
 
-      .carouselTitle {
-        font-size: 32px;
-      }
+        .carouselTitle {
+          font-size: 32px;
+        }
 
-      .carouselText {
-        font-size: 22px;
+        .carouselText {
+          font-size: 22px;
+        }
       }
     }
+
   }
   .AppCarousel {
     .nextArrow {

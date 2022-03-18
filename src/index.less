@@ -1,3 +1,5 @@
+@import '../src/utils/variables';
+
 @font-face {
   font-family: 'Roboto';
   src: local('Roboto Thin'), local('Roboto-Thin'), url('../src/fonts/Roboto/Robotothin.woff2') format('woff2'), url('../src/fonts/Roboto/Robotothin.woff') format('woff'), url('../src/fonts/Roboto/Robotothin.ttf') format('truetype');
@@ -82,4 +84,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Переписываю активный dot в каруселе ant design */
+.ant-carousel .slick-slider .slick-dots li.slick-active button {
+  background: @app-primary-color;
 }
