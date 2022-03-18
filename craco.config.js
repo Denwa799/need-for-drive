@@ -23,6 +23,7 @@ module.exports = {
               '@menu-dark-color':'#fff',
               '@menu-dark-highlight-color':'#0EC261',
               '@modal-mask-bg': 'rgba(17, 21, 24, 0.8)',
+              '@screen-md': '769px',
             },
             javascriptEnabled: true,
           },

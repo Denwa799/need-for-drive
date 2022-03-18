@@ -13,16 +13,16 @@ const AppCarousel: FC = () => {
       </button>
       <Carousel>
         <div className={`${styles.carouselContent} ${styles.carouselImg1}`}>
-          <Title level={2} className={styles.text__white}>
+          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
             Бесплатная парковка
           </Title>
-          <Text className={`${styles.carouselText} ${styles.text__white} `}>
+          <Text className={`${styles.carouselText} ${styles.text__white}`}>
             Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а
             также в аэропортах
           </Text>
         </div>
         <div className={`${styles.carouselContent} ${styles.carouselImg2}`}>
-          <Title level={2} className={styles.text__white}>
+          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
             Страховка
           </Title>
           <Text className={`${styles.carouselText} ${styles.text__white} `}>
@@ -30,7 +30,7 @@ const AppCarousel: FC = () => {
           </Text>
         </div>
         <div className={`${styles.carouselContent} ${styles.carouselImg3}`}>
-          <Title level={2} className={styles.text__white}>
+          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
             Бензин
           </Title>
           <Text className={`${styles.carouselText} ${styles.text__white} `}>
@@ -38,7 +38,7 @@ const AppCarousel: FC = () => {
           </Text>
         </div>
         <div className={`${styles.carouselContent} ${styles.carouselImg4}`}>
-          <Title level={2} className={styles.text__white}>
+          <Title level={2} className={`${styles.carouselTitle} ${styles.text__white}`}>
             Обслуживание
           </Title>
           <Text className={`${styles.carouselText} ${styles.text__white} `}>

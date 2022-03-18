@@ -1,7 +1,6 @@
 @import '../../../utils/variables';
 
 .Main {
-  min-height: 100vh;
 
   .Nav {
     position: relative;
@@ -11,7 +10,6 @@
 
     .burger {
       padding-top: 23px;
-      color: @app-primary-white;
     }
 
     .navFooter {
@@ -46,16 +44,20 @@
 
     .body {
       padding-top: 116px;
+    }
 
-      .button {
-        margin-top: 60px
-      }
+    .button {
+      margin-top: 60px
     }
 
     .mainFooter {
       position: absolute;
       width: 100%;
       bottom: 20px;
+
+      .footerTxt {
+        color: @app-primary-gray__dark;
+      }
     }
   }
 
@@ -86,7 +88,7 @@
     justify-content: end;
   }
 
-  .text__26px {
+  .bodyText {
     font-size: 26px;
   }
 
@@ -96,5 +98,226 @@
 
   .carousel {
     height: 100vh;
+  }
+}
+
+@media (max-width: 1200px) {
+  .Main {
+    .container {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Main {
+    .container {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  .carousel {
+    display: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .Main {
+    .Nav {
+      background-color: transparent;
+      height: 50px;
+
+      .burger {
+        padding: 0 0 0 32px;
+        text-align: left;
+      }
+
+      .navFooter {
+        display: none;
+      }
+    }
+
+    .mainContent {
+      height: calc(100vh - 50px);
+
+      .header {
+        text-align: right;
+        padding-top: 0;
+        position: relative;
+        bottom: 45px;
+      }
+    }
+
+    .burger svg {
+      color: @app-primary-black;
+      position: relative;
+      z-index: 10;
+    }
+
+    .container {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .mainContent {
+      .body {
+        padding-top: 0;
+      }
+
+      .bodyTitle {
+        font-size: 50px;
+      }
+
+      .mainFooter {
+        background-color: @app-second-black;
+        bottom: 0;
+        height: 72px;
+        text-align: right;
+
+        .footerTxt {
+          color: @app-primary-gray__light;
+          order: 2;
+        }
+
+        .footerNum {
+          color: @app-primary-color;
+          order: 1;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .Main {
+    .mainContent {
+      .body {
+        .bodyTitle {
+          font-size: 32px;
+        }
+
+        .bodyText {
+          font-size: 18px;
+        }
+      }
+
+      .bodyButton {
+        padding: 0;
+      }
+
+      .button {
+        margin-top: 20px;
+
+        button {
+          width: 100%;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Адаптация в горизонтальном режиме */
+
+@media
+(min-width: 769px) and (max-height: 769px),
+(min-width: 576px) and (max-height: 640px){
+  .Main {
+    .mainContent {
+      .bodyTitle {
+        font-size: 50px;
+      }
+    }
+  }
+}
+
+@media
+(min-width: 769px) and (max-height: 630px),
+(min-width: 576px) and (max-height: 580px){
+  .Main {
+    .mainContent {
+      .body {
+        padding-top: 50px;
+      }
+
+      .bodyButton .button {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+@media
+(min-width: 769px) and (max-height: 520px),
+(min-width: 576px) and (max-height: 480px),
+(min-width: 568px) and (max-height: 500px){
+  .Main {
+    .mainContent {
+      .body {
+        padding-top: 10px;
+      }
+
+      .bodyButton .button {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+@media
+(min-width: 769px) and (max-height: 490px),
+(min-width: 576px) and (max-height: 430px),
+(min-width: 568px) and (max-height: 500px){
+  .Main {
+    .mainContent {
+      .body {
+        .bodyTitle {
+          font-size: 32px;
+        }
+
+        .bodyText {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media
+(min-width: 769px) and (max-height: 370px),
+(min-width: 576px) and (max-height: 325px),
+(min-width: 568px) and (max-height: 500px){
+  .Main {
+    .mainContent {
+      .header {
+        .Logo {
+          font-size: 26px;
+        }
+      }
+      .body {
+        padding-top: 0;
+
+        .bodyTitle {
+          margin-bottom: 0;
+        }
+
+      }
+      .bodyButton .button {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 568px) and (max-height: 350px) {
+  .Main {
+    .mainContent {
+      .body, .bodyButton {
+        position: relative;
+        bottom: 50px;
+      }
+    }
   }
 }
