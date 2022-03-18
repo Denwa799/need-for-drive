@@ -2,10 +2,10 @@ import { Button } from 'antd';
 import React, { FC } from 'react';
 import styles from './ButtonApp.module.less';
 
-const ButtonApp: FC = () => {
+const ButtonApp: FC = ({ children }) => {
   return (
     <Button type="primary" className={styles.ButtonApp} size="large">
-      Забронировать
+      {children}
     </Button>
   );
 };

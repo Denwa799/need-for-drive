@@ -59,7 +59,7 @@ const Main: FC = () => {
           </Row>
           <Row className={`${styles.container} ${styles.bodyButton}`}>
             <Col span={24} className={styles.button}>
-              <ButtonApp />
+              <ButtonApp>Забронировать</ButtonApp>
             </Col>
           </Row>
           <Row className={`${styles.container} ${styles.mainFooter}`}>
