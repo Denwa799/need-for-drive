@@ -29,7 +29,7 @@
     height: 100vh;
 
     .header {
-      padding-top: 32px;
+      padding: 22px 9% 0 9%;
     }
 
     .Logo {
@@ -55,12 +55,10 @@
         }
       }
     }
-
-
-
     .mainFooter {
       position: absolute;
       width: 100%;
+      padding: 0 9%;
       bottom: 20px;
 
       .footerTxt {
@@ -70,8 +68,7 @@
   }
 
   .container {
-    padding-left: 9%;
-    padding-right: 9%;
+    padding: 0 9%;
   }
 
   .text__darkGray {
@@ -112,8 +109,16 @@
 @media (max-width: 1200px) {
   .Main {
     .container {
-      padding-left: 5%;
-      padding-right: 5%;
+      padding: 0 5%;
+    }
+    .mainContent {
+      .header {
+        padding: 22px 5% 0 5%;
+      }
+
+      .mainFooter {
+        padding: 0 5%;
+      }
     }
   }
 }
@@ -121,8 +126,17 @@
 @media (max-width: 768px) {
   .Main {
     .container {
-      padding-left: 32px;
-      padding-right: 32px;
+      padding: 0 32px;
+    }
+
+    .mainContent {
+      .header {
+        padding: 22px 32px 0 32px;
+      }
+
+      .mainFooter {
+        padding: 0 32px;
+      }
     }
   }
 
@@ -155,6 +169,11 @@
         padding-top: 0;
         position: relative;
         bottom: 45px;
+
+        .headerTxt {
+          bottom: 30px;
+        }
+
       }
     }
 
@@ -165,11 +184,11 @@
     }
 
     .container {
-      padding-left: 32px;
-      padding-right: 32px;
+      padding: 0 32px;
     }
 
     .mainContent {
+
       .body {
         padding-top: 0;
       }
@@ -183,6 +202,9 @@
         bottom: 0;
         height: 72px;
         text-align: right;
+        display: flex;
+        justify-content: right;
+        align-items: center;
 
         .footerTxt {
           color: @app-primary-gray__light;
