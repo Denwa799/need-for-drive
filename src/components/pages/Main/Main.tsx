@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Typography, Col, Layout, Row } from 'antd';
 import Icon from '@ant-design/icons';
 import styles from './Main.module.less';
@@ -8,6 +9,7 @@ import LocationSvg from '../../ui/CustomIcns/LocationSvg';
 import ButtonChange from '../../ui/ButtonChange/ButtonChange';
 import Navbar from '../../ui/Nabvar/Navbar';
 import { MainPageSlider } from './slider';
+import { RouteNames } from '../../../utils/routes';
 
 const { Title, Text } = Typography;
 
@@ -64,7 +66,9 @@ const Main: FC = () => {
           </Row>
           <Row className={`${styles.container} ${styles.bodyButton}`}>
             <Col span={24} className={styles.button}>
-              <ButtonApp>Забронировать</ButtonApp>
+              <NavLink to={RouteNames.ORDER}>
+                <ButtonApp>Забронировать</ButtonApp>
+              </NavLink>
             </Col>
           </Row>
         </Layout.Content>
