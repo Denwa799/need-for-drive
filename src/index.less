@@ -1,0 +1,92 @@
+@import '../src/utils/variables';
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Thin'), local('Roboto-Thin'), url('../src/fonts/Roboto/Robotothin.woff2') format('woff2'), url('../src/fonts/Roboto/Robotothin.woff') format('woff'), url('../src/fonts/Roboto/Robotothin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Thin Italic'), local('Roboto-ThinItalic'), url('../src/fonts/Roboto/Robotothinitalic.woff2') format('woff2'), url('../src/fonts/Roboto/Robotothinitalic.woff') format('woff'), url('../src/fonts/Roboto/Robotothinitalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Light'), local('Roboto-Light'), url('../src/fonts/Roboto/Robotolight.woff2') format('woff2'), url('../src/fonts/Roboto/Robotolight.woff') format('woff'), url('../src/fonts/Roboto/Robotolight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url('../src/fonts/Roboto/Robotolightitalic.woff2') format('woff2'), url('../src/fonts/Roboto/Robotolightitalic.woff') format('woff'), url('../src/fonts/Roboto/Robotolightitalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), local('Roboto-Regular'), url('../src/fonts/Roboto/Roboto.woff2') format('woff2'), url('../src/fonts/Roboto/Roboto.woff') format('woff'), url('../src/fonts/Roboto/Roboto.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Italic'), local('Roboto-Italic'), url('../src/fonts/Roboto/Robotoitalic.woff2') format('woff2'), url('../src/fonts/Roboto/Robotoitalic.woff') format('woff'), url('../src/fonts/Roboto/Robotoitalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Medium'), local('Roboto-Medium'), url('../src/fonts/Roboto/Robotomedium.woff2') format('woff2'), url('../src/fonts/Roboto/Robotomedium.woff') format('woff'), url('../src/fonts/Roboto/Robotomedium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Medium Italic'), local('Roboto-MediumItalic'), url('../src/fonts/Roboto/Robotomediumitalic.woff2') format('woff2'), url('../src/fonts/Roboto/Robotomediumitalic.woff') format('woff'), url('../src/fonts/Roboto/Robotomediumitalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Bold'), local('Roboto-Bold'), url('../src/fonts/Roboto/Robotobold.woff2') format('woff2'), url('../src/fonts/Roboto/Robotobold.woff') format('woff'), url('../src/fonts/Roboto/Robotobold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Bold Italic'), local('Roboto-BoldItalic'), url('../src/fonts/Roboto/Robotobolditalic.woff2') format('woff2'), url('../src/fonts/Roboto/Robotobolditalic.woff') format('woff'), url('../src/fonts/Roboto/Robotobolditalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Black'), local('Roboto-Black'), url('../src/fonts/Roboto/Robotoblack.woff2') format('woff2'), url('../src/fonts/Roboto/Robotoblack.woff') format('woff'), url('../src/fonts/Roboto/Robotoblack.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Black Italic'), local('Roboto-BlackItalic'), url('../src/fonts/Roboto/Robotoblackitalic.woff2') format('woff2'), url('../src/fonts/Roboto/Robotoblackitalic.woff') format('woff'), url('../src/fonts/Roboto/Robotoblackitalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Переписываю активный dot в каруселе ant design */
+.ant-carousel .slick-slider .slick-dots li.slick-active button {
+  background: @app-primary-color;
+}

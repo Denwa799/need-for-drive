@@ -1,0 +1,249 @@
+@import '../../../utils/variables';
+
+.AppCarousel {
+  background-color: @app-primary-black;
+
+  .prevArrow {
+    position: absolute;
+    height: 100vh;
+    width: 7%;
+    color: @app-primary-white;
+    font-size: 26px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: @transition;
+  }
+
+  .prevArrow:hover {
+    background-color: @app-primary-color__opacity20;
+  }
+
+
+  .nextArrow {
+    position: absolute;
+    left: 93%;
+    top: 0;
+    width: 7%;
+    height: 100vh;
+    color: @app-primary-white;
+    font-size: 26px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: @transition;
+  }
+
+  .nextArrow:hover {
+    background-color: @app-primary-color__opacity20;
+  }
+
+  .carousel {
+
+    .carouselContent {
+      padding: 245px 96px 0 96px;
+      height: 100vh;
+      width: 100%;
+      background-size: cover;
+      color: @app-primary-white;
+      box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+      -webkit-box-shadow: inset 0px -1000px 30px 0px rgba(0, 0, 0, 0.4);
+
+      .carouselText {
+        font-size: 24px;
+        line-height: 1;
+        font-weight: lighter;
+      }
+
+      .text__white {
+        color: @app-primary-white;
+      }
+
+      .button {
+        width: 164px;
+        height: 48px;
+        margin-top: 32px;
+
+        button {
+          border-radius: 4px;
+          border-color: rgba(0,0,0,.5);
+        }
+
+        button:after {
+          display: none;
+        }
+
+      }
+
+      .buttonGreen {
+        button {
+          background: linear-gradient(to right, @app-color__darkGreen, @app-color__indianGreen);
+        }
+      }
+
+      .buttonBlue {
+        button {
+          background: linear-gradient(to right, @app-color__gentianBlue, @app-color__greenPineKrayola);
+        }
+      }
+
+      .buttonRed {
+        button {
+          background: linear-gradient(to right, @app-color__darkYellowish, @app-color__rubyRed);
+        }
+      }
+
+      .buttonPurple {
+        button {
+          background: linear-gradient(to right, @app-color__purpleBlue, @app-color__darkPurplishPurple);
+        }
+      }
+
+    }
+
+    ul li button {
+      border-radius: 50%;
+      opacity: 1;
+    }
+  }
+
+}
+
+@media (max-width: 1200px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        padding: 245px 60px 0 60px;
+
+        .carouselTitle {
+          font-size: 32px;
+        }
+
+        .carouselText {
+          font-size: 22px;
+        }
+      }
+    }
+
+  }
+  .AppCarousel {
+    .nextArrow {
+      left: 90%;
+      width: 10%;
+    }
+    .prevArrow {
+      width: 10%;
+    }
+  }
+}
+
+
+@media (max-width: 815px) {
+  .AppCarousel {
+    .nextArrow {
+      left: 89%;
+      width: 11%;
+    }
+    .prevArrow {
+      width: 12%;
+    }
+  }
+}
+
+/* Адаптация в горизонтальном режиме */
+
+@media (min-width: 769px) and (max-height: 720px) {
+    .AppCarousel {
+      .carousel {
+        .carouselContent {
+          padding-top: 200px;
+        }
+      }
+    }
+}
+
+@media (min-width: 769px) and (max-height: 670px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        padding-top: 150px;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-height: 620px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        padding-top: 100px;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-height: 570px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        padding-top: 50px;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-height: 520px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        padding-top: 20px;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-height: 490px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        .carouselTitle {
+          font-size: 28px;
+        }
+
+        .carouselText {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-height: 380px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        padding-left: 40px;
+        padding-right: 35px;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-height: 340px) {
+  .AppCarousel {
+    .carousel {
+      .carouselContent {
+        .button {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

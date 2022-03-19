@@ -1,14 +1,9 @@
 import React from 'react';
-import { Button } from 'antd';
 import 'antd/dist/antd.less';
-import styles from './App.module.less';
+import AppRouter from './components/AppRouter/AppRouter';
 
-function App() {
-  return (
-    <div className={styles.App}>
-      <Button type="primary">Создал ветку Review</Button>
-    </div>
-  );
-}
+const App = () => {
+  return <AppRouter />;
+};
 
 export default App;
