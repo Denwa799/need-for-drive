@@ -7,7 +7,8 @@ import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import { MainPageSlider } from './slider';
 import { RouteNames } from '../../../utils/routes';
 import Navigation from '../../ui/Navigation/Navigation';
-import AppHeader from '../../ui/AppHeader/AppHeader';
+import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
+import AppFooter from '../../ui/AppLayout/AppFooter/AppFooter';
 
 const { Title, Text } = Typography;
 
@@ -42,23 +43,7 @@ const Main: FC = () => {
             </Col>
           </Row>
         </Layout.Content>
-        <Layout.Footer className={styles.mainFooter}>
-          <Row>
-            <Col xl={12} lg={12} md={12} sm={12} xs={24} className={styles.footerTxt}>
-              © 2016-2019 «Need for drive»
-            </Col>
-            <Col
-              xl={12}
-              lg={12}
-              md={12}
-              sm={12}
-              xs={24}
-              className={`${styles.text__right} ${styles.footerNum}`}
-            >
-              8 (495) 234-22-44
-            </Col>
-          </Row>
-        </Layout.Footer>
+        <AppFooter xl={12} lg={12} md={12} sm={12} xs={24} />
       </Col>
       <Col xl={11} lg={9} md={9} className={`${styles.carousel}`}>
         <AppCarousel items={slider} />

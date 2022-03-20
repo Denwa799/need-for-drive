@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Col, Row } from 'antd';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
-import AppHeader from '../../ui/AppHeader/AppHeader';
+import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
 
 const Order: FC = () => {
   return (

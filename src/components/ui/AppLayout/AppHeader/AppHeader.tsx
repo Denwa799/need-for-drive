@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Col, Layout, Row } from 'antd';
 import Icon from '@ant-design/icons';
 import styles from './AppHeader.module.less';
-import LocationSvg from '../CustomIcns/LocationSvg';
+import LocationSvg from '../../CustomIcns/LocationSvg';
 
 const AppHeader: FC = () => {
   return (
