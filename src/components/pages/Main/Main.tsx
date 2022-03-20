@@ -9,6 +9,7 @@ import { RouteNames } from '../../../utils/routes';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
 import AppFooter from '../../ui/AppLayout/AppFooter/AppFooter';
+import AppContainer from '../../ui/AppLayout/Container/AppContainer';
 
 const { Title, Text } = Typography;
 
@@ -19,23 +20,28 @@ const Main: FC = () => {
     <Row className={styles.Main}>
       <Navigation />
       <Col xl={12} lg={13} md={13} sm={22} xs={24} className={styles.mainContent}>
-        <AppHeader />
+        <AppContainer>
+          <AppHeader />
+        </AppContainer>
         <Layout.Content>
-          <Row className={`${styles.container} ${styles.body}`}>
-            <Row>
-              <Col span={24}>
-                <Title level={1} className={`${styles.bodyTitle} ${styles.text__bold}`}>
-                  Каршеринг <br /> <span className={styles.text__primaryColor}>Need for drive</span>
-                </Title>
-                <Text
-                  className={`${styles.text__darkGray} ${styles.text__light} ${styles.bodyText}`}
-                >
-                  Поминутная аренда авто твоего города
-                </Text>
-              </Col>
+          <AppContainer>
+            <Row className={styles.body}>
+              <Row>
+                <Col span={24}>
+                  <Title level={1} className={`${styles.bodyTitle} ${styles.text__bold}`}>
+                    Каршеринг <br />{' '}
+                    <span className={styles.text__primaryColor}>Need for drive</span>
+                  </Title>
+                  <Text
+                    className={`${styles.text__darkGray} ${styles.text__light} ${styles.bodyText}`}
+                  >
+                    Поминутная аренда авто твоего города
+                  </Text>
+                </Col>
+              </Row>
             </Row>
-          </Row>
-          <Row className={`${styles.container} ${styles.bodyButton}`}>
+          </AppContainer>
+          <Row className={styles.bodyButton}>
             <Col span={24} className={styles.button}>
               <NavLink to={RouteNames.ORDER}>
                 <ButtonApp>Забронировать</ButtonApp>

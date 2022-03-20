@@ -10,6 +10,8 @@
     }
 
     .bodyButton {
+      padding: 0 64px 0 64px;
+
       .button {
         margin-top: 60px;
 
@@ -19,10 +21,6 @@
         }
       }
     }
-  }
-
-  .container {
-    padding: 0 9%;
   }
 
   .text__darkGray {
@@ -70,21 +68,17 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .Main {
-    .container {
-      padding: 0 5%;
+    .mainContent {
+      .bodyButton {
+        padding: 0 32px 0 32px;
+      }
     }
   }
 }
 
 @media (max-width: 768px) {
-  .Main {
-    .container {
-      padding: 0 32px;
-    }
-  }
-
   .carousel {
     display: none;
   }
@@ -94,10 +88,6 @@
   .Main {
     .mainContent {
       height: calc(100vh - 50px);
-
-      .container {
-        padding: 0 32px;
-      }
 
       .body {
         padding-top: 0;
