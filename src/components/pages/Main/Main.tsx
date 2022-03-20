@@ -6,10 +6,9 @@ import styles from './Main.module.less';
 import ButtonApp from '../../ui/ButtonApp/ButtonApp';
 import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import LocationSvg from '../../ui/CustomIcns/LocationSvg';
-import ButtonChange from '../../ui/ButtonChange/ButtonChange';
-import Navbar from '../../ui/Nabvar/Navbar';
 import { MainPageSlider } from './slider';
 import { RouteNames } from '../../../utils/routes';
+import Navigation from '../../ui/Navigation/Navigation';
 
 const { Title, Text } = Typography;
 
@@ -18,18 +17,7 @@ const Main: FC = () => {
 
   return (
     <Row className={styles.Main}>
-      <Col xl={1} lg={2} md={2} sm={2} xs={24} className={styles.Nav}>
-        <Row>
-          <Col span={24} className={styles.burger}>
-            <Navbar />
-          </Col>
-        </Row>
-        <Row className={`${styles.navFooter}`}>
-          <Col span={24} className={styles.langButton}>
-            <ButtonChange>Eng</ButtonChange>
-          </Col>
-        </Row>
-      </Col>
+      <Navigation />
       <Col xl={12} lg={13} md={13} sm={22} xs={24} className={styles.mainContent}>
         <Layout.Header className={`${styles.header}`}>
           <Row>
