@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Typography, Col, Layout, Row } from 'antd';
-import Icon from '@ant-design/icons';
 import styles from './Main.module.less';
 import ButtonApp from '../../ui/ButtonApp/ButtonApp';
 import AppCarousel from '../../ui/AppCarousel/AppCarousel';
-import LocationSvg from '../../ui/CustomIcns/LocationSvg';
 import { MainPageSlider } from './slider';
 import { RouteNames } from '../../../utils/routes';
 import Navigation from '../../ui/Navigation/Navigation';
+import AppHeader from '../../ui/AppHeader/AppHeader';
 
 const { Title, Text } = Typography;
 
@@ -19,24 +18,7 @@ const Main: FC = () => {
     <Row className={styles.Main}>
       <Navigation />
       <Col xl={12} lg={13} md={13} sm={22} xs={24} className={styles.mainContent}>
-        <Layout.Header className={`${styles.header}`}>
-          <Row>
-            <Col xl={12} lg={12} md={12} sm={12} xs={24} className={styles.Logo}>
-              Need for drive
-            </Col>
-            <Col
-              xl={12}
-              lg={12}
-              md={12}
-              sm={12}
-              xs={24}
-              className={`${styles.headerTxt} ${styles.text__right} ${styles.text__darkGray}`}
-            >
-              <Icon className={styles.headerIcn} component={LocationSvg} />
-              Ульяновск
-            </Col>
-          </Row>
-        </Layout.Header>
+        <AppHeader />
         <Layout.Content>
           <Row className={`${styles.container} ${styles.body}`}>
             <Row>
