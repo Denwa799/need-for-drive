@@ -9,7 +9,7 @@ import { RouteNames } from '../../../utils/routes';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
 import AppFooter from '../../ui/AppLayout/AppFooter/AppFooter';
-import AppContainer from '../../ui/AppLayout/Container/AppContainer';
+import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
 
 const { Title, Text } = Typography;
 

@@ -1,0 +1,97 @@
+@import '../../../../utils/variables';
+.FormLocation {
+  .inputs {
+    width: 330px;
+
+    .inputContainer {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+
+      .inputText {
+        padding-right: 8px;
+        font-size: 14px;
+      }
+
+      .input {
+        width: 224px;
+        border-bottom: @app-primary-gray__dark 1px solid;
+        padding-bottom: 0;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .mapBlock {
+    padding-top: 46px;
+
+    span {
+      display: block;
+    }
+
+    .map {
+      width: 736px;
+      height: 352px;
+      padding-top: 16px;
+    }
+  }
+}
+
+@media (max-width: 1320px) {
+  .FormLocation {
+    .mapBlock {
+      .map {
+        width: 450px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .FormLocation {
+    .mapBlock {
+      .map {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .FormLocation {
+    .inputs {
+      width: 100%;
+
+      .inputContainer {
+
+        text-align: right;
+
+        .inputText {
+          width: 150px;
+        }
+
+        .input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .FormLocation {
+    .inputs {
+      .inputContainer {
+
+        padding-bottom: 10px;
+
+        text-align: left;
+        .inputText {
+          width: 70px;
+          line-height: 1.2;
+
+        }
+      }
+    }
+  }
+}
