@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Breadcrumb, Col, Row } from 'antd';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
@@ -6,8 +6,23 @@ import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
 import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
 import FormLocation from './FormLocation/FormLocation';
 import PriceForm from './PriceForm/PriceForm';
+import { useTypedSelector } from '../../../hooks/useTypesSelector';
+import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
+import { mapPointsSelector } from '../../../store/selectors/selectors';
 
 const Order: FC = () => {
+  // Делаю запрос на получение меток карты из api
+  const { fetchPoints } = useActionsMapPoints();
+
+  // Беру точки меток из стейта
+  const { points } = useTypedSelector(mapPointsSelector);
+
+  useEffect(() => {
+    fetchPoints();
+  }, []);
+
+  console.log(points);
+
   return (
     <Row className={styles.Order}>
       <Navigation />
