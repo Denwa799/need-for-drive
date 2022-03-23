@@ -1,4 +1,5 @@
 @import '../../../../utils/variables';
+
 .FormLocation {
   .inputs {
     width: 330px;
@@ -15,9 +16,19 @@
 
       .input {
         width: 224px;
+        border: none;
         border-bottom: @app-primary-gray__dark 1px solid;
         padding-bottom: 0;
         border-radius: 0;
+        outline: none;
+
+        div {
+          text-align: left;
+          border: none;
+          background: none;
+          // important необходим, чтобы выключить тень при нажатии, которая накладывается ant
+          box-shadow: none !important;
+        }
       }
     }
   }
@@ -35,6 +46,12 @@
       padding-top: 16px;
     }
   }
+}
+
+.dropdown {
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid @app-primary-gray__light;
 }
 
 @media (max-width: 1320px) {
@@ -82,14 +99,36 @@
   .FormLocation {
     .inputs {
       .inputContainer {
-
         padding-bottom: 10px;
-
         text-align: left;
+
         .inputText {
           width: 70px;
           line-height: 1.2;
+        }
+      }
+    }
+  }
+}
 
+@media (max-width: 340px) {
+  .FormLocation {
+    .inputs {
+      .inputContainer {
+        .input {
+          width: 75%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 300px) {
+  .FormLocation {
+    .inputs {
+      .inputContainer {
+        .input {
+          width: 70%;
         }
       }
     }

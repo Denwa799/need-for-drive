@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Breadcrumb, Col, Row } from 'antd';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
@@ -7,21 +7,40 @@ import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
 import FormLocation from './FormLocation/FormLocation';
 import PriceForm from './PriceForm/PriceForm';
 import { useTypedSelector } from '../../../hooks/useTypesSelector';
-import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
 import { mapPointsSelector } from '../../../store/selectors/selectors';
+import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
 
 const Order: FC = () => {
-  // Делаю запрос на получение меток карты из api
-  const { fetchPoints } = useActionsMapPoints();
-
-  // Беру точки меток из стейта
+  // Стейт для формы "местоположение" (FormLocation)
+  const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
   const { points } = useTypedSelector(mapPointsSelector);
+
+  // Локальный стейт для формы "местоположение" (FormLocation)
+  const [cityValue, setCityValue] = useState('');
+  const [pointValue, setPointValue] = useState('');
+
+  // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
+  const { fetchPoints } = useActionsMapPoints();
 
   useEffect(() => {
     fetchPoints();
   }, []);
 
-  console.log(points);
+  // Отфильтровываю метки, где нет данных о городе.
+  // Так как считаю, что это ошибка тестового api, потому что адрес без города это не правильно
+  const filteredPoints = points.filter((point) => !(point.cityId === null));
+
+  const optionsCity = filteredPoints.map((point) => {
+    return {
+      value: point.cityId!.name,
+    };
+  });
+
+  const optionsName = filteredPoints.map((point) => {
+    return {
+      value: point.name,
+    };
+  });
 
   return (
     <Row className={styles.Order}>
@@ -43,7 +62,14 @@ const Order: FC = () => {
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
             <AppContainer>
-              <FormLocation />
+              <FormLocation
+                optionsCity={optionsCity}
+                optionsName={optionsName}
+                cityValue={cityValue}
+                setCityValue={setCityValue}
+                pointValue={pointValue}
+                setPointValue={setPointValue}
+              />
             </AppContainer>
           </Col>
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
