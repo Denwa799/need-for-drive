@@ -18,6 +18,7 @@ const Order: FC = () => {
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState('');
   const [pointValue, setPointValue] = useState('');
+  const [activePoint, setActivePoint] = useState('');
 
   // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
   const { fetchPoints } = useActionsMapPoints();
@@ -71,12 +72,14 @@ const Order: FC = () => {
                 setCityValue={setCityValue}
                 pointValue={pointValue}
                 setPointValue={setPointValue}
+                points={filteredPoints}
+                setActivePoint={setActivePoint}
               />
             </AppContainer>
           </Col>
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
             <AppContainer>
-              <PriceForm />
+              <PriceForm address={activePoint} />
             </AppContainer>
           </Col>
         </Row>

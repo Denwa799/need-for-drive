@@ -14,6 +14,16 @@ interface IFormLocation {
   setCityValue: (value: string) => void;
   pointValue: string;
   setPointValue: (value: string) => void;
+  points: {
+    address?: string;
+    cityId?: {
+      id: string;
+      name: string;
+    };
+    id?: string;
+    name?: string;
+  }[];
+  setActivePoint: (value: string) => void;
 }
 
 const FormLocation: FC<IFormLocation> = ({
@@ -23,6 +33,8 @@ const FormLocation: FC<IFormLocation> = ({
   setCityValue,
   pointValue,
   setPointValue,
+  points,
+  setActivePoint,
 }) => {
   const cityValueHandler = (value: string) => {
     setCityValue(value);
@@ -69,7 +81,7 @@ const FormLocation: FC<IFormLocation> = ({
       <div className={styles.mapBlock}>
         <span>Выбрать на карте:</span>
         <div className={styles.map}>
-          <AppMap />
+          <AppMap points={points} setActivePoint={setActivePoint} />
         </div>
       </div>
     </div>

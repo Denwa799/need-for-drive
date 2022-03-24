@@ -5,14 +5,18 @@ import ButtonApp from '../../../ui/ButtonApp/ButtonApp';
 
 const { Title, Text } = Typography;
 
-const PriceForm: FC = () => {
+interface IPriceForm {
+  address: string;
+}
+
+const PriceForm: FC<IPriceForm> = ({ address }) => {
   return (
     <div className={styles.PriceForm}>
       <Title level={5}>Ваш заказ:</Title>
       <div className={styles.priceItem}>
         <div>
           <Text className={styles.listTitle}>Пункт выдачи</Text>
-          <Text className={styles.listText}>Ульяновск, Нариманова 42</Text>
+          <Text className={styles.listText}>{address}</Text>
         </div>
       </div>
       <div className={styles.priceItem}>
@@ -26,7 +30,7 @@ const PriceForm: FC = () => {
           <b>Цена</b>: от 10 000 до 32 000₽
         </Text>
       </div>
-      <ButtonApp disabled>Выбрать модель</ButtonApp>
+      <ButtonApp disabled={!address}>Выбрать модель</ButtonApp>
     </div>
   );
 };
