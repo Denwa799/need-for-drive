@@ -9,6 +9,7 @@ import PriceForm from './PriceForm/PriceForm';
 import { useTypedSelector } from '../../../hooks/useTypesSelector';
 import { mapPointsSelector } from '../../../store/selectors/selectors';
 import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
+import ErrorLoading from '../../ui/ErrorLoading/ErrorLoading';
 
 const Order: FC = () => {
   // Стейт для формы "местоположение" (FormLocation)
@@ -45,6 +46,24 @@ const Order: FC = () => {
     };
   });
 
+  function renderFormLocation() {
+    if (mapPointsIsLoading || mapPointsError) {
+      return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
+    }
+    return (
+      <FormLocation
+        optionsCity={optionsCity}
+        optionsName={optionsName}
+        cityValue={cityValue}
+        setCityValue={setCityValue}
+        pointValue={pointValue}
+        setPointValue={setPointValue}
+        points={filteredPoints}
+        setActivePoint={setActivePoint}
+      />
+    );
+  }
+
   return (
     <Row className={styles.Order}>
       <Navigation />
@@ -65,18 +84,7 @@ const Order: FC = () => {
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
             <Layout.Content>
-              <AppContainer>
-                <FormLocation
-                  optionsCity={optionsCity}
-                  optionsName={optionsName}
-                  cityValue={cityValue}
-                  setCityValue={setCityValue}
-                  pointValue={pointValue}
-                  setPointValue={setPointValue}
-                  points={filteredPoints}
-                  setActivePoint={setActivePoint}
-                />
-              </AppContainer>
+              <AppContainer>{renderFormLocation()}</AppContainer>
             </Layout.Content>
           </Col>
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
