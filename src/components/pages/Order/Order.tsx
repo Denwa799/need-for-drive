@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Breadcrumb, Col, Row } from 'antd';
+import { Breadcrumb, Col, Layout, Row } from 'antd';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
@@ -64,23 +64,27 @@ const Order: FC = () => {
         <hr />
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
-            <AppContainer>
-              <FormLocation
-                optionsCity={optionsCity}
-                optionsName={optionsName}
-                cityValue={cityValue}
-                setCityValue={setCityValue}
-                pointValue={pointValue}
-                setPointValue={setPointValue}
-                points={filteredPoints}
-                setActivePoint={setActivePoint}
-              />
-            </AppContainer>
+            <Layout.Content>
+              <AppContainer>
+                <FormLocation
+                  optionsCity={optionsCity}
+                  optionsName={optionsName}
+                  cityValue={cityValue}
+                  setCityValue={setCityValue}
+                  pointValue={pointValue}
+                  setPointValue={setPointValue}
+                  points={filteredPoints}
+                  setActivePoint={setActivePoint}
+                />
+              </AppContainer>
+            </Layout.Content>
           </Col>
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
-            <AppContainer>
-              <PriceForm address={activePoint} />
-            </AppContainer>
+            <Layout.Content>
+              <AppContainer>
+                <PriceForm address={activePoint} />
+              </AppContainer>
+            </Layout.Content>
           </Col>
         </Row>
       </Col>
