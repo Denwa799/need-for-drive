@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Map, Placemark, YMaps } from 'react-yandex-maps';
+import { Map, Placemark, YMaps, ZoomControl } from 'react-yandex-maps';
 
 const API_KEY = process.env.REACT_APP_MAP_API;
 
@@ -94,6 +94,7 @@ const AppMap: FC<IPoints> = ({ points, setActivePoint }) => {
               );
             })
           : null}
+        <ZoomControl options={{ float: 'right' }} />
       </Map>
     </YMaps>
   );
