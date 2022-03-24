@@ -14,8 +14,6 @@ import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
 const { Title, Text } = Typography;
 
 const Main: FC = () => {
-  const slider = MainPageSlider;
-
   return (
     <Row className={styles.Main}>
       <Navigation />
@@ -52,7 +50,7 @@ const Main: FC = () => {
         <AppFooter xl={12} lg={12} md={12} sm={12} xs={24} />
       </Col>
       <Col xl={11} lg={9} md={9} className={`${styles.carousel}`}>
-        <AppCarousel items={slider} />
+        <AppCarousel items={MainPageSlider} />
       </Col>
     </Row>
   );

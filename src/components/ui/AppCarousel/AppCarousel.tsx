@@ -3,19 +3,9 @@ import { Carousel, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import styles from './AppCarousel.module.less';
 import ButtonApp from '../ButtonApp/ButtonApp';
+import { IAppCarousel } from './type';
 
 const { Title, Text } = Typography;
-
-interface IAppCarousel {
-  items: {
-    key: string;
-    title: string;
-    text: string;
-    backgroundClassName: string;
-    button: string;
-    btnBackground?: string;
-  }[];
-}
 
 const AppCarousel: FC<IAppCarousel> = ({ items }) => {
   // Невозможно дать конкретный тип, так как должен быть сложный объект компоненты carousel

@@ -1,14 +1,7 @@
 import React, { FC } from 'react';
 import { Col, Layout, Row } from 'antd';
 import styles from './AppFooter.module.less';
-
-interface IAppFooter {
-  xl: number;
-  lg: number;
-  md: number;
-  sm: number;
-  xs: number;
-}
+import { IAppFooter } from './type';
 
 const AppFooter: FC<IAppFooter> = ({ xl, lg, md, sm, xs }) => {
   return (

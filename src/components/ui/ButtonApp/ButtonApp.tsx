@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import React, { FC } from 'react';
-import { IButtonApp } from '../../../types/ui';
 import styles from './ButtonApp.module.less';
+import { IButtonApp } from './type';
 
 const ButtonApp: FC<IButtonApp> = ({ children, background, disabled }) => {
   return (

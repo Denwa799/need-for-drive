@@ -1,21 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Map, Placemark, YMaps, ZoomControl } from 'react-yandex-maps';
+import { IPoints } from './type';
 
 const API_KEY = process.env.REACT_APP_MAP_API;
-
-interface IPoints {
-  points: {
-    address?: string;
-    cityId?: {
-      id: string;
-      name: string;
-    };
-    id?: string;
-    name?: string;
-    coordinate?: number[];
-  }[];
-  setActivePoint: (value: string) => void;
-}
 
 const AppMap: FC<IPoints> = ({ points, setActivePoint }) => {
   // Стейт для объекта яндекс карты
@@ -62,7 +49,7 @@ const AppMap: FC<IPoints> = ({ points, setActivePoint }) => {
 
   // Костыль, в котором меняется стейт зума через две секунды для отрисовки координат с сервера
   const changeZoom = () => {
-    setZoom(5);
+    setZoom(3);
   };
   useEffect(() => {
     setTimeout(changeZoom, 2000);

@@ -1,30 +1,8 @@
 import { AutoComplete } from 'antd';
 import React, { FC } from 'react';
+import { AppMap } from './AppMap/AppMap';
 import styles from './FormLocation.module.less';
-import { AppMap } from './AppMap';
-
-interface IFormLocation {
-  optionsCity: {
-    value: string;
-  }[];
-  optionsName: {
-    value: string;
-  }[];
-  cityValue: string;
-  setCityValue: (value: string) => void;
-  pointValue: string;
-  setPointValue: (value: string) => void;
-  points: {
-    address?: string;
-    cityId?: {
-      id: string;
-      name: string;
-    };
-    id?: string;
-    name?: string;
-  }[];
-  setActivePoint: (value: string) => void;
-}
+import { IFormLocation } from './type';
 
 const FormLocation: FC<IFormLocation> = ({
   optionsCity,
@@ -36,10 +14,12 @@ const FormLocation: FC<IFormLocation> = ({
   points,
   setActivePoint,
 }) => {
+  // Устанавливает текст с поля поиска города в стейт
   const cityValueHandler = (value: string) => {
     setCityValue(value);
   };
 
+  // Устанавливает текст с поля поиска пункта выдачи в стейт
   const pointValueHandler = (value: string) => {
     setPointValue(value);
   };

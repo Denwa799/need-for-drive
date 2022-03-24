@@ -2,12 +2,9 @@ import React, { FC } from 'react';
 import { Typography } from 'antd';
 import styles from './PriceForm.module.less';
 import ButtonApp from '../../../ui/ButtonApp/ButtonApp';
+import { IPriceForm } from './type';
 
 const { Title, Text } = Typography;
-
-interface IPriceForm {
-  address: string;
-}
 
 const PriceForm: FC<IPriceForm> = ({ address }) => {
   return (
