@@ -1,12 +1,11 @@
 {
   "files": {
     "main.css": "/need-for-drive/static/css/main.664c9220.css",
-    "main.js": "/need-for-drive/static/js/main.e6a269f4.js",
+    "main.js": "/need-for-drive/static/js/main.665495f5.js",
     "static/media/4.webp": "/need-for-drive/static/media/4.ad6412592490b68fb224.webp",
     "static/media/3.webp": "/need-for-drive/static/media/3.223a5d67847be67895d7.webp",
     "static/media/1.webp": "/need-for-drive/static/media/1.5c704a8f53e8b8b09fd4.webp",
     "static/media/2.webp": "/need-for-drive/static/media/2.6c7c0c60b49de59b401a.webp",
-    "static/media/map.webp": "/need-for-drive/static/media/map.6b3eb78b95b8ae3b4517.webp",
     "static/media/Robotomediumitalic.ttf": "/need-for-drive/static/media/Robotomediumitalic.35abcf5eb54b0c398e52.ttf",
     "static/media/Robotoitalic.ttf": "/need-for-drive/static/media/Robotoitalic.727137e411cf490757ce.ttf",
     "static/media/Robotolightitalic.ttf": "/need-for-drive/static/media/Robotolightitalic.0af29016d4a1e7a3cc4e.ttf",
@@ -45,10 +44,10 @@
     "static/media/Robotothin.woff2": "/need-for-drive/static/media/Robotothin.30581100ea069d04b86a.woff2",
     "index.html": "/need-for-drive/index.html",
     "main.664c9220.css.map": "/need-for-drive/static/css/main.664c9220.css.map",
-    "main.e6a269f4.js.map": "/need-for-drive/static/js/main.e6a269f4.js.map"
+    "main.665495f5.js.map": "/need-for-drive/static/js/main.665495f5.js.map"
   },
   "entrypoints": [
     "static/css/main.664c9220.css",
-    "static/js/main.e6a269f4.js"
+    "static/js/main.665495f5.js"
   ]
 }
