@@ -1,10 +1,7 @@
-import { AutoComplete, Input } from 'antd';
-import React, { FC, useEffect, useState } from 'react';
+import { AutoComplete } from 'antd';
+import React, { FC } from 'react';
 import styles from './FormLocation.module.less';
-import map from '../../../../assets/img/map/map.webp';
-import { useActionsMapPoints } from '../../../../hooks/useActions/useActionsMapPoints';
-import { useTypedSelector } from '../../../../hooks/useTypesSelector';
-import { mapPointsSelector } from '../../../../store/selectors/selectors';
+import { AppMap } from './AppMap';
 
 interface IFormLocation {
   optionsCity: {
@@ -71,7 +68,9 @@ const FormLocation: FC<IFormLocation> = ({
       </div>
       <div className={styles.mapBlock}>
         <span>Выбрать на карте:</span>
-        <img className={styles.map} src={map} alt="map" />
+        <div className={styles.map}>
+          <AppMap />
+        </div>
       </div>
     </div>
   );

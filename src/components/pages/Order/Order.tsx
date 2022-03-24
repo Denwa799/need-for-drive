@@ -27,15 +27,17 @@ const Order: FC = () => {
   }, []);
 
   // Отфильтровываю метки, где нет данных о городе.
-  // Так как считаю, что это ошибка тестового api, потому что адрес без города это не правильно
+  // Так как считаю, что это ошибка тестового api, потому что адрес без города - это не правильно
   const filteredPoints = points.filter((point) => !(point.cityId === null));
 
+  // Создаю массив городов для поля поиска города в форме "местоположение" (FormLocation)
   const optionsCity = filteredPoints.map((point) => {
     return {
       value: point.cityId!.name,
     };
   });
 
+  // Создаю массив названий пунктов для поля поиска пункта в форме "местоположение" (FormLocation)
   const optionsName = filteredPoints.map((point) => {
     return {
       value: point.name,
