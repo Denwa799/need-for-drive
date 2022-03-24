@@ -18,5 +18,6 @@ export interface IFormLocation {
     id?: string;
     name?: string;
   }[];
-  setActivePoint: (value: string) => void;
+  setActivePointAddress: (value: string) => void;
+  setActivePointCity: (value: string) => void;
 }

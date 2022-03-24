@@ -4,7 +4,7 @@ import { IPoints } from './type';
 
 const API_KEY = process.env.REACT_APP_MAP_API;
 
-const AppMap: FC<IPoints> = ({ points, setActivePoint }) => {
+const AppMap: FC<IPoints> = ({ points, setActivePointAddress, setActivePointCity }) => {
   // Стейт для объекта яндекс карты
   // any необходим, так как сюда приходит объект яндекс карты
   const [maps, setMaps] = useState<any>();
@@ -43,8 +43,9 @@ const AppMap: FC<IPoints> = ({ points, setActivePoint }) => {
     getGeoLocation();
   }, [maps]);
 
-  const clickHandler = (address: string) => {
-    setActivePoint(address);
+  const clickHandler = (address: string, city: string) => {
+    setActivePointAddress(address);
+    setActivePointCity(city);
   };
 
   // Костыль, в котором меняется стейт зума через две секунды для отрисовки координат с сервера
@@ -76,7 +77,9 @@ const AppMap: FC<IPoints> = ({ points, setActivePoint }) => {
                   key={point.id}
                   geometry={point.coordinate}
                   properties={{ iconCaption: point.name }}
-                  onClick={(e: React.MouseEvent) => clickHandler(point.address!)}
+                  onClick={(e: React.MouseEvent) =>
+                    clickHandler(point.address!, point.cityId!.name)
+                  }
                 />
               );
             })

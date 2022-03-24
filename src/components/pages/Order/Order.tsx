@@ -7,19 +7,30 @@ import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
 import FormLocation from './FormLocation/FormLocation';
 import PriceForm from './PriceForm/PriceForm';
 import { useTypedSelector } from '../../../hooks/useTypesSelector';
-import { mapPointsSelector } from '../../../store/selectors/selectors';
+import { cityLocationSelector, mapPointsSelector } from '../../../store/selectors/selectors';
 import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
 import ErrorLoading from '../../ui/ErrorLoading/ErrorLoading';
+import { useActionsCityLocation } from '../../../hooks/useActions/useActionsCityLocation';
 
 const Order: FC = () => {
   // Стейт для формы "местоположение" (FormLocation)
   const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
   const { points } = useTypedSelector(mapPointsSelector);
 
+  // Беру значение города для шапки сайта из store
+  const { city } = useTypedSelector(cityLocationSelector);
+
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState('');
   const [pointValue, setPointValue] = useState('');
-  const [activePoint, setActivePoint] = useState('');
+  const [activePointAddress, setActivePointAddress] = useState('');
+  const [activePointCity, setActivePointCity] = useState(city);
+
+  // Устанавливаю значение города в шапку сайта
+  const { setCityLocation } = useActionsCityLocation();
+  useEffect(() => {
+    setCityLocation(activePointCity);
+  }, [activePointCity]);
 
   // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
   const { fetchPoints } = useActionsMapPoints();
@@ -59,7 +70,8 @@ const Order: FC = () => {
         pointValue={pointValue}
         setPointValue={setPointValue}
         points={filteredPoints}
-        setActivePoint={setActivePoint}
+        setActivePointAddress={setActivePointAddress}
+        setActivePointCity={setActivePointCity}
       />
     );
   }
@@ -90,7 +102,7 @@ const Order: FC = () => {
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
             <Layout.Content>
               <AppContainer>
-                <PriceForm address={activePoint} />
+                <PriceForm address={activePointAddress} />
               </AppContainer>
             </Layout.Content>
           </Col>

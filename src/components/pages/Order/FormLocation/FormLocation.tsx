@@ -12,7 +12,8 @@ const FormLocation: FC<IFormLocation> = ({
   pointValue,
   setPointValue,
   points,
-  setActivePoint,
+  setActivePointAddress,
+  setActivePointCity,
 }) => {
   // Устанавливает текст с поля поиска города в стейт
   const cityValueHandler = (value: string) => {
@@ -61,7 +62,11 @@ const FormLocation: FC<IFormLocation> = ({
       <div className={styles.mapBlock}>
         <span>Выбрать на карте:</span>
         <div className={styles.map}>
-          <AppMap points={points} setActivePoint={setActivePoint} />
+          <AppMap
+            points={points}
+            setActivePointAddress={setActivePointAddress}
+            setActivePointCity={setActivePointCity}
+          />
         </div>
       </div>
     </div>

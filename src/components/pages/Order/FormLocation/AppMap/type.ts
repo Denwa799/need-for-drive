@@ -9,5 +9,6 @@ export interface IPoints {
     name?: string;
     coordinate?: number[];
   }[];
-  setActivePoint: (value: string) => void;
+  setActivePointAddress: (value: string) => void;
+  setActivePointCity: (value: string) => void;
 }
