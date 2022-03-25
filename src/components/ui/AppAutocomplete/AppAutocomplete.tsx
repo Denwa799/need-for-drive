@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { AutoComplete, Input } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import styles from './AppAutocomplete.module.less';
 import { IAppAutocomplete } from './type';
 
@@ -16,7 +17,13 @@ const AppAutocomplete: FC<IAppAutocomplete> = ({ options, value, onChange, place
         className={styles.autocomplete}
         dropdownClassName={styles.dropdown}
       >
-        <Input className={styles.input} placeholder={placeholder} allowClear />
+        <Input
+          className={styles.input}
+          placeholder={placeholder}
+          allowClear={{
+            clearIcon: <CloseOutlined style={{ color: '#000', fontSize: 16 }} />,
+          }}
+        />
       </AutoComplete>
     </div>
   );
