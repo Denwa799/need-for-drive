@@ -11,4 +11,6 @@ export interface IPoints {
   }[];
   setActivePointAddress: (value: string) => void;
   setActivePointCity: (value: string) => void;
+  setCityValue: (value: string) => void;
+  setPointValue: (value: string) => void;
 }

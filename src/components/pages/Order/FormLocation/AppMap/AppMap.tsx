@@ -4,14 +4,21 @@ import { IPoints } from './type';
 
 const API_KEY = process.env.REACT_APP_MAP_API;
 
-const AppMap: FC<IPoints> = ({ points, setActivePointAddress, setActivePointCity }) => {
+const AppMap: FC<IPoints> = ({
+  points,
+  setActivePointAddress,
+  setActivePointCity,
+  setCityValue,
+  setPointValue,
+}) => {
   // Стейт для объекта яндекс карты
   // any необходим, так как сюда приходит объект яндекс карты
   const [maps, setMaps] = useState<any>();
 
-  // Временное решение по смене zoom для перерендеринга карты
+  // Стейт для zoom и координат для карты
   const [zoom, setZoom] = useState(4);
-  const mapState = { center: [55.75, 37.57], zoom };
+  const [coordinates, setCoordinates] = useState([55.75, 37.57]);
+  const mapState = { center: coordinates, zoom };
 
   // Были ли внесены координаты в объект или нет
   const [isCoordinate, setIsCoordinate] = useState(false);
@@ -43,9 +50,12 @@ const AppMap: FC<IPoints> = ({ points, setActivePointAddress, setActivePointCity
     getGeoLocation();
   }, [maps]);
 
-  const clickHandler = (address: string, city: string) => {
+  const clickHandler = (address: string, city: string, cord: number[]) => {
     setActivePointAddress(address);
     setActivePointCity(city);
+    setCityValue(city);
+    setPointValue(address);
+    setCoordinates(cord);
   };
 
   // Костыль, в котором меняется стейт зума через две секунды для отрисовки координат с сервера
@@ -78,8 +88,9 @@ const AppMap: FC<IPoints> = ({ points, setActivePointAddress, setActivePointCity
                   geometry={point.coordinate}
                   properties={{ iconCaption: point.name }}
                   onClick={(e: React.MouseEvent) =>
-                    clickHandler(point.address!, point.cityId!.name)
+                    clickHandler(point.address!, point.cityId!.name, point.coordinate!)
                   }
+                  options={{ iconColor: '#0EC261' }}
                 />
               );
             })

@@ -53,7 +53,7 @@ const Order: FC = () => {
   // Создаю массив названий пунктов для поля поиска пункта в форме "местоположение" (FormLocation)
   const optionsName = filteredPoints.map((point) => {
     return {
-      value: point.name,
+      value: point.address,
     };
   });
 

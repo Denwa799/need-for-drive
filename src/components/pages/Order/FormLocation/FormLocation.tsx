@@ -66,6 +66,8 @@ const FormLocation: FC<IFormLocation> = ({
             points={points}
             setActivePointAddress={setActivePointAddress}
             setActivePointCity={setActivePointCity}
+            setCityValue={setCityValue}
+            setPointValue={setPointValue}
           />
         </div>
       </div>
