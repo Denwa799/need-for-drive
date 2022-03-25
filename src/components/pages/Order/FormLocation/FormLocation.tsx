@@ -1,5 +1,6 @@
-import { AutoComplete } from 'antd';
+import { AutoComplete, Input } from 'antd';
 import React, { FC } from 'react';
+import AppAutocomplete from '../../../ui/AppAutocomplete/AppAutocomplete';
 import { AppMap } from './AppMap/AppMap';
 import styles from './FormLocation.module.less';
 import { IFormLocation } from './type';
@@ -30,33 +31,25 @@ const FormLocation: FC<IFormLocation> = ({
       <div className={styles.inputs}>
         <div className={styles.inputContainer}>
           <span className={styles.inputText}>Город</span>
-          <AutoComplete
-            options={optionsCity}
-            value={cityValue}
-            filterOption={(inputValue, option) =>
-              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-            }
-            placeholder="Начните вводить город..."
-            allowClear
-            onChange={cityValueHandler}
-            className={styles.input}
-            dropdownClassName={styles.dropdown}
-          />
+          <div className={styles.autocompleteContainer}>
+            <AppAutocomplete
+              options={optionsCity}
+              value={cityValue}
+              onChange={cityValueHandler}
+              placeholder="Начните вводить город"
+            />
+          </div>
         </div>
         <div className={styles.inputContainer}>
           <span className={styles.inputText}>Пункт выдачи</span>
-          <AutoComplete
-            options={optionsName}
-            value={pointValue}
-            filterOption={(inputValue, option) =>
-              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-            }
-            placeholder="Начните вводить пункт..."
-            allowClear
-            onChange={pointValueHandler}
-            className={styles.input}
-            dropdownClassName={styles.dropdown}
-          />
+          <div className={styles.autocompleteContainer}>
+            <AppAutocomplete
+              options={optionsName}
+              value={pointValue}
+              onChange={pointValueHandler}
+              placeholder="Начните вводить пункт выдачи"
+            />
+          </div>
         </div>
       </div>
       <div className={styles.mapBlock}>
