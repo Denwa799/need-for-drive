@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import styles from './ButtonApp.module.less';
 import { IButtonApp } from './type';
 
-const ButtonApp: FC<IButtonApp> = ({ children, background, disabled }) => {
+const ButtonApp: FC<IButtonApp> = ({ children, background, disabled, onClick }) => {
   return (
     <Button
       type="primary"
@@ -11,6 +11,7 @@ const ButtonApp: FC<IButtonApp> = ({ children, background, disabled }) => {
       size="large"
       style={{ background: `${background}` }}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </Button>

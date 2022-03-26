@@ -19,7 +19,7 @@ import FormTotal from './FormTotal/FormTotal';
 const Order: FC = () => {
   // Локальный стейт активной стадии заполнения формы и максимально доступной
   const [activeStage, setActiveStage] = useState(1);
-  const [maxState, setMaxStage] = useState(1);
+  const [maxStage, setMaxStage] = useState(1);
 
   // Беру значение города для шапки сайта из store
   const { city } = useTypedSelector(cityLocationSelector);
@@ -65,19 +65,32 @@ const Order: FC = () => {
     };
   });
 
+  // Обработчики переключение вкладок в панели breadcrumb
   const breadcrumbLocationHandler = () => {
     setActiveStage(1);
   };
-
   const breadcrumbModelHandler = () => {
-    if (maxState >= 2) setActiveStage(2);
+    if (maxStage >= 2) setActiveStage(2);
   };
   const breadcrumbAdditionallyHandler = () => {
-    if (maxState >= 3) setActiveStage(3);
+    if (maxStage >= 3) setActiveStage(3);
+  };
+  const breadcrumbTotalHandler = () => {
+    if (maxStage >= 4) setActiveStage(4);
   };
 
-  const breadcrumbTotalHandler = () => {
-    if (maxState >= 4) setActiveStage(4);
+  // Обработчики переключения вкладок для кнопкоп в PriceForm
+  const priceFormLocationButtonHandler = () => {
+    setActiveStage(2);
+    setMaxStage(2);
+  };
+  const priceFormModelButtonHandler = () => {
+    setActiveStage(3);
+    setMaxStage(3);
+  };
+  const priceFormAdditionallyButtonHandler = () => {
+    setActiveStage(4);
+    setMaxStage(4);
   };
 
   function renderFormLocation() {
@@ -134,7 +147,7 @@ const Order: FC = () => {
           <Breadcrumb separator="►" className={styles.breadcrumb}>
             <Breadcrumb.Item
               className={`${activeStage === 1 ? styles.breadcrumbActive : null} ${
-                maxState >= 2 ? styles.breadcrumbComplete : null
+                maxStage >= 2 ? styles.breadcrumbComplete : null
               } ${styles.breadcrumbItem}`}
               onClick={breadcrumbLocationHandler}
             >
@@ -142,7 +155,7 @@ const Order: FC = () => {
             </Breadcrumb.Item>
             <Breadcrumb.Item
               className={`${activeStage === 2 ? styles.breadcrumbActive : null} ${
-                maxState >= 3 ? styles.breadcrumbComplete : null
+                maxStage >= 3 ? styles.breadcrumbComplete : null
               } ${styles.breadcrumbItem}`}
               onClick={breadcrumbModelHandler}
             >
@@ -150,7 +163,7 @@ const Order: FC = () => {
             </Breadcrumb.Item>
             <Breadcrumb.Item
               className={`${activeStage === 3 ? styles.breadcrumbActive : null} ${
-                maxState >= 4 ? styles.breadcrumbComplete : null
+                maxStage >= 4 ? styles.breadcrumbComplete : null
               } ${styles.breadcrumbItem}`}
               onClick={breadcrumbAdditionallyHandler}
             >
@@ -176,7 +189,13 @@ const Order: FC = () => {
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
             <Layout.Content>
               <AppContainer>
-                <PriceForm address={activePointAddress} />
+                <PriceForm
+                  maxStage={maxStage}
+                  address={activePointAddress}
+                  locationButtonHandler={priceFormLocationButtonHandler}
+                  modelButtonHandler={priceFormModelButtonHandler}
+                  additionallyButtonHandler={priceFormAdditionallyButtonHandler}
+                />
               </AppContainer>
             </Layout.Content>
           </Col>
