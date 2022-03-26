@@ -1,4 +1,3 @@
-import { AutoComplete, Input } from 'antd';
 import React, { FC } from 'react';
 import AppAutocomplete from '../../../ui/AppAutocomplete/AppAutocomplete';
 import { AppMap } from './AppMap/AppMap';

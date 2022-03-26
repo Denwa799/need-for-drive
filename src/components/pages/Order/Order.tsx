@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Breadcrumb, Col, Layout, Row } from 'antd';
+import { useSearchParams } from 'react-router-dom';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
@@ -11,14 +12,21 @@ import { cityLocationSelector, mapPointsSelector } from '../../../store/selector
 import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
 import ErrorLoading from '../../ui/ErrorLoading/ErrorLoading';
 import { useActionsCityLocation } from '../../../hooks/useActions/useActionsCityLocation';
+import FormModel from './FormModel/FormModel';
+import FormAdditionally from './FormAdditionally/FormAdditionally';
+import FormTotal from './FormTotal/FormTotal';
 
 const Order: FC = () => {
-  // Стейт для формы "местоположение" (FormLocation)
-  const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
-  const { points } = useTypedSelector(mapPointsSelector);
+  // Локальный стейт активной стадии заполнения формы и максимально доступной
+  const [activeStage, setActiveStage] = useState(1);
+  const [maxState, setMaxStage] = useState(1);
 
   // Беру значение города для шапки сайта из store
   const { city } = useTypedSelector(cityLocationSelector);
+
+  // Стейт для формы "местоположение" (FormLocation)
+  const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
+  const { points } = useTypedSelector(mapPointsSelector);
 
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState('');
@@ -57,23 +65,61 @@ const Order: FC = () => {
     };
   });
 
+  const breadcrumbLocationHandler = () => {
+    setActiveStage(1);
+  };
+
+  const breadcrumbModelHandler = () => {
+    if (maxState >= 2) setActiveStage(2);
+  };
+  const breadcrumbAdditionallyHandler = () => {
+    if (maxState >= 3) setActiveStage(3);
+  };
+
+  const breadcrumbTotalHandler = () => {
+    if (maxState >= 4) setActiveStage(4);
+  };
+
   function renderFormLocation() {
     if (mapPointsIsLoading || mapPointsError) {
       return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
     }
-    return (
-      <FormLocation
-        optionsCity={optionsCity}
-        optionsName={optionsName}
-        cityValue={cityValue}
-        setCityValue={setCityValue}
-        pointValue={pointValue}
-        setPointValue={setPointValue}
-        points={filteredPoints}
-        setActivePointAddress={setActivePointAddress}
-        setActivePointCity={setActivePointCity}
-      />
-    );
+    switch (activeStage) {
+      case 1:
+        return (
+          <FormLocation
+            optionsCity={optionsCity}
+            optionsName={optionsName}
+            cityValue={cityValue}
+            setCityValue={setCityValue}
+            pointValue={pointValue}
+            setPointValue={setPointValue}
+            points={filteredPoints}
+            setActivePointAddress={setActivePointAddress}
+            setActivePointCity={setActivePointCity}
+          />
+        );
+      case 2:
+        return <FormModel />;
+      case 3:
+        return <FormAdditionally />;
+      case 4:
+        return <FormTotal />;
+      default:
+        return (
+          <FormLocation
+            optionsCity={optionsCity}
+            optionsName={optionsName}
+            cityValue={cityValue}
+            setCityValue={setCityValue}
+            pointValue={pointValue}
+            setPointValue={setPointValue}
+            points={filteredPoints}
+            setActivePointAddress={setActivePointAddress}
+            setActivePointCity={setActivePointCity}
+          />
+        );
+    }
   }
 
   return (
@@ -86,10 +132,38 @@ const Order: FC = () => {
         <hr className={styles.hrTop} />
         <AppContainer>
           <Breadcrumb separator="►" className={styles.breadcrumb}>
-            <Breadcrumb.Item className={styles.breadcrumbActive}>Местоположение</Breadcrumb.Item>
-            <Breadcrumb.Item>Модель</Breadcrumb.Item>
-            <Breadcrumb.Item>Дополнительно</Breadcrumb.Item>
-            <Breadcrumb.Item className={styles.breadcrumbFinal}>Итого</Breadcrumb.Item>
+            <Breadcrumb.Item
+              className={`${activeStage === 1 ? styles.breadcrumbActive : null} ${
+                maxState >= 2 ? styles.breadcrumbComplete : null
+              } ${styles.breadcrumbItem}`}
+              onClick={breadcrumbLocationHandler}
+            >
+              Местоположение
+            </Breadcrumb.Item>
+            <Breadcrumb.Item
+              className={`${activeStage === 2 ? styles.breadcrumbActive : null} ${
+                maxState >= 3 ? styles.breadcrumbComplete : null
+              } ${styles.breadcrumbItem}`}
+              onClick={breadcrumbModelHandler}
+            >
+              Модель
+            </Breadcrumb.Item>
+            <Breadcrumb.Item
+              className={`${activeStage === 3 ? styles.breadcrumbActive : null} ${
+                maxState >= 4 ? styles.breadcrumbComplete : null
+              } ${styles.breadcrumbItem}`}
+              onClick={breadcrumbAdditionallyHandler}
+            >
+              Дополнительно
+            </Breadcrumb.Item>
+            <Breadcrumb.Item
+              className={`${activeStage === 4 ? styles.breadcrumbActive : null} ${
+                styles.breadcrumbFinal
+              } ${styles.breadcrumbItem}`}
+              onClick={breadcrumbTotalHandler}
+            >
+              Итого
+            </Breadcrumb.Item>
           </Breadcrumb>
         </AppContainer>
         <hr />
