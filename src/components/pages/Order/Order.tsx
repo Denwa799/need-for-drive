@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Breadcrumb, Col, Layout, Row } from 'antd';
-import { useSearchParams } from 'react-router-dom';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
