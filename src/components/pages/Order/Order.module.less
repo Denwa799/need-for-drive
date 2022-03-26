@@ -1,0 +1,59 @@
+@import '../../../utils/variables';
+
+.Order {
+
+  .mainContent {
+    position: relative;
+
+    hr {
+      color: @app-primary-gray__light;
+      opacity: 0.1;
+      margin: 0;
+    }
+
+    .hrTop {
+      margin-top: 32px;
+    }
+
+    .breadcrumbActive {
+      color: @app-primary-color;
+    }
+
+    .mainForm {
+      padding-top: 32px;
+    }
+  }
+
+  .breadcrumb, .breadcrumb span, .breadcrumbFinal {
+    font-size: 14px;
+    font-weight: bold;
+    color: @app-primary-gray__dark;
+    padding: 7px 0 7px 0;
+  }
+}
+
+@media (max-width: 470px) {
+  .Order {
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 10px;
+
+      span {
+        line-height: 0.5;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 292px) {
+  .Order {
+    .breadcrumb {
+
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+}

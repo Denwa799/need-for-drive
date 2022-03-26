@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 import Icon from '@ant-design/icons';
 import styles from './Navbar.module.less';
 import MenuToggle from './MenuToggle/MenuToggle';
-import { RouteNames } from '../../../utils/routes';
-import TelegramSvg from '../CustomIcns/TelegramSvg';
-import FacebookSvg from '../CustomIcns/FacebookSvg';
-import InstagramSvg from '../CustomIcns/InstagramSvg';
-import ButtonChange from '../ButtonChange/ButtonChange';
+import { RouteNames } from '../../../../utils/routes';
+import TelegramSvg from '../../CustomIcns/TelegramSvg';
+import FacebookSvg from '../../CustomIcns/FacebookSvg';
+import InstagramSvg from '../../CustomIcns/InstagramSvg';
+import ButtonChange from '../../ButtonChange/ButtonChange';
 
 const Navbar: FC = () => {
   const [visible, setVisible] = useState(false);

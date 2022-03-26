@@ -90,3 +90,29 @@ code {
 .ant-carousel .slick-slider .slick-dots li.slick-active button {
   background: @app-primary-color;
 }
+
+/* Переписываю стили выпадающего меню из библиотеки ant design */
+
+// Стили для выбранного item
+.ant-select-dropdown .rc-virtual-list .rc-virtual-list-holder-inner .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: @app-primary-color;
+  background: none;
+  font-weight: normal;
+}
+
+// Стили для item
+.ant-select-dropdown .rc-virtual-list .rc-virtual-list-holder-inner .ant-select-item {
+  background: none;
+}
+
+// Стили для наведения на item
+.ant-select-dropdown .rc-virtual-list .rc-virtual-list-holder-inner .ant-select-item:hover {
+  color: @app-primary-color;
+  background: none;
+}
+
+// Стили скроллбара
+.ant-select-dropdown .rc-virtual-list .rc-virtual-list-scrollbar {
+  //important необходим, чтобы переписать толщину скроллбара в выпадающем меню
+  width: 4px!important;
+}

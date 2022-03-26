@@ -1,0 +1,46 @@
+@import '../../../utils/variables';
+
+.Navigation {
+  position: relative;
+  min-height: 100vh;
+  text-align: center;
+  background-color: @app-second-black;
+
+  .burger {
+    padding-top: 23px;
+  }
+
+  .navFooter {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+
+    .langButton {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .Navigation {
+    background-color: transparent;
+    min-height: 0;
+    height: 50px;
+
+    .burger {
+      padding: 0 0 0 32px;
+      text-align: left;
+    }
+
+    .burger svg {
+      color: @app-primary-black;
+      position: relative;
+      z-index: 10;
+    }
+
+    .navFooter {
+      display: none;
+    }
+  }
+}
