@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Breadcrumb, Col, Layout, Row } from 'antd';
+import cn from 'classnames';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
@@ -92,25 +93,27 @@ const Order: FC = () => {
     setMaxStage(4);
   };
 
-  function renderFormLocation() {
+  const ComponentFormLoc = (
+    <FormLocation
+      optionsCity={optionsCity}
+      optionsName={optionsName}
+      cityValue={cityValue}
+      setCityValue={setCityValue}
+      pointValue={pointValue}
+      setPointValue={setPointValue}
+      points={filteredPoints}
+      setActivePointAddress={setActivePointAddress}
+      setActivePointCity={setActivePointCity}
+    />
+  );
+
+  function renderForms() {
     if (mapPointsIsLoading || mapPointsError) {
       return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
     }
     switch (activeStage) {
       case 1:
-        return (
-          <FormLocation
-            optionsCity={optionsCity}
-            optionsName={optionsName}
-            cityValue={cityValue}
-            setCityValue={setCityValue}
-            pointValue={pointValue}
-            setPointValue={setPointValue}
-            points={filteredPoints}
-            setActivePointAddress={setActivePointAddress}
-            setActivePointCity={setActivePointCity}
-          />
-        );
+        return ComponentFormLoc;
       case 2:
         return <FormModel />;
       case 3:
@@ -118,19 +121,7 @@ const Order: FC = () => {
       case 4:
         return <FormTotal />;
       default:
-        return (
-          <FormLocation
-            optionsCity={optionsCity}
-            optionsName={optionsName}
-            cityValue={cityValue}
-            setCityValue={setCityValue}
-            pointValue={pointValue}
-            setPointValue={setPointValue}
-            points={filteredPoints}
-            setActivePointAddress={setActivePointAddress}
-            setActivePointCity={setActivePointCity}
-          />
-        );
+        return ComponentFormLoc;
     }
   }
 
@@ -145,33 +136,39 @@ const Order: FC = () => {
         <AppContainer>
           <Breadcrumb separator="►" className={styles.breadcrumb}>
             <Breadcrumb.Item
-              className={`${activeStage === 1 ? styles.breadcrumbActive : null} ${
-                maxStage >= 2 ? styles.breadcrumbComplete : null
-              } ${styles.breadcrumbItem}`}
+              className={cn(
+                styles.breadcrumbItem,
+                { [styles.breadcrumbActive]: activeStage === 1 },
+                { [styles.breadcrumbComplete]: maxStage >= 2 }
+              )}
               onClick={breadcrumbLocationHandler}
             >
               Местоположение
             </Breadcrumb.Item>
             <Breadcrumb.Item
-              className={`${activeStage === 2 ? styles.breadcrumbActive : null} ${
-                maxStage >= 3 ? styles.breadcrumbComplete : null
-              } ${styles.breadcrumbItem}`}
+              className={cn(
+                styles.breadcrumbItem,
+                { [styles.breadcrumbActive]: activeStage === 2 },
+                { [styles.breadcrumbComplete]: maxStage >= 3 }
+              )}
               onClick={breadcrumbModelHandler}
             >
               Модель
             </Breadcrumb.Item>
             <Breadcrumb.Item
-              className={`${activeStage === 3 ? styles.breadcrumbActive : null} ${
-                maxStage >= 4 ? styles.breadcrumbComplete : null
-              } ${styles.breadcrumbItem}`}
+              className={cn(
+                styles.breadcrumbItem,
+                { [styles.breadcrumbActive]: activeStage === 3 },
+                { [styles.breadcrumbComplete]: maxStage >= 4 }
+              )}
               onClick={breadcrumbAdditionallyHandler}
             >
               Дополнительно
             </Breadcrumb.Item>
             <Breadcrumb.Item
-              className={`${activeStage === 4 ? styles.breadcrumbActive : null} ${
-                styles.breadcrumbFinal
-              } ${styles.breadcrumbItem}`}
+              className={cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
+                [styles.breadcrumbActive]: activeStage === 4,
+              })}
               onClick={breadcrumbTotalHandler}
             >
               Итого
@@ -182,7 +179,7 @@ const Order: FC = () => {
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
             <Layout.Content>
-              <AppContainer>{renderFormLocation()}</AppContainer>
+              <AppContainer>{renderForms()}</AppContainer>
             </Layout.Content>
           </Col>
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
