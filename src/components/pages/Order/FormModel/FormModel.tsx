@@ -129,7 +129,7 @@ const FormModel: FC<IFormModel> = ({ setActiveCar, setPriceMin, setPriceMax }) =
 
   return (
     <div className={styles.FormModel}>
-      <Affix offsetTop={135}>
+      <Affix offsetTop={133}>
         <div className={styles.radioBtnsAffix}>
           <Radio.Group
             onChange={filterChangeHandler}
