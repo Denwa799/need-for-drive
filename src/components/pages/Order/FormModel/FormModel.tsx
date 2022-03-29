@@ -46,7 +46,7 @@ const FormModel: FC = () => {
       </Affix>
 
       <Row className={styles.cards}>
-        <Col span={12} className={styles.card}>
+        <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
           <div className={styles.cardTitleContainer}>
             <Title level={5} className={styles.cardTitle}>
               ELANTRA
@@ -57,7 +57,7 @@ const FormModel: FC = () => {
             <img src={car1} alt="car" className={styles.img} />
           </div>
         </Col>
-        <Col span={12} className={styles.card}>
+        <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
           <div className={styles.cardTitleContainer}>
             <Title level={5} className={styles.cardTitle}>
               I30 N
@@ -68,7 +68,7 @@ const FormModel: FC = () => {
             <img src={car2} alt="car" className={styles.img} />
           </div>
         </Col>
-        <Col span={12} className={styles.card}>
+        <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
           <div className={styles.cardTitleContainer}>
             <Title level={5} className={styles.cardTitle}>
               CRETA
@@ -79,95 +79,7 @@ const FormModel: FC = () => {
             <img src={car3} alt="car" className={styles.img} />
           </div>
         </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              SONATA
-            </Title>
-            <Text className={styles.cardText}>10 000 - 32 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car4} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              ELANTRA
-            </Title>
-            <Text className={styles.cardText}>12 000 - 25 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car1} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              I30 N
-            </Title>
-            <Text className={styles.cardText}>10 000 - 32 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car2} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              CRETA
-            </Title>
-            <Text className={styles.cardText}>12 000 - 25 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car3} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              SONATA
-            </Title>
-            <Text className={styles.cardText}>10 000 - 32 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car4} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              ELANTRA
-            </Title>
-            <Text className={styles.cardText}>12 000 - 25 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car1} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              I30 N
-            </Title>
-            <Text className={styles.cardText}>10 000 - 32 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car2} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              CRETA
-            </Title>
-            <Text className={styles.cardText}>12 000 - 25 000 ₽</Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car3} alt="car" className={styles.img} />
-          </div>
-        </Col>
-        <Col span={12} className={styles.card}>
+        <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
           <div className={styles.cardTitleContainer}>
             <Title level={5} className={styles.cardTitle}>
               SONATA
