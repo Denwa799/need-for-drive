@@ -1,0 +1,28 @@
+@import '../../../../utils/variables';
+
+.FormModel {
+  .RadioGroup {
+    .Radio {
+      color: @app-primary-gray__dark;
+
+      span:nth-child(1) {
+
+        span {
+          border-color: @app-primary-gray__dark;
+        }
+
+        input[type=radio]:checked + span {
+          border: none;
+          background-color: @app-primary-color;
+        }
+
+        input[type=radio]:checked + span:after {
+          background-color: @app-primary-white;
+        }
+      }
+    }
+    .RadioActive {
+      color: @app-primary-black;
+    }
+  }
+}
