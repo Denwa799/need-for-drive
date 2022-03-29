@@ -6,7 +6,44 @@ import { IPriceForm } from './type';
 
 const { Title, Text } = Typography;
 
-const PriceForm: FC<IPriceForm> = ({ address }) => {
+const PriceForm: FC<IPriceForm> = ({
+  maxStage,
+  address,
+  locationButtonHandler,
+  modelButtonHandler,
+  additionallyButtonHandler,
+}) => {
+  function renderBtns() {
+    switch (maxStage) {
+      case 1:
+        return (
+          <ButtonApp disabled={!address} onClick={locationButtonHandler}>
+            Выбрать модель
+          </ButtonApp>
+        );
+      case 2:
+        return (
+          <ButtonApp disabled={!address} onClick={modelButtonHandler}>
+            Дополнительно
+          </ButtonApp>
+        );
+      case 3:
+        return (
+          <ButtonApp disabled={!address} onClick={additionallyButtonHandler}>
+            Итого
+          </ButtonApp>
+        );
+      case 4:
+        return <ButtonApp disabled={!address}>Заказать</ButtonApp>;
+      default:
+        return (
+          <ButtonApp disabled={!address} onClick={locationButtonHandler}>
+            Выбрать модель
+          </ButtonApp>
+        );
+    }
+  }
+
   return (
     <div className={styles.PriceForm}>
       <Title level={5}>Ваш заказ:</Title>
@@ -27,7 +64,7 @@ const PriceForm: FC<IPriceForm> = ({ address }) => {
           <b>Цена</b>: от 10 000 до 32 000₽
         </Text>
       </div>
-      <ButtonApp disabled={!address}>Выбрать модель</ButtonApp>
+      {renderBtns()}
     </div>
   );
 };
