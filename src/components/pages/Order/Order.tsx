@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Breadcrumb, Col, Layout, Row } from 'antd';
+import { Affix, Breadcrumb, Col, Layout, Row } from 'antd';
 import cn from 'classnames';
 import styles from './Order.module.less';
 import Navigation from '../../ui/Navigation/Navigation';
@@ -129,71 +129,79 @@ const Order: FC = () => {
     <Row className={styles.Order}>
       <Navigation />
       <Col xl={23} lg={22} md={22} sm={22} xs={24} className={styles.mainContent}>
-        <AppContainer>
-          <AppHeader />
-        </AppContainer>
-        <hr className={styles.hrTop} />
-        <AppContainer>
-          <Breadcrumb separator="►" className={styles.breadcrumb}>
-            <Breadcrumb.Item
-              className={cn(
-                styles.breadcrumbItem,
-                { [styles.breadcrumbActive]: activeStage === 1 },
-                { [styles.breadcrumbComplete]: maxStage >= 2 }
-              )}
-              onClick={breadcrumbLocationHandler}
-            >
-              Местоположение
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className={cn(
-                styles.breadcrumbItem,
-                { [styles.breadcrumbActive]: activeStage === 2 },
-                { [styles.breadcrumbComplete]: maxStage >= 3 }
-              )}
-              onClick={breadcrumbModelHandler}
-            >
-              Модель
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className={cn(
-                styles.breadcrumbItem,
-                { [styles.breadcrumbActive]: activeStage === 3 },
-                { [styles.breadcrumbComplete]: maxStage >= 4 }
-              )}
-              onClick={breadcrumbAdditionallyHandler}
-            >
-              Дополнительно
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className={cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
-                [styles.breadcrumbActive]: activeStage === 4,
-              })}
-              onClick={breadcrumbTotalHandler}
-            >
-              Итого
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </AppContainer>
-        <hr />
+        <Affix offsetTop={0}>
+          <div className={styles.affixHeader}>
+            <AppContainer>
+              <AppHeader />
+            </AppContainer>
+            <hr className={styles.hrTop} />
+            <AppContainer>
+              <Breadcrumb separator="►" className={styles.breadcrumb}>
+                <Breadcrumb.Item
+                  className={cn(
+                    styles.breadcrumbItem,
+                    { [styles.breadcrumbActive]: activeStage === 1 },
+                    { [styles.breadcrumbComplete]: maxStage >= 2 }
+                  )}
+                  onClick={breadcrumbLocationHandler}
+                >
+                  Местоположение
+                </Breadcrumb.Item>
+                <Breadcrumb.Item
+                  className={cn(
+                    styles.breadcrumbItem,
+                    { [styles.breadcrumbActive]: activeStage === 2 },
+                    { [styles.breadcrumbComplete]: maxStage >= 3 }
+                  )}
+                  onClick={breadcrumbModelHandler}
+                >
+                  Модель
+                </Breadcrumb.Item>
+                <Breadcrumb.Item
+                  className={cn(
+                    styles.breadcrumbItem,
+                    { [styles.breadcrumbActive]: activeStage === 3 },
+                    { [styles.breadcrumbComplete]: maxStage >= 4 }
+                  )}
+                  onClick={breadcrumbAdditionallyHandler}
+                >
+                  Дополнительно
+                </Breadcrumb.Item>
+                <Breadcrumb.Item
+                  className={cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
+                    [styles.breadcrumbActive]: activeStage === 4,
+                  })}
+                  onClick={breadcrumbTotalHandler}
+                >
+                  Итого
+                </Breadcrumb.Item>
+              </Breadcrumb>
+            </AppContainer>
+            <hr />
+          </div>
+        </Affix>
+
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
             <Layout.Content>
               <AppContainer>{renderForms()}</AppContainer>
             </Layout.Content>
           </Col>
+
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
-            <Layout.Content>
-              <AppContainer>
-                <PriceForm
-                  maxStage={maxStage}
-                  address={activePointAddress}
-                  locationButtonHandler={priceFormLocationButtonHandler}
-                  modelButtonHandler={priceFormModelButtonHandler}
-                  additionallyButtonHandler={priceFormAdditionallyButtonHandler}
-                />
-              </AppContainer>
-            </Layout.Content>
+            <Affix offsetTop={135}>
+              <Layout.Content>
+                <AppContainer>
+                  <PriceForm
+                    maxStage={maxStage}
+                    address={activePointAddress}
+                    locationButtonHandler={priceFormLocationButtonHandler}
+                    modelButtonHandler={priceFormModelButtonHandler}
+                    additionallyButtonHandler={priceFormAdditionallyButtonHandler}
+                  />
+                </AppContainer>
+              </Layout.Content>
+            </Affix>
           </Col>
         </Row>
       </Col>

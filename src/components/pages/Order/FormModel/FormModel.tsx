@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Col, Radio, Row, Typography } from 'antd';
+import { Affix, Col, Radio, Row, Typography } from 'antd';
 import cn from 'classnames';
 import styles from './FormModel.module.less';
 
@@ -20,23 +20,31 @@ const FormModel: FC = () => {
 
   return (
     <div className={styles.FormModel}>
-      <Radio.Group onChange={onChangeHandler} value={value} className={styles.RadioGroup}>
-        <Radio value="all" className={cn(styles.Radio, { [styles.RadioActive]: value === 'all' })}>
-          Все модели
-        </Radio>
-        <Radio
-          value="econom"
-          className={cn(styles.Radio, { [styles.RadioActive]: value === 'econom' })}
-        >
-          Эконом
-        </Radio>
-        <Radio
-          value="prem"
-          className={cn(styles.Radio, { [styles.RadioActive]: value === 'prem' })}
-        >
-          Премиум
-        </Radio>
-      </Radio.Group>
+      <Affix offsetTop={135}>
+        <div className={styles.radioBtnsAffix}>
+          <Radio.Group onChange={onChangeHandler} value={value} className={styles.RadioGroup}>
+            <Radio
+              value="all"
+              className={cn(styles.Radio, { [styles.RadioActive]: value === 'all' })}
+            >
+              Все модели
+            </Radio>
+            <Radio
+              value="econom"
+              className={cn(styles.Radio, { [styles.RadioActive]: value === 'econom' })}
+            >
+              Эконом
+            </Radio>
+            <Radio
+              value="prem"
+              className={cn(styles.Radio, { [styles.RadioActive]: value === 'prem' })}
+            >
+              Премиум
+            </Radio>
+          </Radio.Group>
+        </div>
+      </Affix>
+
       <Row className={styles.cards}>
         <Col span={12} className={styles.card}>
           <div className={styles.cardTitleContainer}>

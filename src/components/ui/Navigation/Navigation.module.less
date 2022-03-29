@@ -1,8 +1,10 @@
 @import '../../../utils/variables';
 
 .Navigation {
-  position: relative;
+  position: sticky;
+  top: 0;
   min-height: 100vh;
+  max-height: 100vh;
   text-align: center;
   background-color: @app-second-black;
 
@@ -24,6 +26,7 @@
 
 @media (max-width: 575px) {
   .Navigation {
+    position: relative;
     background-color: transparent;
     min-height: 0;
     height: 50px;

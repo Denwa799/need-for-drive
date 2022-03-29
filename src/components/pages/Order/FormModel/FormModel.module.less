@@ -1,28 +1,35 @@
 @import '../../../../utils/variables';
 
 .FormModel {
-  .RadioGroup {
-    .Radio {
-      color: @app-primary-gray__dark;
+  .radioBtnsAffix {
+    width: 100%;
+    padding: 10px 0;
+    background-color: @app-primary-white;
 
-      span:nth-child(1) {
+    .RadioGroup {
 
-        span {
-          border-color: @app-primary-gray__dark;
-        }
+      .Radio {
+        color: @app-primary-gray__dark;
 
-        input[type=radio]:checked + span {
-          border: none;
-          background-color: @app-primary-color;
-        }
+        span:nth-child(1) {
 
-        input[type=radio]:checked + span:after {
-          background-color: @app-primary-white;
+          span {
+            border-color: @app-primary-gray__dark;
+          }
+
+          input[type=radio]:checked + span {
+            border: none;
+            background-color: @app-primary-color;
+          }
+
+          input[type=radio]:checked + span:after {
+            background-color: @app-primary-white;
+          }
         }
       }
-    }
-    .RadioActive {
-      color: @app-primary-black;
+      .RadioActive {
+        color: @app-primary-black;
+      }
     }
   }
 
