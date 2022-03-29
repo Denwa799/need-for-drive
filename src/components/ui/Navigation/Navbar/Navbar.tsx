@@ -6,8 +6,6 @@ import styles from './Navbar.module.less';
 import MenuToggle from './MenuToggle/MenuToggle';
 import { RouteNames } from '../../../../utils/routes';
 import TelegramSvg from '../../CustomIcns/TelegramSvg';
-import FacebookSvg from '../../CustomIcns/FacebookSvg';
-import InstagramSvg from '../../CustomIcns/InstagramSvg';
 import ButtonChange from '../../ButtonChange/ButtonChange';
 
 const Navbar: FC = () => {
@@ -55,8 +53,6 @@ const Navbar: FC = () => {
         </Menu>
         <div className={styles.networksIcons}>
           <Icon className={styles.icon} component={TelegramSvg} />
-          <Icon className={styles.icon} component={FacebookSvg} />
-          <Icon className={styles.icon} component={InstagramSvg} />
         </div>
         <div className={styles.langButton}>
           <ButtonChange>Eng</ButtonChange>
