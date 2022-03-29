@@ -34,6 +34,11 @@ const Order: FC = () => {
   const [activePointAddress, setActivePointAddress] = useState('');
   const [activePointCity, setActivePointCity] = useState(city);
 
+  // Локальный стейт для формы "Модель" (FormModel)
+  const [activeCar, setActiveCar] = useState('');
+  const [priceMin, setPriceMin] = useState(0);
+  const [priceMax, setPriceMax] = useState(0);
+
   // Устанавливаю значение города в шапку сайта
   const { setCityLocation } = useActionsCityLocation();
   useEffect(() => {
@@ -115,7 +120,13 @@ const Order: FC = () => {
       case 1:
         return ComponentFormLoc;
       case 2:
-        return <FormModel />;
+        return (
+          <FormModel
+            setActiveCar={setActiveCar}
+            setPriceMin={setPriceMin}
+            setPriceMax={setPriceMax}
+          />
+        );
       case 3:
         return <FormAdditionally />;
       case 4:
@@ -198,6 +209,9 @@ const Order: FC = () => {
                     locationButtonHandler={priceFormLocationButtonHandler}
                     modelButtonHandler={priceFormModelButtonHandler}
                     additionallyButtonHandler={priceFormAdditionallyButtonHandler}
+                    modelName={activeCar}
+                    priceMin={priceMin}
+                    priceMax={priceMax}
                   />
                 </AppContainer>
               </Layout.Content>

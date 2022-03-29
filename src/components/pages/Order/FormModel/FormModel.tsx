@@ -5,11 +5,11 @@ import styles from './FormModel.module.less';
 
 import car1 from '../../../../assets/img/cars/image-1.webp';
 import { CarMock } from './CarMock';
-import { ICarModel } from './type';
+import { IFormModel, ICarModel } from './type';
 
 const { Title, Text } = Typography;
 
-const FormModel: FC = () => {
+const FormModel: FC<IFormModel> = ({ setActiveCar, setPriceMin, setPriceMax }) => {
   // Фейковый массив объектов с машинами
   const cars = CarMock;
 
@@ -21,9 +21,22 @@ const FormModel: FC = () => {
   const [carsPerPage, setCarsPerPage] = useState(4);
 
   // Обработчик нажатия на radio button
-  const onChangeHandler = (e: any) => {
+  const filterChangeHandler = (e: any) => {
     // Стоит any, так как сюда приходит событие и value из компоненты radio библиотеки ant design
     setFilterValue(e.target.value);
+  };
+
+  // Обработчик нажатия на карточку с машиной
+  const carClickHandler = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    name: string,
+    priceMin: number,
+    priceMax: number
+  ) => {
+    event.preventDefault();
+    setActiveCar(name);
+    setPriceMin(priceMin);
+    setPriceMax(priceMax);
   };
 
   // Обработка нажатия на кнопки смены страницы в пагинации
@@ -75,7 +88,28 @@ const FormModel: FC = () => {
     if (window.innerWidth <= 991) {
       return paginationCars.map((car) => {
         return (
-          <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
+          <Col key={car.id} xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
+            <a href="#" onClick={(e) => carClickHandler(e, car.name, car.priceMin, car.priceMax)}>
+              <div className={styles.cardTitleContainer}>
+                <Title level={5} className={styles.cardTitle}>
+                  {car.name}
+                </Title>
+                <Text className={styles.cardText}>
+                  {car.priceMin} - {car.priceMax} ₽
+                </Text>
+              </div>
+              <div className={styles.imgContainer}>
+                <img src={car1} alt="car" className={styles.img} />
+              </div>
+            </a>
+          </Col>
+        );
+      });
+    }
+    return filteredCars.map((car) => {
+      return (
+        <Col key={car.id} xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
+          <a href="#" onClick={(e) => carClickHandler(e, car.name, car.priceMin, car.priceMax)}>
             <div className={styles.cardTitleContainer}>
               <Title level={5} className={styles.cardTitle}>
                 {car.name}
@@ -87,24 +121,7 @@ const FormModel: FC = () => {
             <div className={styles.imgContainer}>
               <img src={car1} alt="car" className={styles.img} />
             </div>
-          </Col>
-        );
-      });
-    }
-    return filteredCars.map((car) => {
-      return (
-        <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
-          <div className={styles.cardTitleContainer}>
-            <Title level={5} className={styles.cardTitle}>
-              {car.name}
-            </Title>
-            <Text className={styles.cardText}>
-              {car.priceMin} - {car.priceMax} ₽
-            </Text>
-          </div>
-          <div className={styles.imgContainer}>
-            <img src={car1} alt="car" className={styles.img} />
-          </div>
+          </a>
         </Col>
       );
     });
@@ -114,7 +131,11 @@ const FormModel: FC = () => {
     <div className={styles.FormModel}>
       <Affix offsetTop={135}>
         <div className={styles.radioBtnsAffix}>
-          <Radio.Group onChange={onChangeHandler} value={filterValue} className={styles.RadioGroup}>
+          <Radio.Group
+            onChange={filterChangeHandler}
+            value={filterValue}
+            className={styles.RadioGroup}
+          >
             <Radio
               value="Все"
               className={cn(styles.Radio, { [styles.RadioActive]: filterValue === 'Все' })}

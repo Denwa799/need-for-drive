@@ -12,6 +12,9 @@ const PriceForm: FC<IPriceForm> = ({
   locationButtonHandler,
   modelButtonHandler,
   additionallyButtonHandler,
+  modelName,
+  priceMin,
+  priceMax,
 }) => {
   function renderBtns() {
     switch (maxStage) {
@@ -23,7 +26,7 @@ const PriceForm: FC<IPriceForm> = ({
         );
       case 2:
         return (
-          <ButtonApp disabled={!address} onClick={modelButtonHandler}>
+          <ButtonApp disabled={!modelName} onClick={modelButtonHandler}>
             Дополнительно
           </ButtonApp>
         );
@@ -47,24 +50,30 @@ const PriceForm: FC<IPriceForm> = ({
   return (
     <div className={styles.PriceForm}>
       <Title level={5}>Ваш заказ:</Title>
-      <div className={styles.priceItem}>
-        <div>
-          <Text className={styles.listTitle}>Пункт выдачи</Text>
-          <Text className={styles.listText}>{address}</Text>
+      {address && (
+        <div className={styles.priceItem}>
+          <div>
+            <Text className={styles.listTitle}>Пункт выдачи</Text>
+            <Text className={styles.listText}>{address}</Text>
+          </div>
         </div>
-      </div>
-      <div className={styles.priceItem}>
-        <div>
-          <Text className={styles.listTitle}>Модель</Text>
-          <Text className={styles.listText}>Hyndai, i30 N</Text>
+      )}
+      {modelName && (
+        <div className={styles.priceItem}>
+          <div>
+            <Text className={styles.listTitle}>Модель</Text>
+            <Text className={styles.listText}>{modelName}</Text>
+          </div>
         </div>
-      </div>
-      <div className={styles.priceFinished}>
-        <Text>
-          <b>Цена</b>: от 10 000 до 32 000₽
-        </Text>
-      </div>
-      {renderBtns()}
+      )}
+      {priceMin > 0 && priceMax > 0 && (
+        <div className={styles.priceFinished}>
+          <Text>
+            <b>Цена</b>: от {priceMin} до {priceMax} ₽
+          </Text>
+        </div>
+      )}
+      <div className={styles.button}>{renderBtns()}</div>
     </div>
   );
 };
