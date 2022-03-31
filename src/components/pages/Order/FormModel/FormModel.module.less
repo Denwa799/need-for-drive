@@ -2,13 +2,17 @@
 
 .FormModel {
   .radioBtnsAffix {
+    position: sticky;
+    top: 136px;
+    display: flex;
+    align-items: center;
     width: 100%;
-    padding: 10px 0;
+    height: 100px;
+    z-index: 1;
     background-color: @app-primary-white;
   }
 
   .cards {
-    padding-top: 50px;
 
     .card {
       width: 100%;
@@ -24,6 +28,7 @@
           font-weight: normal;
           margin-bottom: 0;
         }
+
         .cardText {
           font-size: 14px;
           color: @app-primary-gray__dark;
@@ -47,6 +52,10 @@
     }
 
     .card:active {
+      border: 1px solid @app-primary-color;
+    }
+
+    .cardActive {
       border: 1px solid @app-primary-color;
     }
   }
@@ -82,6 +91,14 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 463px) {
+  .FormModel {
+    .radioBtnsAffix {
+      top: 240px;
     }
   }
 }

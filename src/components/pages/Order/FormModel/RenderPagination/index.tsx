@@ -3,7 +3,12 @@ import { Col, Pagination, Row } from 'antd';
 import styles from '../FormModel.module.less';
 import { IRenderPagination } from './type';
 
-export const RenderPagination: FC<IRenderPagination> = ({ total, onChange, pageSizeOptions }) => {
+export const RenderPagination: FC<IRenderPagination> = ({
+  total,
+  onChange,
+  pageSizeOptions,
+  page,
+}) => {
   if (window.innerWidth <= 991) {
     return (
       <Row className={styles.Pagination}>
@@ -11,6 +16,7 @@ export const RenderPagination: FC<IRenderPagination> = ({ total, onChange, pageS
           <Pagination
             defaultCurrent={1}
             defaultPageSize={4}
+            current={page}
             size="small"
             responsive={false}
             total={total}

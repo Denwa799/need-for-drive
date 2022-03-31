@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { Affix, Radio, Row } from 'antd';
+import { Row } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import styles from './FormModel.module.less';
 
@@ -10,6 +10,8 @@ import RenderCars from './RenderCars';
 import { AppRadio } from '../../../ui/AppRadio';
 
 const FormModel: FC<IFormModel> = ({
+  activeCarId,
+  setActiveCarId,
   activeCar,
   setActiveCar,
   setPriceMin,
@@ -26,18 +28,20 @@ const FormModel: FC<IFormModel> = ({
   const filterChangeHandler = useCallback(
     (event: RadioChangeEvent) => {
       setFilterValue(event.target.value);
+      setCurrentPage(1);
     },
     [filterValue]
   );
 
   // Обработчик нажатия на карточку с машиной
   const carClickHandler: carClickHandlerType = useCallback(
-    (name, min, max) => {
+    (id, name, min, max) => {
+      setActiveCarId(id);
       setActiveCar(name);
       setPriceMin(min);
       setPriceMax(max);
     },
-    [activeCar]
+    [activeCarId]
   );
 
   // Обработка нажатия на кнопки смены страницы в пагинации
@@ -73,13 +77,12 @@ const FormModel: FC<IFormModel> = ({
 
   return (
     <div className={styles.FormModel}>
-      <Affix offsetTop={133}>
-        <div className={styles.radioBtnsAffix}>
-          <AppRadio onChange={filterChangeHandler} filterValue={filterValue} />
-        </div>
-      </Affix>
+      <div className={styles.radioBtnsAffix}>
+        <AppRadio onChange={filterChangeHandler} filterValue={filterValue} />
+      </div>
       <Row className={styles.cards}>
         <RenderCars
+          activeCarId={activeCarId}
           paginationCars={paginationCars}
           filteredCars={filteredCars}
           carClickHandler={carClickHandler}
@@ -89,6 +92,7 @@ const FormModel: FC<IFormModel> = ({
         onChange={pageChangeHandler}
         total={filteredCars.length}
         pageSizeOptions={pageSizeOptions}
+        page={currentPage}
       />
     </div>
   );

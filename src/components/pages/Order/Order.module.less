@@ -26,10 +26,6 @@
         color: @app-primary-color;
       }
     }
-
-    .mainForm {
-      padding-top: 32px;
-    }
   }
 
   .breadcrumb, .breadcrumb span, .breadcrumbFinal {
@@ -44,36 +40,17 @@
   }
 }
 
-@media (max-width: 470px) {
+@media (max-width: 463px) {
   .Order {
     .breadcrumb {
       display: flex;
-      flex-wrap: wrap;
-      font-size: 10px;
-
+      flex-direction: column;
+      line-height: 1.2;
       span {
-        line-height: 0.5;
-      }
-    }
-  }
-}
-
-
-@media (max-width: 426px) {
-  .Order {
-    .breadcrumb {
-      span {
-        font-size: 10px;
-      }
-    }
-  }
-}
-
-@media (max-width: 337px) {
-  .Order {
-    .breadcrumb {
-      span {
-        font-size: 9px;
+        font-size: 18px;
+        span:last-child {
+          display: none;
+        }
       }
     }
   }

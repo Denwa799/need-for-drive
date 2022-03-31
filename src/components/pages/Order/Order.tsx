@@ -18,7 +18,6 @@ import FormTotal from './FormTotal/FormTotal';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
-
   // Локальный стейт активной стадии заполнения формы и максимально доступной
   const [activeStage, setActiveStage] = useState(1);
   const [maxStage, setMaxStage] = useState(1);
@@ -60,10 +59,7 @@ const Order: FC = () => {
     if (maxStage >= 4) setActiveStage(4);
   };
 
-  /* Конец блока с общими данными для страницы */
-
   /* Блок с данными для формы "местоположение" (FormLocation) */
-
   // Стейт для формы "местоположение" (FormLocation)
   const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
   const { points } = useTypedSelector(mapPointsSelector);
@@ -104,11 +100,9 @@ const Order: FC = () => {
     };
   });
 
-  /* Конец блока с данными для формы "местоположение" (FormLocation) */
-
   /* Блок с данными для формы "Модель" (FormModel) */
-
   // Локальный стейт для формы "Модель" (FormModel)
+  const [activeCarId, setActiveCarId] = useState('');
   const [activeCar, setActiveCar] = useState('');
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
@@ -119,10 +113,7 @@ const Order: FC = () => {
   // Опции размера пагинации для формы "Модель" (FormModel)
   const pageSizeOptions = ['2', '4', '6', '8'];
 
-  /* Конец блок с данными для формы "Модель" (FormModel) */
-
   /* Блок с данными для формы заказа (PriceForm) */
-
   // Обработчики переключения вкладок для кнопкоп в PriceForm
   const priceFormLocationButtonHandler = () => {
     setActiveStage(2);
@@ -137,10 +128,7 @@ const Order: FC = () => {
     setMaxStage(4);
   };
 
-  /* Конец блока с данными для формы заказа (PriceForm) */
-
   /* Отрисовка вкладок */
-
   const ComponentFormLoc = (
     <FormLocation
       optionsCity={optionsCity}
@@ -165,7 +153,9 @@ const Order: FC = () => {
       case 2:
         return (
           <FormModel
+            activeCarId={activeCarId}
             activeCar={activeCar}
+            setActiveCarId={setActiveCarId}
             setActiveCar={setActiveCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}

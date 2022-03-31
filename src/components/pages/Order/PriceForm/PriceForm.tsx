@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Typography } from 'antd';
+import cn from 'classnames';
 import styles from './PriceForm.module.less';
 import ButtonApp from '../../../ui/ButtonApp/ButtonApp';
 import { IPriceForm } from './type';
@@ -62,7 +63,7 @@ const PriceForm: FC<IPriceForm> = ({
         <div className={styles.priceItem}>
           <div>
             <Text className={styles.listTitle}>Модель</Text>
-            <Text className={styles.listText}>{modelName}</Text>
+            <Text className={cn(styles.listText, styles.modelName)}>{modelName}</Text>
           </div>
         </div>
       )}
