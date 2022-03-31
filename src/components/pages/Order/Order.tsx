@@ -17,12 +17,52 @@ import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormTotal from './FormTotal/FormTotal';
 
 const Order: FC = () => {
+  /* Блок с общими данными для страницы */
+
   // Локальный стейт активной стадии заполнения формы и максимально доступной
   const [activeStage, setActiveStage] = useState(1);
   const [maxStage, setMaxStage] = useState(1);
 
   // Беру значение города для шапки сайта из store
   const { city } = useTypedSelector(cityLocationSelector);
+
+  // Стили для Breadcrumb.Item
+  const breadcrumbLocation = cn(
+    styles.breadcrumbItem,
+    { [styles.breadcrumbActive]: activeStage === 1 },
+    { [styles.breadcrumbComplete]: maxStage >= 2 }
+  );
+  const breadcrumbModel = cn(
+    styles.breadcrumbItem,
+    { [styles.breadcrumbActive]: activeStage === 2 },
+    { [styles.breadcrumbComplete]: maxStage >= 3 }
+  );
+  const breadcrumbAdditionally = cn(
+    styles.breadcrumbItem,
+    { [styles.breadcrumbActive]: activeStage === 3 },
+    { [styles.breadcrumbComplete]: maxStage >= 4 }
+  );
+  const breadcrumbTotal = cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
+    [styles.breadcrumbActive]: activeStage === 4,
+  });
+
+  // Обработчики переключение вкладок в панели breadcrumb
+  const breadcrumbLocationHandler = () => {
+    setActiveStage(1);
+  };
+  const breadcrumbModelHandler = () => {
+    if (maxStage >= 2) setActiveStage(2);
+  };
+  const breadcrumbAdditionallyHandler = () => {
+    if (maxStage >= 3) setActiveStage(3);
+  };
+  const breadcrumbTotalHandler = () => {
+    if (maxStage >= 4) setActiveStage(4);
+  };
+
+  /* Конец блока с общими данными для страницы */
+
+  /* Блок с данными для формы "местоположение" (FormLocation) */
 
   // Стейт для формы "местоположение" (FormLocation)
   const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
@@ -34,11 +74,6 @@ const Order: FC = () => {
   const [activePointAddress, setActivePointAddress] = useState('');
   const [activePointCity, setActivePointCity] = useState(city);
 
-  // Локальный стейт для формы "Модель" (FormModel)
-  const [activeCar, setActiveCar] = useState('');
-  const [priceMin, setPriceMin] = useState(0);
-  const [priceMax, setPriceMax] = useState(0);
-
   // Устанавливаю значение города в шапку сайта
   const { setCityLocation } = useActionsCityLocation();
   useEffect(() => {
@@ -47,7 +82,6 @@ const Order: FC = () => {
 
   // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
   const { fetchPoints } = useActionsMapPoints();
-
   useEffect(() => {
     fetchPoints();
   }, []);
@@ -70,19 +104,24 @@ const Order: FC = () => {
     };
   });
 
-  // Обработчики переключение вкладок в панели breadcrumb
-  const breadcrumbLocationHandler = () => {
-    setActiveStage(1);
-  };
-  const breadcrumbModelHandler = () => {
-    if (maxStage >= 2) setActiveStage(2);
-  };
-  const breadcrumbAdditionallyHandler = () => {
-    if (maxStage >= 3) setActiveStage(3);
-  };
-  const breadcrumbTotalHandler = () => {
-    if (maxStage >= 4) setActiveStage(4);
-  };
+  /* Конец блока с данными для формы "местоположение" (FormLocation) */
+
+  /* Блок с данными для формы "Модель" (FormModel) */
+
+  // Локальный стейт для формы "Модель" (FormModel)
+  const [activeCar, setActiveCar] = useState('');
+  const [priceMin, setPriceMin] = useState(0);
+  const [priceMax, setPriceMax] = useState(0);
+
+  // Локальный стейт для фильтрации в radio button в форме "Модель" (FormModel)
+  const [filterCarsValue, setFilterCarsValue] = useState('Все');
+
+  // Опции размера пагинации для формы "Модель" (FormModel)
+  const pageSizeOptions = ['2', '4', '6', '8'];
+
+  /* Конец блок с данными для формы "Модель" (FormModel) */
+
+  /* Блок с данными для формы заказа (PriceForm) */
 
   // Обработчики переключения вкладок для кнопкоп в PriceForm
   const priceFormLocationButtonHandler = () => {
@@ -97,6 +136,10 @@ const Order: FC = () => {
     setActiveStage(4);
     setMaxStage(4);
   };
+
+  /* Конец блока с данными для формы заказа (PriceForm) */
+
+  /* Отрисовка вкладок */
 
   const ComponentFormLoc = (
     <FormLocation
@@ -122,9 +165,13 @@ const Order: FC = () => {
       case 2:
         return (
           <FormModel
+            activeCar={activeCar}
             setActiveCar={setActiveCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}
+            filterValue={filterCarsValue}
+            setFilterValue={setFilterCarsValue}
+            pageSizeOptions={pageSizeOptions}
           />
         );
       case 3:
@@ -148,42 +195,19 @@ const Order: FC = () => {
             <hr className={styles.hrTop} />
             <AppContainer>
               <Breadcrumb separator="►" className={styles.breadcrumb}>
-                <Breadcrumb.Item
-                  className={cn(
-                    styles.breadcrumbItem,
-                    { [styles.breadcrumbActive]: activeStage === 1 },
-                    { [styles.breadcrumbComplete]: maxStage >= 2 }
-                  )}
-                  onClick={breadcrumbLocationHandler}
-                >
+                <Breadcrumb.Item className={breadcrumbLocation} onClick={breadcrumbLocationHandler}>
                   Местоположение
                 </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  className={cn(
-                    styles.breadcrumbItem,
-                    { [styles.breadcrumbActive]: activeStage === 2 },
-                    { [styles.breadcrumbComplete]: maxStage >= 3 }
-                  )}
-                  onClick={breadcrumbModelHandler}
-                >
+                <Breadcrumb.Item className={breadcrumbModel} onClick={breadcrumbModelHandler}>
                   Модель
                 </Breadcrumb.Item>
                 <Breadcrumb.Item
-                  className={cn(
-                    styles.breadcrumbItem,
-                    { [styles.breadcrumbActive]: activeStage === 3 },
-                    { [styles.breadcrumbComplete]: maxStage >= 4 }
-                  )}
+                  className={breadcrumbAdditionally}
                   onClick={breadcrumbAdditionallyHandler}
                 >
                   Дополнительно
                 </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  className={cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
-                    [styles.breadcrumbActive]: activeStage === 4,
-                  })}
-                  onClick={breadcrumbTotalHandler}
-                >
+                <Breadcrumb.Item className={breadcrumbTotal} onClick={breadcrumbTotalHandler}>
                   Итого
                 </Breadcrumb.Item>
               </Breadcrumb>

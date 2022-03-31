@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Icon from '@ant-design/icons';
 import styles from './Navbar.module.less';
 import MenuToggle from './MenuToggle/MenuToggle';
-import { RouteNames } from '../../../../utils/routes';
+import { RouteNames } from '../../../../router/routes';
 import TelegramSvg from '../../CustomIcns/TelegramSvg';
 import ButtonChange from '../../ButtonChange/ButtonChange';
 

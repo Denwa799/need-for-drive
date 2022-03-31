@@ -1,4 +1,4 @@
-export const CarMock = [
+export const carsMock = [
   {
     id: '1',
     name: 'ELENTRA',

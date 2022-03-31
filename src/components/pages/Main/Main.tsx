@@ -5,7 +5,7 @@ import styles from './Main.module.less';
 import ButtonApp from '../../ui/ButtonApp/ButtonApp';
 import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import { MainPageSlider } from './slider';
-import { RouteNames } from '../../../utils/routes';
+import { RouteNames } from '../../../router/routes';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
 import AppFooter from '../../ui/AppLayout/AppFooter/AppFooter';

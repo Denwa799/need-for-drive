@@ -1,164 +1,95 @@
-import React, { FC, useState } from 'react';
-import { Affix, Col, Pagination, Radio, Row, Typography } from 'antd';
-import cn from 'classnames';
+import React, { FC, useCallback, useMemo, useState } from 'react';
+import { Affix, Radio, Row } from 'antd';
+import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import styles from './FormModel.module.less';
 
-import car1 from '../../../../assets/img/cars/image-1.webp';
-import { CarMock } from './CarMock';
-import { IFormModel, ICarModel } from './type';
+import { carsMock as cars } from './carsMock';
+import { IFormModel, carClickHandlerType, pageChangeHandlerType } from './type';
+import { RenderPagination } from './RenderPagination';
+import RenderCars from './RenderCars';
+import { AppRadio } from '../../../ui/AppRadio';
 
-const { Title, Text } = Typography;
-
-const FormModel: FC<IFormModel> = ({ setActiveCar, setPriceMin, setPriceMax }) => {
-  // Фейковый массив объектов с машинами
-  const cars = CarMock;
-
-  // Локальный стейт для фильтрации в radio button
-  const [filterValue, setFilterValue] = useState('Все');
-
+const FormModel: FC<IFormModel> = ({
+  activeCar,
+  setActiveCar,
+  setPriceMin,
+  setPriceMax,
+  filterValue,
+  setFilterValue,
+  pageSizeOptions,
+}) => {
   // Локальный стейт для реализации пагинации
   const [currentPage, setCurrentPage] = useState(1);
   const [carsPerPage, setCarsPerPage] = useState(4);
 
   // Обработчик нажатия на radio button
-  const filterChangeHandler = (e: any) => {
-    // Стоит any, так как сюда приходит событие и value из компоненты radio библиотеки ant design
-    setFilterValue(e.target.value);
-  };
+  const filterChangeHandler = useCallback(
+    (event: RadioChangeEvent) => {
+      setFilterValue(event.target.value);
+    },
+    [filterValue]
+  );
 
   // Обработчик нажатия на карточку с машиной
-  const carClickHandler = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    name: string,
-    priceMin: number,
-    priceMax: number
-  ) => {
-    event.preventDefault();
-    setActiveCar(name);
-    setPriceMin(priceMin);
-    setPriceMax(priceMax);
-  };
+  const carClickHandler: carClickHandlerType = useCallback(
+    (name, min, max) => {
+      setActiveCar(name);
+      setPriceMin(min);
+      setPriceMax(max);
+    },
+    [activeCar]
+  );
 
   // Обработка нажатия на кнопки смены страницы в пагинации
-  const pageChangeHandler = (pageNumber: number, pageSize: number) => {
-    setCurrentPage(pageNumber);
-    setCarsPerPage(pageSize);
-  };
+  const pageChangeHandler: pageChangeHandlerType = useCallback(
+    (pageNumber, pageSize) => {
+      setCurrentPage(pageNumber);
+      setCarsPerPage(pageSize);
+    },
+    [currentPage, carsPerPage]
+  );
 
   // Отфильтровываю машины
-  let filteredCars: ICarModel[];
-  if (filterValue !== 'Все') {
-    filteredCars = cars.filter((car) => {
-      return car.categoryId.name === filterValue;
-    });
-  } else {
-    filteredCars = cars;
-  }
+  const filteredCars = useMemo(() => {
+    if (filterValue !== 'Все') {
+      return cars.filter((car) => car.categoryId.name === filterValue);
+    }
+    return cars;
+  }, [filterValue]);
 
   // Переменные для реализации пагинации
-  const lastCarIndex = currentPage * carsPerPage;
-  const firstCarIndex = lastCarIndex - carsPerPage;
-  const paginationCars = filteredCars.slice(firstCarIndex, lastCarIndex);
+  const lastCarIndex = useMemo(() => {
+    return currentPage * carsPerPage;
+  }, [currentPage, carsPerPage]);
 
-  function renderPagination() {
-    if (window.innerWidth <= 991) {
-      return (
-        <Row className={styles.Pagination}>
-          <Col span={24}>
-            <Pagination
-              defaultCurrent={1}
-              defaultPageSize={4}
-              size="small"
-              responsive={false}
-              total={filteredCars.length}
-              showSizeChanger
-              onChange={pageChangeHandler}
-              pageSizeOptions={['2', '4', '6', '8']}
-            />
-          </Col>
-        </Row>
-      );
-    }
-    return null;
-  }
+  const firstCarIndex = useMemo(() => {
+    return lastCarIndex - carsPerPage;
+  }, [lastCarIndex, carsPerPage]);
 
-  // При экране меньше 991 - отрисовываю машины с пагинацией
-  // При экране больше 991 - отрисовываю машины без пагинации
-  function renderCars() {
-    if (window.innerWidth <= 991) {
-      return paginationCars.map((car) => {
-        return (
-          <Col key={car.id} xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
-            <a href="#" onClick={(e) => carClickHandler(e, car.name, car.priceMin, car.priceMax)}>
-              <div className={styles.cardTitleContainer}>
-                <Title level={5} className={styles.cardTitle}>
-                  {car.name}
-                </Title>
-                <Text className={styles.cardText}>
-                  {car.priceMin} - {car.priceMax} ₽
-                </Text>
-              </div>
-              <div className={styles.imgContainer}>
-                <img src={car1} alt="car" className={styles.img} />
-              </div>
-            </a>
-          </Col>
-        );
-      });
-    }
-    return filteredCars.map((car) => {
-      return (
-        <Col key={car.id} xl={12} lg={24} md={12} sm={12} xs={24} className={styles.card}>
-          <a href="#" onClick={(e) => carClickHandler(e, car.name, car.priceMin, car.priceMax)}>
-            <div className={styles.cardTitleContainer}>
-              <Title level={5} className={styles.cardTitle}>
-                {car.name}
-              </Title>
-              <Text className={styles.cardText}>
-                {car.priceMin} - {car.priceMax} ₽
-              </Text>
-            </div>
-            <div className={styles.imgContainer}>
-              <img src={car1} alt="car" className={styles.img} />
-            </div>
-          </a>
-        </Col>
-      );
-    });
-  }
+  // Отфилтрованный массив, исходя из пагинации
+  const paginationCars = useMemo(() => {
+    return filteredCars.slice(firstCarIndex, lastCarIndex);
+  }, [firstCarIndex, lastCarIndex, filterValue]);
 
   return (
     <div className={styles.FormModel}>
       <Affix offsetTop={133}>
         <div className={styles.radioBtnsAffix}>
-          <Radio.Group
-            onChange={filterChangeHandler}
-            value={filterValue}
-            className={styles.RadioGroup}
-          >
-            <Radio
-              value="Все"
-              className={cn(styles.Radio, { [styles.RadioActive]: filterValue === 'Все' })}
-            >
-              Все модели
-            </Radio>
-            <Radio
-              value="Эконом"
-              className={cn(styles.Radio, { [styles.RadioActive]: filterValue === 'Эконом' })}
-            >
-              Эконом
-            </Radio>
-            <Radio
-              value="Премиум"
-              className={cn(styles.Radio, { [styles.RadioActive]: filterValue === 'Премиум' })}
-            >
-              Премиум
-            </Radio>
-          </Radio.Group>
+          <AppRadio onChange={filterChangeHandler} filterValue={filterValue} />
         </div>
       </Affix>
-      <Row className={styles.cards}>{renderCars()}</Row>
-      {renderPagination()}
+      <Row className={styles.cards}>
+        <RenderCars
+          paginationCars={paginationCars}
+          filteredCars={filteredCars}
+          carClickHandler={carClickHandler}
+        />
+      </Row>
+      <RenderPagination
+        onChange={pageChangeHandler}
+        total={filteredCars.length}
+        pageSizeOptions={pageSizeOptions}
+      />
     </div>
   );
 };
