@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { Radio } from 'antd';
 import cn from 'classnames';
 import styles from './styles.module.less';
-import { IAppRadio } from './type';
+import { IAppRadioBtn } from './type';
 
-export const AppRadio: FC<IAppRadio> = ({ onChange, filterValue }) => {
+export const AppRadioBtn: FC<IAppRadioBtn> = ({ onChange, filterValue }) => {
   return (
     <Radio.Group onChange={onChange} value={filterValue} className={styles.RadioGroup}>
       <Radio

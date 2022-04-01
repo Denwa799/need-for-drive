@@ -53,7 +53,7 @@ const PriceForm: FC<IPriceForm> = ({
       <Title level={5}>Ваш заказ:</Title>
       {address && (
         <div className={styles.priceItem}>
-          <div>
+          <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Пункт выдачи</Text>
             <Text className={styles.listText}>{address}</Text>
           </div>
@@ -61,7 +61,7 @@ const PriceForm: FC<IPriceForm> = ({
       )}
       {modelName && (
         <div className={styles.priceItem}>
-          <div>
+          <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Модель</Text>
             <Text className={cn(styles.listText, styles.modelName)}>{modelName}</Text>
           </div>

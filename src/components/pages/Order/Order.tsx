@@ -1,20 +1,20 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Affix, Breadcrumb, Col, Layout, Row } from 'antd';
-import cn from 'classnames';
-import styles from './Order.module.less';
-import Navigation from '../../ui/Navigation/Navigation';
-import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
-import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
-import FormLocation from './FormLocation/FormLocation';
-import PriceForm from './PriceForm/PriceForm';
-import { useTypedSelector } from '../../../hooks/useTypesSelector';
-import { cityLocationSelector, mapPointsSelector } from '../../../store/selectors/selectors';
-import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
-import ErrorLoading from '../../ui/ErrorLoading/ErrorLoading';
-import { useActionsCityLocation } from '../../../hooks/useActions/useActionsCityLocation';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { Affix, Col, Layout, Row } from 'antd';
+import Navigation from 'components/ui/Navigation/Navigation';
+import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { useActionsCityLocation } from 'hooks/useActions/useActionsCityLocation';
+import { useActionsMapPoints } from 'hooks/useActions/useActionsMapPoints';
+import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import AppContainer from 'components/ui/AppLayout/AppContainer/AppContainer';
+import AppHeader from 'components/ui/AppLayout/AppHeader/AppHeader';
+import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
-import FormTotal from './FormTotal/FormTotal';
+import FormLocation from './FormLocation/FormLocation';
+import PriceForm from './PriceForm/PriceForm';
+import styles from './Order.module.less';
+import { OrderBreadcrumb } from './OrderBreadcrumb';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
@@ -24,40 +24,6 @@ const Order: FC = () => {
 
   // Беру значение города для шапки сайта из store
   const { city } = useTypedSelector(cityLocationSelector);
-
-  // Стили для Breadcrumb.Item
-  const breadcrumbLocation = cn(
-    styles.breadcrumbItem,
-    { [styles.breadcrumbActive]: activeStage === 1 },
-    { [styles.breadcrumbComplete]: maxStage >= 2 }
-  );
-  const breadcrumbModel = cn(
-    styles.breadcrumbItem,
-    { [styles.breadcrumbActive]: activeStage === 2 },
-    { [styles.breadcrumbComplete]: maxStage >= 3 }
-  );
-  const breadcrumbAdditionally = cn(
-    styles.breadcrumbItem,
-    { [styles.breadcrumbActive]: activeStage === 3 },
-    { [styles.breadcrumbComplete]: maxStage >= 4 }
-  );
-  const breadcrumbTotal = cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
-    [styles.breadcrumbActive]: activeStage === 4,
-  });
-
-  // Обработчики переключение вкладок в панели breadcrumb
-  const breadcrumbLocationHandler = () => {
-    setActiveStage(1);
-  };
-  const breadcrumbModelHandler = () => {
-    if (maxStage >= 2) setActiveStage(2);
-  };
-  const breadcrumbAdditionallyHandler = () => {
-    if (maxStage >= 3) setActiveStage(3);
-  };
-  const breadcrumbTotalHandler = () => {
-    if (maxStage >= 4) setActiveStage(4);
-  };
 
   /* Блок с данными для формы "местоположение" (FormLocation) */
   // Стейт для формы "местоположение" (FormLocation)
@@ -111,7 +77,9 @@ const Order: FC = () => {
   const [filterCarsValue, setFilterCarsValue] = useState('Все');
 
   // Опции размера пагинации для формы "Модель" (FormModel)
-  const pageSizeOptions = ['2', '4', '6', '8'];
+  const pageSizeOptions = useMemo(() => {
+    return ['2', '4', '6', '8', '10', '12'];
+  }, []);
 
   /* Блок с данными для формы заказа (PriceForm) */
   // Обработчики переключения вкладок для кнопкоп в PriceForm
@@ -175,46 +143,32 @@ const Order: FC = () => {
 
   return (
     <Row className={styles.Order}>
-      <Navigation />
+      <Col xl={1} lg={2} md={2} sm={2} xs={24}>
+        <Navigation />
+      </Col>
       <Col xl={23} lg={22} md={22} sm={22} xs={24} className={styles.mainContent}>
         <Affix offsetTop={0}>
-          <div className={styles.affixHeader}>
+          <div className={styles.headerContainer}>
             <AppContainer>
               <AppHeader />
             </AppContainer>
-            <hr className={styles.hrTop} />
-            <AppContainer>
-              <Breadcrumb separator="►" className={styles.breadcrumb}>
-                <Breadcrumb.Item className={breadcrumbLocation} onClick={breadcrumbLocationHandler}>
-                  Местоположение
-                </Breadcrumb.Item>
-                <Breadcrumb.Item className={breadcrumbModel} onClick={breadcrumbModelHandler}>
-                  Модель
-                </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  className={breadcrumbAdditionally}
-                  onClick={breadcrumbAdditionallyHandler}
-                >
-                  Дополнительно
-                </Breadcrumb.Item>
-                <Breadcrumb.Item className={breadcrumbTotal} onClick={breadcrumbTotalHandler}>
-                  Итого
-                </Breadcrumb.Item>
-              </Breadcrumb>
+            <AppContainer classNames={styles.breadcrumbContainer}>
+              <OrderBreadcrumb
+                activeStage={activeStage}
+                maxStage={maxStage}
+                setActiveStage={setActiveStage}
+              />
             </AppContainer>
-            <hr />
           </div>
         </Affix>
-
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
             <Layout.Content>
               <AppContainer>{renderForms()}</AppContainer>
             </Layout.Content>
           </Col>
-
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
-            <Affix offsetTop={135}>
+            <Affix offsetTop={145}>
               <Layout.Content>
                 <AppContainer>
                   <PriceForm

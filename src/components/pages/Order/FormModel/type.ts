@@ -20,6 +20,6 @@ export interface ICarModel {
   };
 }
 
-export type carClickHandlerType = (id: string, name: string, min: number, max: number) => void;
+export type CarClickHandlerType = (id: string, name: string, min: number, max: number) => void;
 
-export type pageChangeHandlerType = (pageNumber: number, pageSize: number) => void;
+export type PageChangeHandlerType = (pageNumber: number, pageSize: number) => void;

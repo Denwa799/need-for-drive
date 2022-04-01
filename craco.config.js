@@ -15,7 +15,7 @@ module.exports = {
               '@btn-font-weight': 500,
               '@layout-body-background':'#FFF',
               '@layout-header-background':'#FFF',
-              '@font-size-base':'16px',
+              '@line-height-base':'16px',
               '@heading-1-size':'70px',
               '@heading-2-size':'40px',
               '@heading-5-size':'18px',
@@ -39,4 +39,9 @@ module.exports = {
       },
     },
   ],
+  resolve: {
+    less: {
+      mainFiles: ['src'],
+    }
+  }
 };

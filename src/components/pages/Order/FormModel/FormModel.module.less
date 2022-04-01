@@ -1,9 +1,10 @@
-@import 'src/styles/consts';
+@import "src/styles/consts";
 
-.FormModel {
-  .radioBtnsAffix {
+.formModel {
+  padding-bottom: 20px;
+  .radioButtons {
     position: sticky;
-    top: 136px;
+    top: 144px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -40,8 +41,8 @@
         justify-content: right;
 
         .img {
-          width: 256px;
-          height: 116px;
+          width: 70%;
+          height: 70%;
         }
       }
     }
@@ -55,7 +56,7 @@
       border: 1px solid @app-primary-color;
     }
 
-    .cardActive {
+    .cardActive, .cardActive:hover, .cardActive:active {
       border: 1px solid @app-primary-color;
     }
   }
@@ -65,55 +66,16 @@
   }
 }
 
-@media (max-width: 670px) {
-  .FormModel {
-    .cards {
-      .card {
-        .imgContainer {
-          .img {
-            width: 200px;
-            height: 100px;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 575px) {
-  .FormModel {
-    .cards {
-      .card {
-        .imgContainer {
-          .img {
-            width: 256px;
-            height: 126px;
-          }
-        }
-      }
-    }
+@media (max-width: 991px) {
+  .formModel {
+    padding-bottom: 0;
   }
 }
 
 @media (max-width: 463px) {
-  .FormModel {
-    .radioBtnsAffix {
-      top: 240px;
-    }
-  }
-}
-
-@media (max-width: 340px) {
-  .FormModel {
-    .cards {
-      .card {
-        .imgContainer {
-          .img {
-            width: 200px;
-            height: 100px;
-          }
-        }
-      }
+  .formModel {
+    .radioButtons {
+      top: 270px;
     }
   }
 }

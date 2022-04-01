@@ -1,18 +1,17 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Row } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
+import { AppRadioBtn } from 'components/ui/AppRadioBtn';
+import { AppPagination } from 'components/ui/AppPagination';
 import styles from './FormModel.module.less';
 
 import { carsMock as cars } from './carsMock';
-import { IFormModel, carClickHandlerType, pageChangeHandlerType } from './type';
-import { RenderPagination } from './RenderPagination';
-import RenderCars from './RenderCars';
-import { AppRadio } from '../../../ui/AppRadio';
+import { IFormModel, CarClickHandlerType, PageChangeHandlerType } from './type';
+import FilteredCars from './FilteredCars';
 
 const FormModel: FC<IFormModel> = ({
   activeCarId,
   setActiveCarId,
-  activeCar,
   setActiveCar,
   setPriceMin,
   setPriceMax,
@@ -34,7 +33,7 @@ const FormModel: FC<IFormModel> = ({
   );
 
   // Обработчик нажатия на карточку с машиной
-  const carClickHandler: carClickHandlerType = useCallback(
+  const carClickHandler: CarClickHandlerType = useCallback(
     (id, name, min, max) => {
       setActiveCarId(id);
       setActiveCar(name);
@@ -45,7 +44,7 @@ const FormModel: FC<IFormModel> = ({
   );
 
   // Обработка нажатия на кнопки смены страницы в пагинации
-  const pageChangeHandler: pageChangeHandlerType = useCallback(
+  const pageChangeHandler: PageChangeHandlerType = useCallback(
     (pageNumber, pageSize) => {
       setCurrentPage(pageNumber);
       setCarsPerPage(pageSize);
@@ -73,22 +72,21 @@ const FormModel: FC<IFormModel> = ({
   // Отфилтрованный массив, исходя из пагинации
   const paginationCars = useMemo(() => {
     return filteredCars.slice(firstCarIndex, lastCarIndex);
-  }, [firstCarIndex, lastCarIndex, filterValue]);
+  }, [firstCarIndex, lastCarIndex, filteredCars]);
 
   return (
-    <div className={styles.FormModel}>
-      <div className={styles.radioBtnsAffix}>
-        <AppRadio onChange={filterChangeHandler} filterValue={filterValue} />
+    <div className={styles.formModel}>
+      <div className={styles.radioButtons}>
+        <AppRadioBtn onChange={filterChangeHandler} filterValue={filterValue} />
       </div>
       <Row className={styles.cards}>
-        <RenderCars
+        <FilteredCars
           activeCarId={activeCarId}
           paginationCars={paginationCars}
-          filteredCars={filteredCars}
           carClickHandler={carClickHandler}
         />
       </Row>
-      <RenderPagination
+      <AppPagination
         onChange={pageChangeHandler}
         total={filteredCars.length}
         pageSizeOptions={pageSizeOptions}

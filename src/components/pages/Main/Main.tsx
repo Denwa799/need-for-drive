@@ -16,7 +16,9 @@ const { Title, Text } = Typography;
 const Main: FC = () => {
   return (
     <Row className={styles.Main}>
-      <Navigation />
+      <Col xl={1} lg={2} md={2} sm={2} xs={24}>
+        <Navigation />
+      </Col>
       <Col xl={12} lg={13} md={13} sm={22} xs={24} className={styles.mainContent}>
         <AppContainer>
           <AppHeader />

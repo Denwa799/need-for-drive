@@ -5,52 +5,15 @@
   .mainContent {
     position: relative;
 
-    .affixHeader {
+    .headerContainer {
       background-color: @app-primary-white;
 
-      hr {
-        color: @app-primary-gray__light;
-        opacity: 0.1;
-        margin: 0;
-      }
-
-      .hrTop {
+      .breadcrumbContainer {
+        border-top: @app-primary-gray__light 1px solid;
+        border-bottom: @app-primary-gray__light 1px solid;
+        padding-top: 8px;
+        padding-bottom: 8px;
         margin-top: 32px;
-      }
-
-      .breadcrumbComplete {
-        color: @app-primary-black;
-      }
-
-      .breadcrumbActive {
-        color: @app-primary-color;
-      }
-    }
-  }
-
-  .breadcrumb, .breadcrumb span, .breadcrumbFinal {
-    font-size: 14px;
-    font-weight: bold;
-    color: @app-primary-gray__dark;
-    padding: 7px 0 7px 0;
-  }
-
-  .breadcrumbItem {
-    cursor: pointer;
-  }
-}
-
-@media (max-width: 463px) {
-  .Order {
-    .breadcrumb {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-      span {
-        font-size: 18px;
-        span:last-child {
-          display: none;
-        }
       }
     }
   }

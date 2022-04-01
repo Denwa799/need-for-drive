@@ -1,6 +1,6 @@
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 
-export interface IAppRadio {
+export interface IAppRadioBtn {
   onChange: (event: RadioChangeEvent) => void;
   filterValue: string;
 }
