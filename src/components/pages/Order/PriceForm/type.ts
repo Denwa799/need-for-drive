@@ -4,4 +4,7 @@ export interface IPriceForm {
   locationButtonHandler: () => void;
   modelButtonHandler: () => void;
   additionallyButtonHandler: () => void;
+  modelName: string;
+  priceMin: number;
+  priceMax: number;
 }

@@ -5,7 +5,7 @@ import styles from './Main.module.less';
 import ButtonApp from '../../ui/ButtonApp/ButtonApp';
 import AppCarousel from '../../ui/AppCarousel/AppCarousel';
 import { MainPageSlider } from './slider';
-import { RouteNames } from '../../../utils/routes';
+import { RouteNames } from '../../../router/routes';
 import Navigation from '../../ui/Navigation/Navigation';
 import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
 import AppFooter from '../../ui/AppLayout/AppFooter/AppFooter';
@@ -16,7 +16,9 @@ const { Title, Text } = Typography;
 const Main: FC = () => {
   return (
     <Row className={styles.Main}>
-      <Navigation />
+      <Col xl={1} lg={2} md={2} sm={2} xs={24}>
+        <Navigation />
+      </Col>
       <Col xl={12} lg={13} md={13} sm={22} xs={24} className={styles.mainContent}>
         <AppContainer>
           <AppHeader />

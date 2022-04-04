@@ -1,7 +1,10 @@
-@import '../../../utils/variables';
+@import 'src/styles/consts';
 
 .Navigation {
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
   min-height: 100vh;
   text-align: center;
   background-color: @app-second-black;
@@ -24,6 +27,7 @@
 
 @media (max-width: 575px) {
   .Navigation {
+    position: relative;
     background-color: transparent;
     min-height: 0;
     height: 50px;

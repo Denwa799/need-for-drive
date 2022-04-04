@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from '../../router';
-import { RouteNames } from '../../utils/routes';
+import { RouteNames } from '../../router/routes';
 
 const AppRouter: FC = () => {
   return (

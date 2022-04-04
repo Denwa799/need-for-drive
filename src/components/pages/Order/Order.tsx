@@ -1,22 +1,23 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Breadcrumb, Col, Layout, Row } from 'antd';
-import cn from 'classnames';
-import styles from './Order.module.less';
-import Navigation from '../../ui/Navigation/Navigation';
-import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
-import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
-import FormLocation from './FormLocation/FormLocation';
-import PriceForm from './PriceForm/PriceForm';
-import { useTypedSelector } from '../../../hooks/useTypesSelector';
-import { cityLocationSelector, mapPointsSelector } from '../../../store/selectors/selectors';
-import { useActionsMapPoints } from '../../../hooks/useActions/useActionsMapPoints';
-import ErrorLoading from '../../ui/ErrorLoading/ErrorLoading';
-import { useActionsCityLocation } from '../../../hooks/useActions/useActionsCityLocation';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { Affix, Col, Layout, Row } from 'antd';
+import Navigation from 'components/ui/Navigation/Navigation';
+import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { useActionsCityLocation } from 'hooks/useActions/useActionsCityLocation';
+import { useActionsMapPoints } from 'hooks/useActions/useActionsMapPoints';
+import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import AppContainer from 'components/ui/AppLayout/AppContainer/AppContainer';
+import AppHeader from 'components/ui/AppLayout/AppHeader/AppHeader';
+import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
-import FormTotal from './FormTotal/FormTotal';
+import FormLocation from './FormLocation/FormLocation';
+import PriceForm from './PriceForm/PriceForm';
+import styles from './Order.module.less';
+import { OrderBreadcrumb } from './OrderBreadcrumb';
 
 const Order: FC = () => {
+  /* Блок с общими данными для страницы */
   // Локальный стейт активной стадии заполнения формы и максимально доступной
   const [activeStage, setActiveStage] = useState(1);
   const [maxStage, setMaxStage] = useState(1);
@@ -24,6 +25,7 @@ const Order: FC = () => {
   // Беру значение города для шапки сайта из store
   const { city } = useTypedSelector(cityLocationSelector);
 
+  /* Блок с данными для формы "местоположение" (FormLocation) */
   // Стейт для формы "местоположение" (FormLocation)
   const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
   const { points } = useTypedSelector(mapPointsSelector);
@@ -42,7 +44,6 @@ const Order: FC = () => {
 
   // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
   const { fetchPoints } = useActionsMapPoints();
-
   useEffect(() => {
     fetchPoints();
   }, []);
@@ -65,20 +66,22 @@ const Order: FC = () => {
     };
   });
 
-  // Обработчики переключение вкладок в панели breadcrumb
-  const breadcrumbLocationHandler = () => {
-    setActiveStage(1);
-  };
-  const breadcrumbModelHandler = () => {
-    if (maxStage >= 2) setActiveStage(2);
-  };
-  const breadcrumbAdditionallyHandler = () => {
-    if (maxStage >= 3) setActiveStage(3);
-  };
-  const breadcrumbTotalHandler = () => {
-    if (maxStage >= 4) setActiveStage(4);
-  };
+  /* Блок с данными для формы "Модель" (FormModel) */
+  // Локальный стейт для формы "Модель" (FormModel)
+  const [activeCarId, setActiveCarId] = useState('');
+  const [activeCar, setActiveCar] = useState('');
+  const [priceMin, setPriceMin] = useState(0);
+  const [priceMax, setPriceMax] = useState(0);
 
+  // Локальный стейт для фильтрации в radio button в форме "Модель" (FormModel)
+  const [filterCarsValue, setFilterCarsValue] = useState('Все');
+
+  // Опции размера пагинации для формы "Модель" (FormModel)
+  const pageSizeOptions = useMemo(() => {
+    return ['2', '4', '6', '8', '10', '12'];
+  }, []);
+
+  /* Блок с данными для формы заказа (PriceForm) */
   // Обработчики переключения вкладок для кнопкоп в PriceForm
   const priceFormLocationButtonHandler = () => {
     setActiveStage(2);
@@ -93,6 +96,7 @@ const Order: FC = () => {
     setMaxStage(4);
   };
 
+  /* Отрисовка вкладок */
   const ComponentFormLoc = (
     <FormLocation
       optionsCity={optionsCity}
@@ -115,7 +119,19 @@ const Order: FC = () => {
       case 1:
         return ComponentFormLoc;
       case 2:
-        return <FormModel />;
+        return (
+          <FormModel
+            activeCarId={activeCarId}
+            activeCar={activeCar}
+            setActiveCarId={setActiveCarId}
+            setActiveCar={setActiveCar}
+            setPriceMin={setPriceMin}
+            setPriceMax={setPriceMax}
+            filterValue={filterCarsValue}
+            setFilterValue={setFilterCarsValue}
+            pageSizeOptions={pageSizeOptions}
+          />
+        );
       case 3:
         return <FormAdditionally />;
       case 4:
@@ -127,55 +143,24 @@ const Order: FC = () => {
 
   return (
     <Row className={styles.Order}>
-      <Navigation />
+      <Col xl={1} lg={2} md={2} sm={2} xs={24}>
+        <Navigation />
+      </Col>
       <Col xl={23} lg={22} md={22} sm={22} xs={24} className={styles.mainContent}>
-        <AppContainer>
-          <AppHeader />
-        </AppContainer>
-        <hr className={styles.hrTop} />
-        <AppContainer>
-          <Breadcrumb separator="►" className={styles.breadcrumb}>
-            <Breadcrumb.Item
-              className={cn(
-                styles.breadcrumbItem,
-                { [styles.breadcrumbActive]: activeStage === 1 },
-                { [styles.breadcrumbComplete]: maxStage >= 2 }
-              )}
-              onClick={breadcrumbLocationHandler}
-            >
-              Местоположение
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className={cn(
-                styles.breadcrumbItem,
-                { [styles.breadcrumbActive]: activeStage === 2 },
-                { [styles.breadcrumbComplete]: maxStage >= 3 }
-              )}
-              onClick={breadcrumbModelHandler}
-            >
-              Модель
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className={cn(
-                styles.breadcrumbItem,
-                { [styles.breadcrumbActive]: activeStage === 3 },
-                { [styles.breadcrumbComplete]: maxStage >= 4 }
-              )}
-              onClick={breadcrumbAdditionallyHandler}
-            >
-              Дополнительно
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className={cn(styles.breadcrumbItem, styles.breadcrumbFinal, {
-                [styles.breadcrumbActive]: activeStage === 4,
-              })}
-              onClick={breadcrumbTotalHandler}
-            >
-              Итого
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </AppContainer>
-        <hr />
+        <Affix offsetTop={0}>
+          <div className={styles.headerContainer}>
+            <AppContainer>
+              <AppHeader />
+            </AppContainer>
+            <AppContainer classNames={styles.breadcrumbContainer}>
+              <OrderBreadcrumb
+                activeStage={activeStage}
+                maxStage={maxStage}
+                setActiveStage={setActiveStage}
+              />
+            </AppContainer>
+          </div>
+        </Affix>
         <Row>
           <Col xl={14} lg={12} md={24} sm={24} xs={24} className={styles.mainForm}>
             <Layout.Content>
@@ -183,17 +168,22 @@ const Order: FC = () => {
             </Layout.Content>
           </Col>
           <Col xl={10} lg={12} md={24} sm={24} xs={24}>
-            <Layout.Content>
-              <AppContainer>
-                <PriceForm
-                  maxStage={maxStage}
-                  address={activePointAddress}
-                  locationButtonHandler={priceFormLocationButtonHandler}
-                  modelButtonHandler={priceFormModelButtonHandler}
-                  additionallyButtonHandler={priceFormAdditionallyButtonHandler}
-                />
-              </AppContainer>
-            </Layout.Content>
+            <Affix offsetTop={145}>
+              <Layout.Content>
+                <AppContainer>
+                  <PriceForm
+                    maxStage={maxStage}
+                    address={activePointAddress}
+                    locationButtonHandler={priceFormLocationButtonHandler}
+                    modelButtonHandler={priceFormModelButtonHandler}
+                    additionallyButtonHandler={priceFormAdditionallyButtonHandler}
+                    modelName={activeCar}
+                    priceMin={priceMin}
+                    priceMax={priceMax}
+                  />
+                </AppContainer>
+              </Layout.Content>
+            </Affix>
           </Col>
         </Row>
       </Col>

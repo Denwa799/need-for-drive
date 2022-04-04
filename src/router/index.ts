@@ -4,7 +4,7 @@ import Parking from '../components/pages/Parking/Parking';
 import Insurance from '../components/pages/Insurance/Insurance';
 import Petrol from '../components/pages/Petrol/Petrol';
 import Service from '../components/pages/Service/Service';
-import { RouteNames } from '../utils/routes';
+import { RouteNames } from './routes';
 import Order from '../components/pages/Order/Order';
 
 interface IRoute {

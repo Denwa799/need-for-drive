@@ -1,5 +1,5 @@
+import AppAutocomplete from 'components/ui/AppAutocomplete/AppAutocomplete';
 import React, { FC } from 'react';
-import AppAutocomplete from '../../../ui/AppAutocomplete/AppAutocomplete';
 import { AppMap } from './AppMap/AppMap';
 import styles from './FormLocation.module.less';
 import { IFormLocation } from './type';
