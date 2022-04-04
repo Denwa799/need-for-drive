@@ -33,7 +33,7 @@ const FormModel: FC<IFormModel> = ({
   );
 
   // Обработчик нажатия на карточку с машиной
-  const carClickHandler: CarClickHandlerType = useCallback(
+  const carClickHandler = useCallback<CarClickHandlerType>(
     (id, name, min, max) => {
       setActiveCarId(id);
       setActiveCar(name);
@@ -44,7 +44,7 @@ const FormModel: FC<IFormModel> = ({
   );
 
   // Обработка нажатия на кнопки смены страницы в пагинации
-  const pageChangeHandler: PageChangeHandlerType = useCallback(
+  const pageChangeHandler = useCallback<PageChangeHandlerType>(
     (pageNumber, pageSize) => {
       setCurrentPage(pageNumber);
       setCarsPerPage(pageSize);
