@@ -23,7 +23,7 @@ export const CarsActionCreators = {
       dispatch(CarsActionCreators.getCars(response.data.data));
       dispatch(CarsActionCreators.setCarsIsLoading(false));
     } catch (e) {
-      dispatch(CarsActionCreators.setCarsError('Произошла ошибка при загрузке данных'));
+      dispatch(CarsActionCreators.setCarsError('Произошла ошибка при загрузке машин'));
     }
   },
 };

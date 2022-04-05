@@ -28,7 +28,9 @@ export const MapPointsActionCreators = {
       dispatch(MapPointsActionCreators.getMapPoints(response.data.data));
       dispatch(MapPointsActionCreators.setMapPointsIsLoading(false));
     } catch (e) {
-      dispatch(MapPointsActionCreators.setMapPointsError('Произошла ошибка при загрузке данных'));
+      dispatch(
+        MapPointsActionCreators.setMapPointsError('Произошла ошибка при загрузке списка городов')
+      );
     }
   },
 };

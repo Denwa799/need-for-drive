@@ -10,6 +10,7 @@ import FilteredCars from './FilteredCars';
 
 const FormModel: FC<IFormModel> = ({
   cars,
+  categories,
   activeCarId,
   setActiveCarId,
   setActiveCar,
@@ -77,7 +78,13 @@ const FormModel: FC<IFormModel> = ({
   return (
     <div className={styles.formModel}>
       <div className={styles.radioButtons}>
-        <AppRadioBtn onChange={filterChangeHandler} filterValue={filterValue} />
+        <AppRadioBtn
+          buttons={categories}
+          onChange={filterChangeHandler}
+          filterValue={filterValue}
+          allIsActive
+          btnAllText="Все модели"
+        />
       </div>
       <Row className={styles.cards}>
         <FilteredCars

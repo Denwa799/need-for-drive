@@ -2,6 +2,10 @@ import { ICar } from 'models/ICar';
 
 export interface IFormModel {
   cars: ICar[];
+  categories: {
+    id: string;
+    name: string;
+  }[];
   activeCarId: string;
   activeCar: string;
   setActiveCar: (value: string) => void;

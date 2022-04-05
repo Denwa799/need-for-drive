@@ -1,7 +1,11 @@
-@import 'src/styles/consts';
+@import 'styles/consts';
 
 .RadioGroup {
+  display: flex;
+  flex-wrap: wrap;
+
   .Radio {
+    padding: 2px 0;
     color: @app-primary-gray__dark;
 
     span:nth-child(1) {
@@ -25,12 +29,51 @@
   }
 }
 
+@media (max-width: 1268px) {
+  .RadioGroup {
+    .Radio {
+      width: 125px;
+    }
+  }
+}
+
+@media (max-width: 1149px) {
+  .RadioGroup {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 991px) {
+  .RadioGroup {
+    justify-content: flex-start;
+    .Radio {
+      width: auto;
+    }
+  }
+}
+
+@media (max-width: 703px) {
+  .RadioGroup {
+    .Radio {
+      width: 125px;
+    }
+  }
+}
+
 @media (max-width: 463px) {
   .RadioGroup {
-    display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     .Radio {
-      line-height: 1.4;
+      width: 125px;
+    }
+  }
+}
+
+@media (max-width: 329px) {
+  .RadioGroup {
+    .Radio {
+      font-size: 13px;
+      width: 120px;
     }
   }
 }
