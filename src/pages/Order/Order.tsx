@@ -1,13 +1,14 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
-import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
+import { carsSelector, cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { useActionsCityLocation } from 'hooks/useActions/useActionsCityLocation';
 import { useActionsMapPoints } from 'hooks/useActions/useActionsMapPoints';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
+import { useActionsCars } from 'hooks/useActions/useActionsCars';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
@@ -27,8 +28,7 @@ const Order: FC = () => {
 
   /* Блок с данными для формы "местоположение" (FormLocation) */
   // Стейт для формы "местоположение" (FormLocation)
-  const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
-  const { points } = useTypedSelector(mapPointsSelector);
+  const { points, mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
 
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState('');
@@ -67,6 +67,15 @@ const Order: FC = () => {
   });
 
   /* Блок с данными для формы "Модель" (FormModel) */
+  // Стейт для формы "Модель" (FormModel)
+  const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
+
+  // Запрос на получение списка машин из api для формы "Модель" (FormModel)
+  const { fetchCars } = useActionsCars();
+  useEffect(() => {
+    fetchCars();
+  }, []);
+
   // Локальный стейт для формы "Модель" (FormModel)
   const [activeCarId, setActiveCarId] = useState('');
   const [activeCar, setActiveCar] = useState('');
@@ -112,13 +121,17 @@ const Order: FC = () => {
   );
 
   function renderForms() {
-    if (mapPointsIsLoading || mapPointsError) {
-      return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
-    }
     switch (activeStage) {
       case 1:
+        if (mapPointsIsLoading || mapPointsError) {
+          return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
+        }
         return ComponentFormLoc;
+
       case 2:
+        if (carsIsLoading || carsError) {
+          return <ErrorLoading loading={carsIsLoading} error={carsError} />;
+        }
         return (
           <FormModel
             activeCarId={activeCarId}
@@ -132,6 +145,7 @@ const Order: FC = () => {
             pageSizeOptions={pageSizeOptions}
           />
         );
+
       case 3:
         return <FormAdditionally />;
       case 4:

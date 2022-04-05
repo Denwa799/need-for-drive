@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IMapPoint } from '../models/IMapPoint';
+import { IMapPoint } from 'models/IMapPoint';
 
 export default class MapPointsService {
   static async getPoints(): Promise<any> {

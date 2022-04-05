@@ -14,10 +14,10 @@ export default function MapPointsReducer(
     case MapPointsActionEnum.GET_POINTS:
       return { ...state, points: action.payload, mapPointsIsLoading: false };
 
-    case MapPointsActionEnum.SET_IS_LOADING:
+    case MapPointsActionEnum.SET_POINTS_IS_LOADING:
       return { ...state, mapPointsIsLoading: action.payload };
 
-    case MapPointsActionEnum.SET_ERROR:
+    case MapPointsActionEnum.SET_POINTS_ERROR:
       return { ...state, mapPointsError: action.payload, mapPointsIsLoading: false };
 
     default:
