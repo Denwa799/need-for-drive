@@ -48,7 +48,7 @@ const AppMap: FC<IPoints> = ({
   // Вызывает функцию getGeoLocation в момент, когда объект карты появится
   useEffect(() => {
     getGeoLocation();
-  }, [maps]);
+  }, [maps, points]);
 
   const clickHandler = (address: string, city: string, cord: number[]) => {
     setActivePointAddress(address);
