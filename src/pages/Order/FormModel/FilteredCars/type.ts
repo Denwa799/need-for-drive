@@ -1,7 +1,8 @@
-import { CarClickHandlerType, ICarModel } from '../type';
+import { ICar } from 'models/ICar';
+import { CarClickHandlerType } from '../type';
 
 export interface IFilteredCars {
   activeCarId: string;
-  paginationCars: ICarModel[];
+  paginationCars: ICar[];
   carClickHandler: CarClickHandlerType;
 }

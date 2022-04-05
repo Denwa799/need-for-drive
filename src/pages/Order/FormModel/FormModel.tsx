@@ -5,11 +5,11 @@ import { AppRadioBtn } from 'components/ui/AppRadioBtn';
 import { AppPagination } from 'components/ui/AppPagination';
 import styles from './FormModel.module.less';
 
-import { carsMock as cars } from './carsMock';
 import { IFormModel, CarClickHandlerType, PageChangeHandlerType } from './type';
 import FilteredCars from './FilteredCars';
 
 const FormModel: FC<IFormModel> = ({
+  cars,
   activeCarId,
   setActiveCarId,
   setActiveCar,
