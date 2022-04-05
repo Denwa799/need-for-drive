@@ -1,70 +1,74 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Map, Placemark, YMaps, ZoomControl } from 'react-yandex-maps';
-import { IPoints } from './type';
+import { IPoints, PlacemarkClickHandlerType } from './type';
 
 const API_KEY = process.env.REACT_APP_MAP_API;
 
 const AppMap: FC<IPoints> = ({
   points,
+  cityValue,
+  pointValue,
   setActivePointAddress,
   setActivePointCity,
   setCityValue,
   setPointValue,
 }) => {
   // Стейт для объекта яндекс карты
-  // any необходим, так как сюда приходит объект яндекс карты
-  const [maps, setMaps] = useState<any>();
+  const [map, setMap] = useState<any>();
 
-  // Стейт для zoom и координат для карты
-  const [zoom, setZoom] = useState(4);
+  // Стейт для map
+  const [zoom, setZoom] = useState(3);
   const [coordinates, setCoordinates] = useState([55.75, 37.57]);
   const mapState = { center: coordinates, zoom };
 
   // Были ли внесены координаты в объект или нет
   const [isCoordinate, setIsCoordinate] = useState(false);
 
-  // При загрузке добавить объект яндекс карты в локальный стейт
-  const onLoad = (map: any) => {
-    setMaps(map);
-  };
-
   // Копирую массив, чтобы небыло мутации
-  const pointsWithCoordinates = [...points];
+  const pointsWithCoordinates = useMemo(() => {
+    return [...points];
+  }, [points]);
 
-  // Функция берет координаты из адреса
-  const getGeoLocation = () => {
-    if (maps) {
+  // Функция берет координаты из адреса и вставляет в объект для отображения placemark
+  const getGeoLocation = useCallback(() => {
+    if (map) {
       pointsWithCoordinates.forEach(function (element) {
-        const resp = maps.geocode(`${element.cityId!.name}, ${element.address}`);
+        const response = map.geocode(`${element.cityId!.name}, ${element.address}`);
         // Нельзя дать конкретный тип, так как ответ - geoObject из yandex map api
-        resp.then((res: any) => {
-          element.coordinate = res.geoObjects.get(0).geometry.getCoordinates();
+        response.then((result: any) => {
+          element.coordinate = result.geoObjects.get(0).geometry.getCoordinates();
         });
         setIsCoordinate(true);
       });
     }
-  };
+  }, [pointsWithCoordinates]);
 
-  // Вызывает функцию getGeoLocation в момент, когда объект карты появится
+  // Вызывает функцию getGeoLocation в момент, когда объект карты появится / сменятся points
   useEffect(() => {
     getGeoLocation();
-  }, [maps, points]);
+  }, [map, points]);
 
-  const clickHandler = (address: string, city: string, cord: number[]) => {
-    setActivePointAddress(address);
-    setActivePointCity(city);
-    setCityValue(city);
-    setPointValue(address);
-    setCoordinates(cord);
-  };
-
-  // Костыль, в котором меняется стейт зума через две секунды для отрисовки координат с сервера
-  const changeZoom = () => {
-    setZoom(3);
-  };
+  // При наличии города и адреса устанавливает карту карту в нужные координаты
   useEffect(() => {
-    setTimeout(changeZoom, 2000);
-  }, [isCoordinate]);
+    if (map && cityValue && pointValue) {
+      map.geocode(`${cityValue}, ${pointValue}`).then((result: any) => {
+        const currentCoordinates = result.geoObjects.get(0).geometry.getCoordinates();
+        setCoordinates(currentCoordinates);
+        setZoom(10);
+      });
+    }
+  }, [map, cityValue, pointValue]);
+
+  const clickHandler = useCallback<PlacemarkClickHandlerType>(
+    (address, city, cord) => {
+      setActivePointAddress(address);
+      setActivePointCity(city);
+      setCityValue(city);
+      setPointValue(address);
+      setCoordinates(cord);
+    },
+    [pointsWithCoordinates]
+  );
 
   return (
     <YMaps
@@ -78,7 +82,7 @@ const AppMap: FC<IPoints> = ({
         width="100%"
         height="100%"
         modules={['geocode', 'layout.ImageWithContent']}
-        onLoad={(ymaps) => onLoad(ymaps)}
+        onLoad={setMap}
       >
         {isCoordinate
           ? pointsWithCoordinates.map((point) => {
@@ -95,7 +99,7 @@ const AppMap: FC<IPoints> = ({
               );
             })
           : null}
-        <ZoomControl options={{ float: 'right' }} />
+        <ZoomControl options={{ float: 'left' }} />
       </Map>
     </YMaps>
   );

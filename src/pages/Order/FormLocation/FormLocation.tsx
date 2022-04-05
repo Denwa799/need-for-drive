@@ -1,5 +1,5 @@
 import AppAutocomplete from 'components/ui/AppAutocomplete/AppAutocomplete';
-import React, { FC } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { AppMap } from './AppMap/AppMap';
 import styles from './FormLocation.module.less';
 import { IFormLocation } from './type';
@@ -16,14 +16,27 @@ const FormLocation: FC<IFormLocation> = ({
   setActivePointCity,
 }) => {
   // Устанавливает текст с поля поиска города в стейт
-  const cityValueHandler = (value: string) => {
-    setCityValue(value);
-  };
+  const cityValueHandler = useCallback(
+    (value: string) => {
+      setCityValue(value);
+    },
+    [cityValue]
+  );
 
   // Устанавливает текст с поля поиска пункта выдачи в стейт
-  const pointValueHandler = (value: string) => {
-    setPointValue(value);
-  };
+  const pointValueHandler = useCallback(
+    (value: string) => {
+      setPointValue(value);
+    },
+    [pointValue]
+  );
+
+  useEffect(() => {
+    // Очищает текст поля поиска пункта при очискте города
+    if (cityValue === '') {
+      setPointValue('');
+    }
+  }, [cityValue]);
 
   return (
     <div className={styles.FormLocation}>
@@ -47,6 +60,7 @@ const FormLocation: FC<IFormLocation> = ({
               value={pointValue}
               onChange={pointValueHandler}
               placeholder="Начните вводить пункт выдачи"
+              disabled={!(points.length > 0)}
             />
           </div>
         </div>
@@ -56,6 +70,8 @@ const FormLocation: FC<IFormLocation> = ({
         <div className={styles.map}>
           <AppMap
             points={points}
+            cityValue={cityValue}
+            pointValue={pointValue}
             setActivePointAddress={setActivePointAddress}
             setActivePointCity={setActivePointCity}
             setCityValue={setCityValue}
