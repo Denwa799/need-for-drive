@@ -1,4 +1,4 @@
-import { PageChangeHandlerType } from '../../pages/Order/FormModel/type';
+import { PageChangeHandlerType } from '../../../pages/Order/FormModel/type';
 
 export interface IAppPagination {
   total: number;

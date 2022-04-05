@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Typography } from 'antd';
 import cn from 'classnames';
+import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
 import styles from './PriceForm.module.less';
-import ButtonApp from '../../../ui/ButtonApp/ButtonApp';
 import { IPriceForm } from './type';
 
 const { Title, Text } = Typography;

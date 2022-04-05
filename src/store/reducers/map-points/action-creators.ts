@@ -1,7 +1,7 @@
-import { IMapPoint } from '../../../models/IMapPoint';
+import { IMapPoint } from 'models/IMapPoint';
+import { AppDispatch } from 'store/index';
+import MapPointsService from 'api/MapPointsService';
 import { GetMapPoints, MapPointsActionEnum, SetErrorAction, SetIsLoadingAction } from './types';
-import { AppDispatch } from '../../index';
-import MapPointsService from '../../../api/MapPointsService';
 
 export const MapPointsActionCreators = {
   getMapPoints: (payload: IMapPoint[]): GetMapPoints => ({

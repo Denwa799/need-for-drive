@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Typography, Col, Layout, Row } from 'antd';
-import styles from './Main.module.less';
-import ButtonApp from '../../ui/ButtonApp/ButtonApp';
-import AppCarousel from '../../ui/AppCarousel/AppCarousel';
+import Navigation from 'components/ui/Navigation/Navigation';
+import AppContainer from 'layouts/AppContainer/AppContainer';
+import AppHeader from 'layouts/AppHeader/AppHeader';
+import { RouteNames } from 'router/routes';
+import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
+import AppFooter from 'layouts/AppFooter/AppFooter';
+import AppCarousel from 'components/ui/AppCarousel/AppCarousel';
 import { MainPageSlider } from './slider';
-import { RouteNames } from '../../../router/routes';
-import Navigation from '../../ui/Navigation/Navigation';
-import AppHeader from '../../ui/AppLayout/AppHeader/AppHeader';
-import AppFooter from '../../ui/AppLayout/AppFooter/AppFooter';
-import AppContainer from '../../ui/AppLayout/AppContainer/AppContainer';
+import styles from './Main.module.less';
 
 const { Title, Text } = Typography;
 

@@ -1,5 +1,5 @@
+import AppContainer from 'layouts/AppContainer/AppContainer';
 import React, { FC } from 'react';
-import AppContainer from '../../../ui/AppLayout/AppContainer/AppContainer';
 
 const FormTotal: FC = () => {
   return (

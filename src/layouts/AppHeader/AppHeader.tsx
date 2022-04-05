@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Col, Layout, Row } from 'antd';
 import Icon from '@ant-design/icons';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { cityLocationSelector } from 'store/selectors/selectors';
+import LocationSvg from 'components/ui/CustomIcns/LocationSvg';
 import styles from './AppHeader.module.less';
-import LocationSvg from '../../CustomIcns/LocationSvg';
-import { useTypedSelector } from '../../../../hooks/useTypesSelector';
-import { cityLocationSelector } from '../../../../store/selectors/selectors';
 
 const AppHeader: FC = () => {
   const { city } = useTypedSelector(cityLocationSelector);

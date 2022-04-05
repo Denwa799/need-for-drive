@@ -69,7 +69,7 @@ const FormModel: FC<IFormModel> = ({
     return lastCarIndex - carsPerPage;
   }, [lastCarIndex, carsPerPage]);
 
-  // Отфилтрованный массив, исходя из пагинации
+  // Отфильтрованный массив, исходя из пагинации
   const paginationCars = useMemo(() => {
     return filteredCars.slice(firstCarIndex, lastCarIndex);
   }, [firstCarIndex, lastCarIndex, filteredCars]);

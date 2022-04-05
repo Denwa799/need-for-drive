@@ -1,4 +1,4 @@
-import { IMapPoint } from '../../../models/IMapPoint';
+import { IMapPoint } from 'models/IMapPoint';
 
 export interface MapPointsState {
   points: IMapPoint[];
