@@ -10,11 +10,11 @@ import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
-import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormLocation from './FormLocation/FormLocation';
 import PriceForm from './PriceForm/PriceForm';
 import styles from './Order.module.less';
 import { OrderBreadcrumb } from './OrderBreadcrumb';
+import { FormAdditionally } from './FormAdditionally';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
