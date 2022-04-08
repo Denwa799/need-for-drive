@@ -1,0 +1,89 @@
+@import "styles/consts";
+
+.FormAdditionally {
+  padding-top: 32px;
+  width: 277px;
+
+  .colorsBlock {
+    .colorsContainer {
+      padding-top: 15px;
+
+      .RadioGroup {
+        .Radio {
+          color: @app-primary-gray__dark;
+
+          span:nth-child(1) {
+
+            span {
+              border-color: @app-primary-gray__dark;
+            }
+
+            input[type=radio]:checked + span {
+              border: none;
+              background-color: @app-primary-color;
+            }
+
+            input[type=radio]:checked + span:after {
+              background-color: @app-primary-white;
+            }
+          }
+        }
+
+        .RadioActive {
+          color: @app-primary-black;
+        }
+      }
+    }
+  }
+
+  .dateBlock {
+    padding-top: 32px;
+
+    .dates {
+      padding-top: 16px;
+
+      .dateContainer {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding-bottom: 13px;
+
+        .dateText {
+          width: 27px;
+        }
+
+        .datePicker {
+          width: 100%;
+          border: none;
+          border-bottom: @app-primary-gray__dark 1px solid;
+          padding-bottom: 0;
+          border-radius: 0;
+          outline: none;
+          box-shadow: none;
+          text-align: left;
+          background: none;
+        }
+      }
+    }
+  }
+
+
+  .text__light {
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 463px) {
+  .FormAdditionally {
+    .colorsBlock {
+      .RadioGroup {
+        display: flex;
+        flex-direction: column;
+
+        .Radio {
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}
