@@ -21,7 +21,7 @@ const AppAutocomplete: FC<IAppAutocomplete> = ({ options, value, onChange, place
           className={styles.input}
           placeholder={placeholder}
           allowClear={{
-            clearIcon: <CloseOutlined style={{ color: '#000', fontSize: 16 }} />,
+            clearIcon: <CloseOutlined style={{ color: '#000', fontSize: 14 }} />,
           }}
         />
       </AutoComplete>

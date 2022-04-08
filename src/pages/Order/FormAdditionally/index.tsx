@@ -1,14 +1,17 @@
 import React, { FC, useCallback, useState } from 'react';
-import { DatePicker, Radio, Typography } from 'antd';
+import { DatePicker, Input, Radio, Typography } from 'antd';
 import cn from 'classnames';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
+import { CloseOutlined } from '@ant-design/icons';
 import styles from './styles.module.less';
 
 const { Text } = Typography;
 
 export const FormAdditionally: FC = () => {
   const [color, setColor] = useState('Любой');
+  const [startDate, setStartDate] = useState<Moment>();
+  const [endDate, setEndDate] = useState<Moment>();
 
   // Обработчик нажатия на radio button
   const colorChangeHandler = useCallback(
@@ -17,6 +20,25 @@ export const FormAdditionally: FC = () => {
     },
     [color]
   );
+
+  // Отключаю даты, что уже прошли
+  const disabledStartDate = (current: Moment) => {
+    return current < moment();
+  };
+
+  // Отключаю даты, меньше стартовой даты
+  const disabledEndDate = (current: Moment) => {
+    return current < moment(startDate);
+  };
+
+  // Обработчики нажатия на даты
+  const startDateChangeHandler = (date: Moment | null) => {
+    setStartDate(date!);
+  };
+
+  const endDateChangeHandler = (date: Moment | null) => {
+    setEndDate(date!);
+  };
 
   return (
     <div className={styles.FormAdditionally}>
@@ -55,6 +77,12 @@ export const FormAdditionally: FC = () => {
               showTime
               showNow={false}
               className={styles.datePicker}
+              disabledDate={disabledStartDate}
+              value={startDate}
+              onChange={startDateChangeHandler}
+              placeholder="Введите дату и время"
+              clearIcon={<CloseOutlined style={{ color: '#000', fontSize: 14 }} />}
+              suffixIcon
             />
           </div>
           <div className={styles.dateContainer}>
@@ -64,6 +92,13 @@ export const FormAdditionally: FC = () => {
               showTime
               showNow={false}
               className={styles.datePicker}
+              disabledDate={disabledEndDate}
+              value={endDate}
+              onChange={endDateChangeHandler}
+              placeholder="Введите дату и время"
+              clearIcon={<CloseOutlined style={{ color: '#000', fontSize: 14 }} />}
+              suffixIcon
+              disabled={!startDate}
             />
           </div>
         </div>
