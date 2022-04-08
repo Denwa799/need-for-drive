@@ -1,6 +1,6 @@
 import { AppDispatch } from 'store/index';
 import { ICar } from 'models/ICar';
-import CarsService from 'api/CarsService';
+import { GetService } from 'api';
 import { GetCars, CarsActionEnum, SetCarsErrorAction, SetCarsIsLoadingAction } from './types';
 
 export const CarsActionCreators = {
@@ -19,7 +19,7 @@ export const CarsActionCreators = {
   fetchCars: () => async (dispatch: AppDispatch) => {
     try {
       dispatch(CarsActionCreators.setCarsIsLoading(true));
-      const response = await CarsService.getCars();
+      const response = await GetService(process.env.REACT_APP_CARS_API);
       dispatch(CarsActionCreators.getCars(response.data.data));
       dispatch(CarsActionCreators.setCarsIsLoading(false));
     } catch (e) {

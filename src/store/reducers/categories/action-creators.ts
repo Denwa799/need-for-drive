@@ -1,6 +1,6 @@
 import { AppDispatch } from 'store/index';
 import { ICategory } from 'models/ICategory';
-import CategoriesService from 'api/CategoriesService';
+import { GetService } from 'api';
 import {
   CategoriesActionEnum,
   GetCategories,
@@ -24,7 +24,7 @@ export const CategoriesActionCreators = {
   fetchCategories: () => async (dispatch: AppDispatch) => {
     try {
       dispatch(CategoriesActionCreators.setCategoriesIsLoading(true));
-      const response = await CategoriesService.getCategories();
+      const response = await GetService(process.env.REACT_APP_CATEGORY_API);
       dispatch(CategoriesActionCreators.getCategories(response.data.data));
       dispatch(CategoriesActionCreators.setCategoriesIsLoading(false));
     } catch (e) {

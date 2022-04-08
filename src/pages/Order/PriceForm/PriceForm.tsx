@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Typography } from 'antd';
 import cn from 'classnames';
 import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
@@ -17,36 +17,37 @@ const PriceForm: FC<IPriceForm> = ({
   priceMin,
   priceMax,
 }) => {
-  function renderBtns() {
-    switch (maxStage) {
-      case 1:
-        return (
-          <ButtonApp disabled={!address} onClick={locationButtonHandler}>
-            Выбрать модель
-          </ButtonApp>
-        );
-      case 2:
-        return (
-          <ButtonApp disabled={!modelName} onClick={modelButtonHandler}>
-            Дополнительно
-          </ButtonApp>
-        );
-      case 3:
-        return (
-          <ButtonApp disabled={!address} onClick={additionallyButtonHandler}>
-            Итого
-          </ButtonApp>
-        );
-      case 4:
-        return <ButtonApp disabled={!address}>Заказать</ButtonApp>;
-      default:
-        return (
-          <ButtonApp disabled={!address} onClick={locationButtonHandler}>
-            Выбрать модель
-          </ButtonApp>
-        );
-    }
-  }
+  const RenderBtns = () =>
+    useMemo(() => {
+      switch (maxStage) {
+        case 1:
+          return (
+            <ButtonApp disabled={!address} onClick={locationButtonHandler}>
+              Выбрать модель
+            </ButtonApp>
+          );
+        case 2:
+          return (
+            <ButtonApp disabled={!modelName} onClick={modelButtonHandler}>
+              Дополнительно
+            </ButtonApp>
+          );
+        case 3:
+          return (
+            <ButtonApp disabled={!address} onClick={additionallyButtonHandler}>
+              Итого
+            </ButtonApp>
+          );
+        case 4:
+          return <ButtonApp disabled={!address}>Заказать</ButtonApp>;
+        default:
+          return (
+            <ButtonApp disabled={!address} onClick={locationButtonHandler}>
+              Выбрать модель
+            </ButtonApp>
+          );
+      }
+    }, [maxStage]);
 
   return (
     <div className={styles.PriceForm}>
@@ -74,7 +75,9 @@ const PriceForm: FC<IPriceForm> = ({
           </Text>
         </div>
       )}
-      <div className={styles.button}>{renderBtns()}</div>
+      <div className={styles.button}>
+        <RenderBtns />
+      </div>
     </div>
   );
 };

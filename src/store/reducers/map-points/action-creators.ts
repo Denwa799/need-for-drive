@@ -1,12 +1,12 @@
 import { IMapPoint } from 'models/IMapPoint';
 import { AppDispatch } from 'store/index';
-import MapPointsService from 'api/MapPointsService';
 import {
   GetMapPoints,
   MapPointsActionEnum,
   SetMapPointsErrorAction,
   SetMapPointsIsLoadingAction,
 } from './types';
+import { GetService } from '../../../api';
 
 export const MapPointsActionCreators = {
   getMapPoints: (payload: IMapPoint[]): GetMapPoints => ({
@@ -24,7 +24,7 @@ export const MapPointsActionCreators = {
   fetchPoints: () => async (dispatch: AppDispatch) => {
     try {
       dispatch(MapPointsActionCreators.setMapPointsIsLoading(true));
-      const response = await MapPointsService.getPoints();
+      const response = await GetService(process.env.REACT_APP_MAP_POINTS_API);
       dispatch(MapPointsActionCreators.getMapPoints(response.data.data));
       dispatch(MapPointsActionCreators.setMapPointsIsLoading(false));
     } catch (e) {

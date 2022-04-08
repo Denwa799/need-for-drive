@@ -1,20 +1,12 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
-import {
-  carsSelector,
-  categoriesSelector,
-  cityLocationSelector,
-  mapPointsSelector,
-} from 'store/selectors/selectors';
+import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { useActionsCityLocation } from 'hooks/useActions/useActionsCityLocation';
-import { useActionsMapPoints } from 'hooks/useActions/useActionsMapPoints';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
-import { useActionsCars } from 'hooks/useActions/useActionsCars';
-import { useActionsCategories } from 'hooks/useActions/useActionsCategories';
+import { useActions } from 'hooks/useActions';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
@@ -43,13 +35,13 @@ const Order: FC = () => {
   const [activePointCity, setActivePointCity] = useState(city);
 
   // Устанавливаю значение города в шапку сайта
-  const { setCityLocation } = useActionsCityLocation();
+  const { setCityLocation } = useActions();
   useEffect(() => {
     setCityLocation(activePointCity);
   }, [activePointCity]);
 
   // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
-  const { fetchPoints } = useActionsMapPoints();
+  const { fetchPoints } = useActions();
   useEffect(() => {
     fetchPoints();
   }, []);
@@ -73,17 +65,6 @@ const Order: FC = () => {
   });
 
   /* Блок с данными для формы "Модель" (FormModel) */
-  // Стейт для формы "Модель" (FormModel)
-  const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
-  const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
-
-  // Запрос на получение списка машин из api для формы "Модель" (FormModel)
-  const { fetchCars } = useActionsCars();
-  const { fetchCategories } = useActionsCategories();
-  useEffect(() => {
-    fetchCars();
-    fetchCategories();
-  }, []);
 
   // Локальный стейт для формы "Модель" (FormModel)
   const [activeCarId, setActiveCarId] = useState('');
@@ -91,23 +72,10 @@ const Order: FC = () => {
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
 
-  // Локальный стейт для фильтрации в radio button в форме "Модель" (FormModel)
-  const [filterCarsValue, setFilterCarsValue] = useState('Все');
-
   // Опции размера пагинации для формы "Модель" (FormModel)
   const pageSizeOptions = useMemo(() => {
     return ['2', '4', '6', '8', '10', '12'];
   }, []);
-
-  // Оставляю в объектах только id и name, чтобы передать их в AppRadioBtn
-  const categoriesRadioBtns = useMemo(() => {
-    return categories.map((category) => {
-      return {
-        id: category.id,
-        name: category.name,
-      };
-    });
-  }, [categories]);
 
   /* Блок с данными для формы заказа (PriceForm) */
   // Обработчики переключения вкладок для кнопкоп в PriceForm
@@ -148,28 +116,17 @@ const Order: FC = () => {
         return ComponentFormLoc;
 
       case 2:
-        if (carsIsLoading || carsError) {
-          return <ErrorLoading loading={carsIsLoading} error={carsError} />;
-        }
-        if (categoriesIsLoading || categoriesError) {
-          return <ErrorLoading loading={categoriesIsLoading} error={categoriesError} />;
-        }
         return (
           <FormModel
-            cars={cars}
-            categories={categoriesRadioBtns}
             activeCarId={activeCarId}
             activeCar={activeCar}
             setActiveCarId={setActiveCarId}
             setActiveCar={setActiveCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}
-            filterValue={filterCarsValue}
-            setFilterValue={setFilterCarsValue}
             pageSizeOptions={pageSizeOptions}
           />
         );
-
       case 3:
         return <FormAdditionally />;
       case 4:
