@@ -34,13 +34,19 @@ export const FormAdditionally: FC = () => {
   }, []);
 
   // Обработчики нажатия на даты
-  const startDateChangeHandler = useCallback((date: Moment | null) => {
-    return setStartDate(date!);
-  }, [startDate]);
+  const startDateChangeHandler = useCallback(
+    (date: Moment | null) => {
+      return setStartDate(date!);
+    },
+    [startDate]
+  );
 
-  const endDateChangeHandler = useCallback((date: Moment | null) => {
-    return setEndDate(date!);
-  }, [endDate]);
+  const endDateChangeHandler = useCallback(
+    (date: Moment | null) => {
+      return setEndDate(date!);
+    },
+    [endDate]
+  );
 
   // Обработчик нажатия на rate radio button
   const rateChangeHandler = useCallback(
@@ -84,6 +90,7 @@ export const FormAdditionally: FC = () => {
             <Text className={cn(styles.text__light, styles.dateText)}>С</Text>
             <DatePicker
               format="DD.MM.YYYY HH:mm"
+              defaultValue={moment()}
               showTime
               showNow={false}
               className={styles.datePicker}
