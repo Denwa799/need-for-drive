@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { DatePicker, Radio, Typography } from 'antd';
+import { Checkbox, DatePicker, Radio, Typography } from 'antd';
 import cn from 'classnames';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import moment, { Moment } from 'moment';
@@ -63,6 +63,12 @@ export const FormAdditionally: FC = () => {
     },
     [rate]
   );
+
+  const servicesCheckbox = [
+    { label: 'Полный бак, 500р', value: 'Полный бак' },
+    { label: 'Детское кресло, 200р', value: 'Детское кресло' },
+    { label: 'Правый руль, 1600р', value: 'Правый руль' },
+  ];
 
   return (
     <div className={styles.FormAdditionally}>
@@ -150,6 +156,10 @@ export const FormAdditionally: FC = () => {
             </Radio>
           </Radio.Group>
         </div>
+      </div>
+      <div className={styles.servicesBlock}>
+        <Text className={styles.text__light}>Доп услуги</Text>
+        <Checkbox.Group className={styles.checkboxGroup} options={servicesCheckbox} />
       </div>
     </div>
   );
