@@ -9,11 +9,13 @@ import styles from './styles.module.less';
 const { Text } = Typography;
 
 export const FormAdditionally: FC = () => {
+  // Локальный стейт
   const [color, setColor] = useState('Любой');
   const [startDate, setStartDate] = useState<Moment>();
   const [endDate, setEndDate] = useState<Moment>();
+  const [rate, setRate] = useState('На сутки');
 
-  // Обработчик нажатия на radio button
+  // Обработчик нажатия на color radio button
   const colorChangeHandler = useCallback(
     (event: RadioChangeEvent) => {
       setColor(event.target.value);
@@ -22,23 +24,31 @@ export const FormAdditionally: FC = () => {
   );
 
   // Отключаю даты, что уже прошли
-  const disabledStartDate = (current: Moment) => {
+  const disabledStartDate = useCallback((current: Moment) => {
     return current < moment();
-  };
+  }, []);
 
-  // Отключаю даты, меньше стартовой даты
-  const disabledEndDate = (current: Moment) => {
+  // Отключаю даты, меньше стартовой даты. Для второго поля, до какой даты аренда
+  const disabledEndDate = useCallback((current: Moment) => {
     return current < moment(startDate);
-  };
+  }, []);
 
   // Обработчики нажатия на даты
-  const startDateChangeHandler = (date: Moment | null) => {
-    setStartDate(date!);
-  };
+  const startDateChangeHandler = useCallback((date: Moment | null) => {
+    return setStartDate(date!);
+  }, [startDate]);
 
-  const endDateChangeHandler = (date: Moment | null) => {
-    setEndDate(date!);
-  };
+  const endDateChangeHandler = useCallback((date: Moment | null) => {
+    return setEndDate(date!);
+  }, [endDate]);
+
+  // Обработчик нажатия на rate radio button
+  const rateChangeHandler = useCallback(
+    (event: RadioChangeEvent) => {
+      setRate(event.target.value);
+    },
+    [rate]
+  );
 
   return (
     <div className={styles.FormAdditionally}>
@@ -101,6 +111,29 @@ export const FormAdditionally: FC = () => {
               disabled={!startDate}
             />
           </div>
+        </div>
+      </div>
+      <div className={styles.ratesBlock}>
+        <Text className={styles.text__light}>Тариф</Text>
+        <div className={styles.ratesContainer}>
+          <Radio.Group onChange={rateChangeHandler} value={rate} className={styles.RadioGroup}>
+            <Radio
+              value="Поминутно"
+              className={cn(styles.Radio, styles.rate, {
+                [styles.RadioActive]: rate === 'Поминутно',
+              })}
+            >
+              Поминутно, 7₽/мин
+            </Radio>
+            <Radio
+              value="На сутки"
+              className={cn(styles.Radio, styles.rate, {
+                [styles.RadioActive]: rate === 'На сутки',
+              })}
+            >
+              На сутки, 1999₽/сутки
+            </Radio>
+          </Radio.Group>
         </div>
       </div>
     </div>
