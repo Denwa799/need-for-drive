@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { DatePicker, Input, Radio, Typography } from 'antd';
+import { DatePicker, Radio, Typography } from 'antd';
 import cn from 'classnames';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import moment, { Moment } from 'moment';
@@ -11,7 +11,11 @@ const { Text } = Typography;
 export const FormAdditionally: FC = () => {
   // Локальный стейт
   const [color, setColor] = useState('Любой');
-  const [startDate, setStartDate] = useState<Moment>();
+  const [startDate, setStartDate] = useState<Moment>(
+    useCallback(() => {
+      return moment();
+    }, [])
+  );
   const [endDate, setEndDate] = useState<Moment>();
   const [rate, setRate] = useState('На сутки');
 
@@ -29,13 +33,17 @@ export const FormAdditionally: FC = () => {
   }, []);
 
   // Отключаю даты, меньше стартовой даты. Для второго поля, до какой даты аренда
-  const disabledEndDate = useCallback((current: Moment) => {
-    return current < moment(startDate);
-  }, []);
+  const disabledEndDate = useCallback(
+    (current: Moment) => {
+      return current < moment(startDate);
+    },
+    [startDate]
+  );
 
   // Обработчики нажатия на даты
   const startDateChangeHandler = useCallback(
     (date: Moment | null) => {
+      setEndDate(undefined);
       return setStartDate(date!);
     },
     [startDate]
