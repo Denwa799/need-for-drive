@@ -7,4 +7,11 @@ export interface IPriceForm {
   modelName: string;
   priceMin: number;
   priceMax: number;
+  price: number;
+  color: string;
+  duration: string;
+  rate: string;
+  isFullTank: boolean;
+  isChildSeat: boolean;
+  isRightHandDrive: boolean;
 }

@@ -142,29 +142,47 @@ code {
   }
 }
 
-.ant-checkbox-wrapper.ant-checkbox-wrapper-checked.ant-checkbox-group-item {
+.ant-checkbox-wrapper.ant-checkbox-wrapper-checked {
+  .ant-checkbox.ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background-color: @app-primary-white;
+      border-color: @app-primary-color;
+    }
+
+    .ant-checkbox-inner::after {
+      border-width: 3px;
+      width: 10px;
+      height: 15px;
+      top: 40%;
+    }
+  }
+
+  .ant-checkbox.ant-checkbox-checked::after {
+    border: none;
+  }
+
   span:last-child {
     color: @app-primary-black;
   }
 }
 
-.ant-checkbox.ant-checkbox-checked {
-  .ant-checkbox-inner {
-    background-color: @app-primary-white;
-  }
-
-  .ant-checkbox-inner::after {
-    border-width: 3px;
-    width: 10px;
-    height: 15px;
-    top: 40%;
-  }
-
-  ::after {
-    border: none;
+.ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
+  .ant-picker-panel-container {
+    .ant-picker-panel {
+      .ant-picker-datetime-panel {
+        .ant-picker-time-panel {
+          .ant-picker-content {
+            .ant-picker-time-panel-column::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
+/* Переписываю стили datepicker из библиотеки ant design */
 @media (max-width: 393px) {
   .ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
     .ant-picker-panel-container {
@@ -184,12 +202,6 @@ code {
 
           .ant-picker-time-panel {
             width: 100%;
-
-            .ant-picker-content {
-              .ant-picker-time-panel-column::after {
-                display: none;
-              }
-            }
           }
         }
       }
