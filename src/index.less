@@ -164,3 +164,35 @@ code {
     border: none;
   }
 }
+
+@media (max-width: 393px) {
+  .ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
+    .ant-picker-panel-container {
+      .ant-picker-panel {
+        .ant-picker-datetime-panel {
+          flex-wrap: wrap;
+
+          .ant-picker-date-panel {
+            width: 100%;
+
+            .ant-picker-body {
+              .ant-picker-content {
+                width: 100%;
+              }
+            }
+          }
+
+          .ant-picker-time-panel {
+            width: 100%;
+
+            .ant-picker-content {
+              .ant-picker-time-panel-column::after {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
