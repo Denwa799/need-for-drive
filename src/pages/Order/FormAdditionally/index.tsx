@@ -1,24 +1,30 @@
-import React, { FC, useCallback, useState } from 'react';
-import { Checkbox, DatePicker, Radio, Typography } from 'antd';
+import React, { FC, useCallback } from 'react';
+import { Checkbox, Col, DatePicker, Radio, Row, Typography } from 'antd';
 import cn from 'classnames';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import moment, { Moment } from 'moment';
 import { CloseOutlined } from '@ant-design/icons';
 import styles from './styles.module.less';
+import { IFormAdditionally } from './type';
 
 const { Text } = Typography;
 
-export const FormAdditionally: FC = () => {
-  // Локальный стейт
-  const [color, setColor] = useState('Любой');
-  const [startDate, setStartDate] = useState<Moment>(
-    useCallback(() => {
-      return moment();
-    }, [])
-  );
-  const [endDate, setEndDate] = useState<Moment>();
-  const [rate, setRate] = useState('На сутки');
-
+export const FormAdditionally: FC<IFormAdditionally> = ({
+  color,
+  setColor,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  rate,
+  setRate,
+  isFullTank,
+  setIsFullTank,
+  isChildSeat,
+  setIsChildSeat,
+  isRightHandDrive,
+  setIsRightHandDrive,
+}) => {
   // Обработчик нажатия на color radio button
   const colorChangeHandler = useCallback(
     (event: RadioChangeEvent) => {
@@ -64,11 +70,18 @@ export const FormAdditionally: FC = () => {
     [rate]
   );
 
-  const servicesCheckbox = [
-    { label: 'Полный бак, 500р', value: 'Полный бак' },
-    { label: 'Детское кресло, 200р', value: 'Детское кресло' },
-    { label: 'Правый руль, 1600р', value: 'Правый руль' },
-  ];
+  // Обработчики нажатия на checkbox
+  const fullTankChangeHandler = useCallback(() => {
+    setIsFullTank(!isFullTank);
+  }, [isFullTank]);
+
+  const childSeatChangeHandler = useCallback(() => {
+    setIsChildSeat(!isChildSeat);
+  }, [isChildSeat]);
+
+  const rightHandDriveChangeHandler = useCallback(() => {
+    setIsRightHandDrive(!isRightHandDrive);
+  }, [isRightHandDrive]);
 
   return (
     <div className={styles.FormAdditionally}>
@@ -159,7 +172,31 @@ export const FormAdditionally: FC = () => {
       </div>
       <div className={styles.servicesBlock}>
         <Text className={styles.text__light}>Доп услуги</Text>
-        <Checkbox.Group className={styles.checkboxGroup} options={servicesCheckbox} />
+        <div className={styles.servicesContainer}>
+          <div className={styles.checkboxGroup}>
+            <Row>
+              <Col span={24}>
+                <Checkbox onChange={fullTankChangeHandler} checked={isFullTank}>
+                  Полный бак, 500р
+                </Checkbox>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <Checkbox onChange={childSeatChangeHandler} checked={isChildSeat}>
+                  Детское кресло, 200р
+                </Checkbox>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <Checkbox onChange={rightHandDriveChangeHandler} checked={isRightHandDrive}>
+                  Правый руль, 1600р
+                </Checkbox>
+              </Col>
+            </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

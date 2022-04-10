@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
 import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
@@ -7,13 +7,14 @@ import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import { useActions } from 'hooks/useActions';
+import moment, { Moment } from 'moment';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormLocation from './FormLocation/FormLocation';
-import PriceForm from './PriceForm/PriceForm';
 import styles from './Order.module.less';
 import { OrderBreadcrumb } from './OrderBreadcrumb';
 import { FormAdditionally } from './FormAdditionally';
+import PriceForm from './PriceForm/PriceForm';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
@@ -92,6 +93,63 @@ const Order: FC = () => {
     setMaxStage(4);
   };
 
+  /* Блок с данными для формы дополнительных параметров (FormAdditionally) */
+  // Локальный стейт для формы "Дополнительно" (FormAdditionally)
+  const [color, setColor] = useState('');
+  const [startDate, setStartDate] = useState<Moment>(
+    useCallback(() => {
+      return moment();
+    }, [])
+  );
+  const [endDate, setEndDate] = useState<Moment>();
+  const [rate, setRate] = useState('');
+  const [isFullTank, setIsFullTank] = useState(false);
+  const [isChildSeat, setIsChildSeat] = useState(false);
+  const [isRightHandDrive, setIsRightHandDrive] = useState(false);
+
+  // Высчитывает разницу во времени, чтобы узнать длительность аренды
+  const duration = useMemo(() => {
+    if (endDate !== undefined && endDate !== null) {
+      return endDate.diff(startDate);
+    }
+    return '';
+  }, [endDate]);
+
+  // Переводит разницу в строку для отображения
+  const durationString = useMemo(() => {
+    if (duration) {
+      return moment.utc(duration).format('Dд Hч');
+    }
+    return '';
+  }, [duration]);
+
+  // Переводит разницу в количество минут
+  const durationMin = useMemo(() => {
+    if (duration && rate === 'Поминутно') {
+      return moment.duration(duration).asMinutes();
+    }
+    return 0;
+  }, [duration, rate]);
+
+  // Переводит разницу в количество часов
+  const durationDays = useMemo(() => {
+    if (duration && rate === 'На сутки') {
+      return Math.ceil(moment.duration(duration).asDays());
+    }
+    return 0;
+  }, [duration, rate]);
+
+  const price = useMemo(() => {
+    return Math.round(
+      priceMin +
+        durationMin * 7 +
+        durationDays * 1999 +
+        (isFullTank ? 500 : 0) +
+        (isChildSeat ? 200 : 0) +
+        (isRightHandDrive ? 1600 : 0)
+    );
+  }, [priceMin, durationMin, durationDays, isFullTank, isChildSeat, isRightHandDrive]);
+
   /* Отрисовка вкладок */
   const ComponentFormLoc = (
     <FormLocation
@@ -128,7 +186,24 @@ const Order: FC = () => {
           />
         );
       case 3:
-        return <FormAdditionally />;
+        return (
+          <FormAdditionally
+            color={color}
+            setColor={setColor}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            rate={rate}
+            setRate={setRate}
+            isFullTank={isFullTank}
+            setIsFullTank={setIsFullTank}
+            isChildSeat={isChildSeat}
+            setIsChildSeat={setIsChildSeat}
+            isRightHandDrive={isRightHandDrive}
+            setIsRightHandDrive={setIsRightHandDrive}
+          />
+        );
       case 4:
         return <FormTotal />;
       default:
@@ -173,8 +248,15 @@ const Order: FC = () => {
                     modelButtonHandler={priceFormModelButtonHandler}
                     additionallyButtonHandler={priceFormAdditionallyButtonHandler}
                     modelName={activeCar}
+                    price={price}
                     priceMin={priceMin}
                     priceMax={priceMax}
+                    color={color}
+                    duration={durationString}
+                    rate={rate}
+                    isFullTank={isFullTank}
+                    isChildSeat={isChildSeat}
+                    isRightHandDrive={isRightHandDrive}
                   />
                 </AppContainer>
               </Layout.Content>
