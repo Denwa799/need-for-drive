@@ -5,19 +5,7 @@ export interface IFormModel {
   setActiveCarId: (value: string) => void;
   setPriceMin: (value: number) => void;
   setPriceMax: (value: number) => void;
-  filterValue: string;
-  setFilterValue: (value: string) => void;
   pageSizeOptions: string[];
-}
-
-export interface ICarModel {
-  id: string;
-  name: string;
-  priceMin: number;
-  priceMax: number;
-  categoryId: {
-    name: string;
-  };
 }
 
 export type CarClickHandlerType = (id: string, name: string, min: number, max: number) => void;

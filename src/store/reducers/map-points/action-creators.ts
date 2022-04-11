@@ -1,29 +1,36 @@
 import { IMapPoint } from 'models/IMapPoint';
 import { AppDispatch } from 'store/index';
-import MapPointsService from 'api/MapPointsService';
-import { GetMapPoints, MapPointsActionEnum, SetErrorAction, SetIsLoadingAction } from './types';
+import {
+  GetMapPoints,
+  MapPointsActionEnum,
+  SetMapPointsErrorAction,
+  SetMapPointsIsLoadingAction,
+} from './types';
+import { GetService } from '../../../api';
 
 export const MapPointsActionCreators = {
   getMapPoints: (payload: IMapPoint[]): GetMapPoints => ({
     type: MapPointsActionEnum.GET_POINTS,
     payload,
   }),
-  setIsLoading: (payload: boolean): SetIsLoadingAction => ({
-    type: MapPointsActionEnum.SET_IS_LOADING,
+  setMapPointsIsLoading: (payload: boolean): SetMapPointsIsLoadingAction => ({
+    type: MapPointsActionEnum.SET_POINTS_IS_LOADING,
     payload,
   }),
-  setError: (payload: string): SetErrorAction => ({
-    type: MapPointsActionEnum.SET_ERROR,
+  setMapPointsError: (payload: string): SetMapPointsErrorAction => ({
+    type: MapPointsActionEnum.SET_POINTS_ERROR,
     payload,
   }),
   fetchPoints: () => async (dispatch: AppDispatch) => {
     try {
-      dispatch(MapPointsActionCreators.setIsLoading(true));
-      const response = await MapPointsService.getPoints();
+      dispatch(MapPointsActionCreators.setMapPointsIsLoading(true));
+      const response = await GetService(process.env.REACT_APP_MAP_POINTS_API);
       dispatch(MapPointsActionCreators.getMapPoints(response.data.data));
-      dispatch(MapPointsActionCreators.setIsLoading(false));
+      dispatch(MapPointsActionCreators.setMapPointsIsLoading(false));
     } catch (e) {
-      dispatch(MapPointsActionCreators.setError('Произошла ошибка при загрузке данных'));
+      dispatch(
+        MapPointsActionCreators.setMapPointsError('Произошла ошибка при загрузке списка городов')
+      );
     }
   },
 };

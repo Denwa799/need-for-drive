@@ -1,11 +1,14 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Row } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
-import { AppRadioBtn } from 'components/ui/AppRadioBtn';
+import { AppRadioGroup } from 'components/ui/AppRadioGroup';
 import { AppPagination } from 'components/ui/AppPagination';
+import { AppRadioBtn } from 'components/ui/AppRadioBtn';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { useActions } from 'hooks/useActions';
+import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { carsSelector, categoriesSelector } from 'store/selectors/selectors';
 import styles from './FormModel.module.less';
-
-import { carsMock as cars } from './carsMock';
 import { IFormModel, CarClickHandlerType, PageChangeHandlerType } from './type';
 import FilteredCars from './FilteredCars';
 
@@ -15,13 +18,24 @@ const FormModel: FC<IFormModel> = ({
   setActiveCar,
   setPriceMin,
   setPriceMax,
-  filterValue,
-  setFilterValue,
   pageSizeOptions,
 }) => {
+  // Стейт
+  const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
+  const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
+
+  // Запрос на получение списка машин из api для формы "Модель" (FormModel)
+  const { fetchCars } = useActions();
+  const { fetchCategories } = useActions();
+  useEffect(() => {
+    fetchCars();
+    fetchCategories();
+  }, []);
+
   // Локальный стейт для реализации пагинации
   const [currentPage, setCurrentPage] = useState(1);
   const [carsPerPage, setCarsPerPage] = useState(4);
+  const [filterValue, setFilterValue] = useState('Все модели');
 
   // Обработчик нажатия на radio button
   const filterChangeHandler = useCallback(
@@ -54,11 +68,11 @@ const FormModel: FC<IFormModel> = ({
 
   // Отфильтровываю машины
   const filteredCars = useMemo(() => {
-    if (filterValue !== 'Все') {
+    if (filterValue !== 'Все модели') {
       return cars.filter((car) => car.categoryId.name === filterValue);
     }
     return cars;
-  }, [filterValue]);
+  }, [cars, filterValue]);
 
   // Переменные для реализации пагинации
   const lastCarIndex = useMemo(() => {
@@ -72,26 +86,44 @@ const FormModel: FC<IFormModel> = ({
   // Отфильтрованный массив, исходя из пагинации
   const paginationCars = useMemo(() => {
     return filteredCars.slice(firstCarIndex, lastCarIndex);
-  }, [firstCarIndex, lastCarIndex, filteredCars]);
+  }, [filteredCars, firstCarIndex, lastCarIndex, filteredCars]);
+
+  const pageIsLoading = carsIsLoading || carsError || categoriesIsLoading || categoriesError;
 
   return (
-    <div className={styles.formModel}>
-      <div className={styles.radioButtons}>
-        <AppRadioBtn onChange={filterChangeHandler} filterValue={filterValue} />
-      </div>
-      <Row className={styles.cards}>
-        <FilteredCars
-          activeCarId={activeCarId}
-          paginationCars={paginationCars}
-          carClickHandler={carClickHandler}
+    <div>
+      {pageIsLoading ? (
+        <ErrorLoading
+          loading={carsIsLoading || categoriesIsLoading}
+          error={carsError || categoriesError}
         />
-      </Row>
-      <AppPagination
-        onChange={pageChangeHandler}
-        total={filteredCars.length}
-        pageSizeOptions={pageSizeOptions}
-        page={currentPage}
-      />
+      ) : (
+        <div className={styles.formModel}>
+          <div className={styles.radioButtons}>
+            <AppRadioGroup onChange={filterChangeHandler} filterValue={filterValue}>
+              <AppRadioBtn value="Все модели" filterValue={filterValue} />
+              {categories.map((button) => {
+                return (
+                  <AppRadioBtn key={button.id} value={button.name} filterValue={filterValue} />
+                );
+              })}
+            </AppRadioGroup>
+          </div>
+          <Row>
+            <FilteredCars
+              activeCarId={activeCarId}
+              paginationCars={paginationCars}
+              carClickHandler={carClickHandler}
+            />
+          </Row>
+          <AppPagination
+            onChange={pageChangeHandler}
+            total={filteredCars.length}
+            pageSizeOptions={pageSizeOptions}
+            page={currentPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

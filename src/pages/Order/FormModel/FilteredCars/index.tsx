@@ -1,18 +1,30 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent, useCallback } from 'react';
 import { Col, Typography } from 'antd';
 import cn from 'classnames';
-import car1 from 'assets/img/cars/image-1.webp';
-import styles from '../FormModel.module.less';
+import defaultImg from 'assets/img/cars/image-1.webp';
+import styles from './styles.module.less';
 import { IFilteredCars } from './type';
 
 const { Title, Text } = Typography;
 
 const FilteredCars: FC<IFilteredCars> = ({ activeCarId, paginationCars, carClickHandler }) => {
+  const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = defaultImg;
+  }, []);
+
   return (
     <>
       {paginationCars.map((car) => {
         return (
-          <Col key={car.id} xl={12} lg={24} md={12} sm={12} xs={24}>
+          <Col
+            key={car.id}
+            xl={12}
+            lg={24}
+            md={12}
+            sm={12}
+            xs={24}
+            className={styles.cardContainer}
+          >
             <button
               type="button"
               className={cn(styles.card, { [styles.cardActive]: car.id === activeCarId })}
@@ -27,7 +39,12 @@ const FilteredCars: FC<IFilteredCars> = ({ activeCarId, paginationCars, carClick
                 </Text>
               </div>
               <div className={styles.imgContainer}>
-                <img src={car1} alt="car" className={styles.img} />
+                <img
+                  src={car.thumbnail.path}
+                  alt={car.name}
+                  onError={imageOnErrorHandler}
+                  className={styles.img}
+                />
               </div>
             </button>
           </Col>

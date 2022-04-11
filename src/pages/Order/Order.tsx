@@ -3,12 +3,11 @@ import { Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
 import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { useActionsCityLocation } from 'hooks/useActions/useActionsCityLocation';
-import { useActionsMapPoints } from 'hooks/useActions/useActionsMapPoints';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import useDebounce from 'hooks/useDebounce';
+import { useActions } from 'hooks/useActions';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
@@ -28,8 +27,7 @@ const Order: FC = () => {
 
   /* Блок с данными для формы "местоположение" (FormLocation) */
   // Стейт для формы "местоположение" (FormLocation)
-  const { mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
-  const { points } = useTypedSelector(mapPointsSelector);
+  const { points, mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
 
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState(city);
@@ -40,13 +38,13 @@ const Order: FC = () => {
   const [activePointCity, setActivePointCity] = useState(city);
 
   // Устанавливаю значение города в шапку сайта
-  const { setCityLocation } = useActionsCityLocation();
+  const { setCityLocation } = useActions();
   useEffect(() => {
     setCityLocation(activePointCity);
   }, [activePointCity]);
 
   // Запрос на получение меток карты из api для формы "местоположение" (FormLocation)
-  const { fetchPoints } = useActionsMapPoints();
+  const { fetchPoints } = useActions();
   useEffect(() => {
     fetchPoints();
   }, []);
@@ -81,14 +79,12 @@ const Order: FC = () => {
   }, [filteredCityPoints]);
 
   /* Блок с данными для формы "Модель" (FormModel) */
+
   // Локальный стейт для формы "Модель" (FormModel)
   const [activeCarId, setActiveCarId] = useState('');
   const [activeCar, setActiveCar] = useState('');
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
-
-  // Локальный стейт для фильтрации в radio button в форме "Модель" (FormModel)
-  const [filterCarsValue, setFilterCarsValue] = useState('Все');
 
   // Опции размера пагинации для формы "Модель" (FormModel)
   const pageSizeOptions = useMemo(() => {
@@ -128,12 +124,13 @@ const Order: FC = () => {
   );
 
   function renderForms() {
-    if (mapPointsIsLoading || mapPointsError) {
-      return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
-    }
     switch (activeStage) {
       case 1:
+        if (mapPointsIsLoading || mapPointsError) {
+          return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
+        }
         return ComponentFormLoc;
+
       case 2:
         return (
           <FormModel
@@ -143,8 +140,6 @@ const Order: FC = () => {
             setActiveCar={setActiveCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}
-            filterValue={filterCarsValue}
-            setFilterValue={setFilterCarsValue}
             pageSizeOptions={pageSizeOptions}
           />
         );
