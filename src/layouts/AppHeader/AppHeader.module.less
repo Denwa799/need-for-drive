@@ -1,0 +1,55 @@
+@import 'styles/consts';
+
+.AppHeader {
+  padding: 22px 0 0 0;
+}
+
+.Logo {
+  color: @app-primary-color;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.headerIcn {
+  padding-right: 5px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  text-align: right;
+  color: @app-primary-gray__dark;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .AppHeader {
+    padding-top: 22px;
+  }
+}
+
+@media (max-width: 575px) {
+  .AppHeader {
+    text-align: right;
+    padding-top: 0;
+    position: relative;
+    bottom: 45px;
+
+    .location {
+      bottom: 30px;
+    }
+  }
+}
+
+@media
+(min-width: 769px) and (max-height: 370px),
+(min-width: 576px) and (max-height: 325px),
+(min-width: 568px) and (max-height: 500px),
+(min-width: 401px) and (max-height: 535px){
+  .header {
+    .Logo {
+      font-size: 26px;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { IMapPoint } from '../../../models/IMapPoint';
+import { IMapPoint } from 'models/IMapPoint';
 
 export interface MapPointsState {
   points: IMapPoint[];
@@ -8,8 +8,8 @@ export interface MapPointsState {
 
 export enum MapPointsActionEnum {
   GET_POINTS = 'GET_POINTS',
-  SET_ERROR = 'SET_ERROR',
-  SET_IS_LOADING = 'SET_IS_LOADING',
+  SET_POINTS_ERROR = 'SET_POINTS_ERROR',
+  SET_POINTS_IS_LOADING = 'SET_POINTS_IS_LOADING',
 }
 
 export interface GetMapPoints {
@@ -17,14 +17,14 @@ export interface GetMapPoints {
   payload: IMapPoint[];
 }
 
-export interface SetErrorAction {
-  type: MapPointsActionEnum.SET_ERROR;
+export interface SetMapPointsErrorAction {
+  type: MapPointsActionEnum.SET_POINTS_ERROR;
   payload: string;
 }
 
-export interface SetIsLoadingAction {
-  type: MapPointsActionEnum.SET_IS_LOADING;
+export interface SetMapPointsIsLoadingAction {
+  type: MapPointsActionEnum.SET_POINTS_IS_LOADING;
   payload: boolean;
 }
 
-export type MapPointsAction = GetMapPoints | SetIsLoadingAction | SetErrorAction;
+export type MapPointsAction = GetMapPoints | SetMapPointsIsLoadingAction | SetMapPointsErrorAction;

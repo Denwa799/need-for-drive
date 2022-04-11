@@ -1,36 +1,57 @@
-@import 'src/styles/consts';
+@import 'styles/consts';
 
-.RadioGroup {
-  .Radio {
-    color: @app-primary-gray__dark;
+.Radio {
+  padding: 2px 0;
+  color: @app-primary-gray__dark;
 
-    span:nth-child(1) {
+  span:nth-child(1) {
 
-      span {
-        border-color: @app-primary-gray__dark;
-      }
-
-      input[type=radio]:checked + span {
-        border: none;
-        background-color: @app-primary-color;
-      }
-
-      input[type=radio]:checked + span:after {
-        background-color: @app-primary-white;
-      }
+    span {
+      border-color: @app-primary-gray__dark;
     }
-  }
-  .RadioActive {
-    color: @app-primary-black;
+
+    input[type=radio]:checked + span {
+      border: none;
+      background-color: @app-primary-color;
+    }
+
+    input[type=radio]:checked + span:after {
+      background-color: @app-primary-white;
+    }
   }
 }
 
-@media (max-width: 463px) {
-  .RadioGroup {
-    display: flex;
-    flex-direction: column;
-    .Radio {
-      line-height: 1.4;
-    }
+.RadioActive {
+  color: @app-primary-black;
+}
+
+@media (max-width: 1268px) {
+  .Radio {
+    width: 125px;
   }
+}
+
+@media (max-width: 991px) {
+  .Radio {
+    width: auto;
+  }
+}
+
+@media (max-width: 703px) {
+    .Radio {
+      width: 125px;
+    }
+}
+
+@media (max-width: 463px) {
+    .Radio {
+      width: 125px;
+    }
+}
+
+@media (max-width: 329px) {
+    .Radio {
+      font-size: 13px;
+      width: 120px;
+    }
 }

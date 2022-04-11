@@ -1,11 +1,11 @@
+import Insurance from 'pages/Insurance/Insurance';
+import Main from 'pages/Main/Main';
+import Order from 'pages/Order/Order';
+import Parking from 'pages/Parking/Parking';
 import React from 'react';
-import Main from '../components/pages/Main/Main';
-import Parking from '../components/pages/Parking/Parking';
-import Insurance from '../components/pages/Insurance/Insurance';
-import Petrol from '../components/pages/Petrol/Petrol';
-import Service from '../components/pages/Service/Service';
+import Petrol from 'pages/Petrol/Petrol';
+import Service from 'pages/Service/Service';
 import { RouteNames } from './routes';
-import Order from '../components/pages/Order/Order';
 
 interface IRoute {
   path: string;

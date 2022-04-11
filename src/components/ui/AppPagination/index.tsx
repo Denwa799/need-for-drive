@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Col, Pagination, Row } from 'antd';
-import styles from '../../pages/Order/FormModel/FormModel.module.less';
+import styles from './styles.module.less';
 import { IAppPagination } from './type';
 
 export const AppPagination: FC<IAppPagination> = ({ total, onChange, pageSizeOptions, page }) => {

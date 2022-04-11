@@ -1,0 +1,101 @@
+@import 'styles/consts';
+
+.FormLocation {
+  padding-top: 32px;
+  .inputs {
+    width: 330px;
+
+    .inputContainer {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+
+      .inputText {
+        padding-right: 8px;
+        font-size: 14px;
+      }
+
+      .autocompleteContainer {
+        width: 224px;
+      }
+    }
+  }
+
+  .mapBlock {
+    padding-top: 46px;
+
+    span {
+      display: block;
+    }
+
+    .map {
+      width: 736px;
+      height: 352px;
+      padding-top: 16px;
+    }
+  }
+}
+
+.dropdown {
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid @app-primary-gray__light;
+}
+
+@media (max-width: 1320px) {
+  .FormLocation {
+    .mapBlock {
+      .map {
+        width: 450px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .FormLocation {
+    .mapBlock {
+      .map {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .FormLocation {
+    .inputs {
+      width: 100%;
+
+      .inputContainer {
+        width: 100%;
+
+        text-align: right;
+
+        .inputText {
+          width: 150px;
+        }
+
+        .autocompleteContainer {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .FormLocation {
+    .inputs {
+      .inputContainer {
+        padding-bottom: 10px;
+        text-align: left;
+
+        .inputText {
+          width: 70px;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+}

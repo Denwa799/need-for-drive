@@ -1,8 +1,6 @@
-import { PageChangeHandlerType } from '../../pages/Order/FormModel/type';
-
 export interface IAppPagination {
   total: number;
-  onChange: PageChangeHandlerType;
+  onChange: (pageNumber: number, pageSize: number) => void;
   pageSizeOptions: string[];
   page: number;
 }

@@ -1,0 +1,36 @@
+@import "styles/consts";
+
+.OrderBreadcrumb {
+  .breadcrumb, .breadcrumb span, .breadcrumbFinal {
+    font-size: 14px;
+    font-weight: bold;
+    color: @app-primary-gray__dark;
+    padding: 7px 0 7px 0;
+  }
+
+  .breadcrumb {
+    .breadcrumbItem {
+      cursor: pointer;
+    }
+    .breadcrumbComplete {
+      color: @app-primary-black;
+    }
+
+    .breadcrumbActive {
+      color: @app-primary-color;
+    }
+  }
+}
+
+@media (max-width: 463px) {
+  .OrderBreadcrumb {
+    .breadcrumb {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      span {
+        font-size: 18px;
+      }
+    }
+  }
+}
