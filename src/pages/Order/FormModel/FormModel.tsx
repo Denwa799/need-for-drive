@@ -7,10 +7,10 @@ import { AppRadioBtn } from 'components/ui/AppRadioBtn';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { useActions } from 'hooks/useActions';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { carsSelector, categoriesSelector } from 'store/selectors/selectors';
 import styles from './FormModel.module.less';
 import { IFormModel, CarClickHandlerType, PageChangeHandlerType } from './type';
 import FilteredCars from './FilteredCars';
-import { carsSelector, categoriesSelector } from '../../../store/selectors/selectors';
 
 const FormModel: FC<IFormModel> = ({
   activeCarId,
