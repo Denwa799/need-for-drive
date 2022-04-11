@@ -154,15 +154,16 @@ const Order: FC = () => {
   }, [priceMin, durationMin, durationDays, isFullTank, isChildSeat, isRightHandDrive]);
 
   // Функция очистки стейта для формы "Дополнительно" (FormAdditionally)
-  const clearFormAdditionally = () => {
+  const clearFormAdditionally = useCallback(() => {
     setColor('');
+    setStartDate(moment());
     setEndDate(undefined);
     setRate('');
     setIsFullTank(false);
     setIsChildSeat(false);
     setIsRightHandDrive(false);
     setMaxStage(2);
-  };
+  }, []);
 
   /* Отрисовка вкладок */
   const ComponentFormLoc = (
