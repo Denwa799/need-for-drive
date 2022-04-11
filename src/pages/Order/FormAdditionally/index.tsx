@@ -6,10 +6,13 @@ import moment, { Moment } from 'moment';
 import { CloseOutlined } from '@ant-design/icons';
 import styles from './styles.module.less';
 import { IFormAdditionally } from './type';
+import { AppRadioGroup } from '../../../components/ui/AppRadioGroup';
+import { AppRadioBtn } from '../../../components/ui/AppRadioBtn';
 
 const { Text } = Typography;
 
 export const FormAdditionally: FC<IFormAdditionally> = ({
+  carColors,
   color,
   setColor,
   startDate,
@@ -25,6 +28,8 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   isRightHandDrive,
   setIsRightHandDrive,
 }) => {
+  const filteredColors = Array.from(new Set(carColors));
+
   // Обработчик нажатия на color radio button
   const colorChangeHandler = useCallback(
     (event: RadioChangeEvent) => {
@@ -89,24 +94,9 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
         <Text className={styles.text__light}>Цвет</Text>
         <div className={styles.colorsContainer}>
           <Radio.Group onChange={colorChangeHandler} value={color} className={styles.RadioGroup}>
-            <Radio
-              value="Любой"
-              className={cn(styles.Radio, { [styles.RadioActive]: color === 'Любой' })}
-            >
-              Любой
-            </Radio>
-            <Radio
-              value="Красный"
-              className={cn(styles.Radio, { [styles.RadioActive]: color === 'Красный' })}
-            >
-              Красный
-            </Radio>
-            <Radio
-              value="Голубой"
-              className={cn(styles.Radio, { [styles.RadioActive]: color === 'Голубой' })}
-            >
-              Голубой
-            </Radio>
+            {filteredColors.map((carColor) => {
+              return <AppRadioBtn key={carColor} value={carColor} filterValue={color} />;
+            })}
           </Radio.Group>
         </div>
       </div>

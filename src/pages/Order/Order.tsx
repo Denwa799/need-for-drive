@@ -72,6 +72,7 @@ const Order: FC = () => {
   const [activeCar, setActiveCar] = useState('');
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
+  const [carColors, setCarColors] = useState<string[]>([]);
 
   // Опции размера пагинации для формы "Модель" (FormModel)
   const pageSizeOptions = useMemo(() => {
@@ -118,7 +119,9 @@ const Order: FC = () => {
   // Переводит разницу в строку для отображения
   const durationString = useMemo(() => {
     if (duration) {
-      return moment.utc(duration).format('Dд Hч');
+      const days = Math.floor(moment.duration(duration).asDays());
+      const hourse = Math.floor(moment.duration(duration).asHours()) - 24 * days;
+      return `${days}д ${hourse}ч`;
     }
     return '';
   }, [duration]);
@@ -182,12 +185,14 @@ const Order: FC = () => {
             setActiveCar={setActiveCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}
+            setCarColors={setCarColors}
             pageSizeOptions={pageSizeOptions}
           />
         );
       case 3:
         return (
           <FormAdditionally
+            carColors={carColors}
             color={color}
             setColor={setColor}
             startDate={startDate}

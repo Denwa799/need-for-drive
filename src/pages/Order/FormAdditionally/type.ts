@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 
 export interface IFormAdditionally {
+  carColors: string[];
   color: string;
   setColor: (value: string) => void;
   startDate: Moment | undefined;

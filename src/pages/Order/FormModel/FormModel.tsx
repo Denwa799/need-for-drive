@@ -18,6 +18,7 @@ const FormModel: FC<IFormModel> = ({
   setActiveCar,
   setPriceMin,
   setPriceMax,
+  setCarColors,
   pageSizeOptions,
 }) => {
   // Стейт
@@ -48,11 +49,12 @@ const FormModel: FC<IFormModel> = ({
 
   // Обработчик нажатия на карточку с машиной
   const carClickHandler = useCallback<CarClickHandlerType>(
-    (id, name, min, max) => {
+    (id, name, min, max, colors) => {
       setActiveCarId(id);
       setActiveCar(name);
       setPriceMin(min);
       setPriceMax(max);
+      setCarColors(colors);
     },
     [activeCarId]
   );

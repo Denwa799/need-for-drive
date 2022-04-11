@@ -7,6 +7,12 @@
   .colorsBlock {
     .colorsContainer {
       padding-top: 15px;
+
+      .RadioGroup {
+        label {
+          width: 92px;
+        }
+      }
     }
   }
 
@@ -63,32 +69,6 @@
     }
   }
 
-  .RadioGroup {
-    .Radio {
-      color: @app-primary-gray__dark;
-
-      span:nth-child(1) {
-
-        span {
-          border-color: @app-primary-gray__dark;
-        }
-
-        input[type=radio]:checked + span {
-          border: none;
-          background-color: @app-primary-color;
-        }
-
-        input[type=radio]:checked + span:after {
-          background-color: @app-primary-white;
-        }
-      }
-    }
-
-    .RadioActive {
-      color: @app-primary-black;
-    }
-  }
-
   .text__light {
     font-weight: 300;
   }
@@ -100,10 +80,6 @@
       .RadioGroup {
         display: flex;
         flex-direction: column;
-
-        .Radio {
-          line-height: 1.4;
-        }
       }
     }
   }
