@@ -93,7 +93,13 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
       <div className={styles.colorsBlock}>
         <Text className={styles.text__light}>Цвет</Text>
         <div className={styles.colorsContainer}>
-          <Radio.Group onChange={colorChangeHandler} value={color} className={styles.RadioGroup}>
+          <Radio.Group
+            onChange={colorChangeHandler}
+            value={color}
+            className={cn(styles.RadioGroup, {
+              [styles.RadioFixedWidth]: filteredColors.length >= 4,
+            })}
+          >
             {filteredColors.map((carColor) => {
               return <AppRadioBtn key={carColor} value={carColor} filterValue={color} />;
             })}
