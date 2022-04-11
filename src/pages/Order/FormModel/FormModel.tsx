@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Row } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
-import { AppRadioGroup } from 'components/ui/AppRadioBtns';
+import { AppRadioGroup } from 'components/ui/AppRadioGroup';
 import { AppPagination } from 'components/ui/AppPagination';
 import { AppRadioBtn } from 'components/ui/AppRadioBtn';
 import { useTypedSelector } from 'hooks/useTypesSelector';
