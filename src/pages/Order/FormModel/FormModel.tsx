@@ -108,7 +108,7 @@ const FormModel: FC<IFormModel> = ({
               })}
             </AppRadioGroup>
           </div>
-          <Row className={styles.cards}>
+          <Row>
             <FilteredCars
               activeCarId={activeCarId}
               paginationCars={paginationCars}
