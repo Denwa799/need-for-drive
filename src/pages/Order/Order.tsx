@@ -8,13 +8,13 @@ import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import { useActions } from 'hooks/useActions';
 import moment, { Moment } from 'moment';
+import PriceForm from './PriceForm/PriceForm';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormLocation from './FormLocation/FormLocation';
 import styles from './Order.module.less';
 import { OrderBreadcrumb } from './OrderBreadcrumb';
 import { FormAdditionally } from './FormAdditionally';
-import PriceForm from './PriceForm/PriceForm';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
