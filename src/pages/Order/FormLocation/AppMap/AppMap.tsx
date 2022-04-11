@@ -1,13 +1,13 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Map, Placemark, YMaps, ZoomControl } from 'react-yandex-maps';
-import { IPoints, PlacemarkClickHandlerType } from './type';
+import { IAppMap, PlacemarkClickHandlerType } from './type';
 
 const API_KEY = process.env.REACT_APP_MAP_API;
 
-const AppMap: FC<IPoints> = ({
+const AppMap: FC<IAppMap> = ({
   points,
-  cityValue,
-  pointValue,
+  debouncedCityValue,
+  debouncedPointValue,
   setActivePointAddress,
   setActivePointCity,
   setCityValue,
@@ -46,14 +46,14 @@ const AppMap: FC<IPoints> = ({
 
   // При наличии города и адреса устанавливает карту карту в нужные координаты
   useEffect(() => {
-    if (map && (cityValue || pointValue)) {
-      map.geocode(`${cityValue}, ${pointValue}`).then((result: any) => {
+    if (map && (debouncedCityValue || debouncedPointValue)) {
+      map.geocode(`${debouncedCityValue}, ${debouncedPointValue}`).then((result: any) => {
         const currentCoordinates = result.geoObjects.get(0).geometry.getCoordinates();
         setCoordinates(currentCoordinates);
         setZoom(10);
       });
     }
-  }, [map, cityValue, pointValue]);
+  }, [map, debouncedCityValue, debouncedPointValue]);
 
   const clickHandler = useCallback<PlacemarkClickHandlerType>(
     (address, city, cord) => {

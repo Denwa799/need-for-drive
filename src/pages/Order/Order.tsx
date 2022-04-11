@@ -8,6 +8,7 @@ import { useActionsMapPoints } from 'hooks/useActions/useActionsMapPoints';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
+import useDebounce from 'hooks/useDebounce';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
@@ -32,7 +33,9 @@ const Order: FC = () => {
 
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState(city);
+  const debouncedCityValue = useDebounce<string>(cityValue, 500);
   const [pointValue, setPointValue] = useState('');
+  const debouncedPointValue = useDebounce<string>(pointValue, 500);
   const [activePointAddress, setActivePointAddress] = useState('');
   const [activePointCity, setActivePointCity] = useState(city);
 
@@ -65,8 +68,8 @@ const Order: FC = () => {
 
   // Отфильтровываю города для карты исходя из поля поиска
   const filteredCityPoints = useMemo(() => {
-    return filteredPoints.filter((point) => point.cityId!.name === cityValue);
-  }, [filteredPoints, cityValue]);
+    return filteredPoints.filter((point) => point.cityId!.name === debouncedCityValue);
+  }, [filteredPoints, debouncedCityValue]);
 
   // Создаю массив названий пунктов для поля поиска пункта в форме "местоположение" (FormLocation)
   const optionsName = useMemo(() => {
@@ -114,8 +117,10 @@ const Order: FC = () => {
       optionsName={optionsName}
       cityValue={cityValue}
       setCityValue={setCityValue}
+      debouncedCityValue={debouncedCityValue}
       pointValue={pointValue}
       setPointValue={setPointValue}
+      debouncedPointValue={debouncedPointValue}
       points={filteredCityPoints}
       setActivePointAddress={setActivePointAddress}
       setActivePointCity={setActivePointCity}

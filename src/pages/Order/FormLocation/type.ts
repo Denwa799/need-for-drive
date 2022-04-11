@@ -7,8 +7,10 @@ export interface IFormLocation {
   }[];
   cityValue: string;
   setCityValue: (value: string) => void;
+  debouncedCityValue: string;
   pointValue: string;
   setPointValue: (value: string) => void;
+  debouncedPointValue: string;
   points: {
     address?: string;
     cityId?: {

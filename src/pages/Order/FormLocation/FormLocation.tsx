@@ -9,8 +9,10 @@ const FormLocation: FC<IFormLocation> = ({
   optionsName,
   cityValue,
   setCityValue,
+  debouncedCityValue,
   pointValue,
   setPointValue,
+  debouncedPointValue,
   points,
   setActivePointAddress,
   setActivePointCity,
@@ -32,7 +34,7 @@ const FormLocation: FC<IFormLocation> = ({
   );
 
   useEffect(() => {
-    // Очищает текст поля поиска пункта при очискте города
+    // Очищает текст поля поиска пункта при очистке города
     if (cityValue === '') {
       setPointValue('');
     }
@@ -70,8 +72,8 @@ const FormLocation: FC<IFormLocation> = ({
         <div className={styles.map}>
           <AppMap
             points={points}
-            cityValue={cityValue}
-            pointValue={pointValue}
+            debouncedCityValue={debouncedCityValue}
+            debouncedPointValue={debouncedPointValue}
             setActivePointAddress={setActivePointAddress}
             setActivePointCity={setActivePointCity}
             setCityValue={setCityValue}

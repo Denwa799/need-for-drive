@@ -1,4 +1,4 @@
-export interface IPoints {
+export interface IAppMap {
   points: {
     address?: string;
     cityId?: {
@@ -9,8 +9,8 @@ export interface IPoints {
     name?: string;
     coordinate?: number[];
   }[];
-  cityValue: string;
-  pointValue: string;
+  debouncedCityValue: string;
+  debouncedPointValue: string;
   setActivePointAddress: (value: string) => void;
   setActivePointCity: (value: string) => void;
   setCityValue: (value: string) => void;
