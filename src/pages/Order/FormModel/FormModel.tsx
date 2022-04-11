@@ -88,9 +88,11 @@ const FormModel: FC<IFormModel> = ({
     return filteredCars.slice(firstCarIndex, lastCarIndex);
   }, [filteredCars, firstCarIndex, lastCarIndex, filteredCars]);
 
+  const pageIsLoading = carsIsLoading || carsError || categoriesIsLoading || categoriesError;
+
   return (
     <div>
-      {carsIsLoading || carsError || categoriesIsLoading || categoriesError ? (
+      {pageIsLoading ? (
         <ErrorLoading
           loading={carsIsLoading || categoriesIsLoading}
           error={carsError || categoriesError}
