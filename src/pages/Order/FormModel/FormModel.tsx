@@ -88,15 +88,14 @@ const FormModel: FC<IFormModel> = ({
     return filteredCars.slice(firstCarIndex, lastCarIndex);
   }, [filteredCars, firstCarIndex, lastCarIndex, filteredCars]);
 
-  const RenderContent = () =>
-    useMemo(() => {
-      if (carsIsLoading || carsError) {
-        return <ErrorLoading loading={carsIsLoading} error={carsError} />;
-      }
-      if (categoriesIsLoading || categoriesError) {
-        return <ErrorLoading loading={categoriesIsLoading} error={categoriesError} />;
-      }
-      return (
+  return (
+    <div>
+      {carsIsLoading || carsError || categoriesIsLoading || categoriesError ? (
+        <ErrorLoading
+          loading={carsIsLoading || categoriesIsLoading}
+          error={carsError || categoriesError}
+        />
+      ) : (
         <div className={styles.formModel}>
           <div className={styles.radioButtons}>
             <AppRadioGroup onChange={filterChangeHandler} filterValue={filterValue}>
@@ -122,10 +121,9 @@ const FormModel: FC<IFormModel> = ({
             page={currentPage}
           />
         </div>
-      );
-    }, [cars, carsIsLoading, carsError, categories, categoriesIsLoading, categoriesError]);
-
-  return <RenderContent />;
+      )}
+    </div>
+  );
 };
 
 export default FormModel;
