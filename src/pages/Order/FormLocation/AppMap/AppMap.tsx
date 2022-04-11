@@ -21,9 +21,6 @@ const AppMap: FC<IPoints> = ({
   const [coordinates, setCoordinates] = useState([55.75, 37.57]);
   const mapState = { center: coordinates, zoom };
 
-  // Были ли внесены координаты в объект или нет
-  const [isCoordinate, setIsCoordinate] = useState(false);
-
   // Копирую массив, чтобы небыло мутации
   const pointsWithCoordinates = useMemo(() => {
     return [...points];
@@ -38,19 +35,18 @@ const AppMap: FC<IPoints> = ({
         response.then((result: any) => {
           element.coordinate = result.geoObjects.get(0).geometry.getCoordinates();
         });
-        setIsCoordinate(true);
       });
     }
-  }, [pointsWithCoordinates]);
+  }, [map, pointsWithCoordinates]);
 
   // Вызывает функцию getGeoLocation в момент, когда объект карты появится / сменятся points
   useEffect(() => {
     getGeoLocation();
-  }, [map, points]);
+  }, [map, points, pointsWithCoordinates]);
 
   // При наличии города и адреса устанавливает карту карту в нужные координаты
   useEffect(() => {
-    if (map && cityValue && pointValue) {
+    if (map && (cityValue || pointValue)) {
       map.geocode(`${cityValue}, ${pointValue}`).then((result: any) => {
         const currentCoordinates = result.geoObjects.get(0).geometry.getCoordinates();
         setCoordinates(currentCoordinates);
@@ -84,21 +80,19 @@ const AppMap: FC<IPoints> = ({
         modules={['geocode', 'layout.ImageWithContent']}
         onLoad={setMap}
       >
-        {isCoordinate
-          ? pointsWithCoordinates.map((point) => {
-              return (
-                <Placemark
-                  key={point.id}
-                  geometry={point.coordinate}
-                  properties={{ iconCaption: point.name }}
-                  onClick={(e: React.MouseEvent) =>
-                    clickHandler(point.address!, point.cityId!.name, point.coordinate!)
-                  }
-                  options={{ iconColor: '#0EC261' }}
-                />
-              );
-            })
-          : null}
+        {pointsWithCoordinates.map((point) => {
+          return (
+            <Placemark
+              key={point.id}
+              geometry={point.coordinate}
+              properties={{ iconCaption: point.name }}
+              onClick={(e: React.MouseEvent) =>
+                clickHandler(point.address!, point.cityId!.name, point.coordinate!)
+              }
+              options={{ iconColor: '#0EC261' }}
+            />
+          );
+        })}
         <ZoomControl options={{ float: 'left' }} />
       </Map>
     </YMaps>

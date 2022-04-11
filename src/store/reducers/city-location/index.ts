@@ -1,7 +1,7 @@
 import { CityLocationAction, CityLocationActionEnum, CityLocationState } from './types';
 
 const initialState: CityLocationState = {
-  city: 'Сочи',
+  city: 'Ульяновск',
 };
 
 export default function CityLocationReducer(state = initialState, action: CityLocationAction) {

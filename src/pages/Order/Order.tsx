@@ -64,7 +64,6 @@ const Order: FC = () => {
   }, [filteredPoints]);
 
   // Отфильтровываю города для карты исходя из поля поиска
-
   const filteredCityPoints = useMemo(() => {
     return filteredPoints.filter((point) => point.cityId!.name === cityValue);
   }, [filteredPoints, cityValue]);
