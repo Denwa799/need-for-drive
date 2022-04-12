@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 const FormTotal: FC = () => {
   return (
     <AppContainer>
-      <h2>Итоговая форма</h2>
+      <h2>Сверстать форму оформления заказа на аренду авто (шаг 4)</h2>
     </AppContainer>
   );
 };
