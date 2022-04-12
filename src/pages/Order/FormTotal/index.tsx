@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useCallback } from 'react';
+import React, { FC, SyntheticEvent, useCallback, useMemo } from 'react';
 import { Col, Row, Typography } from 'antd';
 import defaultImg from 'assets/img/cars/image-1.webp';
 import { IFormTotal } from './type';
@@ -7,9 +7,19 @@ import styles from './styles.module.less';
 const { Title, Text } = Typography;
 
 export const FormTotal: FC<IFormTotal> = ({ selectedCar }) => {
+  // Вставляет дефолтную картинку, если путь до изображения с ошибкой
   const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = defaultImg;
   }, []);
+
+  const regCarNumber = useMemo(() => {
+    // В регулярном выражении ищутся все цифры от 1 символа и более, и затем перед и после них ставится пробел
+    const reg = /\d{1,}/g;
+    if (selectedCar) {
+      return selectedCar.number.replace(reg, ` $& `);
+    }
+    return '';
+  }, [selectedCar]);
 
   return (
     <div className={styles.formTotal}>
@@ -20,11 +30,11 @@ export const FormTotal: FC<IFormTotal> = ({ selectedCar }) => {
               {selectedCar.name}
             </Title>
             <Row className={styles.textContainer}>
-              <Text className={styles.number}>{selectedCar?.number}</Text>
+              <Text className={styles.number}>{regCarNumber}</Text>
             </Row>
             <Row className={styles.textContainer}>
               <Text className={styles.text__light}>
-                <b className={styles.text__bold}>Топливо</b> {selectedCar?.tank}%
+                <b className={styles.text__bold}>Топливо</b> {selectedCar.tank}%
               </Text>
             </Row>
             <Row className={styles.textContainer}>
