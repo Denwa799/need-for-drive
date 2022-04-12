@@ -7,13 +7,14 @@ import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import { useActions } from 'hooks/useActions';
-import FormTotal from './FormTotal/FormTotal';
+import { ICar } from 'models/ICar';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormLocation from './FormLocation/FormLocation';
 import PriceForm from './PriceForm/PriceForm';
 import styles from './Order.module.less';
 import { OrderBreadcrumb } from './OrderBreadcrumb';
+import { FormTotal } from './FormTotal';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
@@ -67,6 +68,7 @@ const Order: FC = () => {
   /* Блок с данными для формы "Модель" (FormModel) */
 
   // Локальный стейт для формы "Модель" (FormModel)
+  const [selectedCar, setSelectedCar] = useState<ICar>();
   const [activeCarId, setActiveCarId] = useState('');
   const [activeCar, setActiveCar] = useState('');
   const [priceMin, setPriceMin] = useState(0);
@@ -122,6 +124,7 @@ const Order: FC = () => {
             activeCar={activeCar}
             setActiveCarId={setActiveCarId}
             setActiveCar={setActiveCar}
+            setSelectedCar={setSelectedCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}
             pageSizeOptions={pageSizeOptions}
@@ -130,7 +133,7 @@ const Order: FC = () => {
       case 3:
         return <FormAdditionally />;
       case 4:
-        return <FormTotal />;
+        return <FormTotal selectedCar={selectedCar} />;
       default:
         return ComponentFormLoc;
     }
