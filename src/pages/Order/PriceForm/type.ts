@@ -7,4 +7,5 @@ export interface IPriceForm {
   modelName: string;
   priceMin: number;
   priceMax: number;
+  setModalActive: (value: boolean) => void;
 }

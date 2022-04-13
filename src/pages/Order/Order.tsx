@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { Affix, Col, Layout, Row } from 'antd';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { Typography, Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
 import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
 import { useTypedSelector } from 'hooks/useTypesSelector';
@@ -8,6 +8,8 @@ import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import { useActions } from 'hooks/useActions';
 import { ICar } from 'models/ICar';
+import { AppModal } from 'components/ui/AppModal';
+import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormLocation from './FormLocation/FormLocation';
@@ -15,6 +17,8 @@ import PriceForm from './PriceForm/PriceForm';
 import styles from './Order.module.less';
 import { OrderBreadcrumb } from './OrderBreadcrumb';
 import { FormTotal } from './FormTotal';
+
+const { Text } = Typography;
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
@@ -93,6 +97,19 @@ const Order: FC = () => {
     setActiveStage(4);
     setMaxStage(4);
   };
+
+  /* Блок с данными для итогового модального окна */
+  // Локальный стейт
+  const [modalActive, setModalActive] = useState(false);
+
+  // Обработчики для кнопок подтверждения и отмены
+  const confirmModalBtnHandler = useCallback(() => {
+    setModalActive(false);
+  }, [modalActive]);
+
+  const backModalBtnHandler = useCallback(() => {
+    setModalActive(false);
+  }, [modalActive]);
 
   /* Отрисовка вкладок */
   const ComponentFormLoc = (
@@ -178,6 +195,7 @@ const Order: FC = () => {
                     modelName={activeCar}
                     priceMin={priceMin}
                     priceMax={priceMax}
+                    setModalActive={setModalActive}
                   />
                 </AppContainer>
               </Layout.Content>
@@ -185,6 +203,27 @@ const Order: FC = () => {
           </Col>
         </Row>
       </Col>
+      <AppModal active={modalActive}>
+        <div className={styles.modalContainer}>
+          <Row className={styles.modalText}>
+            <Col span={24}>
+              <Text>Подтвердить заказ</Text>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12} xs={24}>
+              <ButtonApp className={styles.confirmBtn} onClick={confirmModalBtnHandler}>
+                Подтвердить
+              </ButtonApp>
+            </Col>
+            <Col sm={12} xs={24}>
+              <ButtonApp className={styles.backBtn} type="red" onClick={backModalBtnHandler}>
+                Вернуться
+              </ButtonApp>
+            </Col>
+          </Row>
+        </div>
+      </AppModal>
     </Row>
   );
 };

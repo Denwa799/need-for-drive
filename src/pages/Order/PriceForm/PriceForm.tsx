@@ -16,6 +16,7 @@ const PriceForm: FC<IPriceForm> = ({
   modelName,
   priceMin,
   priceMax,
+  setModalActive,
 }) => {
   const RenderBtns = () =>
     useMemo(() => {
@@ -39,7 +40,11 @@ const PriceForm: FC<IPriceForm> = ({
             </ButtonApp>
           );
         case 4:
-          return <ButtonApp disabled={!address}>Заказать</ButtonApp>;
+          return (
+            <ButtonApp disabled={!address} onClick={() => setModalActive(true)}>
+              Заказать
+            </ButtonApp>
+          );
         default:
           return (
             <ButtonApp disabled={!address} onClick={locationButtonHandler}>
