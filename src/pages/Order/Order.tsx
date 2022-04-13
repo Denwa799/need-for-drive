@@ -118,6 +118,7 @@ const Order: FC = () => {
   );
   const [endDate, setEndDate] = useState<Moment>();
   const [rate, setRate] = useState('');
+  const [ratePrice, setRatePrice] = useState(0);
   const [isFullTank, setIsFullTank] = useState(false);
   const [isChildSeat, setIsChildSeat] = useState(false);
   const [isRightHandDrive, setIsRightHandDrive] = useState(false);
@@ -150,7 +151,7 @@ const Order: FC = () => {
 
   // Переводит разницу в количество часов
   const durationDays = useMemo(() => {
-    if (duration && rate === 'На сутки') {
+    if (duration && rate === 'Месячный') {
       return Math.ceil(moment.duration(duration).asDays());
     }
     return 0;
@@ -159,8 +160,8 @@ const Order: FC = () => {
   const price = useMemo(() => {
     return Math.round(
       priceMin +
-        durationMin * 7 +
-        durationDays * 1999 +
+        durationMin * ratePrice +
+        durationDays * (ratePrice / 30) +
         (isFullTank ? 500 : 0) +
         (isChildSeat ? 200 : 0) +
         (isRightHandDrive ? 1600 : 0)
@@ -230,6 +231,8 @@ const Order: FC = () => {
             setEndDate={setEndDate}
             rate={rate}
             setRate={setRate}
+            ratePrice={ratePrice}
+            setRatePrice={setRatePrice}
             isFullTank={isFullTank}
             setIsFullTank={setIsFullTank}
             isChildSeat={isChildSeat}

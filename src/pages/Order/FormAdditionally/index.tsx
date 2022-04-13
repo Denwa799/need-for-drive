@@ -1,13 +1,16 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { Checkbox, Col, DatePicker, Radio, Row, Typography } from 'antd';
 import cn from 'classnames';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import moment, { Moment } from 'moment';
 import { CloseOutlined } from '@ant-design/icons';
-import styles from './styles.module.less';
+import { AppRadioBtn } from 'components/ui/AppRadioBtn';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { ratesSelector } from 'store/selectors/selectors';
+import { useActions } from 'hooks/useActions';
 import { IFormAdditionally } from './type';
-import { AppRadioGroup } from '../../../components/ui/AppRadioGroup';
-import { AppRadioBtn } from '../../../components/ui/AppRadioBtn';
+import styles from './styles.module.less';
+import ErrorLoading from '../../../components/ui/ErrorLoading/ErrorLoading';
 
 const { Text } = Typography;
 
@@ -21,6 +24,8 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   setEndDate,
   rate,
   setRate,
+  ratePrice,
+  setRatePrice,
   isFullTank,
   setIsFullTank,
   isChildSeat,
@@ -28,7 +33,25 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   isRightHandDrive,
   setIsRightHandDrive,
 }) => {
-  const filteredColors = Array.from(new Set(carColors));
+  // Стейт
+  const { rates, ratesIsLoading, ratesError } = useTypedSelector(ratesSelector);
+
+  // Запрос на получение списка тарифов из api
+  const { fetchRates } = useActions();
+  useEffect(() => {
+    fetchRates();
+  }, []);
+
+  // Отфильтровываю тарифы, где нет описания.
+  // Так как считаю, что это ошибка тестового api.
+  const filteredRates = useMemo(() => {
+    return rates.filter((item) => item.rateTypeId);
+  }, [rates]);
+
+  // Отфильтровываю повторяющиеся цвета
+  const filteredColors = useMemo(() => {
+    return Array.from(new Set(carColors));
+  }, [carColors]);
 
   // Обработчик нажатия на color radio button
   const colorChangeHandler = useCallback(
@@ -70,7 +93,13 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   // Обработчик нажатия на rate radio button
   const rateChangeHandler = useCallback(
     (event: RadioChangeEvent) => {
-      setRate(event.target.value);
+      const { value } = event.target;
+      // Удаляю все кроме букв
+      const rateName = value.replace(/[^a-zа-яё]/gi, '');
+      // Вытаскиваю из строки число
+      const price = parseInt(value.match(/\d+/), 10);
+      setRate(rateName);
+      setRatePrice(price);
     },
     [rate]
   );
@@ -89,111 +118,126 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   }, [isRightHandDrive]);
 
   return (
-    <div className={styles.FormAdditionally}>
-      <div className={styles.colorsBlock}>
-        <Text className={styles.text__light}>Цвет</Text>
-        <div className={styles.colorsContainer}>
-          <Radio.Group
-            onChange={colorChangeHandler}
-            value={color}
-            className={cn(styles.RadioGroup, {
-              [styles.RadioFixedWidth]: filteredColors.length >= 4,
-            })}
-          >
-            {filteredColors.map((carColor) => {
-              return <AppRadioBtn key={carColor} value={carColor} filterValue={color} />;
-            })}
-          </Radio.Group>
-        </div>
-      </div>
-      <div className={styles.dateBlock}>
-        <Text className={styles.text__light}>Дата аренды</Text>
-        <div className={styles.dates}>
-          <div className={styles.dateContainer}>
-            <Text className={cn(styles.text__light, styles.dateText)}>С</Text>
-            <DatePicker
-              format="DD.MM.YYYY HH:mm"
-              defaultValue={moment()}
-              showTime
-              showNow={false}
-              className={styles.datePicker}
-              disabledDate={disabledStartDate}
-              value={startDate}
-              onChange={startDateChangeHandler}
-              placeholder="Введите дату и время"
-              clearIcon={<CloseOutlined style={{ color: '#000', fontSize: 14 }} />}
-              suffixIcon
-            />
+    <div>
+      {ratesIsLoading ? (
+        <ErrorLoading loading={ratesIsLoading} error={ratesError} />
+      ) : (
+        <div className={styles.FormAdditionally}>
+          <div className={styles.colorsBlock}>
+            <Text className={styles.text__light}>Цвет</Text>
+            <div className={styles.colorsContainer}>
+              <Radio.Group
+                onChange={colorChangeHandler}
+                value={color}
+                className={cn(styles.RadioGroup, {
+                  [styles.RadioFixedWidth]: filteredColors.length >= 4,
+                })}
+              >
+                {filteredColors.map((carColor) => {
+                  return (
+                    <AppRadioBtn
+                      key={carColor}
+                      value={carColor}
+                      filterValue={color}
+                      activeValue={carColor}
+                    >
+                      {carColor}
+                    </AppRadioBtn>
+                  );
+                })}
+              </Radio.Group>
+            </div>
           </div>
-          <div className={styles.dateContainer}>
-            <Text className={cn(styles.text__light, styles.dateText)}>По</Text>
-            <DatePicker
-              format="DD.MM.YYYY HH:mm"
-              showTime
-              showNow={false}
-              className={styles.datePicker}
-              disabledDate={disabledEndDate}
-              value={endDate}
-              onChange={endDateChangeHandler}
-              placeholder="Введите дату и время"
-              clearIcon={<CloseOutlined style={{ color: '#000', fontSize: 14 }} />}
-              suffixIcon
-              disabled={!startDate}
-            />
+          <div className={styles.dateBlock}>
+            <Text className={styles.text__light}>Дата аренды</Text>
+            <div className={styles.dates}>
+              <div className={styles.dateContainer}>
+                <Text className={cn(styles.text__light, styles.dateText)}>С</Text>
+                <DatePicker
+                  format="DD.MM.YYYY HH:mm"
+                  defaultValue={moment()}
+                  showTime
+                  showNow={false}
+                  className={styles.datePicker}
+                  disabledDate={disabledStartDate}
+                  value={startDate}
+                  onChange={startDateChangeHandler}
+                  placeholder="Введите дату и время"
+                  clearIcon={<CloseOutlined style={{ color: '#000', fontSize: 14 }} />}
+                  suffixIcon
+                />
+              </div>
+              <div className={styles.dateContainer}>
+                <Text className={cn(styles.text__light, styles.dateText)}>По</Text>
+                <DatePicker
+                  format="DD.MM.YYYY HH:mm"
+                  showTime
+                  showNow={false}
+                  className={styles.datePicker}
+                  disabledDate={disabledEndDate}
+                  value={endDate}
+                  onChange={endDateChangeHandler}
+                  placeholder="Введите дату и время"
+                  clearIcon={<CloseOutlined style={{ color: '#000', fontSize: 14 }} />}
+                  suffixIcon
+                  disabled={!startDate}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.ratesBlock}>
+            <Text className={styles.text__light}>Тариф</Text>
+            <div className={styles.ratesContainer}>
+              <Radio.Group
+                onChange={rateChangeHandler}
+                value={`${rate}, ${ratePrice}`}
+                className={styles.RadioGroup}
+              >
+                {filteredRates.map((item) => {
+                  return (
+                    <AppRadioBtn
+                      key={item.id}
+                      value={`${item.rateTypeId!.name}, ${item.price}`}
+                      filterValue={rate}
+                      activeValue={item.rateTypeId!.name}
+                    >
+                      {item.rateTypeId!.name}, {item.price}₽/{item.rateTypeId!.unit}
+                    </AppRadioBtn>
+                  );
+                })}
+              </Radio.Group>
+            </div>
+          </div>
+          <div className={styles.servicesBlock}>
+            <Text className={styles.text__light}>Доп услуги</Text>
+            <div className={styles.servicesContainer}>
+              <div className={styles.checkboxGroup}>
+                <Row>
+                  <Col span={24}>
+                    <Checkbox onChange={fullTankChangeHandler} checked={isFullTank}>
+                      Полный бак, 500р
+                    </Checkbox>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <Checkbox onChange={childSeatChangeHandler} checked={isChildSeat}>
+                      Детское кресло, 200р
+                    </Checkbox>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <Checkbox onChange={rightHandDriveChangeHandler} checked={isRightHandDrive}>
+                      Правый руль, 1600р
+                    </Checkbox>
+                  </Col>
+                </Row>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.ratesBlock}>
-        <Text className={styles.text__light}>Тариф</Text>
-        <div className={styles.ratesContainer}>
-          <Radio.Group onChange={rateChangeHandler} value={rate} className={styles.RadioGroup}>
-            <Radio
-              value="Поминутно"
-              className={cn(styles.Radio, styles.rate, {
-                [styles.RadioActive]: rate === 'Поминутно',
-              })}
-            >
-              Поминутно, 7₽/мин
-            </Radio>
-            <Radio
-              value="На сутки"
-              className={cn(styles.Radio, styles.rate, {
-                [styles.RadioActive]: rate === 'На сутки',
-              })}
-            >
-              На сутки, 1999₽/сутки
-            </Radio>
-          </Radio.Group>
-        </div>
-      </div>
-      <div className={styles.servicesBlock}>
-        <Text className={styles.text__light}>Доп услуги</Text>
-        <div className={styles.servicesContainer}>
-          <div className={styles.checkboxGroup}>
-            <Row>
-              <Col span={24}>
-                <Checkbox onChange={fullTankChangeHandler} checked={isFullTank}>
-                  Полный бак, 500р
-                </Checkbox>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Checkbox onChange={childSeatChangeHandler} checked={isChildSeat}>
-                  Детское кресло, 200р
-                </Checkbox>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Checkbox onChange={rightHandDriveChangeHandler} checked={isRightHandDrive}>
-                  Правый руль, 1600р
-                </Checkbox>
-              </Col>
-            </Row>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

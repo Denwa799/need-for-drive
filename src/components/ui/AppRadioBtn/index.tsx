@@ -4,13 +4,14 @@ import cn from 'classnames';
 import { IAppRadioBtn } from './type';
 import styles from './styles.module.less';
 
-export const AppRadioBtn: FC<IAppRadioBtn> = ({ value, filterValue }) => {
+export const AppRadioBtn: FC<IAppRadioBtn> = ({ children, value, filterValue, activeValue }) => {
   return (
     <Radio
       value={value}
-      className={cn(styles.Radio, { [styles.RadioActive]: filterValue === value })}
+      className={cn(styles.Radio, { [styles.RadioActive]: filterValue === activeValue })}
+      checked={filterValue === activeValue}
     >
-      {value}
+      {children}
     </Radio>
   );
 };

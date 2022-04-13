@@ -26,7 +26,7 @@ const FormModel: FC<IFormModel> = ({
   const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
   const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
 
-  // Запрос на получение списка машин из api для формы "Модель" (FormModel)
+  // Запрос на получение списка машин из api
   const { fetchCars } = useActions();
   const { fetchCategories } = useActions();
   useEffect(() => {
@@ -105,10 +105,19 @@ const FormModel: FC<IFormModel> = ({
         <div className={styles.formModel}>
           <div className={styles.radioButtons}>
             <AppRadioGroup onChange={filterChangeHandler} filterValue={filterValue}>
-              <AppRadioBtn value="Все модели" filterValue={filterValue} />
+              <AppRadioBtn value="Все модели" filterValue={filterValue} activeValue="Все модели">
+                Все модели
+              </AppRadioBtn>
               {categories.map((button) => {
                 return (
-                  <AppRadioBtn key={button.id} value={button.name} filterValue={filterValue} />
+                  <AppRadioBtn
+                    key={button.id}
+                    value={button.name}
+                    filterValue={filterValue}
+                    activeValue={button.name}
+                  >
+                    {button.name}
+                  </AppRadioBtn>
                 );
               })}
             </AppRadioGroup>

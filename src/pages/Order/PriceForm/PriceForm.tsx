@@ -54,7 +54,7 @@ const PriceForm: FC<IPriceForm> = ({
             </ButtonApp>
           );
       }
-    }, [maxStage]);
+    }, []);
 
   return (
     <div className={styles.PriceForm}>

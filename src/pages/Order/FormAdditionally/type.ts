@@ -10,6 +10,8 @@ export interface IFormAdditionally {
   setEndDate: (value: Moment | undefined) => void;
   rate: string;
   setRate: (value: string) => void;
+  ratePrice: number;
+  setRatePrice: (value: number) => void;
   isFullTank: boolean;
   setIsFullTank: (value: boolean) => void;
   isChildSeat: boolean;
