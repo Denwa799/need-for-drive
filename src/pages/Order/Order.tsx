@@ -6,6 +6,7 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
+import useDebounce from 'hooks/useDebounce';
 import { useActions } from 'hooks/useActions';
 import moment, { Moment } from 'moment';
 import PriceForm from './PriceForm/PriceForm';
@@ -30,8 +31,10 @@ const Order: FC = () => {
   const { points, mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
 
   // Локальный стейт для формы "местоположение" (FormLocation)
-  const [cityValue, setCityValue] = useState('');
+  const [cityValue, setCityValue] = useState(city);
+  const debouncedCityValue = useDebounce<string>(cityValue, 500);
   const [pointValue, setPointValue] = useState('');
+  const debouncedPointValue = useDebounce<string>(pointValue, 500);
   const [activePointAddress, setActivePointAddress] = useState('');
   const [activePointCity, setActivePointCity] = useState(city);
 
@@ -49,21 +52,32 @@ const Order: FC = () => {
 
   // Отфильтровываю метки, где нет данных о городе.
   // Так как считаю, что это ошибка тестового api, потому что адрес без города - это не правильно
-  const filteredPoints = points.filter((point) => !(point.cityId === null));
+  const filteredPoints = useMemo(() => {
+    return points.filter((point) => !(point.cityId === null));
+  }, [points]);
 
   // Создаю массив городов для поля поиска города в форме "местоположение" (FormLocation)
-  const optionsCity = filteredPoints.map((point) => {
-    return {
-      value: point.cityId!.name,
-    };
-  });
+  const optionsCity = useMemo(() => {
+    return filteredPoints.map((point) => {
+      return {
+        value: point.cityId!.name,
+      };
+    });
+  }, [filteredPoints]);
+
+  // Отфильтровываю города для карты исходя из поля поиска
+  const filteredCityPoints = useMemo(() => {
+    return filteredPoints.filter((point) => point.cityId!.name === debouncedCityValue);
+  }, [filteredPoints, debouncedCityValue]);
 
   // Создаю массив названий пунктов для поля поиска пункта в форме "местоположение" (FormLocation)
-  const optionsName = filteredPoints.map((point) => {
-    return {
-      value: point.address,
-    };
-  });
+  const optionsName = useMemo(() => {
+    return filteredCityPoints.map((point) => {
+      return {
+        value: point.address,
+      };
+    });
+  }, [filteredCityPoints]);
 
   /* Блок с данными для формы "Модель" (FormModel) */
 
@@ -172,9 +186,11 @@ const Order: FC = () => {
       optionsName={optionsName}
       cityValue={cityValue}
       setCityValue={setCityValue}
+      debouncedCityValue={debouncedCityValue}
       pointValue={pointValue}
       setPointValue={setPointValue}
-      points={filteredPoints}
+      debouncedPointValue={debouncedPointValue}
+      points={filteredCityPoints}
       setActivePointAddress={setActivePointAddress}
       setActivePointCity={setActivePointCity}
     />
