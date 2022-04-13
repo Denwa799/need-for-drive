@@ -101,6 +101,29 @@ const Order: FC = () => {
   /* Блок с данными для итогового модального окна */
   // Локальный стейт
   const [modalActive, setModalActive] = useState(false);
+  const mockStartDate = new Date('2022-04-13T12:00:00Z').toISOString();
+  const mockEndDate = new Date('2022-04-14T12:00:00Z').toISOString();
+
+  const mockOrderPost = {
+    orderStatusId: {
+      name: "Новые",
+      id: "5e26a191099b810b946c5d89"
+    },
+    cityId: {
+      name: "Ульяновск",
+      id: "61b30fe9bb7a006c05c54e2b"
+    },
+    pointId: "61b310cfbb7a006c05c54e2c",
+    carId: "600fff0bad015e0bb6997d79",
+    color: "Синий",
+    dateFrom: Date.parse(mockStartDate),
+    dateTo: Date.parse(mockEndDate),
+    rateId: "6114e4a02aed9a0b9b850848",
+    price: 20000,
+    isFullTank: true,
+    isNeedChildChair: true,
+    isRightWheel: true
+  }
 
   // Обработчики для кнопок подтверждения и отмены
   const confirmModalBtnHandler = useCallback(() => {
