@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Typography, Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
-import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
+import { cityLocationSelector, mapPointsSelector, orderSelector } from 'store/selectors/selectors';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
@@ -10,6 +10,7 @@ import { useActions } from 'hooks/useActions';
 import { ICar } from 'models/ICar';
 import { AppModal } from 'components/ui/AppModal';
 import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
+import moment from 'moment';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormLocation from './FormLocation/FormLocation';
@@ -99,34 +100,55 @@ const Order: FC = () => {
   };
 
   /* Блок с данными для итогового модального окна */
+
+  // Стейт с итоговыми данными запроса order
+  const { order, orderId, orderIsLoading, orderError } = useTypedSelector(orderSelector);
+
+  // Запрос на отправку данных заказа
+  const { sendOrder, fetchOrder } = useActions();
+
+  // Как только появляется id заказа, то происходит запрос на получение его данных
+  useEffect(() => {
+    if (orderId) {
+      fetchOrder(orderId);
+    }
+  }, [orderId]);
+
   // Локальный стейт
   const [modalActive, setModalActive] = useState(false);
-  const mockStartDate = new Date('2022-04-13T12:00:00Z').toISOString();
-  const mockEndDate = new Date('2022-04-14T12:00:00Z').toISOString();
+
+  // Создаю моковые даты
+  const mockDateStart = moment('13.04.2022 12:00', 'DD.MM.YYYY hh:mm');
+  const mockDateEnd = moment('14.04.2022 12:00', 'DD.MM.YYYY hh:mm');
+
+  // Перевожу дату в utc
+  const mockDateStartUtc = moment.utc(mockDateStart).format();
+  const mockDateEndUtc = moment.utc(mockDateEnd).format();
 
   const mockOrderPost = {
     orderStatusId: {
-      name: "Новые",
-      id: "5e26a191099b810b946c5d89"
+      name: 'Новые',
+      id: '5e26a191099b810b946c5d89',
     },
     cityId: {
-      name: "Ульяновск",
-      id: "61b30fe9bb7a006c05c54e2b"
+      name: 'Ульяновск',
+      id: '61b30fe9bb7a006c05c54e2b',
     },
-    pointId: "61b310cfbb7a006c05c54e2c",
-    carId: "600fff0bad015e0bb6997d79",
-    color: "Синий",
-    dateFrom: Date.parse(mockStartDate),
-    dateTo: Date.parse(mockEndDate),
-    rateId: "6114e4a02aed9a0b9b850848",
+    pointId: '61b310cfbb7a006c05c54e2c',
+    carId: '600fff0bad015e0bb6997d79',
+    color: 'Синий',
+    dateFrom: Date.parse(mockDateStartUtc),
+    dateTo: Date.parse(mockDateEndUtc),
+    rateId: '6114e4a02aed9a0b9b850848',
     price: 20000,
     isFullTank: true,
     isNeedChildChair: true,
-    isRightWheel: true
-  }
+    isRightWheel: true,
+  };
 
   // Обработчики для кнопок подтверждения и отмены
   const confirmModalBtnHandler = useCallback(() => {
+    sendOrder(mockOrderPost);
     setModalActive(false);
   }, [modalActive]);
 
