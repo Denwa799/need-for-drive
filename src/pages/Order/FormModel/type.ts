@@ -8,6 +8,7 @@ export interface IFormModel {
   setCarColors: (value: string[]) => void;
   pageSizeOptions: string[];
   clearFormAdditionally: () => void;
+  setMaxStage: (value: number) => void;
 }
 
 export type CarClickHandlerType = (

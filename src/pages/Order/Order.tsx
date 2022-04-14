@@ -168,6 +168,14 @@ const Order: FC = () => {
     );
   }, [priceMin, durationMin, durationDays, isFullTank, isChildSeat, isRightHandDrive]);
 
+  const clearFormModel = useCallback(() => {
+    setActiveCarId('');
+    setActiveCar('');
+    setPriceMin(0);
+    setPriceMax(0);
+    setCarColors([]);
+  }, []);
+
   // Функция очистки стейта для формы "Дополнительно" (FormAdditionally)
   const clearFormAdditionally = useCallback(() => {
     setColor('');
@@ -177,7 +185,6 @@ const Order: FC = () => {
     setIsFullTank(false);
     setIsChildSeat(false);
     setIsRightHandDrive(false);
-    setMaxStage(2);
   }, []);
 
   /* Отрисовка вкладок */
@@ -194,6 +201,9 @@ const Order: FC = () => {
       points={filteredCityPoints}
       setActivePointAddress={setActivePointAddress}
       setActivePointCity={setActivePointCity}
+      clearFormModel={clearFormModel}
+      clearFormAdditionally={clearFormAdditionally}
+      setMaxStage={setMaxStage}
     />
   );
 
@@ -217,6 +227,7 @@ const Order: FC = () => {
             setCarColors={setCarColors}
             pageSizeOptions={pageSizeOptions}
             clearFormAdditionally={clearFormAdditionally}
+            setMaxStage={setMaxStage}
           />
         );
       case 3:

@@ -21,6 +21,7 @@ const FormModel: FC<IFormModel> = ({
   setCarColors,
   pageSizeOptions,
   clearFormAdditionally,
+  setMaxStage,
 }) => {
   // Стейт
   const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
@@ -52,6 +53,7 @@ const FormModel: FC<IFormModel> = ({
   const carClickHandler = useCallback<CarClickHandlerType>(
     (id, name, min, max, colors) => {
       clearFormAdditionally();
+      setMaxStage(2);
       setActiveCarId(id);
       setActiveCar(name);
       setPriceMin(min);

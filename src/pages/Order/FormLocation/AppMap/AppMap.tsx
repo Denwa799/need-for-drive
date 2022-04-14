@@ -12,6 +12,9 @@ const AppMap: FC<IAppMap> = ({
   setActivePointCity,
   setCityValue,
   setPointValue,
+  clearFormModel,
+  clearFormAdditionally,
+  setMaxStage,
 }) => {
   // Стейт для объекта яндекс карты
   const [map, setMap] = useState<any>();
@@ -57,6 +60,9 @@ const AppMap: FC<IAppMap> = ({
 
   const clickHandler = useCallback<PlacemarkClickHandlerType>(
     (address, city, cord) => {
+      clearFormModel();
+      clearFormAdditionally();
+      setMaxStage(1);
       setActivePointAddress(address);
       setActivePointCity(city);
       setCityValue(city);
