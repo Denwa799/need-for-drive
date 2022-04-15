@@ -107,17 +107,12 @@ const FormModel: FC<IFormModel> = ({
         <div className={styles.formModel}>
           <div className={styles.radioButtons}>
             <AppRadioGroup onChange={filterChangeHandler} filterValue={filterValue}>
-              <AppRadioBtn value="Все модели" filterValue={filterValue} activeValue="Все модели">
+              <AppRadioBtn value="Все модели" filterValue={filterValue}>
                 Все модели
               </AppRadioBtn>
               {categories.map((button) => {
                 return (
-                  <AppRadioBtn
-                    key={button.id}
-                    value={button.name}
-                    filterValue={filterValue}
-                    activeValue={button.name}
-                  >
+                  <AppRadioBtn key={button.id} value={button.name} filterValue={filterValue}>
                     {button.name}
                   </AppRadioBtn>
                 );

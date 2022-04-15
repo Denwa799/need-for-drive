@@ -143,30 +143,50 @@ const Order: FC = () => {
 
   // Переводит разницу в количество минут
   const durationMin = useMemo(() => {
-    if (duration && rate === 'Поминутно') {
+    if (duration) {
       return moment.duration(duration).asMinutes();
     }
     return 0;
   }, [duration, rate]);
 
-  // Переводит разницу в количество часов
+  // Переводит разницу в количество дней
   const durationDays = useMemo(() => {
-    if (duration && rate === 'Месячный') {
+    if (duration) {
       return Math.ceil(moment.duration(duration).asDays());
     }
     return 0;
   }, [duration, rate]);
 
+  const rateActivePrice = useMemo(() => {
+    switch (rate) {
+      case 'Месячный':
+        return durationDays * (ratePrice / 30);
+      case 'Поминутно':
+        return durationMin * ratePrice;
+      case 'Суточный':
+        return durationDays * ratePrice;
+      case 'Недельный':
+        return durationDays * (ratePrice / 7);
+      case 'Недельный (Акция!)':
+        return durationDays * (ratePrice / 7);
+      case '3 Месяца':
+        return durationDays * (ratePrice / 90);
+      case 'Годовой':
+        return durationDays * (ratePrice / 365);
+      default:
+        return 0;
+    }
+  }, [durationMin, durationDays, rate]);
+
   const price = useMemo(() => {
     return Math.round(
       priceMin +
-        durationMin * ratePrice +
-        durationDays * (ratePrice / 30) +
+        rateActivePrice +
         (isFullTank ? 500 : 0) +
         (isChildSeat ? 200 : 0) +
         (isRightHandDrive ? 1600 : 0)
     );
-  }, [priceMin, durationMin, durationDays, isFullTank, isChildSeat, isRightHandDrive]);
+  }, [priceMin, rateActivePrice, isFullTank, isChildSeat, isRightHandDrive]);
 
   const clearFormModel = useCallback(() => {
     setActiveCarId('');
@@ -242,7 +262,6 @@ const Order: FC = () => {
             setEndDate={setEndDate}
             rate={rate}
             setRate={setRate}
-            ratePrice={ratePrice}
             setRatePrice={setRatePrice}
             isFullTank={isFullTank}
             setIsFullTank={setIsFullTank}

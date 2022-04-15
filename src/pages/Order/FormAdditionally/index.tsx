@@ -8,9 +8,9 @@ import { AppRadioBtn } from 'components/ui/AppRadioBtn';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
+import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { IFormAdditionally } from './type';
 import styles from './styles.module.less';
-import ErrorLoading from '../../../components/ui/ErrorLoading/ErrorLoading';
 
 const { Text } = Typography;
 
@@ -24,7 +24,6 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   setEndDate,
   rate,
   setRate,
-  ratePrice,
   setRatePrice,
   isFullTank,
   setIsFullTank,
@@ -92,13 +91,8 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
 
   // Обработчик нажатия на rate radio button
   const rateChangeHandler = useCallback(
-    (event: RadioChangeEvent) => {
-      const { value } = event.target;
-      // Удаляю все кроме букв
-      const rateName = value.replace(/[^a-zа-яё]/gi, '');
-      // Вытаскиваю из строки число
-      const price = parseInt(value.match(/\d+/), 10);
-      setRate(rateName);
+    (value, price) => {
+      setRate(value);
       setRatePrice(price);
     },
     [rate]
@@ -135,12 +129,7 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
               >
                 {filteredColors.map((carColor) => {
                   return (
-                    <AppRadioBtn
-                      key={carColor}
-                      value={carColor}
-                      filterValue={color}
-                      activeValue={carColor}
-                    >
+                    <AppRadioBtn key={carColor} value={carColor} filterValue={color}>
                       {carColor}
                     </AppRadioBtn>
                   );
@@ -188,24 +177,20 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
           <div className={styles.ratesBlock}>
             <Text className={styles.text__light}>Тариф</Text>
             <div className={styles.ratesContainer}>
-              <Radio.Group
-                onChange={rateChangeHandler}
-                value={`${rate}, ${ratePrice}`}
-                className={styles.RadioGroup}
-              >
+              <div className={styles.RadioGroup}>
                 {filteredRates.map((item) => {
                   return (
                     <AppRadioBtn
                       key={item.id}
-                      value={`${item.rateTypeId!.name}, ${item.price}`}
+                      value={item.rateTypeId!.name}
                       filterValue={rate}
-                      activeValue={item.rateTypeId!.name}
+                      onClick={(event) => rateChangeHandler(item.rateTypeId!.name, item.price)}
                     >
                       {item.rateTypeId!.name}, {item.price}₽/{item.rateTypeId!.unit}
                     </AppRadioBtn>
                   );
                 })}
-              </Radio.Group>
+              </div>
             </div>
           </div>
           <div className={styles.servicesBlock}>
