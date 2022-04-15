@@ -1,8 +1,8 @@
 import React, { FC, SyntheticEvent, useCallback, useMemo } from 'react';
 import { Col, Row, Typography } from 'antd';
 import defaultImg from 'assets/img/cars/image-1.webp';
-import { IFormTotal } from './type';
 import styles from './styles.module.less';
+import { IFormTotal } from './type';
 
 const { Title, Text } = Typography;
 
@@ -39,7 +39,12 @@ export const FormTotal: FC<IFormTotal> = ({ selectedCar }) => {
             </Row>
             <Row className={styles.textContainer}>
               <Text className={styles.text__light}>
-                <b className={styles.text__bold}>Доступна с</b> 12.06.2019 12:00
+                <b className={styles.text__bold}>Доступна с</b> 13.04.2022 12:00
+              </Text>
+            </Row>
+            <Row className={styles.textContainer}>
+              <Text className={styles.text__light}>
+                <b className={styles.text__bold}>Доступна по</b> 14.04.2022 12:00
               </Text>
             </Row>
           </Col>

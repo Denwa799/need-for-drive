@@ -58,7 +58,7 @@ const initialState: OrderState = {
   },
   orderId: '',
   orderError: '',
-  orderIsLoading: true,
+  orderIsLoading: false,
 };
 
 export default function OrderReducer(state = initialState, action: OrderAction): OrderState {

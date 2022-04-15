@@ -116,3 +116,27 @@ code {
   //important необходим, чтобы переписать толщину скроллбара в выпадающем меню
   width: 4px!important;
 }
+
+/* Переписываю стили для кнопки в ant design */
+
+// Отключаю серый фильтр на кнопке при загрузке
+.ant-btn.ant-btn-primary.ant-btn-loading::before {
+  display: none;
+}
+// Отключаю текст в кнопке при загрузке и увеличиваю размер лоадера
+.ant-btn.ant-btn-primary.ant-btn-loading {
+  span {
+    display: none;
+  }
+  .ant-btn-loading-icon {
+    display: block;
+    margin: 0 auto;
+    span {
+      display: block;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}

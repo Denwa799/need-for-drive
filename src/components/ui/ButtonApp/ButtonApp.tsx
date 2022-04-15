@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import React, { FC } from 'react';
 import cn from 'classnames';
+import { PoweroffOutlined } from '@ant-design/icons';
 import styles from './ButtonApp.module.less';
 import { IButtonApp } from './type';
 
@@ -11,6 +12,7 @@ const ButtonApp: FC<IButtonApp> = ({
   onClick,
   type = 'primary',
   className,
+  loading,
 }) => {
   return (
     <Button
@@ -28,6 +30,7 @@ const ButtonApp: FC<IButtonApp> = ({
       style={{ background: `${background}` }}
       disabled={disabled}
       onClick={onClick}
+      loading={loading}
     >
       {children}
     </Button>

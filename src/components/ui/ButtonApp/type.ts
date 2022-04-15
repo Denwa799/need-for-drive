@@ -4,4 +4,5 @@ export interface IButtonApp {
   disabled?: boolean;
   onClick?: () => void;
   className?: string;
+  loading?: boolean;
 }

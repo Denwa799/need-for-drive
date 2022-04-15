@@ -34,8 +34,4 @@ export interface SetOrderIsLoadingAction {
   payload: boolean;
 }
 
-export type OrderAction =
-  | GetOrder
-  | SetOrderId
-  | SetOrderErrorAction
-  | SetOrderIsLoadingAction;
+export type OrderAction = GetOrder | SetOrderId | SetOrderErrorAction | SetOrderIsLoadingAction;

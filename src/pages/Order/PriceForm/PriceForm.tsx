@@ -2,8 +2,8 @@ import React, { FC, useMemo } from 'react';
 import { Typography } from 'antd';
 import cn from 'classnames';
 import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
-import styles from './PriceForm.module.less';
 import { IPriceForm } from './type';
+import styles from './PriceForm.module.less';
 
 const { Title, Text } = Typography;
 
@@ -16,7 +16,9 @@ const PriceForm: FC<IPriceForm> = ({
   modelName,
   priceMin,
   priceMax,
-  setModalActive,
+  priceFormTotalButtonHandler,
+  orderIsLoading,
+  orderError,
 }) => {
   const RenderBtns = () =>
     useMemo(() => {
@@ -41,8 +43,18 @@ const PriceForm: FC<IPriceForm> = ({
           );
         case 4:
           return (
-            <ButtonApp disabled={!address} onClick={() => setModalActive(true)}>
+            <ButtonApp
+              disabled={!address}
+              onClick={priceFormTotalButtonHandler}
+              loading={orderIsLoading}
+            >
               Заказать
+            </ButtonApp>
+          );
+        case 5:
+          return (
+            <ButtonApp disabled={!address} type="red">
+              Отменить
             </ButtonApp>
           );
         default:
@@ -83,6 +95,7 @@ const PriceForm: FC<IPriceForm> = ({
       <div className={styles.button}>
         <RenderBtns />
       </div>
+      {orderError && <div className={styles.orderError}>{orderError}</div>}
     </div>
   );
 };

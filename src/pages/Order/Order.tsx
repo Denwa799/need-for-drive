@@ -11,6 +11,7 @@ import { ICar } from 'models/ICar';
 import { AppModal } from 'components/ui/AppModal';
 import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 import FormModel from './FormModel/FormModel';
 import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormLocation from './FormLocation/FormLocation';
@@ -102,15 +103,20 @@ const Order: FC = () => {
   /* Блок с данными для итогового модального окна */
 
   // Стейт с итоговыми данными запроса order
-  const { order, orderId, orderIsLoading, orderError } = useTypedSelector(orderSelector);
+  const { orderId, orderIsLoading, orderError } = useTypedSelector(orderSelector);
+  const navigate = useNavigate();
 
-  // Запрос на отправку данных заказа
-  const { sendOrder, fetchOrder } = useActions();
+  // Запрос на отправку данных заказа и выставляющий id выполненного order
+  const { sendOrder, setOrderId } = useActions();
 
-  // Как только появляется id заказа, то происходит запрос на получение его данных
+  // Сбрасываю активный order id при инициализации страницы
+  // И если есть order id и есть 4 этап, то перенаправляю на страницу заказа
   useEffect(() => {
-    if (orderId) {
-      fetchOrder(orderId);
+    if (maxStage === 1) {
+      setOrderId('');
+    }
+    if (maxStage >= 4 && orderId) {
+      navigate(`/order/${orderId}`);
     }
   }, [orderId]);
 
@@ -144,6 +150,10 @@ const Order: FC = () => {
     isFullTank: true,
     isNeedChildChair: true,
     isRightWheel: true,
+  };
+
+  const priceFormTotalButtonHandler = () => {
+    setModalActive(true);
   };
 
   // Обработчики для кнопок подтверждения и отмены
@@ -237,10 +247,12 @@ const Order: FC = () => {
                     locationButtonHandler={priceFormLocationButtonHandler}
                     modelButtonHandler={priceFormModelButtonHandler}
                     additionallyButtonHandler={priceFormAdditionallyButtonHandler}
+                    priceFormTotalButtonHandler={priceFormTotalButtonHandler}
                     modelName={activeCar}
                     priceMin={priceMin}
                     priceMax={priceMax}
-                    setModalActive={setModalActive}
+                    orderIsLoading={orderIsLoading}
+                    orderError={orderError}
                   />
                 </AppContainer>
               </Layout.Content>
