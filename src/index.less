@@ -86,6 +86,32 @@ code {
     monospace;
 }
 
+/* Переписываю ширину для навигационного sidebar */
+.ant-drawer.ant-drawer-left.ant-drawer-open{
+  .ant-drawer-content-wrapper {
+    // important необходим, так как библиотека изначально накладывает фиксированные инлайн стили
+    width: 54.2vw!important;
+  }
+}
+
+@media (max-width: 1439px) {
+  .ant-drawer.ant-drawer-left.ant-drawer-open{
+    .ant-drawer-content-wrapper {
+      // important необходим, так как библиотека изначально накладывает фиксированные инлайн стили
+      width: 58.4vw!important;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .ant-drawer.ant-drawer-left.ant-drawer-open{
+    .ant-drawer-content-wrapper {
+      // important необходим, так как библиотека изначально накладывает фиксированные инлайн стили
+      width: 100%!important;
+    }
+  }
+}
+
 /* Переписываю активный dot в каруселе ant design */
 .ant-carousel .slick-slider .slick-dots li.slick-active button {
   background: @app-primary-color;

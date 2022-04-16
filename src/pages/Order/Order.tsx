@@ -154,10 +154,10 @@ const Order: FC = () => {
 
   return (
     <Row className={styles.Order}>
-      <Col xl={1} lg={2} md={2} sm={2} xs={24}>
+      <Col xl={1} lg={1} md={2} sm={2} xs={24}>
         <Navigation />
       </Col>
-      <Col xl={23} lg={22} md={22} sm={22} xs={24} className={styles.mainContent}>
+      <Col xl={23} lg={23} md={22} sm={24} xs={24} className={styles.mainContent}>
         <Affix offsetTop={0}>
           <div className={styles.headerContainer}>
             <AppContainer>
