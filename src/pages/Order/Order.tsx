@@ -143,7 +143,7 @@ const Order: FC = () => {
 
   // Переводит разницу в количество минут
   const durationMin = useMemo(() => {
-    if (duration) {
+    if (duration && rate === 'Поминутно') {
       return moment.duration(duration).asMinutes();
     }
     return 0;
@@ -151,8 +151,32 @@ const Order: FC = () => {
 
   // Переводит разницу в количество дней
   const durationDays = useMemo(() => {
-    if (duration) {
+    if (duration && rate === 'Суточный') {
       return Math.ceil(moment.duration(duration).asDays());
+    }
+    return 0;
+  }, [duration, rate]);
+
+  // Переводит разницу в количество недель
+  const durationWeek = useMemo(() => {
+    if (duration && (rate === 'Недельный' || rate === 'Недельный (Акция!)')) {
+      return Math.ceil(moment.duration(duration).asWeeks());
+    }
+    return 0;
+  }, [duration, rate]);
+
+  // Переводит разницу в количество месяцев
+  const durationMonth = useMemo(() => {
+    if (duration && (rate === 'Месячный' || rate === '3 Месяца')) {
+      return Math.ceil(moment.duration(duration).asMonths());
+    }
+    return 0;
+  }, [duration, rate]);
+
+  // Переводит разницу в количество лет
+  const durationYear = useMemo(() => {
+    if (duration && rate === 'Годовой') {
+      return Math.ceil(moment.duration(duration).asYears());
     }
     return 0;
   }, [duration, rate]);
@@ -160,23 +184,23 @@ const Order: FC = () => {
   const rateActivePrice = useMemo(() => {
     switch (rate) {
       case 'Месячный':
-        return durationDays * (ratePrice / 30);
+        return durationMonth * ratePrice;
       case 'Поминутно':
         return durationMin * ratePrice;
       case 'Суточный':
         return durationDays * ratePrice;
       case 'Недельный':
-        return durationDays * (ratePrice / 7);
+        return durationWeek * ratePrice;
       case 'Недельный (Акция!)':
-        return durationDays * (ratePrice / 7);
+        return durationWeek * ratePrice;
       case '3 Месяца':
-        return durationDays * (ratePrice / 90);
+        return Math.ceil(durationMonth / 3) * ratePrice;
       case 'Годовой':
-        return durationDays * (ratePrice / 365);
+        return durationYear * ratePrice;
       default:
         return 0;
     }
-  }, [durationMin, durationDays, rate]);
+  }, [durationMin, durationDays, durationWeek, durationMonth, durationYear, rate]);
 
   const price = useMemo(() => {
     return Math.round(
