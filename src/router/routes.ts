@@ -5,4 +5,5 @@ export enum RouteNames {
   INSURANCE = '/insurance',
   PETROL = '/petrol',
   SERVICE = '/service',
+  LOGIN = '/login',
 }
