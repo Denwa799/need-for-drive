@@ -6,6 +6,7 @@ import React from 'react';
 import Petrol from 'pages/Petrol/Petrol';
 import Service from 'pages/Service/Service';
 import { Login } from 'pages/Login';
+import { OrderList } from 'pages/admin/OrderList';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -21,4 +22,8 @@ export const publicRoutes: IRoute[] = [
   { path: RouteNames.PETROL, component: Petrol },
   { path: RouteNames.SERVICE, component: Service },
   { path: RouteNames.LOGIN, component: Login },
+];
+
+export const privateRoutes: IRoute[] = [
+  { path: RouteNames.ADMIN_ORDER_LIST, component: OrderList },
 ];
