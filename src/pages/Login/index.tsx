@@ -1,18 +1,18 @@
-import { Button, Col, Form, Input, Row, Typography } from 'antd';
+import { Row, Typography } from 'antd';
 import React, { FC, useCallback, useEffect } from 'react';
 import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
 import Icon from '@ant-design/icons';
 import moment from 'moment';
-import { formRules } from 'utils/formRules';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { authSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { LoginForm } from 'components/ui/LoginForm';
 import styles from './styles.module.less';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 export const Login: FC = () => {
   const navigate = useNavigate();
@@ -64,49 +64,7 @@ export const Login: FC = () => {
                 Need for drive
               </Title>
             </Row>
-            <Row className={styles.formBlock}>
-              <Row className={styles.titleContainer}>
-                <Col className={styles.title} span={24}>
-                  Вход
-                </Col>
-              </Row>
-              <Row className={styles.formContainer}>
-                <Col span={24}>
-                  <Form onFinish={submit}>
-                    <Text className={styles.text}>Почта</Text>
-                    <Form.Item
-                      name="username"
-                      rules={[formRules.required('Пожалуйста введи вашу почту!')]}
-                    >
-                      <Input className={styles.input} />
-                    </Form.Item>
-                    <Text className={styles.text}>Пароль</Text>
-                    <Form.Item
-                      name="password"
-                      rules={[formRules.required('Пожалуйста введи ваш пароль!')]}
-                    >
-                      <Input.Password className={styles.input} />
-                    </Form.Item>
-                    <Row>
-                      <Col span={12}>
-                        <Form.Item>
-                          <Button type="link" className={styles.link}>
-                            Запросить доступ
-                          </Button>
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item className={styles.text__right}>
-                          <Button type="primary" htmlType="submit" className={styles.submit}>
-                            Войти
-                          </Button>
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  </Form>
-                </Col>
-              </Row>
-            </Row>
+            <LoginForm submit={submit} />
           </div>
         </div>
       )}
