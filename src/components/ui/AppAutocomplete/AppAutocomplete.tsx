@@ -4,7 +4,13 @@ import { CloseOutlined } from '@ant-design/icons';
 import styles from './AppAutocomplete.module.less';
 import { IAppAutocomplete } from './type';
 
-const AppAutocomplete: FC<IAppAutocomplete> = ({ options, value, onChange, placeholder }) => {
+const AppAutocomplete: FC<IAppAutocomplete> = ({
+  options,
+  value,
+  onChange,
+  placeholder,
+  disabled,
+}) => {
   return (
     <div className={styles.AppAutocomplete}>
       <AutoComplete
@@ -16,12 +22,13 @@ const AppAutocomplete: FC<IAppAutocomplete> = ({ options, value, onChange, place
         onChange={onChange}
         className={styles.autocomplete}
         dropdownClassName={styles.dropdown}
+        disabled={disabled}
       >
         <Input
           className={styles.input}
           placeholder={placeholder}
           allowClear={{
-            clearIcon: <CloseOutlined style={{ color: '#000', fontSize: 16 }} />,
+            clearIcon: <CloseOutlined style={{ color: '#000', fontSize: 14 }} />,
           }}
         />
       </AutoComplete>

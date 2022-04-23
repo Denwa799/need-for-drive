@@ -73,7 +73,7 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1439px) {
   .Main {
     .mainContent {
       .bodyButton {
@@ -83,13 +83,15 @@
   }
 }
 
-@media (max-width: 768px) {
-  .carousel {
-    display: none;
+@media (max-width: 1023px) {
+  .Main {
+    .carousel {
+      display: none;
+    }
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 767px) {
   .Main {
     .mainContent {
       height: calc(100vh - 50px);
@@ -99,30 +101,18 @@
       }
 
       .bodyTitle {
-        font-size: 50px;
+        font-size: 32px;
       }
-    }
-  }
-}
 
-@media (max-width: 400px) {
-  .Main {
-    .mainContent {
-      .body {
-        .bodyTitle {
-          font-size: 32px;
-        }
-
-        .bodyText {
-          font-size: 18px;
-        }
+      .bodyText {
+        font-size: 18px;
       }
 
       .bodyButton {
         padding: 0;
 
         .button {
-          margin-top: 20px;
+          margin-top: 32px;
 
           button {
             width: 100%;
@@ -136,8 +126,8 @@
 
 /* Адаптация в горизонтальном режиме */
 
-@media (min-width: 769px) and (max-height: 769px),
-(min-width: 576px) and (max-height: 640px) {
+@media (min-width: 1024px) and (max-height: 634px),
+(min-width: 768px) and (max-height: 540px) {
   .Main {
     .mainContent {
       .bodyTitle {
@@ -147,8 +137,8 @@
   }
 }
 
-@media (min-width: 769px) and (max-height: 630px),
-(min-width: 576px) and (max-height: 580px) {
+@media (min-width: 1024px) and (max-height: 510px),
+(min-width: 768px) and (max-height: 480px) {
   .Main {
     .mainContent {
       .body {
@@ -162,69 +152,60 @@
   }
 }
 
-@media (min-width: 769px) and (max-height: 520px),
-(min-width: 576px) and (max-height: 480px),
-(min-width: 568px) and (max-height: 500px) {
+@media (min-width: 1024px) and (max-height: 400px),
+(min-width: 768px) and (max-height: 375px) {
   .Main {
     .mainContent {
       .body {
         padding-top: 10px;
       }
-
-      .bodyButton .button {
-        margin-top: 20px;
-      }
     }
   }
 }
 
-@media (min-width: 769px) and (max-height: 490px),
-(min-width: 576px) and (max-height: 430px),
-(min-width: 568px) and (max-height: 500px) {
+@media (min-width: 1024px) and (max-height: 355px),
+(min-width: 768px) and (max-height: 330px) {
   .Main {
     .mainContent {
-      .body {
-        .bodyTitle {
-          font-size: 32px;
-        }
+      .bodyTitle {
+        font-size: 32px;
+      }
 
-        .bodyText {
-          font-size: 18px;
-        }
+      .bodyText {
+        font-size: 18px;
       }
     }
   }
 }
 
-@media (min-width: 769px) and (max-height: 370px),
-(min-width: 576px) and (max-height: 325px),
-(min-width: 568px) and (max-height: 500px),
-(min-width: 401px) and (max-height: 535px) {
-  .Main {
-    .mainContent {
-      .body {
-        padding-top: 0;
-
-        .bodyTitle {
-          margin-bottom: 0;
-        }
-
-      }
-
-      .bodyButton .button {
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-@media (min-width: 568px) and (max-height: 345px) and (max-width: 575px),
-(min-width: 401px) and (max-height: 535px)  and (max-width: 575px) {
+@media (max-width: 767px) and (max-height: 385px) {
   .Main {
     .mainContent {
       .body, .bodyButton {
         position: relative;
         bottom: 50px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) and (max-height: 325px) {
+  .Main {
+    .mainContent {
+      .bodyButton {
+        .button {
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) and (max-height: 290px) {
+  .Main {
+    .mainContent {
+      .bodyTitle {
+        margin-bottom: 2px;
       }
     }
   }

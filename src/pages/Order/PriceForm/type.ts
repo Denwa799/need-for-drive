@@ -10,4 +10,11 @@ export interface IPriceForm {
   priceFormTotalButtonHandler?: () => void;
   orderIsLoading?: boolean;
   orderError?: string;
+  price: number;
+  color: string;
+  duration?: string;
+  rate: string;
+  isFullTank: boolean;
+  isChildSeat: boolean;
+  isRightHandDrive: boolean;
 }

@@ -7,8 +7,10 @@ export interface IFormLocation {
   }[];
   cityValue: string;
   setCityValue: (value: string) => void;
+  debouncedCityValue: string;
   pointValue: string;
   setPointValue: (value: string) => void;
+  debouncedPointValue: string;
   points: {
     address?: string;
     cityId?: {
@@ -20,4 +22,7 @@ export interface IFormLocation {
   }[];
   setActivePointAddress: (value: string) => void;
   setActivePointCity: (value: string) => void;
+  clearFormModel: () => void;
+  clearFormAdditionally: () => void;
+  setMaxStage: (value: number) => void;
 }

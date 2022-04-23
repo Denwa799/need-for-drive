@@ -44,54 +44,60 @@
   bottom: 0;
 }
 
-@media (max-width: 575px), (max-height: 620px) {
+@media (max-width: 1023px) {
+  .Menu {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
   .Drawer svg {
     margin-top: 0;
   }
 
   .Menu {
     padding: 0;
+    font-size: 22px;
   }
 
   .networksIcons {
     padding-left: 20px;
-    padding-top: 10px;
+    padding-top: 32px;
   }
 }
 
-@media (min-width: 576px) and (max-height: 620px) {
-  .Drawer svg {
-    position: relative;
-    top: 25px;
-    right: 15px;
-  }
-
-  .Drawer .networksIcons svg {
-    top: 0;
-    right: 0;
-    left: 15px;
-  }
-
-  .Menu {
-    padding-left: 20px;
-  }
-}
-
-
-@media (max-width: 575px) {
+@media (max-width: 767px) {
   .langButton {
     display: block;
   }
 }
 
-@media (max-width: 575px) and (max-height: 370px) {
+@media (max-width: 767px) and (max-height: 390px) {
   .langButton {
-    left: 65%;
+    right: 10px;
   }
 }
 
-@media (max-width: 530px) and (max-height: 370px) {
-  .langButton {
-    left: 60%;
+@media (min-width: 768px) and (max-height: 720px) {
+  .Menu {
+    padding-top: 200px;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 640px) {
+  .Menu {
+    padding-top: 150px;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 540px) {
+  .Menu {
+    padding-top: 100px;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 480px) {
+  .Menu {
+    padding-top: 0;
   }
 }

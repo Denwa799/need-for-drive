@@ -16,10 +16,10 @@ const { Title, Text } = Typography;
 const Main: FC = () => {
   return (
     <Row className={styles.Main}>
-      <Col xl={1} lg={2} md={2} sm={2} xs={24}>
+      <Col xl={1} lg={1} md={2} sm={24} xs={24}>
         <Navigation />
       </Col>
-      <Col xl={12} lg={13} md={13} sm={22} xs={24} className={styles.mainContent}>
+      <Col xl={12} lg={13} md={22} sm={24} xs={24} className={styles.mainContent}>
         <AppContainer>
           <AppHeader />
         </AppContainer>
@@ -49,9 +49,9 @@ const Main: FC = () => {
             </Col>
           </Row>
         </Layout.Content>
-        <AppFooter xl={12} lg={12} md={12} sm={12} xs={24} />
+        <AppFooter xl={12} lg={12} md={12} sm={24} xs={24} />
       </Col>
-      <Col xl={11} lg={9} md={9} className={`${styles.carousel}`}>
+      <Col xl={11} lg={10} className={`${styles.carousel}`}>
         <AppCarousel items={MainPageSlider} />
       </Col>
     </Row>

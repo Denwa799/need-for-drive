@@ -51,7 +51,7 @@ const initialState: OrderState = {
       id: '',
     },
     price: 0,
-    isFullTanK: false,
+    isFullTank: false,
     isNeedChildChair: false,
     isRightWheel: false,
     id: '',

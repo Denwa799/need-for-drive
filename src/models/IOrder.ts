@@ -48,7 +48,7 @@ export interface IOrder {
     id: string;
   };
   price: number;
-  isFullTanK: boolean;
+  isFullTank: boolean;
   isNeedChildChair: boolean;
   isRightWheel: boolean;
   id: string;

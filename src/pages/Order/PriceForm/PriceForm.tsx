@@ -19,6 +19,13 @@ const PriceForm: FC<IPriceForm> = ({
   priceFormTotalButtonHandler,
   orderIsLoading,
   orderError,
+  price,
+  color,
+  duration,
+  rate,
+  isFullTank,
+  isChildSeat,
+  isRightHandDrive,
 }) => {
   const RenderBtns = () =>
     useMemo(() => {
@@ -37,7 +44,7 @@ const PriceForm: FC<IPriceForm> = ({
           );
         case 3:
           return (
-            <ButtonApp disabled={!address} onClick={additionallyButtonHandler}>
+            <ButtonApp disabled={!color || !rate || !duration} onClick={additionallyButtonHandler}>
               Итого
             </ButtonApp>
           );
@@ -64,7 +71,7 @@ const PriceForm: FC<IPriceForm> = ({
             </ButtonApp>
           );
       }
-    }, [maxStage]);
+    }, []);
 
   return (
     <div className={styles.PriceForm}>
@@ -81,14 +88,69 @@ const PriceForm: FC<IPriceForm> = ({
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Модель</Text>
-            <Text className={cn(styles.listText, styles.modelName)}>{modelName}</Text>
+            <Text className={cn(styles.listText, styles.firstLatterUppercase)}>{modelName}</Text>
           </div>
         </div>
       )}
-      {priceMin > 0 && priceMax > 0 && (
+      {color && (
+        <div className={styles.priceItem}>
+          <div className={styles.priceDots}>
+            <Text className={styles.listTitle}>Цвет</Text>
+            <Text className={cn(styles.listText, styles.firstLatterUppercase)}>{color}</Text>
+          </div>
+        </div>
+      )}
+      {duration && (
+        <div className={styles.priceItem}>
+          <div className={styles.priceDots}>
+            <Text className={styles.listTitle}>Длительность аренды</Text>
+            <Text className={styles.listText}>{duration}</Text>
+          </div>
+        </div>
+      )}
+      {rate && (
+        <div className={styles.priceItem}>
+          <div className={styles.priceDots}>
+            <Text className={styles.listTitle}>Тариф</Text>
+            <Text className={cn(styles.listText, styles.firstLatterUppercase)}>{rate}</Text>
+          </div>
+        </div>
+      )}
+      {isFullTank && (
+        <div className={styles.priceItem}>
+          <div className={styles.priceDots}>
+            <Text className={styles.listTitle}>Полный бак</Text>
+            <Text className={styles.listText}>Да</Text>
+          </div>
+        </div>
+      )}
+      {isChildSeat && (
+        <div className={styles.priceItem}>
+          <div className={styles.priceDots}>
+            <Text className={styles.listTitle}>Детское кресло</Text>
+            <Text className={styles.listText}>Да</Text>
+          </div>
+        </div>
+      )}
+      {isRightHandDrive && (
+        <div className={styles.priceItem}>
+          <div className={styles.priceDots}>
+            <Text className={styles.listTitle}>Правый руль</Text>
+            <Text className={styles.listText}>Да</Text>
+          </div>
+        </div>
+      )}
+      {priceMin > 0 && priceMax > 0 && (!rate || !duration) && (
         <div className={styles.priceFinished}>
           <Text>
             <b>Цена</b>: от {priceMin} до {priceMax} ₽
+          </Text>
+        </div>
+      )}
+      {price > 0 && rate && duration && (
+        <div className={styles.priceFinished}>
+          <Text>
+            <b>Цена</b>: {price} ₽
           </Text>
         </div>
       )}

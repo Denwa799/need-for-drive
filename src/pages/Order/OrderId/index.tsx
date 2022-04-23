@@ -26,6 +26,12 @@ export const OrderId: FC = () => {
   const [model, setModel] = useState('');
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [color, setColor] = useState('');
+  const [rate, setRate] = useState('');
+  const [isFullTank, setIsFullTank] = useState(false);
+  const [isChildSeat, setIsChildSeat] = useState(false);
+  const [isRightHandDrive, setIsRightHandDrive] = useState(false);
 
   // Как только появляется id заказа, то происходит запрос на получение его данных
   useEffect(() => {
@@ -52,6 +58,12 @@ export const OrderId: FC = () => {
       setModel(order.carId.name);
       setPriceMin(order.carId.priceMin);
       setPriceMax(order.carId.priceMax);
+      setPrice(order.price);
+      setColor(order.color);
+      setRate(order.rateId.rateTypeId.name);
+      setIsFullTank(order.isFullTank);
+      setIsChildSeat(order.isNeedChildChair);
+      setIsRightHandDrive(order.isRightWheel);
     }
   }, [order]);
 
@@ -140,6 +152,12 @@ export const OrderId: FC = () => {
                     modelName={model}
                     priceMin={priceMin}
                     priceMax={priceMax}
+                    price={price}
+                    color={color}
+                    rate={rate}
+                    isFullTank={isFullTank}
+                    isChildSeat={isChildSeat}
+                    isRightHandDrive={isRightHandDrive}
                   />
                 </Col>
               </Row>
