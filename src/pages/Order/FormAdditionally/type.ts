@@ -11,6 +11,7 @@ export interface IFormAdditionally {
   rate: string;
   setRate: (value: string) => void;
   setRatePrice: (value: number) => void;
+  setRateUnit: (value: string) => void;
   isFullTank: boolean;
   setIsFullTank: (value: boolean) => void;
   isChildSeat: boolean;

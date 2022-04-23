@@ -25,6 +25,7 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   rate,
   setRate,
   setRatePrice,
+  setRateUnit,
   isFullTank,
   setIsFullTank,
   isChildSeat,
@@ -43,33 +44,23 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
 
   // Отфильтровываю тарифы, где нет описания.
   // Так как считаю, что это ошибка тестового api.
-  const filteredRates = useMemo(() => {
-    return rates.filter((item) => item.rateTypeId);
-  }, [rates]);
+  const filteredRates = useMemo(() => rates.filter((item) => item.rateTypeId), [rates]);
 
   // Отфильтровываю повторяющиеся цвета
-  const filteredColors = useMemo(() => {
-    return Array.from(new Set(carColors));
-  }, [carColors]);
+  const filteredColors = useMemo(() => Array.from(new Set(carColors)), [carColors]);
 
   // Обработчик нажатия на color radio button
   const colorChangeHandler = useCallback(
-    (event: RadioChangeEvent) => {
-      setColor(event.target.value);
-    },
+    (event: RadioChangeEvent) => setColor(event.target.value),
     [color]
   );
 
   // Отключаю даты, что уже прошли
-  const disabledStartDate = useCallback((current: Moment) => {
-    return current < moment();
-  }, []);
+  const disabledStartDate = useCallback((current: Moment) => current < moment(), []);
 
   // Отключаю даты, меньше стартовой даты. Для второго поля, до какой даты аренда
   const disabledEndDate = useCallback(
-    (current: Moment) => {
-      return current < moment(startDate);
-    },
+    (current: Moment) => current < moment(startDate),
     [startDate]
   );
 
@@ -82,34 +73,27 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
     [startDate]
   );
 
-  const endDateChangeHandler = useCallback(
-    (date: Moment | null) => {
-      return setEndDate(date!);
-    },
-    [endDate]
-  );
+  const endDateChangeHandler = useCallback((date: Moment | null) => setEndDate(date!), [endDate]);
 
   // Обработчик нажатия на rate radio button
   const rateChangeHandler = useCallback(
-    (value, price) => {
+    (value, price, unit) => {
       setRate(value);
       setRatePrice(price);
+      setRateUnit(unit);
     },
     [rate]
   );
 
   // Обработчики нажатия на checkbox
-  const fullTankChangeHandler = useCallback(() => {
-    setIsFullTank(!isFullTank);
-  }, [isFullTank]);
+  const fullTankChangeHandler = useCallback(() => setIsFullTank(!isFullTank), [isFullTank]);
 
-  const childSeatChangeHandler = useCallback(() => {
-    setIsChildSeat(!isChildSeat);
-  }, [isChildSeat]);
+  const childSeatChangeHandler = useCallback(() => setIsChildSeat(!isChildSeat), [isChildSeat]);
 
-  const rightHandDriveChangeHandler = useCallback(() => {
-    setIsRightHandDrive(!isRightHandDrive);
-  }, [isRightHandDrive]);
+  const rightHandDriveChangeHandler = useCallback(
+    () => setIsRightHandDrive(!isRightHandDrive),
+    [isRightHandDrive]
+  );
 
   return (
     <div>
@@ -184,7 +168,9 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
                       key={item.id}
                       value={item.rateTypeId!.name}
                       filterValue={rate}
-                      onClick={(event) => rateChangeHandler(item.rateTypeId!.name, item.price)}
+                      onClick={(event) =>
+                        rateChangeHandler(item.rateTypeId!.name, item.price, item.rateTypeId!.unit)
+                      }
                     >
                       {item.rateTypeId!.name}, {item.price}₽/{item.rateTypeId!.unit}
                     </AppRadioBtn>

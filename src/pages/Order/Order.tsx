@@ -52,9 +52,10 @@ const Order: FC = () => {
 
   // Отфильтровываю метки, где нет данных о городе.
   // Так как считаю, что это ошибка тестового api, потому что адрес без города - это не правильно
-  const filteredPoints = useMemo(() => {
-    return points.filter((point) => !(point.cityId === null));
-  }, [points]);
+  const filteredPoints = useMemo(
+    () => points.filter((point) => !(point.cityId === null)),
+    [points]
+  );
 
   // Создаю массив городов для поля поиска города в форме "местоположение" (FormLocation)
   const optionsCity = useMemo(() => {
@@ -66,9 +67,10 @@ const Order: FC = () => {
   }, [filteredPoints]);
 
   // Отфильтровываю города для карты исходя из поля поиска
-  const filteredCityPoints = useMemo(() => {
-    return filteredPoints.filter((point) => point.cityId!.name === debouncedCityValue);
-  }, [filteredPoints, debouncedCityValue]);
+  const filteredCityPoints = useMemo(
+    () => filteredPoints.filter((point) => point.cityId!.name === debouncedCityValue),
+    [filteredPoints, debouncedCityValue]
+  );
 
   // Создаю массив названий пунктов для поля поиска пункта в форме "местоположение" (FormLocation)
   const optionsName = useMemo(() => {
@@ -89,9 +91,7 @@ const Order: FC = () => {
   const [carColors, setCarColors] = useState<string[]>([]);
 
   // Опции размера пагинации для формы "Модель" (FormModel)
-  const pageSizeOptions = useMemo(() => {
-    return ['2', '4', '6', '8', '10', '12'];
-  }, []);
+  const pageSizeOptions = useMemo(() => ['2', '4', '6', '8', '10', '12'], []);
 
   /* Блок с данными для формы заказа (PriceForm) */
   // Обработчики переключения вкладок для кнопкоп в PriceForm
@@ -111,25 +111,17 @@ const Order: FC = () => {
   /* Блок с данными для формы дополнительных параметров (FormAdditionally) */
   // Локальный стейт для формы "Дополнительно" (FormAdditionally)
   const [color, setColor] = useState('');
-  const [startDate, setStartDate] = useState<Moment>(
-    useCallback(() => {
-      return moment();
-    }, [])
-  );
+  const [startDate, setStartDate] = useState<Moment>(useCallback(() => moment(), []));
   const [endDate, setEndDate] = useState<Moment>();
   const [rate, setRate] = useState('');
   const [ratePrice, setRatePrice] = useState(0);
+  const [rateUnit, setRateUnit] = useState('');
   const [isFullTank, setIsFullTank] = useState(false);
   const [isChildSeat, setIsChildSeat] = useState(false);
   const [isRightHandDrive, setIsRightHandDrive] = useState(false);
 
   // Высчитывает разницу во времени, чтобы узнать длительность аренды
-  const duration = useMemo(() => {
-    if (endDate !== undefined && endDate !== null) {
-      return endDate.diff(startDate);
-    }
-    return '';
-  }, [endDate]);
+  const duration = useMemo(() => (endDate ? endDate.diff(startDate) : ''), [endDate]);
 
   // Переводит разницу в строку для отображения
   const durationString = useMemo(() => {
@@ -142,65 +134,57 @@ const Order: FC = () => {
   }, [duration]);
 
   // Переводит разницу в количество минут
-  const durationMin = useMemo(() => {
-    if (duration && rate === 'Поминутно') {
-      return moment.duration(duration).asMinutes();
-    }
-    return 0;
-  }, [duration, rate]);
+  const durationMin = useMemo(
+    () => (duration && rateUnit === 'мин' ? moment.duration(duration).asMinutes() : 0),
+    [duration, rateUnit]
+  );
 
   // Переводит разницу в количество дней
-  const durationDays = useMemo(() => {
-    if (duration && rate === 'Суточный') {
-      return Math.ceil(moment.duration(duration).asDays());
-    }
-    return 0;
-  }, [duration, rate]);
+  const durationDays = useMemo(
+    () => (duration && rateUnit === 'сутки' ? Math.ceil(moment.duration(duration).asDays()) : 0),
+    [duration, rateUnit]
+  );
 
   // Переводит разницу в количество недель
-  const durationWeek = useMemo(() => {
-    if (duration && (rate === 'Недельный' || rate === 'Недельный (Акция!)')) {
-      return Math.ceil(moment.duration(duration).asWeeks());
-    }
-    return 0;
-  }, [duration, rate]);
+  const durationWeek = useMemo(
+    () => (duration && rateUnit === '7 дней' ? Math.ceil(moment.duration(duration).asWeeks()) : 0),
+    [duration, rateUnit]
+  );
 
   // Переводит разницу в количество месяцев
-  const durationMonth = useMemo(() => {
-    if (duration && (rate === 'Месячный' || rate === '3 Месяца')) {
-      return Math.ceil(moment.duration(duration).asMonths());
-    }
-    return 0;
-  }, [duration, rate]);
+  const durationMonth = useMemo(
+    () =>
+      duration && (rateUnit === '30 дней' || rateUnit === '90 дней')
+        ? Math.ceil(moment.duration(duration).asMonths())
+        : 0,
+    [duration, rateUnit]
+  );
 
   // Переводит разницу в количество лет
-  const durationYear = useMemo(() => {
-    if (duration && rate === 'Годовой') {
-      return Math.ceil(moment.duration(duration).asYears());
-    }
-    return 0;
-  }, [duration, rate]);
+  const durationYear = useMemo(
+    () =>
+      duration && rateUnit === '365 дней' ? Math.ceil(moment.duration(duration).asYears()) : 0,
+    [duration, rateUnit]
+  );
 
   const rateActivePrice = useMemo(() => {
-    switch (rate) {
-      case 'Месячный':
+    switch (rateUnit) {
+      case '30 дней':
         return durationMonth * ratePrice;
-      case 'Поминутно':
+      case 'мин':
         return durationMin * ratePrice;
-      case 'Суточный':
+      case 'сутки':
         return durationDays * ratePrice;
-      case 'Недельный':
+      case '7 дней':
         return durationWeek * ratePrice;
-      case 'Недельный (Акция!)':
-        return durationWeek * ratePrice;
-      case '3 Месяца':
+      case '90 дней':
         return Math.ceil(durationMonth / 3) * ratePrice;
-      case 'Годовой':
+      case '365 дней':
         return durationYear * ratePrice;
       default:
         return 0;
     }
-  }, [durationMin, durationDays, durationWeek, durationMonth, durationYear, rate]);
+  }, [durationMin, durationDays, durationWeek, durationMonth, durationYear, rateUnit, ratePrice]);
 
   const price = useMemo(() => {
     return Math.round(
@@ -287,6 +271,7 @@ const Order: FC = () => {
             rate={rate}
             setRate={setRate}
             setRatePrice={setRatePrice}
+            setRateUnit={setRateUnit}
             isFullTank={isFullTank}
             setIsFullTank={setIsFullTank}
             isChildSeat={isChildSeat}
