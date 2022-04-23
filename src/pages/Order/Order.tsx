@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
 import { cityLocationSelector, mapPointsSelector } from 'store/selectors/selectors';
@@ -8,13 +8,14 @@ import AppContainer from 'layouts/AppContainer/AppContainer';
 import AppHeader from 'layouts/AppHeader/AppHeader';
 import useDebounce from 'hooks/useDebounce';
 import { useActions } from 'hooks/useActions';
+import moment, { Moment } from 'moment';
+import PriceForm from './PriceForm/PriceForm';
 import FormTotal from './FormTotal/FormTotal';
 import FormModel from './FormModel/FormModel';
-import FormAdditionally from './FormAdditionally/FormAdditionally';
 import FormLocation from './FormLocation/FormLocation';
-import PriceForm from './PriceForm/PriceForm';
 import styles from './Order.module.less';
 import { OrderBreadcrumb } from './OrderBreadcrumb';
+import { FormAdditionally } from './FormAdditionally';
 
 const Order: FC = () => {
   /* Блок с общими данными для страницы */
@@ -51,9 +52,10 @@ const Order: FC = () => {
 
   // Отфильтровываю метки, где нет данных о городе.
   // Так как считаю, что это ошибка тестового api, потому что адрес без города - это не правильно
-  const filteredPoints = useMemo(() => {
-    return points.filter((point) => !(point.cityId === null));
-  }, [points]);
+  const filteredPoints = useMemo(
+    () => points.filter((point) => !(point.cityId === null)),
+    [points]
+  );
 
   // Создаю массив городов для поля поиска города в форме "местоположение" (FormLocation)
   const optionsCity = useMemo(() => {
@@ -65,9 +67,10 @@ const Order: FC = () => {
   }, [filteredPoints]);
 
   // Отфильтровываю города для карты исходя из поля поиска
-  const filteredCityPoints = useMemo(() => {
-    return filteredPoints.filter((point) => point.cityId!.name === debouncedCityValue);
-  }, [filteredPoints, debouncedCityValue]);
+  const filteredCityPoints = useMemo(
+    () => filteredPoints.filter((point) => point.cityId!.name === debouncedCityValue),
+    [filteredPoints, debouncedCityValue]
+  );
 
   // Создаю массив названий пунктов для поля поиска пункта в форме "местоположение" (FormLocation)
   const optionsName = useMemo(() => {
@@ -85,11 +88,10 @@ const Order: FC = () => {
   const [activeCar, setActiveCar] = useState('');
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
+  const [carColors, setCarColors] = useState<string[]>([]);
 
   // Опции размера пагинации для формы "Модель" (FormModel)
-  const pageSizeOptions = useMemo(() => {
-    return ['2', '4', '6', '8', '10', '12'];
-  }, []);
+  const pageSizeOptions = useMemo(() => ['2', '4', '6', '8', '10', '12'], []);
 
   /* Блок с данными для формы заказа (PriceForm) */
   // Обработчики переключения вкладок для кнопкоп в PriceForm
@@ -106,6 +108,113 @@ const Order: FC = () => {
     setMaxStage(4);
   };
 
+  /* Блок с данными для формы дополнительных параметров (FormAdditionally) */
+  // Локальный стейт для формы "Дополнительно" (FormAdditionally)
+  const [color, setColor] = useState('');
+  const [startDate, setStartDate] = useState<Moment>(useCallback(() => moment(), []));
+  const [endDate, setEndDate] = useState<Moment>();
+  const [rate, setRate] = useState('');
+  const [ratePrice, setRatePrice] = useState(0);
+  const [rateUnit, setRateUnit] = useState('');
+  const [isFullTank, setIsFullTank] = useState(false);
+  const [isChildSeat, setIsChildSeat] = useState(false);
+  const [isRightHandDrive, setIsRightHandDrive] = useState(false);
+
+  // Высчитывает разницу во времени, чтобы узнать длительность аренды
+  const duration = useMemo(() => (endDate ? endDate.diff(startDate) : ''), [endDate]);
+
+  // Переводит разницу в строку для отображения
+  const durationString = useMemo(() => {
+    if (duration) {
+      const days = Math.floor(moment.duration(duration).asDays());
+      const hourse = Math.floor(moment.duration(duration).asHours()) - 24 * days;
+      return `${days}д ${hourse}ч`;
+    }
+    return '';
+  }, [duration]);
+
+  // Переводит разницу в количество минут
+  const durationMin = useMemo(
+    () => (duration && rateUnit === 'мин' ? moment.duration(duration).asMinutes() : 0),
+    [duration, rateUnit]
+  );
+
+  // Переводит разницу в количество дней
+  const durationDays = useMemo(
+    () => (duration && rateUnit === 'сутки' ? Math.ceil(moment.duration(duration).asDays()) : 0),
+    [duration, rateUnit]
+  );
+
+  // Переводит разницу в количество недель
+  const durationWeek = useMemo(
+    () => (duration && rateUnit === '7 дней' ? Math.ceil(moment.duration(duration).asWeeks()) : 0),
+    [duration, rateUnit]
+  );
+
+  // Переводит разницу в количество месяцев
+  const durationMonth = useMemo(
+    () =>
+      duration && (rateUnit === '30 дней' || rateUnit === '90 дней')
+        ? Math.ceil(moment.duration(duration).asMonths())
+        : 0,
+    [duration, rateUnit]
+  );
+
+  // Переводит разницу в количество лет
+  const durationYear = useMemo(
+    () =>
+      duration && rateUnit === '365 дней' ? Math.ceil(moment.duration(duration).asYears()) : 0,
+    [duration, rateUnit]
+  );
+
+  const rateActivePrice = useMemo(() => {
+    switch (rateUnit) {
+      case '30 дней':
+        return durationMonth * ratePrice;
+      case 'мин':
+        return durationMin * ratePrice;
+      case 'сутки':
+        return durationDays * ratePrice;
+      case '7 дней':
+        return durationWeek * ratePrice;
+      case '90 дней':
+        return Math.ceil(durationMonth / 3) * ratePrice;
+      case '365 дней':
+        return durationYear * ratePrice;
+      default:
+        return 0;
+    }
+  }, [durationMin, durationDays, durationWeek, durationMonth, durationYear, rateUnit, ratePrice]);
+
+  const price = useMemo(() => {
+    return Math.round(
+      priceMin +
+        rateActivePrice +
+        (isFullTank ? 500 : 0) +
+        (isChildSeat ? 200 : 0) +
+        (isRightHandDrive ? 1600 : 0)
+    );
+  }, [priceMin, rateActivePrice, isFullTank, isChildSeat, isRightHandDrive]);
+
+  const clearFormModel = useCallback(() => {
+    setActiveCarId('');
+    setActiveCar('');
+    setPriceMin(0);
+    setPriceMax(0);
+    setCarColors([]);
+  }, []);
+
+  // Функция очистки стейта для формы "Дополнительно" (FormAdditionally)
+  const clearFormAdditionally = useCallback(() => {
+    setColor('');
+    setStartDate(moment());
+    setEndDate(undefined);
+    setRate('');
+    setIsFullTank(false);
+    setIsChildSeat(false);
+    setIsRightHandDrive(false);
+  }, []);
+
   /* Отрисовка вкладок */
   const ComponentFormLoc = (
     <FormLocation
@@ -120,6 +229,9 @@ const Order: FC = () => {
       points={filteredCityPoints}
       setActivePointAddress={setActivePointAddress}
       setActivePointCity={setActivePointCity}
+      clearFormModel={clearFormModel}
+      clearFormAdditionally={clearFormAdditionally}
+      setMaxStage={setMaxStage}
     />
   );
 
@@ -140,11 +252,34 @@ const Order: FC = () => {
             setActiveCar={setActiveCar}
             setPriceMin={setPriceMin}
             setPriceMax={setPriceMax}
+            setCarColors={setCarColors}
             pageSizeOptions={pageSizeOptions}
+            clearFormAdditionally={clearFormAdditionally}
+            setMaxStage={setMaxStage}
           />
         );
       case 3:
-        return <FormAdditionally />;
+        return (
+          <FormAdditionally
+            carColors={carColors}
+            color={color}
+            setColor={setColor}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            rate={rate}
+            setRate={setRate}
+            setRatePrice={setRatePrice}
+            setRateUnit={setRateUnit}
+            isFullTank={isFullTank}
+            setIsFullTank={setIsFullTank}
+            isChildSeat={isChildSeat}
+            setIsChildSeat={setIsChildSeat}
+            isRightHandDrive={isRightHandDrive}
+            setIsRightHandDrive={setIsRightHandDrive}
+          />
+        );
       case 4:
         return <FormTotal />;
       default:
@@ -189,8 +324,15 @@ const Order: FC = () => {
                     modelButtonHandler={priceFormModelButtonHandler}
                     additionallyButtonHandler={priceFormAdditionallyButtonHandler}
                     modelName={activeCar}
+                    price={price}
                     priceMin={priceMin}
                     priceMax={priceMax}
+                    color={color}
+                    duration={durationString}
+                    rate={rate}
+                    isFullTank={isFullTank}
+                    isChildSeat={isChildSeat}
+                    isRightHandDrive={isRightHandDrive}
                   />
                 </AppContainer>
               </Layout.Content>

@@ -3,6 +3,7 @@
 .Radio {
   padding: 2px 0;
   color: @app-primary-gray__dark;
+  text-transform: lowercase;
 
   span:nth-child(1) {
 
@@ -19,39 +20,12 @@
       background-color: @app-primary-white;
     }
   }
+
+  ::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .RadioActive {
   color: @app-primary-black;
-}
-
-@media (max-width: 1268px) {
-  .Radio {
-    width: 125px;
-  }
-}
-
-@media (max-width: 991px) {
-  .Radio {
-    width: auto;
-  }
-}
-
-@media (max-width: 703px) {
-    .Radio {
-      width: 125px;
-    }
-}
-
-@media (max-width: 463px) {
-    .Radio {
-      width: 125px;
-    }
-}
-
-@media (max-width: 329px) {
-    .Radio {
-      font-size: 13px;
-      width: 120px;
-    }
 }
