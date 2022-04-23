@@ -42,7 +42,9 @@ const Order: FC = () => {
   const [pointValue, setPointValue] = useState('');
   const debouncedPointValue = useDebounce<string>(pointValue, 500);
   const [activePointAddress, setActivePointAddress] = useState('');
+  const [activePointId, setActivePointId] = useState('');
   const [activePointCity, setActivePointCity] = useState(city);
+  const [activeCityId, setActiveCityId] = useState('');
 
   // Устанавливаю значение города в шапку сайта
   const { setCityLocation } = useActions();
@@ -100,87 +102,6 @@ const Order: FC = () => {
   // Опции размера пагинации для формы "Модель" (FormModel)
   const pageSizeOptions = useMemo(() => ['2', '4', '6', '8', '10', '12'], []);
 
-  /* Блок с данными для формы заказа (PriceForm) */
-  // Обработчики переключения вкладок для кнопкоп в PriceForm
-  const priceFormLocationButtonHandler = () => {
-    setActiveStage(2);
-    setMaxStage(2);
-  };
-  const priceFormModelButtonHandler = () => {
-    setActiveStage(3);
-    setMaxStage(3);
-  };
-  const priceFormAdditionallyButtonHandler = () => {
-    setActiveStage(4);
-    setMaxStage(4);
-  };
-
-  /* Блок с данными для итогового модального окна */
-
-  // Стейт с итоговыми данными запроса order
-  const { orderId, orderIsLoading, orderError } = useTypedSelector(orderSelector);
-  const navigate = useNavigate();
-
-  // Запрос на отправку данных заказа и выставляющий id выполненного order
-  const { sendOrder, setOrderId } = useActions();
-
-  // Сбрасываю активный order id при инициализации страницы
-  // И если есть order id и есть 4 этап, то перенаправляю на страницу заказа
-  useEffect(() => {
-    if (maxStage === 1) {
-      setOrderId('');
-    }
-    if (maxStage >= 4 && orderId) {
-      navigate(`/order/${orderId}`);
-    }
-  }, [orderId]);
-
-  // Локальный стейт
-  const [modalActive, setModalActive] = useState(false);
-
-  // Создаю моковые даты
-  const mockDateStart = moment('13.04.2022 12:00', 'DD.MM.YYYY hh:mm');
-  const mockDateEnd = moment('14.04.2022 12:00', 'DD.MM.YYYY hh:mm');
-
-  // Перевожу дату в utc
-  const mockDateStartUtc = moment.utc(mockDateStart).format();
-  const mockDateEndUtc = moment.utc(mockDateEnd).format();
-
-  const mockOrderPost = {
-    orderStatusId: {
-      name: 'Новые',
-      id: '5e26a191099b810b946c5d89',
-    },
-    cityId: {
-      name: 'Ульяновск',
-      id: '61b30fe9bb7a006c05c54e2b',
-    },
-    pointId: '61b310cfbb7a006c05c54e2c',
-    carId: '600fff0bad015e0bb6997d79',
-    color: 'Синий',
-    dateFrom: Date.parse(mockDateStartUtc),
-    dateTo: Date.parse(mockDateEndUtc),
-    rateId: '6114e4a02aed9a0b9b850848',
-    price: 20000,
-    isFullTank: true,
-    isNeedChildChair: true,
-    isRightWheel: true,
-  };
-
-  const priceFormTotalButtonHandler = () => {
-    setModalActive(true);
-  };
-
-  // Обработчики для кнопок подтверждения и отмены
-  const confirmModalBtnHandler = useCallback(() => {
-    sendOrder(mockOrderPost);
-    setModalActive(false);
-  }, [modalActive]);
-
-  const backModalBtnHandler = useCallback(() => {
-    setModalActive(false);
-  }, [modalActive]);
-
   /* Блок с данными для формы дополнительных параметров (FormAdditionally) */
   // Локальный стейт для формы "Дополнительно" (FormAdditionally)
   const [color, setColor] = useState('');
@@ -189,9 +110,10 @@ const Order: FC = () => {
   const [rate, setRate] = useState('');
   const [ratePrice, setRatePrice] = useState(0);
   const [rateUnit, setRateUnit] = useState('');
+  const [rateId, setRateId] = useState('');
   const [isFullTank, setIsFullTank] = useState(false);
-  const [isChildSeat, setIsChildSeat] = useState(false);
-  const [isRightHandDrive, setIsRightHandDrive] = useState(false);
+  const [isNeedChildChair, setIsNeedChildChair] = useState(false);
+  const [isRightWheel, setIsRightWheel] = useState(false);
 
   // Высчитывает разницу во времени, чтобы узнать длительность аренды
   const duration = useMemo(() => (endDate ? endDate.diff(startDate) : ''), [endDate]);
@@ -264,10 +186,87 @@ const Order: FC = () => {
       priceMin +
         rateActivePrice +
         (isFullTank ? 500 : 0) +
-        (isChildSeat ? 200 : 0) +
-        (isRightHandDrive ? 1600 : 0)
+        (isNeedChildChair ? 200 : 0) +
+        (isRightWheel ? 1600 : 0)
     );
-  }, [priceMin, rateActivePrice, isFullTank, isChildSeat, isRightHandDrive]);
+  }, [priceMin, rateActivePrice, isFullTank, isNeedChildChair, isRightWheel]);
+
+  /* Блок с данными для формы заказа (PriceForm) */
+  // Обработчики переключения вкладок для кнопкоп в PriceForm
+  const priceFormLocationButtonHandler = () => {
+    setActiveStage(2);
+    setMaxStage(2);
+  };
+  const priceFormModelButtonHandler = () => {
+    setActiveStage(3);
+    setMaxStage(3);
+  };
+  const priceFormAdditionallyButtonHandler = () => {
+    setActiveStage(4);
+    setMaxStage(4);
+  };
+
+  /* Блок с данными для итогового модального окна */
+
+  // Стейт с итоговыми данными запроса order
+  const { orderId, orderIsLoading, orderError } = useTypedSelector(orderSelector);
+  const navigate = useNavigate();
+
+  // Запрос на отправку данных заказа и выставляющий id выполненного order
+  const { sendOrder, setOrderId } = useActions();
+
+  // Сбрасываю активный order id при инициализации страницы
+  // И если есть order id и есть 4 этап, то перенаправляю на страницу заказа
+  useEffect(() => {
+    if (maxStage === 1) {
+      setOrderId('');
+    }
+    if (maxStage >= 4 && orderId) {
+      navigate(`/order/${orderId}`);
+    }
+  }, [orderId]);
+
+  // Локальный стейт
+  const [modalActive, setModalActive] = useState(false);
+
+  // Перевожу дату в utc
+  const dateStartUtc = useMemo(() => (startDate ? startDate.utc().format() : ''), [startDate]);
+  const dateEndUtc = useMemo(() => (endDate ? endDate.utc().format() : ''), [endDate]);
+
+  const orderPost = {
+    orderStatusId: {
+      name: 'Новые',
+      id: '5e26a191099b810b946c5d89',
+    },
+    cityId: {
+      name: activePointCity,
+      id: activeCityId,
+    },
+    pointId: activePointId,
+    carId: activeCarId,
+    color,
+    dateFrom: Date.parse(dateStartUtc),
+    dateTo: Date.parse(dateEndUtc),
+    rateId,
+    price,
+    isFullTank,
+    isNeedChildChair,
+    isRightWheel,
+  };
+
+  const priceFormTotalButtonHandler = () => {
+    setModalActive(true);
+  };
+
+  // Обработчики для кнопок подтверждения и отмены
+  const confirmModalBtnHandler = useCallback(() => {
+    sendOrder(orderPost);
+    setModalActive(false);
+  }, [modalActive]);
+
+  const backModalBtnHandler = useCallback(() => {
+    setModalActive(false);
+  }, [modalActive]);
 
   const clearFormModel = useCallback(() => {
     setActiveCarId('');
@@ -284,8 +283,8 @@ const Order: FC = () => {
     setEndDate(undefined);
     setRate('');
     setIsFullTank(false);
-    setIsChildSeat(false);
-    setIsRightHandDrive(false);
+    setIsNeedChildChair(false);
+    setIsRightWheel(false);
   }, []);
 
   /* Отрисовка вкладок */
@@ -301,7 +300,9 @@ const Order: FC = () => {
       debouncedPointValue={debouncedPointValue}
       points={filteredCityPoints}
       setActivePointAddress={setActivePointAddress}
+      setActivePointId={setActivePointId}
       setActivePointCity={setActivePointCity}
+      setActiveCityId={setActiveCityId}
       clearFormModel={clearFormModel}
       clearFormAdditionally={clearFormAdditionally}
       setMaxStage={setMaxStage}
@@ -346,16 +347,24 @@ const Order: FC = () => {
             setRate={setRate}
             setRatePrice={setRatePrice}
             setRateUnit={setRateUnit}
+            setRateId={setRateId}
             isFullTank={isFullTank}
             setIsFullTank={setIsFullTank}
-            isChildSeat={isChildSeat}
-            setIsChildSeat={setIsChildSeat}
-            isRightHandDrive={isRightHandDrive}
-            setIsRightHandDrive={setIsRightHandDrive}
+            isNeedChildChair={isNeedChildChair}
+            setIsNeedChildChair={setIsNeedChildChair}
+            isRightWheel={isRightWheel}
+            setIsRightWheel={setIsRightWheel}
           />
         );
       case 4:
-        return <FormTotal selectedCar={selectedCar} />;
+        return (
+          <FormTotal
+            selectedCar={selectedCar}
+            isFullTank={isFullTank}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        );
       default:
         return ComponentFormLoc;
     }
@@ -393,6 +402,7 @@ const Order: FC = () => {
                 <AppContainer>
                   <PriceForm
                     maxStage={maxStage}
+                    city={activePointCity}
                     address={activePointAddress}
                     locationButtonHandler={priceFormLocationButtonHandler}
                     modelButtonHandler={priceFormModelButtonHandler}
@@ -408,8 +418,8 @@ const Order: FC = () => {
                     duration={durationString}
                     rate={rate}
                     isFullTank={isFullTank}
-                    isChildSeat={isChildSeat}
-                    isRightHandDrive={isRightHandDrive}
+                    isNeedChildChair={isNeedChildChair}
+                    isRightWheel={isRightWheel}
                   />
                 </AppContainer>
               </Layout.Content>

@@ -22,6 +22,7 @@ export const OrderId: FC = () => {
   const { fetchOrder, setOrderId } = useActions();
 
   // Локальный стейт страницы
+  const [city, setCity] = useState('');
   const [address, setAddress] = useState('');
   const [model, setModel] = useState('');
   const [priceMin, setPriceMin] = useState(0);
@@ -30,8 +31,8 @@ export const OrderId: FC = () => {
   const [color, setColor] = useState('');
   const [rate, setRate] = useState('');
   const [isFullTank, setIsFullTank] = useState(false);
-  const [isChildSeat, setIsChildSeat] = useState(false);
-  const [isRightHandDrive, setIsRightHandDrive] = useState(false);
+  const [isNeedChildChair, setIsNeedChildChair] = useState(false);
+  const [isRightWheel, setIsRightWheel] = useState(false);
 
   // Как только появляется id заказа, то происходит запрос на получение его данных
   useEffect(() => {
@@ -54,7 +55,8 @@ export const OrderId: FC = () => {
   // Когда появляется заказ, то вставляю данные в price form
   useEffect(() => {
     if (order) {
-      setAddress(`${order.cityId.name}, ${order.pointId.address}`);
+      setCity(order.cityId.name);
+      setAddress(order.pointId.address);
       setModel(order.carId.name);
       setPriceMin(order.carId.priceMin);
       setPriceMax(order.carId.priceMax);
@@ -62,10 +64,30 @@ export const OrderId: FC = () => {
       setColor(order.color);
       setRate(order.rateId.rateTypeId.name);
       setIsFullTank(order.isFullTank);
-      setIsChildSeat(order.isNeedChildChair);
-      setIsRightHandDrive(order.isRightWheel);
+      setIsNeedChildChair(order.isNeedChildChair);
+      setIsRightWheel(order.isRightWheel);
     }
   }, [order]);
+
+  // Высчитывает разницу во времени, чтобы узнать длительность аренды
+  const duration = useMemo(() => {
+    if (order) {
+      const startDate = moment(order.dateFrom);
+      const endDate = moment(order.dateTo);
+      return endDate.diff(startDate);
+    }
+    return 0;
+  }, [order.dateFrom, order.dateTo]);
+
+  // Переводит разницу в строку для отображения
+  const durationString = useMemo(() => {
+    if (duration) {
+      const days = Math.floor(moment.duration(duration).asDays());
+      const hourse = Math.floor(moment.duration(duration).asHours()) - 24 * days;
+      return `${days}д ${hourse}ч`;
+    }
+    return '';
+  }, [duration]);
 
   // Вставляет дефолтную картинку, если путь до изображения с ошибкой
   const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
@@ -75,19 +97,15 @@ export const OrderId: FC = () => {
   const regCarNumber = useMemo(() => {
     // В регулярном выражении ищутся все цифры от 1 символа и более, и затем перед и после них ставится пробел
     const reg = /\d{1,}/g;
-    if (order) {
-      return order.carId.number.replace(reg, ` $& `);
-    }
-    return '';
+    return order && order.carId.number ? order.carId.number.replace(reg, ` $& `) : '';
   }, [order]);
 
-  const dateFrom = useMemo(() => {
-    return moment(order.dateFrom).format('DD.MM.YYYY hh:mm');
-  }, [order.dateFrom]);
+  const dateFrom = useMemo(
+    () => moment(order.dateFrom).format('DD.MM.YYYY hh:mm'),
+    [order.dateFrom]
+  );
 
-  const dateTo = useMemo(() => {
-    return moment(order.dateTo).format('DD.MM.YYYY hh:mm');
-  }, [order.dateTo]);
+  const dateTo = useMemo(() => moment(order.dateTo).format('DD.MM.YYYY hh:mm'), [order.dateTo]);
 
   return (
     <Row className={styles.OrderId}>
@@ -109,7 +127,7 @@ export const OrderId: FC = () => {
               <Row>
                 <Col xl={14} lg={12} md={24} sm={24} xs={24}>
                   <Row className={styles.orderBlock}>
-                    <Col xl={12} lg={24} md={12} sm={12} xs={24}>
+                    <Col xl={12} lg={24} md={12} sm={24} xs={24}>
                       <Title className={styles.title}>Ваш заказ подтверждён</Title>
                       <Title level={4} className={styles.carName}>
                         {order.carId.name}
@@ -119,7 +137,8 @@ export const OrderId: FC = () => {
                       </Row>
                       <Row className={styles.textContainer}>
                         <Text className={styles.text__light}>
-                          <b className={styles.text__bold}>Топливо</b> {order.carId.tank}%
+                          <b className={styles.text__bold}>Топливо</b>{' '}
+                          {isFullTank ? '100' : order.carId.tank}%
                         </Text>
                       </Row>
                       <Row className={styles.textContainer}>
@@ -133,7 +152,7 @@ export const OrderId: FC = () => {
                         </Text>
                       </Row>
                     </Col>
-                    <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.imgBlock}>
+                    <Col xl={12} lg={24} md={12} sm={24} xs={24} className={styles.imgBlock}>
                       <div className={styles.imgContainer}>
                         <img
                           src={order.carId.thumbnail.path}
@@ -148,6 +167,7 @@ export const OrderId: FC = () => {
                 <Col xl={10} lg={12} md={24} sm={24} xs={24}>
                   <PriceForm
                     maxStage={5}
+                    city={city}
                     address={address}
                     modelName={model}
                     priceMin={priceMin}
@@ -155,9 +175,10 @@ export const OrderId: FC = () => {
                     price={price}
                     color={color}
                     rate={rate}
+                    duration={durationString}
                     isFullTank={isFullTank}
-                    isChildSeat={isChildSeat}
-                    isRightHandDrive={isRightHandDrive}
+                    isNeedChildChair={isNeedChildChair}
+                    isRightWheel={isRightWheel}
                   />
                 </Col>
               </Row>

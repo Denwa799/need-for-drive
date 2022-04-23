@@ -1,5 +1,6 @@
 export interface IPriceForm {
   maxStage: number;
+  city: string;
   address: string;
   locationButtonHandler?: () => void;
   modelButtonHandler?: () => void;
@@ -12,9 +13,9 @@ export interface IPriceForm {
   orderError?: string;
   price: number;
   color: string;
-  duration?: string;
+  duration: string;
   rate: string;
   isFullTank: boolean;
-  isChildSeat: boolean;
-  isRightHandDrive: boolean;
+  isNeedChildChair: boolean;
+  isRightWheel: boolean;
 }

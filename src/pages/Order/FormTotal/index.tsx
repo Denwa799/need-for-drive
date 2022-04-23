@@ -6,7 +6,13 @@ import { IFormTotal } from './type';
 
 const { Title, Text } = Typography;
 
-export const FormTotal: FC<IFormTotal> = ({ selectedCar }) => {
+export const FormTotal: FC<IFormTotal> = ({ selectedCar, startDate, endDate, isFullTank }) => {
+  const startDateText = useMemo(
+    () => (startDate ? startDate.format('DD.MM.YYYY hh:mm') : ''),
+    [startDate]
+  );
+  const endDateText = useMemo(() => (endDate ? endDate.format('DD.MM.YYYY hh:mm') : ''), [endDate]);
+
   // Вставляет дефолтную картинку, если путь до изображения с ошибкой
   const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = defaultImg;
@@ -15,17 +21,14 @@ export const FormTotal: FC<IFormTotal> = ({ selectedCar }) => {
   const regCarNumber = useMemo(() => {
     // В регулярном выражении ищутся все цифры от 1 символа и более, и затем перед и после них ставится пробел
     const reg = /\d{1,}/g;
-    if (selectedCar) {
-      return selectedCar.number.replace(reg, ` $& `);
-    }
-    return '';
+    return selectedCar && selectedCar.number ? selectedCar.number.replace(reg, ` $& `) : '';
   }, [selectedCar]);
 
   return (
     <div className={styles.formTotal}>
       {selectedCar ? (
         <Row>
-          <Col xl={12} lg={24} md={12} sm={12} xs={24}>
+          <Col xl={12} lg={24} md={12} sm={24} xs={24}>
             <Title level={4} className={styles.title}>
               {selectedCar.name}
             </Title>
@@ -34,21 +37,22 @@ export const FormTotal: FC<IFormTotal> = ({ selectedCar }) => {
             </Row>
             <Row className={styles.textContainer}>
               <Text className={styles.text__light}>
-                <b className={styles.text__bold}>Топливо</b> {selectedCar.tank}%
+                <b className={styles.text__bold}>Топливо</b> {isFullTank ? '100' : selectedCar.tank}
+                %
               </Text>
             </Row>
             <Row className={styles.textContainer}>
               <Text className={styles.text__light}>
-                <b className={styles.text__bold}>Доступна с</b> 13.04.2022 12:00
+                <b className={styles.text__bold}>Доступна с</b> {startDateText}
               </Text>
             </Row>
             <Row className={styles.textContainer}>
               <Text className={styles.text__light}>
-                <b className={styles.text__bold}>Доступна по</b> 14.04.2022 12:00
+                <b className={styles.text__bold}>Доступна по</b> {endDateText}
               </Text>
             </Row>
           </Col>
-          <Col xl={12} lg={24} md={12} sm={12} xs={24} className={styles.imgBlock}>
+          <Col xl={12} lg={24} md={12} sm={24} xs={24} className={styles.imgBlock}>
             <div className={styles.imgContainer}>
               <img
                 src={selectedCar.thumbnail.path}

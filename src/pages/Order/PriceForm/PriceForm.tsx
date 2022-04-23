@@ -9,6 +9,7 @@ const { Title, Text } = Typography;
 
 const PriceForm: FC<IPriceForm> = ({
   maxStage,
+  city,
   address,
   locationButtonHandler,
   modelButtonHandler,
@@ -24,8 +25,8 @@ const PriceForm: FC<IPriceForm> = ({
   duration,
   rate,
   isFullTank,
-  isChildSeat,
-  isRightHandDrive,
+  isNeedChildChair,
+  isRightWheel,
 }) => {
   const RenderBtns = () =>
     useMemo(() => {
@@ -80,7 +81,10 @@ const PriceForm: FC<IPriceForm> = ({
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Пункт выдачи</Text>
-            <Text className={styles.listText}>{address}</Text>
+            <Text className={styles.listText}>
+              {city},<br />
+              {address}
+            </Text>
           </div>
         </div>
       )}
@@ -124,7 +128,7 @@ const PriceForm: FC<IPriceForm> = ({
           </div>
         </div>
       )}
-      {isChildSeat && (
+      {isNeedChildChair && (
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Детское кресло</Text>
@@ -132,7 +136,7 @@ const PriceForm: FC<IPriceForm> = ({
           </div>
         </div>
       )}
-      {isRightHandDrive && (
+      {isRightWheel && (
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Правый руль</Text>

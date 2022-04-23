@@ -194,40 +194,40 @@ code {
   span:last-child {
     color: @app-primary-gray__dark;
   }
+}
 
-  .ant-checkbox-wrapper.ant-checkbox-wrapper-checked {
-    .ant-checkbox.ant-checkbox-checked {
-      .ant-checkbox-inner {
-        background-color: @app-primary-white;
-        border-color: @app-primary-color;
-      }
-
-      .ant-checkbox-inner::after {
-        border-width: 3px;
-        width: 10px;
-        height: 15px;
-        top: 40%;
-      }
+.ant-checkbox-wrapper.ant-checkbox-wrapper-checked {
+  .ant-checkbox.ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background-color: @app-primary-white;
+      border-color: @app-primary-color;
     }
 
-    .ant-checkbox.ant-checkbox-checked::after {
-      border: none;
-    }
-
-    span:last-child {
-      color: @app-primary-black;
+    .ant-checkbox-inner::after {
+      border-width: 3px;
+      width: 10px;
+      height: 15px;
+      top: 40%;
     }
   }
 
-  .ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
-    .ant-picker-panel-container {
-      .ant-picker-panel {
-        .ant-picker-datetime-panel {
-          .ant-picker-time-panel {
-            .ant-picker-content {
-              .ant-picker-time-panel-column::after {
-                display: none;
-              }
+  .ant-checkbox.ant-checkbox-checked::after {
+    border: none;
+  }
+
+  span:last-child {
+    color: @app-primary-black;
+  }
+}
+
+.ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
+  .ant-picker-panel-container {
+    .ant-picker-panel {
+      .ant-picker-datetime-panel {
+        .ant-picker-time-panel {
+          .ant-picker-content {
+            .ant-picker-time-panel-column::after {
+              display: none;
             }
           }
         }
