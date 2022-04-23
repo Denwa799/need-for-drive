@@ -15,6 +15,9 @@ export interface IAppMap {
   setActivePointCity: (value: string) => void;
   setCityValue: (value: string) => void;
   setPointValue: (value: string) => void;
+  clearFormModel: () => void;
+  clearFormAdditionally: () => void;
+  setMaxStage: (value: number) => void;
 }
 
 export type PlacemarkClickHandlerType = (address: string, city: string, cord: number[]) => void;

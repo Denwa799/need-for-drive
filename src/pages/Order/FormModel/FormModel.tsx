@@ -18,13 +18,16 @@ const FormModel: FC<IFormModel> = ({
   setActiveCar,
   setPriceMin,
   setPriceMax,
+  setCarColors,
   pageSizeOptions,
+  clearFormAdditionally,
+  setMaxStage,
 }) => {
   // Стейт
   const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
   const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
 
-  // Запрос на получение списка машин из api для формы "Модель" (FormModel)
+  // Запрос на получение списка машин из api
   const { fetchCars } = useActions();
   const { fetchCategories } = useActions();
   useEffect(() => {
@@ -48,11 +51,14 @@ const FormModel: FC<IFormModel> = ({
 
   // Обработчик нажатия на карточку с машиной
   const carClickHandler = useCallback<CarClickHandlerType>(
-    (id, name, min, max) => {
+    (id, name, min, max, colors) => {
+      clearFormAdditionally();
+      setMaxStage(2);
       setActiveCarId(id);
       setActiveCar(name);
       setPriceMin(min);
       setPriceMax(max);
+      setCarColors(colors);
     },
     [activeCarId]
   );
@@ -101,10 +107,14 @@ const FormModel: FC<IFormModel> = ({
         <div className={styles.formModel}>
           <div className={styles.radioButtons}>
             <AppRadioGroup onChange={filterChangeHandler} filterValue={filterValue}>
-              <AppRadioBtn value="Все модели" filterValue={filterValue} />
+              <AppRadioBtn value="Все модели" filterValue={filterValue}>
+                Все модели
+              </AppRadioBtn>
               {categories.map((button) => {
                 return (
-                  <AppRadioBtn key={button.id} value={button.name} filterValue={filterValue} />
+                  <AppRadioBtn key={button.id} value={button.name} filterValue={filterValue}>
+                    {button.name}
+                  </AppRadioBtn>
                 );
               })}
             </AppRadioGroup>

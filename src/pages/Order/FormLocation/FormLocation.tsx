@@ -16,6 +16,9 @@ const FormLocation: FC<IFormLocation> = ({
   points,
   setActivePointAddress,
   setActivePointCity,
+  clearFormModel,
+  clearFormAdditionally,
+  setMaxStage,
 }) => {
   // Устанавливает текст с поля поиска города в стейт
   const cityValueHandler = useCallback(
@@ -78,6 +81,9 @@ const FormLocation: FC<IFormLocation> = ({
             setActivePointCity={setActivePointCity}
             setCityValue={setCityValue}
             setPointValue={setPointValue}
+            clearFormModel={clearFormModel}
+            clearFormAdditionally={clearFormAdditionally}
+            setMaxStage={setMaxStage}
           />
         </div>
       </div>
