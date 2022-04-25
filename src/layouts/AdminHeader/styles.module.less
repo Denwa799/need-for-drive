@@ -1,0 +1,128 @@
+@import 'styles/consts';
+
+.AdminHeader {
+  background-color: @app-primary-white;
+  -webkit-box-shadow: @app-box-shadow;
+  -moz-box-shadow: @app-box-shadow;
+  box-shadow: @app-box-shadow;
+  height: 68px;
+
+  .AdminSearchAutocomplete {
+    width: 100%;
+    height: 100%;
+    padding-left: 27px;
+
+    .input {
+      height: 68px;
+      border: none;
+      padding-bottom: 0;
+      border-radius: 0;
+      outline: none;
+      box-shadow: none;
+      text-align: left;
+      background: none;
+
+      ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: @app-color__lightBlue;
+      }
+
+      :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: @app-color__lightBlue;
+        opacity: 1;
+      }
+
+      ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: @app-color__lightBlue;
+        opacity: 1;
+      }
+
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: @app-color__lightBlue;
+      }
+
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        color: @app-color__lightBlue;
+      }
+
+      ::placeholder { /* Most modern browsers support this now. */
+        color: @app-color__lightBlue;
+      }
+
+      input {
+        color: @app-color__lightBlue;
+      }
+
+      .icn {
+        font-size: 14px;
+        color: @app-color__lightGrey;
+      }
+    }
+  }
+
+  .rightBlock {
+    height: 100%;
+
+    .notification {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-left: 1px solid @app-color__smokyWhite;
+      border-right: 1px solid @app-color__smokyWhite;
+
+      .badge sup {
+        background-color: @app-color__vinous;
+        box-shadow: none;
+        font-size: 9px;
+        font-weight: 600;
+        min-width: 15px;
+        width: 15px;
+        height: 15px;
+        padding: 0;
+        line-height: 15px;
+        margin-top: 18px;
+      }
+    }
+
+    .userContainer {
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+
+      .menu {
+        color: @app-color__blueberry;
+        font-size: 15px;
+
+        li {
+          div:hover {
+            color: @app-primary-blue;
+          }
+          div:active {
+            background-color: @app-third-white;
+          }
+        }
+
+        .item {
+          position: absolute;
+          color: @app-color__blueberry;
+          font-size: 15px;
+          // important необходим, так как ant design накладывает inline стили
+          padding: 0 0 0 25px !important;
+          background-color: @app-primary-white;
+          -webkit-box-shadow: @app-box-shadow;
+          -moz-box-shadow: @app-box-shadow;
+          box-shadow: @app-box-shadow;
+        }
+
+        .item:hover {
+          color: @app-primary-blue;
+        }
+      }
+
+      .menu:hover {
+        i {
+          color: @app-primary-blue;
+        }
+      }
+    }
+  }
+}
