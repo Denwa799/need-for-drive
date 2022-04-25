@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.less';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { CookiesProvider } from 'react-cookie';
 import locale from 'antd/lib/locale/ru_RU';
@@ -12,13 +12,13 @@ import { store } from './store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <CookiesProvider>
         <ConfigProvider locale={locale}>
           <App />
         </ConfigProvider>
       </CookiesProvider>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>,
   document.getElementById('root')
 );
