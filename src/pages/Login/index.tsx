@@ -2,7 +2,6 @@ import { Row, Typography } from 'antd';
 import React, { FC, useCallback, useEffect } from 'react';
 import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
 import Icon from '@ant-design/icons';
-import moment from 'moment';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { authSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
@@ -10,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { LoginForm } from 'components/ui/LoginForm';
+import { setAuthCookie } from 'utils/setAuthCookie';
 import styles from './styles.module.less';
 
 const { Title } = Typography;
@@ -28,17 +28,8 @@ export const Login: FC = () => {
   }, [isAuth]);
 
   useEffect(() => {
-    // Если данные для cookie есть в store, то к объекту добавляется свойство с секретным ключем
-    // и этот объект отправляется в cookie
     if (Object.keys(authToken).length !== 0 && authSecretKey) {
-      authToken.key = authSecretKey;
-
-      // Вычисляю дату, до которой будет жить cookie
-      const millisecondsNow = moment().valueOf();
-      const millisecondsCookie = authToken.expires_in * 1000;
-      const cookiesExpiresIn = moment(millisecondsNow + millisecondsCookie).toDate();
-
-      setCookie('auth', authToken, { path: '/', expires: cookiesExpiresIn });
+      setAuthCookie('auth', '/', authToken, authSecretKey, setCookie);
     }
   }, [authToken, authSecretKey]);
 
