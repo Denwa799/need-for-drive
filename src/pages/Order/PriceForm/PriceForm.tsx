@@ -2,13 +2,14 @@ import React, { FC, useMemo } from 'react';
 import { Typography } from 'antd';
 import cn from 'classnames';
 import ButtonApp from 'components/ui/ButtonApp/ButtonApp';
-import styles from './PriceForm.module.less';
 import { IPriceForm } from './type';
+import styles from './PriceForm.module.less';
 
 const { Title, Text } = Typography;
 
 const PriceForm: FC<IPriceForm> = ({
   maxStage,
+  city,
   address,
   locationButtonHandler,
   modelButtonHandler,
@@ -16,13 +17,16 @@ const PriceForm: FC<IPriceForm> = ({
   modelName,
   priceMin,
   priceMax,
+  priceFormTotalButtonHandler,
+  orderIsLoading,
+  orderError,
   price,
   color,
   duration,
   rate,
   isFullTank,
-  isChildSeat,
-  isRightHandDrive,
+  isNeedChildChair,
+  isRightWheel,
 }) => {
   const RenderBtns = () =>
     useMemo(() => {
@@ -46,7 +50,21 @@ const PriceForm: FC<IPriceForm> = ({
             </ButtonApp>
           );
         case 4:
-          return <ButtonApp disabled={!address}>Заказать</ButtonApp>;
+          return (
+            <ButtonApp
+              disabled={!address}
+              onClick={priceFormTotalButtonHandler}
+              loading={orderIsLoading}
+            >
+              Заказать
+            </ButtonApp>
+          );
+        case 5:
+          return (
+            <ButtonApp disabled={!address} type="red">
+              Отменить
+            </ButtonApp>
+          );
         default:
           return (
             <ButtonApp disabled={!address} onClick={locationButtonHandler}>
@@ -63,7 +81,10 @@ const PriceForm: FC<IPriceForm> = ({
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Пункт выдачи</Text>
-            <Text className={styles.listText}>{address}</Text>
+            <Text className={styles.listText}>
+              {city},<br />
+              {address}
+            </Text>
           </div>
         </div>
       )}
@@ -107,7 +128,7 @@ const PriceForm: FC<IPriceForm> = ({
           </div>
         </div>
       )}
-      {isChildSeat && (
+      {isNeedChildChair && (
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Детское кресло</Text>
@@ -115,7 +136,7 @@ const PriceForm: FC<IPriceForm> = ({
           </div>
         </div>
       )}
-      {isRightHandDrive && (
+      {isRightWheel && (
         <div className={styles.priceItem}>
           <div className={styles.priceDots}>
             <Text className={styles.listTitle}>Правый руль</Text>
@@ -140,6 +161,7 @@ const PriceForm: FC<IPriceForm> = ({
       <div className={styles.button}>
         <RenderBtns />
       </div>
+      {orderError && <div className={styles.orderError}>{orderError}</div>}
     </div>
   );
 };

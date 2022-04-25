@@ -5,6 +5,7 @@ import Parking from 'pages/Parking/Parking';
 import React from 'react';
 import Petrol from 'pages/Petrol/Petrol';
 import Service from 'pages/Service/Service';
+import { OrderId } from 'pages/Order/OrderId';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -15,6 +16,7 @@ interface IRoute {
 export const publicRoutes: IRoute[] = [
   { path: RouteNames.MAIN, component: Main },
   { path: RouteNames.ORDER, component: Order },
+  { path: RouteNames.ORDER_ID, component: OrderId },
   { path: RouteNames.PARKING, component: Parking },
   { path: RouteNames.INSURANCE, component: Insurance },
   { path: RouteNames.PETROL, component: Petrol },

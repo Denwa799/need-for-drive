@@ -12,10 +12,11 @@ export interface IFormAdditionally {
   setRate: (value: string) => void;
   setRatePrice: (value: number) => void;
   setRateUnit: (value: string) => void;
+  setRateId: (value: string) => void;
   isFullTank: boolean;
   setIsFullTank: (value: boolean) => void;
-  isChildSeat: boolean;
-  setIsChildSeat: (value: boolean) => void;
-  isRightHandDrive: boolean;
-  setIsRightHandDrive: (value: boolean) => void;
+  isNeedChildChair: boolean;
+  setIsNeedChildChair: (value: boolean) => void;
+  isRightWheel: boolean;
+  setIsRightWheel: (value: boolean) => void;
 }

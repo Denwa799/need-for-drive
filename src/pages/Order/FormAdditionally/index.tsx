@@ -26,12 +26,13 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   setRate,
   setRatePrice,
   setRateUnit,
+  setRateId,
   isFullTank,
   setIsFullTank,
-  isChildSeat,
-  setIsChildSeat,
-  isRightHandDrive,
-  setIsRightHandDrive,
+  isNeedChildChair,
+  setIsNeedChildChair,
+  isRightWheel,
+  setIsRightWheel,
 }) => {
   // Стейт
   const { rates, ratesIsLoading, ratesError } = useTypedSelector(ratesSelector);
@@ -77,10 +78,11 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
 
   // Обработчик нажатия на rate radio button
   const rateChangeHandler = useCallback(
-    (value, price, unit) => {
+    (value, price, unit, id) => {
       setRate(value);
       setRatePrice(price);
       setRateUnit(unit);
+      setRateId(id);
     },
     [rate]
   );
@@ -88,11 +90,14 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
   // Обработчики нажатия на checkbox
   const fullTankChangeHandler = useCallback(() => setIsFullTank(!isFullTank), [isFullTank]);
 
-  const childSeatChangeHandler = useCallback(() => setIsChildSeat(!isChildSeat), [isChildSeat]);
+  const childSeatChangeHandler = useCallback(
+    () => setIsNeedChildChair(!isNeedChildChair),
+    [isNeedChildChair]
+  );
 
   const rightHandDriveChangeHandler = useCallback(
-    () => setIsRightHandDrive(!isRightHandDrive),
-    [isRightHandDrive]
+    () => setIsRightWheel(!isRightWheel),
+    [isRightWheel]
   );
 
   return (
@@ -169,7 +174,12 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
                       value={item.rateTypeId!.name}
                       filterValue={rate}
                       onClick={(event) =>
-                        rateChangeHandler(item.rateTypeId!.name, item.price, item.rateTypeId!.unit)
+                        rateChangeHandler(
+                          item.rateTypeId!.name,
+                          item.price,
+                          item.rateTypeId!.unit,
+                          item.id
+                        )
                       }
                     >
                       {item.rateTypeId!.name}, {item.price}₽/{item.rateTypeId!.unit}
@@ -192,14 +202,14 @@ export const FormAdditionally: FC<IFormAdditionally> = ({
                 </Row>
                 <Row>
                   <Col span={24}>
-                    <Checkbox onChange={childSeatChangeHandler} checked={isChildSeat}>
+                    <Checkbox onChange={childSeatChangeHandler} checked={isNeedChildChair}>
                       Детское кресло, 200р
                     </Checkbox>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
-                    <Checkbox onChange={rightHandDriveChangeHandler} checked={isRightHandDrive}>
+                    <Checkbox onChange={rightHandDriveChangeHandler} checked={isRightWheel}>
                       Правый руль, 1600р
                     </Checkbox>
                   </Col>

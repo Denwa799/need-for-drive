@@ -12,7 +12,9 @@ export interface IAppMap {
   debouncedCityValue: string;
   debouncedPointValue: string;
   setActivePointAddress: (value: string) => void;
+  setActivePointId: (value: string) => void;
   setActivePointCity: (value: string) => void;
+  setActiveCityId: (value: string) => void;
   setCityValue: (value: string) => void;
   setPointValue: (value: string) => void;
   clearFormModel: () => void;
@@ -20,4 +22,10 @@ export interface IAppMap {
   setMaxStage: (value: number) => void;
 }
 
-export type PlacemarkClickHandlerType = (address: string, city: string, cord: number[]) => void;
+export type PlacemarkClickHandlerType = (
+  address: string,
+  city: string,
+  cord: number[],
+  cityId: string,
+  pointId: string
+) => void;

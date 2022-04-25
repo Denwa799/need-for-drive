@@ -46,13 +46,13 @@
   .FormLocation {
     .mapBlock {
       .map {
-        width: 450px;
+        width: 500px;
       }
     }
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1023px) {
   .FormLocation {
     .mapBlock {
       .map {
@@ -62,7 +62,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 767px) {
   .FormLocation {
     .inputs {
       width: 100%;
@@ -73,11 +73,23 @@
         text-align: right;
 
         .inputText {
-          width: 150px;
+          width: 125px;
         }
 
         .autocompleteContainer {
           width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 558px) {
+  .FormLocation {
+    .inputs {
+      .inputContainer {
+        .inputText {
+          width: 145px;
         }
       }
     }
@@ -92,7 +104,7 @@
         text-align: left;
 
         .inputText {
-          width: 70px;
+          width: 75px;
           line-height: 1.2;
         }
       }

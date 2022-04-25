@@ -19,9 +19,9 @@ const FilteredCars: FC<IFilteredCars> = ({ activeCarId, paginationCars, carClick
           <Col
             key={car.id}
             xl={12}
-            lg={24}
+            lg={12}
             md={12}
-            sm={12}
+            sm={24}
             xs={24}
             className={styles.cardContainer}
           >
@@ -29,7 +29,7 @@ const FilteredCars: FC<IFilteredCars> = ({ activeCarId, paginationCars, carClick
               type="button"
               className={cn(styles.card, { [styles.cardActive]: car.id === activeCarId })}
               onClick={() =>
-                carClickHandler(car.id, car.name, car.priceMin, car.priceMax, car.colors)
+                carClickHandler(car, car.id, car.name, car.priceMin, car.priceMax, car.colors)
               }
             >
               <div className={styles.cardTitleContainer}>

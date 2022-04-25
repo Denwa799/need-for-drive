@@ -11,11 +11,13 @@ const FormLocation: FC<IFormLocation> = ({
   setCityValue,
   debouncedCityValue,
   pointValue,
-  setPointValue,
   debouncedPointValue,
+  setPointValue,
   points,
   setActivePointAddress,
+  setActivePointId,
   setActivePointCity,
+  setActiveCityId,
   clearFormModel,
   clearFormAdditionally,
   setMaxStage,
@@ -78,7 +80,9 @@ const FormLocation: FC<IFormLocation> = ({
             debouncedCityValue={debouncedCityValue}
             debouncedPointValue={debouncedPointValue}
             setActivePointAddress={setActivePointAddress}
+            setActivePointId={setActivePointId}
             setActivePointCity={setActivePointCity}
+            setActiveCityId={setActiveCityId}
             setCityValue={setCityValue}
             setPointValue={setPointValue}
             clearFormModel={clearFormModel}

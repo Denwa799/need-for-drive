@@ -97,6 +97,32 @@ code {
   monospace;
 }
 
+/* Переписываю ширину для навигационного sidebar */
+.ant-drawer.ant-drawer-left.ant-drawer-open {
+  .ant-drawer-content-wrapper {
+    // important необходим, так как библиотека изначально накладывает фиксированные инлайн стили
+    width: 54.2vw !important;
+  }
+}
+
+@media (max-width: 1439px) {
+  .ant-drawer.ant-drawer-left.ant-drawer-open {
+    .ant-drawer-content-wrapper {
+      // important необходим, так как библиотека изначально накладывает фиксированные инлайн стили
+      width: 58.4vw !important;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .ant-drawer.ant-drawer-left.ant-drawer-open {
+    .ant-drawer-content-wrapper {
+      // important необходим, так как библиотека изначально накладывает фиксированные инлайн стили
+      width: 100% !important;
+    }
+  }
+}
+
 /* Переписываю активный dot в каруселе ant design */
 .ant-carousel .slick-slider .slick-dots li.slick-active button {
   background: @app-primary-color;
@@ -126,6 +152,34 @@ code {
 .ant-select-dropdown .rc-virtual-list .rc-virtual-list-scrollbar {
   //important необходим, чтобы переписать толщину скроллбара в выпадающем меню
   width: 4px !important;
+}
+
+/* Переписываю стили для кнопки в ant design */
+
+// Отключаю серый фильтр на кнопке при загрузке
+.ant-btn.ant-btn-primary.ant-btn-loading::before {
+  display: none;
+}
+
+// Отключаю текст в кнопке при загрузке и увеличиваю размер лоадера
+.ant-btn.ant-btn-primary.ant-btn-loading {
+  span {
+    display: none;
+  }
+
+  .ant-btn-loading-icon {
+    display: block;
+    margin: 0 auto;
+
+    span {
+      display: block;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
 }
 
 /* Переписываю стили checkbox из библиотеки ant design */

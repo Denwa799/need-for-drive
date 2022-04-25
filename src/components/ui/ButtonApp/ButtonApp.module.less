@@ -1,19 +1,63 @@
-@import 'src/styles/consts';
+@import 'styles/consts';
 
 .ButtonApp {
   font-size: 18px;
   font-weight: 500;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right, @app-primary-color, @app-second-gradient-color);
   transition: @transition;
+  border: none;
 }
 
 .ButtonApp:hover {
-  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
-  background: linear-gradient(to right, @app-primary-color, @app-second-gradient-color);
   filter: brightness(90%);
 }
+
+.ButtonApp__primary {
+  background: linear-gradient(to right, @app-primary-color, @app-second-gradient-color);
+}
+
+.ButtonApp__primary:hover, .ButtonApp__primary:focus {
+  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
+  background: linear-gradient(to right, @app-primary-color, @app-second-gradient-color);
+}
+
+.ButtonApp__darkGreen {
+  background: linear-gradient(to right, @app-color__darkGreen, @app-color__indianGreen);
+}
+
+.ButtonApp__darkGreen:hover, .ButtonApp__darkGreen:focus {
+  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
+  background: linear-gradient(to right, @app-color__darkGreen, @app-color__indianGreen);
+}
+
+.ButtonApp__blue {
+  background: linear-gradient(to right, @app-color__gentianBlue, @app-color__greenPineKrayola);
+}
+
+.ButtonApp__blue:hover, .ButtonApp__blue:focus {
+  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
+  background: linear-gradient(to right, @app-color__gentianBlue, @app-color__greenPineKrayola);
+}
+
+.ButtonApp__red {
+  background: linear-gradient(to right, @app-color__darkYellowish, @app-color__rubyRed);
+}
+
+.ButtonApp__red:hover, .ButtonApp__red:focus {
+  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
+  background: linear-gradient(to right, @app-color__darkYellowish, @app-color__rubyRed);
+}
+
+.ButtonApp__purple {
+  background: linear-gradient(to right, @app-color__purpleBlue, @app-color__darkPurplishPurple);
+}
+
+.ButtonApp__purple:hover, .ButtonApp__purple:focus {
+  // Необходимо дублировать градиент, так как из коробки при hover эффекте в ant design берется основной цвет.
+  background: linear-gradient(to right, @app-color__purpleBlue, @app-color__darkPurplishPurple);
+}
+
 .ButtonApp:active {
   filter: brightness(80%);
 }

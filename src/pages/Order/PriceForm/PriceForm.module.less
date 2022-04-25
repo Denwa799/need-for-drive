@@ -17,30 +17,40 @@
     padding-top: 10px;
 
     .priceDots {
-      overflow: hidden;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: end;
+
+
+      .listTitle {
+        text-align: left;
+        background-color: @app-primary-white;
+        z-index: 1;
+        padding-right: 10px;
+        font-size: 16px;
+        font-weight: 300;
+        margin-right: 10px;
+      }
+
+      .listText {
+        background-color: @app-primary-white;
+        z-index: 1;
+        padding-left: 10px;
+        font-weight: 300;
+        font-size: 16px;
+        color: @app-primary-gray__dark;
+        margin-left: 10px;
+      }
     }
 
     .priceDots::after {
-      content: '........................................................................................................................................................................................................................................';
       display: block;
+      position: absolute;
+      width: 350px;
+      content: '.................................................................................................................................................................';
       white-space: nowrap;
       overflow: hidden;
-      color: @app-primary-gray__dark;
-    }
-
-    .listTitle {
-      font-size: 16px;
-      font-weight: 300;
-      float: left;
-      margin-right: 10px;
-    }
-
-    .listText {
-      float: right;
-      font-weight: 300;
-      font-size: 16px;
-      color: @app-primary-gray__dark;
-      margin-left: 10px;
     }
 
     .firstLatterUppercase {
@@ -63,28 +73,53 @@
     height: 48px;
     padding-top: 10px;
   }
+
+  .orderError {
+    padding-top: 10px;
+    color: red;
+    text-align: left;
+  }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1023px) {
   .PriceForm {
     max-width: 992px;
     padding: 64px 0 32px 0;
     border-left: none;
     min-height: 0;
+
+    .priceItem {
+      .priceDots::after {
+        width: 90%;
+      }
+    }
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 660px) {
+  .PriceForm {
+    .priceItem {
+      .priceDots::after {
+        width: 84%;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
   .PriceForm {
     min-width: 0;
 
-    .priceItem {
-      .listTitle {
-        float: left
+    .modalContainer {
+      width: 100%;
+
+      .confirmBtn {
+        width: 100%;
+        margin-bottom: 10px;
       }
 
-      .listText {
-        float: right;
+      .backBtn {
+        width: 100%;
       }
     }
   }
@@ -93,32 +128,7 @@
 @media (max-width: 390px) {
   .PriceForm {
     .priceItem {
-
-      .priceDots {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: end;
-
-        .listTitle {
-          float: none;
-          text-align: left;
-          background-color: @app-primary-white;
-          z-index: 1;
-          padding-right: 10px;
-        }
-
-        .listText {
-          float: none;
-          background-color: @app-primary-white;
-          z-index: 1;
-          padding-left: 10px;
-        }
-      }
-
       .priceDots::after {
-        display: block;
-        position: absolute;
         width: 70%;
       }
     }
