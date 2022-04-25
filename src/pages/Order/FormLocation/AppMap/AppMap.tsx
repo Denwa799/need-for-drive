@@ -9,9 +9,14 @@ const AppMap: FC<IAppMap> = ({
   debouncedCityValue,
   debouncedPointValue,
   setActivePointAddress,
+  setActivePointId,
   setActivePointCity,
+  setActiveCityId,
   setCityValue,
   setPointValue,
+  clearFormModel,
+  clearFormAdditionally,
+  setMaxStage,
 }) => {
   // Стейт для объекта яндекс карты
   const [map, setMap] = useState<any>();
@@ -56,12 +61,17 @@ const AppMap: FC<IAppMap> = ({
   }, [map, debouncedCityValue, debouncedPointValue]);
 
   const clickHandler = useCallback<PlacemarkClickHandlerType>(
-    (address, city, cord) => {
+    (address, city, cord, cityId, pointId) => {
+      clearFormModel();
+      clearFormAdditionally();
+      setMaxStage(1);
       setActivePointAddress(address);
       setActivePointCity(city);
       setCityValue(city);
       setPointValue(address);
       setCoordinates(cord);
+      setActiveCityId(cityId);
+      setActivePointId(pointId);
     },
     [pointsWithCoordinates]
   );
@@ -87,7 +97,13 @@ const AppMap: FC<IAppMap> = ({
               geometry={point.coordinate}
               properties={{ iconCaption: point.name }}
               onClick={(e: React.MouseEvent) =>
-                clickHandler(point.address!, point.cityId!.name, point.coordinate!)
+                clickHandler(
+                  point.address!,
+                  point.cityId!.name,
+                  point.coordinate!,
+                  point.cityId!.id,
+                  point.id!
+                )
               }
               options={{ iconColor: '#0EC261' }}
             />

@@ -21,5 +21,10 @@ export interface IFormLocation {
     name?: string;
   }[];
   setActivePointAddress: (value: string) => void;
+  setActivePointId: (value: string) => void;
   setActivePointCity: (value: string) => void;
+  setActiveCityId: (value: string) => void;
+  clearFormModel: () => void;
+  clearFormAdditionally: () => void;
+  setMaxStage: (value: number) => void;
 }

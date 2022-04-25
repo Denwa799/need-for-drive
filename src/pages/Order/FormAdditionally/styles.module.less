@@ -1,0 +1,103 @@
+@import "styles/consts";
+
+.FormAdditionally {
+  padding-top: 32px;
+  width: 277px;
+
+  .colorsBlock {
+    .colorsContainer {
+      padding-top: 15px;
+
+      .RadioFixedWidth {
+        label {
+          width: 100px;
+        }
+      }
+    }
+  }
+
+  .dateBlock {
+    padding-top: 32px;
+
+    .dates {
+      padding-top: 16px;
+
+      .dateContainer {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding-bottom: 13px;
+
+        .dateText {
+          width: 20px;
+          text-align: right;
+          margin-right: 10px;
+        }
+
+        .datePicker {
+          width: 100%;
+          border: none;
+          border-bottom: @app-primary-gray__dark 1px solid;
+          padding-bottom: 0;
+          border-radius: 0;
+          outline: none;
+          box-shadow: none;
+          text-align: left;
+          background: none;
+        }
+      }
+    }
+  }
+
+  .ratesBlock {
+    padding-top: 32px;
+    .ratesContainer {
+      padding-top: 15px;
+      .rate {
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .servicesBlock {
+    padding-top: 32px;
+    .servicesContainer {
+      .checkboxGroup {
+        padding-top: 16px;
+      }
+      label {
+        padding: 3px 0;
+      }
+    }
+  }
+
+  .text__light {
+    font-weight: 300;
+  }
+
+  .text__right {
+    text-align: right;
+  }
+}
+
+@media (max-width: 463px) {
+  .FormAdditionally {
+    .colorsBlock {
+      .RadioGroup {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .FormAdditionally {
+    width: 100%;
+    .dateBlock {
+      .dates {
+        width: 100%;
+      }
+    }
+  }
+}

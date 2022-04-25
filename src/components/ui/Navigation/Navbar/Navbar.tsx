@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Drawer, Menu } from 'antd';
+import React, { FC, useCallback, useState } from 'react';
+import { Col, Drawer, Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
 import Icon from '@ant-design/icons';
 import styles from './Navbar.module.less';
@@ -7,8 +7,14 @@ import MenuToggle from './MenuToggle/MenuToggle';
 import { RouteNames } from '../../../../router/routes';
 import TelegramSvg from '../../CustomIcns/TelegramSvg';
 import ButtonChange from '../../ButtonChange/ButtonChange';
+import { useTypedSelector } from '../../../../hooks/useTypesSelector';
+import { languageSelector } from '../../../../store/selectors/selectors';
+import { useActions } from '../../../../hooks/useActions';
 
 const Navbar: FC = () => {
+  const { language } = useTypedSelector(languageSelector);
+  const { setLanguage } = useActions();
+
   const [visible, setVisible] = useState(false);
 
   const handleClose = () => {
@@ -19,6 +25,13 @@ const Navbar: FC = () => {
     setVisible(true);
   };
 
+  const changeLanguageHandler = useCallback(
+    (lang: string) => {
+      setLanguage(lang);
+    },
+    [language]
+  );
+
   return (
     <div className={styles.Navbar}>
       <Drawer
@@ -27,7 +40,6 @@ const Navbar: FC = () => {
         placement="left"
         onClose={handleClose}
         key="left"
-        size="large"
       >
         <Menu className={styles.Menu} theme="dark">
           <Menu.Item key={0}>
@@ -55,7 +67,16 @@ const Navbar: FC = () => {
           <Icon className={styles.icon} component={TelegramSvg} />
         </div>
         <div className={styles.langButton}>
-          <ButtonChange>Eng</ButtonChange>
+          {language === 'rus' && (
+            <ButtonChange value="eng" changeLang={changeLanguageHandler}>
+              Eng
+            </ButtonChange>
+          )}
+          {language === 'eng' && (
+            <ButtonChange value="rus" changeLang={changeLanguageHandler}>
+              Рус
+            </ButtonChange>
+          )}
         </div>
       </Drawer>
       <MenuToggle onOpen={handleOpen} />

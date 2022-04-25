@@ -12,10 +12,10 @@ const AppHeader: FC = () => {
   return (
     <Layout.Header className={styles.AppHeader}>
       <Row>
-        <Col xl={12} lg={12} md={12} sm={12} xs={24} className={styles.Logo}>
+        <Col xl={12} lg={12} md={12} sm={24} xs={24} className={styles.Logo}>
           Need for drive
         </Col>
-        <Col xl={12} lg={12} md={12} sm={12} xs={24} className={styles.location}>
+        <Col xl={12} lg={12} md={12} sm={24} xs={24} className={styles.location}>
           <Icon className={styles.headerIcn} component={LocationSvg} />
           {city}
         </Col>
