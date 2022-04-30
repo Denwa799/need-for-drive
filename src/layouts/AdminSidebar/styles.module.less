@@ -1,43 +1,31 @@
 @import 'styles/consts';
 
 .AdminSidebar {
-  color: @app-color__darkGrayBlue;
-  background-color: @app-primary-white;
-  height: 100vh;
-  -webkit-box-shadow: @app-box-shadow;
-  -moz-box-shadow: @app-box-shadow;
-  box-shadow: @app-box-shadow;
   z-index: 10;
 
-
-  .title {
-    padding-left: 49px;
-    padding-top: 23px;
-    height: 68px;
-    border-bottom: 1px solid @app-color__smokyWhite;
-    font-size: 16px;
+  .desktop {
+    width: 100%;
   }
 
-  .menu {
-    width: 100%;
+  .mobile {
+    display: none;
+    background-color: @app-primary-white;
+    -webkit-box-shadow: @app-box-shadow;
+    -moz-box-shadow: @app-box-shadow;
+    box-shadow: @app-box-shadow;
+    height: 100%;
+    text-align: center;
+  }
+}
 
-    .item {
-      height: 57px;
-      border-bottom: 1px solid @app-color__smokyWhite;
-      margin: 0;
-      padding: 8px 26px 0 26px;
+@media (max-width: @screen-lg) {
+  .AdminSidebar {
+    .desktop {
+      display: none;
     }
 
-    .item:hover {
-      color: @app-primary-blue;
-      background-color: @app-third-white;
-      border-left: 4px solid @app-primary-blue;
-    }
-
-    .selected {
-      color: @app-primary-blue;
-      background-color: @app-third-white;
-      border-left: 4px solid @app-primary-blue;
+    .mobile {
+      display: block;
     }
   }
 }

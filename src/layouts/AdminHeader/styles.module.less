@@ -96,6 +96,7 @@
           div:hover {
             color: @app-primary-blue;
           }
+
           div:active {
             background-color: @app-third-white;
           }
@@ -121,6 +122,24 @@
       .menu:hover {
         i {
           color: @app-primary-blue;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-md) {
+  .AdminHeader {
+    .AdminSearchAutocomplete {
+      padding-left: 5px;
+    }
+
+    .rightBlock {
+      .userContainer {
+        padding-left: 10px;
+
+        .avatar {
+          display: none;
         }
       }
     }

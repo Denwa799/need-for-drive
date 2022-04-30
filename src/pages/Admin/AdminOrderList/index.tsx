@@ -9,7 +9,7 @@ export const AdminOrderList: FC = () => {
     <div className={styles.AdminOrderList}>
       <Row>
         <AdminSidebar />
-        <Col span={20}>
+        <Col xl={20} lg={20} md={22} sm={22} xs={22}>
           <AdminHeader />
         </Col>
       </Row>

@@ -8,7 +8,7 @@ import styles from './styles.module.less';
 export const AdminHeader = () => {
   return (
     <Row className={styles.AdminHeader}>
-      <Col span={18}>
+      <Col xl={18} lg={16} md={16} sm={14} xs={10}>
         <AutoComplete className={styles.AdminSearchAutocomplete}>
           <Input
             placeholder="Поиск..."
@@ -17,7 +17,7 @@ export const AdminHeader = () => {
           />
         </AutoComplete>
       </Col>
-      <Col span={6}>
+      <Col xl={6} lg={8} md={8} sm={10} xs={14}>
         <Row className={styles.rightBlock}>
           <Col span={4} className={styles.notification}>
             <Badge className={styles.badge} count={2}>
@@ -25,7 +25,7 @@ export const AdminHeader = () => {
             </Badge>
           </Col>
           <Col span={20} className={styles.userContainer}>
-            <div>
+            <div className={styles.avatar}>
               <Avatar src={avatar1} size="large" />
             </div>
             <Menu className={styles.menu} mode="inline">
