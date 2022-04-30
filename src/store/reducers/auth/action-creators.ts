@@ -44,7 +44,7 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setAuthSecretKey(token));
       dispatch(AuthActionCreators.setIsAuth(true));
     } catch (e) {
-      dispatch(AuthActionCreators.setAuthError('Произошла ошибка при логине'));
+      dispatch(AuthActionCreators.setAuthError('Неправильный логин или пароль'));
     }
   },
   checkAuth: (token: string, refreshToken: string) => async (dispatch: AppDispatch) => {

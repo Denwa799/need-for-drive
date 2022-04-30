@@ -42,22 +42,26 @@ export const Login: FC = () => {
     login(values.username, values.password, token);
   }, []);
 
+  const loginPage = (
+    <div className={styles.Login}>
+      <div className={styles.LoginContent}>
+        <Row className={styles.logoBlock}>
+          <Icon component={LogoSvg} />
+          <Title level={3} className={styles.title}>
+            Need for drive
+          </Title>
+        </Row>
+        <LoginForm submit={submit} />
+      </div>
+    </div>
+  );
+
   return (
     <div>
       {isAuthLoading || authError ? (
-        <ErrorLoading loading={isAuthLoading} error={authError} />
+        <ErrorLoading loading={isAuthLoading} error={authError} type="modal" content={loginPage} />
       ) : (
-        <div className={styles.Login}>
-          <div className={styles.LoginContent}>
-            <Row className={styles.logoBlock}>
-              <Icon component={LogoSvg} />
-              <Title level={3} className={styles.title}>
-                Need for drive
-              </Title>
-            </Row>
-            <LoginForm submit={submit} />
-          </div>
-        </div>
+        loginPage
       )}
     </div>
   );
