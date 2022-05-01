@@ -1,0 +1,286 @@
+@import 'styles/consts';
+
+.container {
+  padding: 0 32px 0 32px;
+
+  .title {
+    font-weight: 400;
+    font-size: 29px;
+    line-height: 33px;
+    letter-spacing: -0.725px;
+    color: @app-color__darkGrayBlue;
+    padding: 29px 0 29px 0;
+    margin: 0;
+  }
+
+  .content {
+    overflow-y: auto;
+    height: 386px;
+    position: relative;
+    z-index: 10;
+    background-color: @app-primary-white;
+    box-shadow: @app-box-shadow__second;
+    -webkit-box-shadow: @app-box-shadow__second;
+    -moz-box-shadow: @app-box-shadow__second;
+    border-radius: 9px;
+    padding: 0 22px 12px 22px;
+
+    .filters {
+      height: 59px;
+      border-bottom: 1px solid @app-color__smokyWhite;
+
+      .filter {
+        display: flex;
+        align-items: center;
+
+        .autocomplete {
+          .input {
+            border: 0.5px solid @app-color__paleBlue;
+            border-radius: 4px;
+            width: 110.5px;
+            height: 29px;
+          }
+
+          .input::placeholder {
+            color: @app-color__concrete;
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 13px;
+          }
+        }
+
+        .filterIcn {
+          display: flex;
+          flex-flow: column;
+          position: relative;
+          right: 14px;
+          font-size: 8px;
+        }
+      }
+
+      .applyBtnContainer {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+
+        .applyBtn {
+          width: 95px;
+          height: 29px;
+          border-radius: 4px;
+          background-color: @app-primary-blue;
+          border: none;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 13px;
+          letter-spacing: -0.345714px;
+        }
+      }
+    }
+
+    .car {
+      padding-top: 18px;
+      align-items: center;
+
+      .img {
+        max-width: 138px;
+        max-height: 63px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .description {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        letter-spacing: -0.408571px;
+        color: @app-color__concrete2;
+        margin: 0;
+        padding: 2px 0;
+
+        b {
+          color: @app-primary-black;
+        }
+      }
+
+      .additional {
+        display: flex;
+        flex-flow: column;
+
+        .checkbox {
+          margin: 0;
+
+          span {
+            ::after {
+              border-width: 1px;
+              width: 5px;
+              height: 10px;
+            }
+          }
+        }
+      }
+
+      .price {
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: -0.754286px;
+      }
+
+      .btns {
+        text-align: right;
+
+        .btn {
+          color: @app-color__blueberry;
+          font-size: 11px;
+          line-height: 13px;
+          border-color: @app-color__paleBlue;
+          padding: 0 16px 0 8px;
+
+          span {
+            margin: 0;
+          }
+
+          .icn {
+            font-size: 12px;
+            padding-right: 5px;
+          }
+
+          .checkIcn {
+            color: @app-primary-color;
+          }
+
+          .cancelIcn {
+            color: @app-color__vinous;
+          }
+
+          .moreIcn {
+            color: @app-color__greyBlue;
+          }
+        }
+
+        .finishBtn {
+          border-radius: 4px 0px 0px 4px;
+        }
+
+        .cancelBtn {
+          border-left: 0;
+          border-radius: 0;
+        }
+
+        .moreBtn {
+          border-left: 0;
+          border-radius: 0px 4px 4px 0px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-lg) {
+  .container {
+    position: absolute;
+    margin-left: -8vw;
+    width: 100vw;
+
+    .content {
+      .car {
+        .btns {
+          display: flex;
+          flex-grow: 1;
+          padding-top: 20px;
+
+          .btn {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .container {
+    padding: 0 12px 0 12px;
+
+    .content {
+      .filters {
+        .filter {
+          padding-top: 10px;
+          padding-right: 5px;
+
+          .autocomplete {
+            width: 100%;
+
+            .input {
+              width: 100%;
+            }
+          }
+        }
+
+        .applyBtnContainer {
+          padding-top: 10px;
+
+          .applyBtn {
+            width: 100%;
+          }
+        }
+      }
+
+      .car {
+        padding-top: 80px;
+
+        .img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+
+        .additional {
+          padding-top: 20px;
+          flex-flow: row;
+          flex-wrap: wrap;
+
+          .checkbox {
+            padding: 0 20px 5px 0;
+          }
+        }
+
+        .price {
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-sm) {
+  .container {
+    .content {
+      .car {
+        padding-top: 150px;
+
+        .btns {
+          flex-flow: column;
+
+          .btn {
+            margin-bottom: 5px;
+          }
+
+          .finishBtn {
+            border-radius: 4px;
+          }
+
+          .cancelBtn {
+            border: 1px solid @app-color__paleBlue;
+            border-radius: 4px;
+          }
+
+          .moreBtn {
+            border: 1px solid @app-color__paleBlue;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+}

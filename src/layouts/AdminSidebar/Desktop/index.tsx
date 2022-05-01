@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, Row } from 'antd';
 import cn from 'classnames';
+import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
+import Icon from '@ant-design/icons';
 import styles from './styles.module.less';
 
 export const Desktop = () => {
@@ -12,7 +14,9 @@ export const Desktop = () => {
 
   return (
     <div className={styles.Desktop}>
-      <Row className={styles.title}>Need for car</Row>
+      <Row className={styles.title}>
+        <Icon className={styles.logo} component={LogoSvg} /> Need for car
+      </Row>
       <Row>
         <Menu className={styles.menu}>
           <Menu.Item

@@ -10,11 +10,22 @@
 
 
   .title {
-    padding-left: 49px;
-    padding-top: 23px;
+    display: flex;
+    align-items: center;
+    padding-left: 29px;
     height: 68px;
     border-bottom: 1px solid @app-color__smokyWhite;
     font-size: 16px;
+    color: @app-color__darkGrayBlue;
+
+    .logo {
+      padding-right: 5px;
+
+      svg {
+        width: 21px;
+        height: 21px;
+      }
+    }
   }
 
   .menu {
@@ -24,6 +35,8 @@
       height: 57px;
       border-bottom: 1px solid @app-color__smokyWhite;
       margin: 0;
+      color: @app-color__darkGrayBlue;
+      font-size: 15px;
       padding: 8px 26px 0 26px;
     }
 

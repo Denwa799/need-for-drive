@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Drawer, Menu, Row } from 'antd';
 import cn from 'classnames';
 import MenuToggle from 'components/ui/MenuToggle/MenuToggle';
+import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
+import Icon from '@ant-design/icons';
 import styles from './styles.module.less';
 
 export const Mobile = () => {
@@ -35,7 +37,10 @@ export const Mobile = () => {
         headerStyle={drawerStyle}
         bodyStyle={drawerStyle}
       >
-        <Row className={styles.title}>Need for car</Row>
+        <Row className={styles.title}>
+          <Icon className={styles.logo} component={LogoSvg} />
+          Need for car
+        </Row>
         <Row>
           <Menu className={styles.menu}>
             <Menu.Item
