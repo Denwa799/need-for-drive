@@ -47,7 +47,7 @@ export const OrderId: FC = () => {
   // Устанавливаю значение города в шапку сайта
   const { setCityLocation } = useActions();
   useEffect(() => {
-    if (order.cityId.name) {
+    if (order.cityId && order.cityId.name) {
       setCityLocation(order.cityId.name);
     }
   }, [order]);
@@ -55,14 +55,14 @@ export const OrderId: FC = () => {
   // Когда появляется заказ, то вставляю данные в price form
   useEffect(() => {
     if (order) {
-      setCity(order.cityId.name);
+      setCity(order.cityId!.name);
       setAddress(order.pointId.address);
       setModel(order.carId.name);
       setPriceMin(order.carId.priceMin);
       setPriceMax(order.carId.priceMax);
       setPrice(order.price);
       setColor(order.color);
-      setRate(order.rateId.rateTypeId.name);
+      setRate(order.rateId!.rateTypeId.name);
       setIsFullTank(order.isFullTank);
       setIsNeedChildChair(order.isNeedChildChair);
       setIsRightWheel(order.isRightWheel);

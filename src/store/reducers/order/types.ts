@@ -1,6 +1,8 @@
 import { IOrder } from 'models/IOrder';
 
 export interface OrderState {
+  orders: IOrder[];
+  ordersCount: number;
   order: IOrder;
   orderId: string;
   orderIsLoading: boolean;
@@ -8,10 +10,22 @@ export interface OrderState {
 }
 
 export enum OrderActionEnum {
+  GET_ALL_ORDERS = 'GET_ALL_ORDERS',
+  GET_ORDERS_COUNT = 'GET_ORDERS_COUNT',
   GET_ORDER = 'GET_ORDER',
   SET_ORDER_ID = 'SET_ORDER_ID',
   SET_ORDER_ERROR = 'SET_ORDER_ERROR',
   SET_ORDER_IS_LOADING = 'SET_ORDER_IS_LOADING',
+}
+
+export interface GetAllOrders {
+  type: OrderActionEnum.GET_ALL_ORDERS;
+  payload: IOrder[];
+}
+
+export interface GetOrdersCount {
+  type: OrderActionEnum.GET_ORDERS_COUNT;
+  payload: number;
 }
 
 export interface GetOrder {
@@ -34,4 +48,10 @@ export interface SetOrderIsLoadingAction {
   payload: boolean;
 }
 
-export type OrderAction = GetOrder | SetOrderId | SetOrderErrorAction | SetOrderIsLoadingAction;
+export type OrderAction =
+  | GetAllOrders
+  | GetOrdersCount
+  | GetOrder
+  | SetOrderId
+  | SetOrderErrorAction
+  | SetOrderIsLoadingAction;

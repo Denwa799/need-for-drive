@@ -2,9 +2,9 @@ import { Col, Row } from 'antd';
 import React, { FC } from 'react';
 import { AdminSidebar } from 'layouts/AdminSidebar';
 import { AdminHeader } from 'layouts/AdminHeader';
-import styles from './styles.module.less';
+import { AdminFooter } from 'layouts/AdminFooter';
 import { AdminOrderListContent } from './AdminOrderListContent';
-import { AdminFooter } from '../../../layouts/AdminFooter';
+import styles from './styles.module.less';
 
 export const AdminOrderList: FC = () => {
   return (

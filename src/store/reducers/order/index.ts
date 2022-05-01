@@ -1,6 +1,9 @@
+import { IOrder } from 'models/IOrder';
 import { OrderAction, OrderActionEnum, OrderState } from './types';
 
 const initialState: OrderState = {
+  orders: [] as IOrder[],
+  ordersCount: 0,
   order: {
     updatedAt: 0,
     createdAt: 0,
@@ -63,6 +66,12 @@ const initialState: OrderState = {
 
 export default function OrderReducer(state = initialState, action: OrderAction): OrderState {
   switch (action.type) {
+    case OrderActionEnum.GET_ALL_ORDERS:
+      return { ...state, orders: action.payload };
+
+    case OrderActionEnum.GET_ORDERS_COUNT:
+      return { ...state, ordersCount: action.payload };
+
     case OrderActionEnum.GET_ORDER:
       return { ...state, order: action.payload };
 
