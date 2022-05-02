@@ -10,6 +10,7 @@ export const AppPagination: FC<IAppPagination> = ({
   pageSizeOptions,
   page,
   type,
+  sizeChangerInvisibleWidth = 0,
 }) => {
   return (
     <Row className={styles.Pagination}>
@@ -21,7 +22,7 @@ export const AppPagination: FC<IAppPagination> = ({
           size="small"
           responsive={false}
           total={total}
-          showSizeChanger
+          showSizeChanger={window.innerWidth > sizeChangerInvisibleWidth}
           onChange={onChange}
           pageSizeOptions={pageSizeOptions}
           className={cn({ blue: type === 'blue' })}

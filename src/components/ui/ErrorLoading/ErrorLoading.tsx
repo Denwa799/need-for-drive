@@ -2,20 +2,16 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import React, { FC } from 'react';
 import styles from './ErrorLoading.module.less';
+import { IErrorLoading } from './type';
 
 const antIcon = <LoadingOutlined className={styles.Loader} spin />;
 
-interface IErrorLoading {
-  loading: boolean;
-  error: null | string;
-}
-
-const ErrorLoading: FC<IErrorLoading> = ({ loading, error }) => {
+const ErrorLoading: FC<IErrorLoading> = ({ loading, error, isLarge, errorClassName }) => {
   if (error) {
-    return <h1>{error}</h1>;
+    return <h1 className={errorClassName}>{error}</h1>;
   }
   if (loading) {
-    return <Spin indicator={antIcon} />;
+    return <Spin indicator={antIcon} size={isLarge ? 'large' : 'default'} />;
   }
   return null;
 };

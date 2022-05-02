@@ -58,16 +58,30 @@ export const OrderActionCreators = {
     }
   },
   fetchAllOrders:
-    (tokenBearer: string, limit: number, page: number) => async (dispatch: AppDispatch) => {
+    (
+      tokenBearer: string,
+      limit: number,
+      page: number,
+      carId?: string | null,
+      cityId?: string | null,
+      orderStatusId?: string | null,
+      color?: string | null
+    ) =>
+    async (dispatch: AppDispatch) => {
       try {
         dispatch(OrderActionCreators.setOrderIsLoading(true));
         const response = await GetService(process.env.REACT_APP_ORDER_API, tokenBearer, {
           limit,
           page,
+          carId,
+          cityId,
+          orderStatusId,
+          color,
         });
         dispatch(OrderActionCreators.getAllOrders(response.data.data));
         dispatch(OrderActionCreators.getOrdersCount(response.data.count));
         dispatch(OrderActionCreators.setOrderIsLoading(false));
+        dispatch(OrderActionCreators.setOrderError(''));
       } catch (e) {
         dispatch(OrderActionCreators.setOrderError('Произошла ошибка при загрузке данных заказа'));
       }
