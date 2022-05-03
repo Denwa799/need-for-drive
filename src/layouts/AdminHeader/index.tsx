@@ -2,7 +2,7 @@ import React from 'react';
 import { AutoComplete, Avatar, Badge, Col, Input, Menu, Row } from 'antd';
 import { BellSvg } from 'components/ui/CustomIcns/BellSvg';
 import avatar1 from 'assets/img/avatar/avatar1.webp';
-import Icon, { SearchOutlined } from '@ant-design/icons';
+import Icon, { CaretDownOutlined, SearchOutlined } from '@ant-design/icons';
 import styles from './styles.module.less';
 
 export const AdminHeader = () => {
@@ -28,7 +28,7 @@ export const AdminHeader = () => {
             <div className={styles.avatar}>
               <Avatar src={avatar1} size="large" />
             </div>
-            <Menu className={styles.menu} mode="inline">
+            <Menu className={styles.menu} mode="inline" expandIcon={<CaretDownOutlined />}>
               <Menu.SubMenu key={0} title="Denwa">
                 <Menu.Item key={1} className={styles.item}>
                   Выход

@@ -8,18 +8,17 @@
   -moz-box-shadow: @app-box-shadow;
   box-shadow: @app-box-shadow;
 
-
   .title {
     display: flex;
     align-items: center;
-    padding-left: 29px;
+    padding-left: 50px;
     height: 68px;
     border-bottom: 1px solid @app-color__smokyWhite;
     font-size: 16px;
     color: @app-color__darkGrayBlue;
 
     .logo {
-      padding-right: 5px;
+      padding-right: 10px;
 
       svg {
         width: 21px;
@@ -46,10 +45,23 @@
       border-left: 4px solid @app-primary-blue;
     }
 
+    .item:hover .icn {
+      color: @app-primary-blue;
+    }
+
     .selected {
       color: @app-primary-blue;
       background-color: @app-third-white;
       border-left: 4px solid @app-primary-blue;
+    }
+
+    .selected .icn {
+      color: @app-primary-blue;
+    }
+
+    .icn {
+      font-size: 15px;
+      color: @app-color__lightGrey;
     }
   }
 }

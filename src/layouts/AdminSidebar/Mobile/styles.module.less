@@ -16,12 +16,13 @@
     display: flex;
     align-items: center;
     height: 68px;
+    padding-left: 25px;
     border-bottom: 1px solid @app-color__smokyWhite;
     font-size: 16px;
     color: @app-color__darkGrayBlue;
 
     .logo {
-      padding-right: 5px;
+      padding-right: 10px;
 
       svg {
         top: auto;
@@ -56,10 +57,24 @@
       border-left: 4px solid @app-primary-blue;
     }
 
+    .item:hover .icn svg {
+      color: @app-primary-blue;
+    }
+
     .selected {
       color: @app-primary-blue;
       background-color: @app-third-white;
       border-left: 4px solid @app-primary-blue;
+    }
+
+    .selected .icn svg {
+      color: @app-primary-blue;
+    }
+
+    .icn svg {
+      top: 0;
+      font-size: 15px;
+      color: @app-color__lightGrey;
     }
   }
 }
