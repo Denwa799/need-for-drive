@@ -6,4 +6,5 @@ export enum RouteNames {
   INSURANCE = '/insurance',
   PETROL = '/petrol',
   SERVICE = '/service',
+  ADMIN_CARS_LIST = '/cars-list',
 }
