@@ -21,7 +21,6 @@ export const AdminOrderListContent: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
-  // Опции размера пагинации для формы "Модель" (FormModel)
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 
   // Установка дефолтной картинки при ошибке пути к изображению
