@@ -85,6 +85,9 @@ export const AdminOrderListContent: FC = () => {
                           : errorMessage}
                       </b>
                     </p>
+                    <p className={styles.description}>
+                      Статус: <b>{order.orderStatusId ? order.orderStatusId.name : errorMessage}</b>
+                    </p>
                   </Col>
                   <Col xl={4} lg={4} md={6} sm={12} xs={24} className={styles.additional}>
                     <Checkbox className={styles.checkbox} checked={order.isFullTank}>
@@ -101,18 +104,23 @@ export const AdminOrderListContent: FC = () => {
                     {order.price ? order.price.toLocaleString() : errorMessage} ₽
                   </Col>
                   <Col xl={7} lg={9} md={24} sm={24} xs={24} className={styles.btns}>
-                    <Button
-                      className={cn(styles.btn, styles.finishBtn)}
-                      icon={<CheckOutlined className={cn(styles.icn, styles.checkIcn)} />}
-                    >
-                      Готово
-                    </Button>
-                    <Button
-                      className={cn(styles.btn, styles.cancelBtn)}
-                      icon={<CloseOutlined className={cn(styles.icn, styles.cancelIcn)} />}
-                    >
-                      Отмена
-                    </Button>
+                    {order.orderStatusId && order.orderStatusId.name !== 'Подтвержденные' ? (
+                      <Button
+                        className={cn(styles.btn, styles.finishBtn)}
+                        icon={<CheckOutlined className={cn(styles.icn, styles.checkIcn)} />}
+                      >
+                        Готово
+                      </Button>
+                    ) : null}
+                    {order.orderStatusId && order.orderStatusId.name !== 'Отмененые' ? (
+                      <Button
+                        className={cn(styles.btn, styles.cancelBtn)}
+                        icon={<CloseOutlined className={cn(styles.icn, styles.cancelIcn)} />}
+                      >
+                        Отмена
+                      </Button>
+                    ) : null}
+
                     <Button
                       className={cn(styles.btn, styles.moreBtn)}
                       icon={<MoreOutlined className={cn(styles.icn, styles.moreIcn)} />}
