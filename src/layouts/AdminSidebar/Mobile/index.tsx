@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Drawer, Menu, Row } from 'antd';
 import cn from 'classnames';
 import MenuToggle from 'components/ui/MenuToggle/MenuToggle';
 import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
 import Icon, { CarFilled, HomeFilled, ShoppingFilled } from '@ant-design/icons';
 import styles from './styles.module.less';
+import { IAdminSidebarMobile } from './type';
 
-export const Mobile = () => {
+export const Mobile: FC<IAdminSidebarMobile> = ({ adminSidebarItems }) => {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState('');
 
@@ -43,36 +44,20 @@ export const Mobile = () => {
         </Row>
         <Row>
           <Menu className={styles.menu}>
-            <Menu.Item
-              key={0}
-              className={cn(styles.item, [selected === 'заказы' ? styles.selected : ''])}
-              onClick={(event) => {
-                menuItemHandler('заказы');
-              }}
-              icon={<ShoppingFilled className={styles.icn} />}
-            >
-              Заказы
-            </Menu.Item>
-            <Menu.Item
-              key={1}
-              className={cn(styles.item, [selected === 'список авто' ? styles.selected : ''])}
-              onClick={(event) => {
-                menuItemHandler('список авто');
-              }}
-              icon={<CarFilled className={styles.icn} />}
-            >
-              Список авто
-            </Menu.Item>
-            <Menu.Item
-              key={2}
-              className={cn(styles.item, [selected === 'города' ? styles.selected : ''])}
-              onClick={(event) => {
-                menuItemHandler('города');
-              }}
-              icon={<HomeFilled className={styles.icn} />}
-            >
-              Города
-            </Menu.Item>
+            {adminSidebarItems.map((item) => {
+              return (
+                <Menu.Item
+                  key={item.key}
+                  className={cn(styles.item, [selected === item.value ? styles.selected : ''])}
+                  onClick={(event) => {
+                    menuItemHandler(item.value);
+                  }}
+                  icon={item.icon}
+                >
+                  {item.children}
+                </Menu.Item>
+              );
+            })}
           </Menu>
         </Row>
       </Drawer>

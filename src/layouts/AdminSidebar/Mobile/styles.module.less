@@ -49,6 +49,12 @@
       color: @app-color__darkGrayBlue;
       font-size: 15px;
       padding: 8px 26px 0 26px;
+
+      svg {
+        top: 0;
+        font-size: 15px;
+        color: @app-color__lightGrey;
+      }
     }
 
     .item:hover {
@@ -57,7 +63,7 @@
       border-left: 4px solid @app-primary-blue;
     }
 
-    .item:hover .icn svg {
+    .item:hover svg {
       color: @app-primary-blue;
     }
 
@@ -67,14 +73,8 @@
       border-left: 4px solid @app-primary-blue;
     }
 
-    .selected .icn svg {
+    .selected svg {
       color: @app-primary-blue;
-    }
-
-    .icn svg {
-      top: 0;
-      font-size: 15px;
-      color: @app-color__lightGrey;
     }
   }
 }

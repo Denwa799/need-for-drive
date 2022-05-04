@@ -42,6 +42,11 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
 
   // Создаю массив для поля фильтрации
   const carsName = useMemo(() => cars.map((car) => car.name), [cars]);
+  const cityName = useMemo(() => city.map((item) => item.name), [city]);
+  const orderStatusName = useMemo(
+    () => allOrderStatus.map((order) => order.name),
+    [allOrderStatus]
+  );
   const carsColor = useMemo(() => cars.map((car) => car.colors), [cars]);
 
   // Поднимаю вложенные массивы цветов на один уровень
@@ -54,6 +59,16 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   const cleanCarsName = useMemo(
     () => carsName.filter((item, index) => carsName.indexOf(item) === index),
     [carsName]
+  );
+
+  const cleanCityName = useMemo(
+    () => cityName.filter((item, index) => cityName.indexOf(item) === index),
+    [cityName]
+  );
+
+  const cleanOrderStatusName = useMemo(
+    () => orderStatusName.filter((item, index) => orderStatusName.indexOf(item) === index),
+    [orderStatusName]
   );
 
   const cleanCarsColor = useMemo(
@@ -71,17 +86,17 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   }, [cleanCarsName]);
 
   const optionsCityName = useMemo(() => {
-    return city.map((item) => {
+    return cleanCityName.map((name) => {
       return {
-        value: item.name,
+        value: name,
       };
     });
   }, [city]);
 
   const optionsOrderStatus = useMemo(() => {
-    return allOrderStatus.map((orderStatus) => {
+    return cleanOrderStatusName.map((name) => {
       return {
-        value: orderStatus.name,
+        value: name,
       };
     });
   }, [allOrderStatus]);
@@ -206,84 +221,52 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
     <div className={styles.AdminOrderListFilteres}>
       <Row className={styles.filters}>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
-          {carsIsLoading ? (
-            <ErrorLoading
-              loading={carsIsLoading}
-              error={carsError}
-              isLarge
-              errorClassName={styles.errorTxt}
-            />
-          ) : (
-            <AdminAutocomplete
-              options={optionsCarsName}
-              filterOption={filterOption}
-              value={carNameFilter}
-              onChange={carNameFilterHandler}
-              placeholder="Название"
-              className={styles.autocomplete}
-              inputClassName={styles.input}
-            />
-          )}
+          <AdminAutocomplete
+            options={optionsCarsName}
+            filterOption={filterOption}
+            value={carNameFilter}
+            onChange={carNameFilterHandler}
+            placeholder="Название"
+            className={styles.autocomplete}
+            inputClassName={styles.input}
+            isLoading={carsIsLoading}
+          />
         </Col>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
-          {cityIsLoading ? (
-            <ErrorLoading
-              loading={cityIsLoading}
-              error={cityError}
-              isLarge
-              errorClassName={styles.errorTxt}
-            />
-          ) : (
-            <AdminAutocomplete
-              options={optionsCityName}
-              filterOption={filterOption}
-              value={cityFilter}
-              onChange={cityFilterHandler}
-              placeholder="Город"
-              className={styles.autocomplete}
-              inputClassName={styles.input}
-            />
-          )}
+          <AdminAutocomplete
+            options={optionsCityName}
+            filterOption={filterOption}
+            value={cityFilter}
+            onChange={cityFilterHandler}
+            placeholder="Город"
+            className={styles.autocomplete}
+            inputClassName={styles.input}
+            isLoading={cityIsLoading}
+          />
         </Col>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
-          {orderStatusIsLoading ? (
-            <ErrorLoading
-              loading={orderStatusIsLoading}
-              error={orderStatusError}
-              isLarge
-              errorClassName={styles.errorTxt}
-            />
-          ) : (
-            <AdminAutocomplete
-              options={optionsOrderStatus}
-              filterOption={filterOption}
-              value={orderStatusFilter}
-              onChange={orderStatusFilterHandler}
-              placeholder="Статус"
-              className={styles.autocomplete}
-              inputClassName={styles.input}
-            />
-          )}
+          <AdminAutocomplete
+            options={optionsOrderStatus}
+            filterOption={filterOption}
+            value={orderStatusFilter}
+            onChange={orderStatusFilterHandler}
+            placeholder="Статус"
+            className={styles.autocomplete}
+            inputClassName={styles.input}
+            isLoading={orderStatusIsLoading}
+          />
         </Col>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
-          {carsIsLoading ? (
-            <ErrorLoading
-              loading={carsIsLoading}
-              error={carsError}
-              isLarge
-              errorClassName={styles.errorTxt}
-            />
-          ) : (
-            <AdminAutocomplete
-              options={optionsCarColors}
-              filterOption={filterOption}
-              value={carColorFilter}
-              onChange={carColorFilterHandler}
-              placeholder="Цвет"
-              className={styles.autocomplete}
-              inputClassName={styles.input}
-            />
-          )}
+          <AdminAutocomplete
+            options={optionsCarColors}
+            filterOption={filterOption}
+            value={carColorFilter}
+            onChange={carColorFilterHandler}
+            placeholder="Цвет"
+            className={styles.autocomplete}
+            inputClassName={styles.input}
+            isLoading={carsIsLoading}
+          />
         </Col>
         <Col xxl={12} xl={16} lg={8} md={8} sm={24} xs={24} className={styles.applyBtnContainer}>
           <AdminBtn

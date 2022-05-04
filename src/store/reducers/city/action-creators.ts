@@ -12,7 +12,7 @@ export const CityActionCreators = {
     type: CityActionEnum.SET_CITY_IS_LOADING,
     payload,
   }),
-  seCityError: (payload: string): SetCityErrorAction => ({
+  setCityError: (payload: string): SetCityErrorAction => ({
     type: CityActionEnum.SET_CITY_ERROR,
     payload,
   }),
@@ -23,7 +23,7 @@ export const CityActionCreators = {
       dispatch(CityActionCreators.getCity(response.data.data));
       dispatch(CityActionCreators.setCityIsLoading(false));
     } catch (e) {
-      dispatch(CityActionCreators.seCityError('Произошла ошибка при загрузке списка городов'));
+      dispatch(CityActionCreators.setCityError('Произошла ошибка при загрузке списка городов'));
     }
   },
 };

@@ -6,4 +6,5 @@ export interface IAdminAutocomplete {
   placeholder?: string;
   className?: string;
   inputClassName?: string;
+  isLoading?: boolean;
 }

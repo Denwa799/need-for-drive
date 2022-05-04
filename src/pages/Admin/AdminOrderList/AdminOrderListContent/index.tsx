@@ -23,6 +23,12 @@ export const AdminOrderListContent: FC = () => {
 
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 
+  const totalOrders = useMemo(() => {
+    // Исправляет пустую последнюю страницу в пагинации.
+    // Мне кажется сервер немного не верное посчитанное число выдает
+    return Math.floor(ordersCount / limit) * limit;
+  }, [ordersCount, limit]);
+
   // Установка дефолтной картинки при ошибке пути к изображению
   const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = defaultImg;
@@ -36,6 +42,8 @@ export const AdminOrderListContent: FC = () => {
     },
     [currentPage, limit]
   );
+
+  console.log(ordersCount);
 
   return (
     <AppContainer classNames={styles.container}>
@@ -63,7 +71,7 @@ export const AdminOrderListContent: FC = () => {
                       className={styles.img}
                     />
                   </Col>
-                  <Col xl={6} lg={5} md={6} sm={12} xs={24}>
+                  <Col xl={7} lg={6} md={6} sm={12} xs={24}>
                     <p className={styles.description}>
                       <b>{order.carId ? order.carId.name : errorMessage}</b> в{' '}
                       <b>{order.cityId ? order.cityId.name : errorMessage}</b>,{' '}
@@ -102,7 +110,7 @@ export const AdminOrderListContent: FC = () => {
                   <Col xl={4} lg={3} md={6} sm={12} xs={24} className={styles.price}>
                     {order.price ? order.price.toLocaleString() : errorMessage} ₽
                   </Col>
-                  <Col xl={7} lg={9} md={24} sm={24} xs={24} className={styles.btns}>
+                  <Col xl={6} lg={8} md={24} sm={24} xs={24} className={styles.btns}>
                     {order.orderStatusId && order.orderStatusId.name !== 'Подтвержденные' ? (
                       <Button
                         className={cn(styles.btn, styles.finishBtn)}
@@ -135,7 +143,7 @@ export const AdminOrderListContent: FC = () => {
       </div>
       <Row className={styles.pagination}>
         <AppPagination
-          total={ordersCount}
+          total={totalOrders}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}
