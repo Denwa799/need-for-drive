@@ -43,8 +43,6 @@ export const AdminOrderListContent: FC = () => {
     [currentPage, limit]
   );
 
-  console.log(ordersCount);
-
   return (
     <AppContainer classNames={styles.container}>
       <Title level={3} className={styles.title}>
