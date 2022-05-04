@@ -1,5 +1,5 @@
 import { Row, Typography } from 'antd';
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
 import Icon from '@ant-design/icons';
 import { useTypedSelector } from 'hooks/useTypesSelector';
@@ -20,6 +20,8 @@ export const Login: FC = () => {
     useTypedSelector(authSelector);
   const { login } = useActions();
   const [cookies, setCookie] = useCookies(['auth']);
+  const [usernameValue, setUsernameValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
 
   useEffect(() => {
     if (isAuth) {
@@ -51,7 +53,13 @@ export const Login: FC = () => {
             Need for drive
           </Title>
         </Row>
-        <LoginForm submit={submit} />
+        <LoginForm
+          submit={submit}
+          usernameValue={usernameValue}
+          setUsernameValue={setUsernameValue}
+          passwordValue={passwordValue}
+          setPasswordValue={setPasswordValue}
+        />
       </div>
     </div>
   );
