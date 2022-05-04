@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Col, Row } from 'antd';
-import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector, citySelector, orderStatusSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import useDebounce from 'hooks/useDebounce';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
+import { useCookies } from 'react-cookie';
 import styles from './styles.module.less';
 import { FilterOptionType, IAdminOrderListFilteres } from './type';
 
@@ -15,10 +15,11 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   currentPage,
   setCurrentPage,
 }) => {
-  const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
-  const { city, cityIsLoading, cityError } = useTypedSelector(citySelector);
-  const { allOrderStatus, orderStatusIsLoading, orderStatusError } =
-    useTypedSelector(orderStatusSelector);
+  const [cookies] = useCookies(['auth']);
+  const tokenBearer = cookies.auth.access_token;
+  const { cars, carsIsLoading } = useTypedSelector(carsSelector);
+  const { city, cityIsLoading } = useTypedSelector(citySelector);
+  const { allOrderStatus, orderStatusIsLoading } = useTypedSelector(orderStatusSelector);
 
   const [carNameFilter, setCarNameFilter] = useState('');
   const debouncedCarNameFilter = useDebounce<string>(carNameFilter, 500);
@@ -136,7 +137,6 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   );
 
   useEffect(() => {
-    const tokenBearer = '2e3c2aa80b1623241411b74594e12f496306997c';
     fetchAllOrders(
       tokenBearer,
       limit,
@@ -189,7 +189,6 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
     setCityFilter('');
     setOrderStatusFilter('');
     setCarColorFilter('');
-    const tokenBearer = '2e3c2aa80b1623241411b74594e12f496306997c';
     fetchAllOrders(
       tokenBearer,
       limit,
@@ -204,7 +203,6 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
 
   // Обработчик кнопки применения фильтрации
   const filterApplyHandler = useCallback(() => {
-    const tokenBearer = '2e3c2aa80b1623241411b74594e12f496306997c';
     fetchAllOrders(
       tokenBearer,
       limit,

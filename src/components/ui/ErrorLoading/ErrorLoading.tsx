@@ -1,19 +1,67 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
-import React, { FC } from 'react';
+import { Modal, Spin } from 'antd';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styles from './ErrorLoading.module.less';
 import { IErrorLoading } from './type';
 
 const antIcon = <LoadingOutlined className={styles.Loader} spin />;
 
-const ErrorLoading: FC<IErrorLoading> = ({ loading, error, isLarge, errorClassName }) => {
-  if (error) {
-    return <h1 className={errorClassName}>{error}</h1>;
+const ErrorLoading: FC<IErrorLoading> = ({
+  loading,
+  error,
+  content,
+  type = 'primary',
+  isLarge,
+  errorClassName,
+}) => {
+  const [modalVisible, setModalVisible] = useState(true);
+  const loader = <Spin indicator={antIcon} size={isLarge ? 'large' : 'default'} />;
+
+  const modalCancelHandler = useCallback(() => {
+    setModalVisible(false);
+  }, []);
+
+  // Сбрасывает видимость модального окна при появлении загрузки
+  useEffect(() => {
+    setModalVisible(true);
+  }, [loading]);
+
+  switch (type) {
+    case 'primary':
+      if (error) {
+        return <h1 className={errorClassName}>{error}</h1>;
+      }
+      if (loading) {
+        return loader;
+      }
+      return null;
+    case 'modal':
+      if (error && content) {
+        return (
+          <div>
+            {content}
+            <Modal
+              title={error}
+              visible={modalVisible}
+              footer={null}
+              onCancel={modalCancelHandler}
+            />
+          </div>
+        );
+      }
+      if (loading) {
+        return loader;
+      }
+      return null;
+    default:
+      if (error) {
+        return <h1 className={errorClassName}>{error}</h1>;
+      }
+      if (loading) {
+        return loader;
+      }
+      return null;
   }
-  if (loading) {
-    return <Spin indicator={antIcon} size={isLarge ? 'large' : 'default'} />;
-  }
-  return null;
 };
 
 export default ErrorLoading;
