@@ -121,7 +121,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   );
 
   useEffect(() => {
-    const tokenBearer = '5572401adf3610d62586679581bfebc7ff3a0b2f';
+    const tokenBearer = '2e3c2aa80b1623241411b74594e12f496306997c';
     fetchAllOrders(
       tokenBearer,
       limit,
@@ -174,7 +174,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
     setCityFilter('');
     setOrderStatusFilter('');
     setCarColorFilter('');
-    const tokenBearer = '5c8f8c2958782851fb34b572bdb3751643676f11';
+    const tokenBearer = '2e3c2aa80b1623241411b74594e12f496306997c';
     fetchAllOrders(
       tokenBearer,
       limit,
@@ -189,7 +189,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
 
   // Обработчик кнопки применения фильтрации
   const filterApplyHandler = useCallback(() => {
-    const tokenBearer = '5c8f8c2958782851fb34b572bdb3751643676f11';
+    const tokenBearer = '2e3c2aa80b1623241411b74594e12f496306997c';
     fetchAllOrders(
       tokenBearer,
       limit,
