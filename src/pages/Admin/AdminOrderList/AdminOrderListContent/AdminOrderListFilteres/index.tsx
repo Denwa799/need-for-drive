@@ -205,7 +205,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   return (
     <div className={styles.AdminOrderListFilteres}>
       <Row className={styles.filters}>
-        <Col xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
+        <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
           {carsIsLoading ? (
             <ErrorLoading
               loading={carsIsLoading}
@@ -225,7 +225,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
             />
           )}
         </Col>
-        <Col xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
+        <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
           {cityIsLoading ? (
             <ErrorLoading
               loading={cityIsLoading}
@@ -245,7 +245,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
             />
           )}
         </Col>
-        <Col xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
+        <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
           {orderStatusIsLoading ? (
             <ErrorLoading
               loading={orderStatusIsLoading}
@@ -265,7 +265,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
             />
           )}
         </Col>
-        <Col xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
+        <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
           {carsIsLoading ? (
             <ErrorLoading
               loading={carsIsLoading}
@@ -285,7 +285,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
             />
           )}
         </Col>
-        <Col xl={16} lg={8} md={8} sm={24} xs={24} className={styles.applyBtnContainer}>
+        <Col xxl={12} xl={16} lg={8} md={8} sm={24} xs={24} className={styles.applyBtnContainer}>
           <AdminBtn
             onClick={filterResetHandler}
             color="red"
