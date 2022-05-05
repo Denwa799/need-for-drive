@@ -5,7 +5,135 @@
   font-family: Helvetica, Roboto, sans-serif;
   font-style: normal;
 
-  .container {
+  .content {
     min-height: 100vh;
+
+    .car {
+      padding-top: 18px;
+      align-items: center;
+
+      .imgBlock {
+        padding-right: 10px;
+        text-align: center;
+
+        .img {
+          max-width: 138px;
+          max-height: 63px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          padding-right: 5px;
+        }
+
+        .numberContainer {
+          display: flex;
+          width: 100%;
+          padding-top: 5px;
+
+          .number {
+            text-align: center;
+            width: 100%;
+            font-size: 13px;
+            padding: 3px 5px;
+          }
+        }
+      }
+
+
+      .title {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      .description {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        letter-spacing: -0.408571px;
+        color: @app-color__concrete2;
+        margin: 0;
+        padding-top: 5px;
+        padding-right: 5px;
+
+        b {
+          color: @app-primary-black;
+        }
+      }
+
+      .priceBlock {
+        .price {
+          margin: 0;
+          padding-bottom: 10px;
+          font-size: 20px;
+          line-height: 24px;
+
+          b {
+            font-size: 24px;
+          }
+        }
+      }
+
+      .btns {
+        text-align: right;
+
+        .btn {
+          color: @app-color__blueberry;
+          font-size: 11px;
+          line-height: 13px;
+          border-color: @app-color__paleBlue;
+          padding: 0 16px 0 8px;
+          border-radius: 0px 4px 4px 0px;
+
+          span {
+            margin: 0;
+          }
+
+          .icn {
+            font-size: 12px;
+            padding-right: 5px;
+            color: @app-color__greyBlue;
+          }
+        }
+      }
+    }
+
+    .pagination {
+      display: flex;
+      width: 100%;
+      height: 59px;
+      position: relative;
+      z-index: 11;
+      justify-content: center;
+      background-color: @app-primary-white;
+      box-shadow: @app-box-shadow__second;
+      -webkit-box-shadow: @app-box-shadow__second;
+      -moz-box-shadow: @app-box-shadow__second;
+      border-radius: 0 0 9px 9px;
+    }
+  }
+}
+
+@media (max-width: @app-screen-lg) {
+  .priceBlock {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .priceBlock {
+    display: block;
+  }
+}
+
+@media (max-width: @app-screen-sm) {
+  .title {
+    padding-top: 10px;
   }
 }

@@ -262,3 +262,64 @@ code {
     }
   }
 }
+
+/* Переписываю стили для pagination ant design */
+
+// Если type = blue
+.ant-pagination.mini.blue {
+  .ant-pagination-prev button {
+    color: @app-primary-blue;
+  }
+
+  .ant-pagination-jump-prev span {
+    color: @app-primary-blue;
+  }
+
+  .ant-pagination-item {
+    a {
+      font-size: 15px;
+      color: @app-primary-blue;
+    }
+  }
+
+  .ant-pagination-item-active {
+    background-color: @app-primary-blue;
+    position: relative;
+    border: none;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    padding-top: 1px;
+    padding-right: 1px;
+
+    a {
+      color: @app-primary-white;
+    }
+  }
+
+  .ant-pagination-jump-next span {
+    color: @app-primary-blue;
+  }
+
+  .ant-pagination-next button {
+    color: @app-primary-blue;
+  }
+
+  .ant-pagination-options {
+    .ant-select.ant-pagination-options-size-changer {
+      color: @app-primary-blue;
+
+      .ant-select-selector {
+        border-color: @app-primary-blue;
+      }
+
+      .ant-select-item.ant-select-item-option:hover  {
+        color: @app-primary-blue;
+      }
+
+      .ant-select-item.ant-select-item-option.ant-select-item-option-selected {
+        color: @app-primary-blue;
+      }
+    }
+  }
+}

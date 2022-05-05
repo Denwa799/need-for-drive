@@ -3,4 +3,5 @@ export interface IAppPagination {
   onChange: (pageNumber: number, pageSize: number) => void;
   pageSizeOptions: string[];
   page: number;
+  type?: string;
 }
