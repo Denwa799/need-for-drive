@@ -14,13 +14,19 @@ import { carsSelector } from 'store/selectors/selectors';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { useActions } from 'hooks/useActions';
 import noImage from 'assets/img/noImage.webp';
+import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
+import useDebounce from 'hooks/useDebounce';
+import { AdminBtn } from 'components/ui/AdminBtn';
+import { ICar } from 'models/ICar';
 import styles from './styles.module.less';
-import { PageChangeHandlerType } from './type';
+import { FilterOptionType, PageChangeHandlerType } from './type';
+import { AdminCarsListFilters } from './AdminCarsListFilteres';
 
 const { Title } = Typography;
 
 export const AdminCarsList = () => {
   const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
+  const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const errorMessage = 'Нет информации';
@@ -28,6 +34,10 @@ export const AdminCarsList = () => {
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 
   const { fetchCars } = useActions();
+
+  useEffect(() => {
+    fetchCars();
+  }, []);
 
   // Установка дефолтной картинки при ошибке пути к изображению
   const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
@@ -45,12 +55,8 @@ export const AdminCarsList = () => {
 
   // Отфильтрованный массив, исходя из пагинации
   const paginationCars = useMemo(() => {
-    return cars.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [cars, firstPaginationIndex, lastPaginationIndex]);
-
-  useEffect(() => {
-    fetchCars();
-  }, []);
+    return filteredCars.slice(firstPaginationIndex, lastPaginationIndex);
+  }, [cars, firstPaginationIndex, lastPaginationIndex, filteredCars]);
 
   // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -70,7 +76,11 @@ export const AdminCarsList = () => {
           <AdminContainer>
             <AdminTitle>Машины</AdminTitle>
             <AdminList>
-              {carsIsLoading ? (
+              <AdminCarsListFilters
+                setCurrentPage={setCurrentPage}
+                setFilteredCars={setFilteredCars}
+              />
+              {carsIsLoading || carsError ? (
                 <ErrorLoading loading={carsIsLoading} error={carsError} />
               ) : (
                 <div>
@@ -142,7 +152,7 @@ export const AdminCarsList = () => {
             </AdminList>
             <Row className={styles.pagination}>
               <AppPagination
-                total={cars.length}
+                total={filteredCars.length}
                 onChange={pageChangeHandler}
                 pageSizeOptions={pageSizeOptions}
                 page={currentPage}
