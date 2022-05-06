@@ -56,7 +56,9 @@ export const Mobile: FC<IAdminSidebarMobile> = ({ adminSidebarItems }) => {
                   }}
                   icon={item.icon}
                 >
-                  <NavLink to={item.route}>{item.children}</NavLink>
+                  <NavLink to={item.route} className={styles.link}>
+                    {item.children}
+                  </NavLink>
                 </Menu.Item>
               );
             })}
