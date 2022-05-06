@@ -8,20 +8,16 @@ import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
 import { CarNumber } from 'components/ui/CarNumber';
 import { MoreOutlined } from '@ant-design/icons';
-import { AppPagination } from 'components/ui/AppPagination';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector } from 'store/selectors/selectors';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { useActions } from 'hooks/useActions';
 import noImage from 'assets/img/noImage.webp';
-import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
-import useDebounce from 'hooks/useDebounce';
-import { AdminBtn } from 'components/ui/AdminBtn';
 import { ICar } from 'models/ICar';
+import { AdminPagination } from 'components/ui/AdminPagination';
 import styles from './styles.module.less';
-import { FilterOptionType, PageChangeHandlerType } from './type';
+import { PageChangeHandlerType } from './type';
 import { AdminCarsListFilters } from './AdminCarsListFilteres';
-import { AdminPagination } from '../../../components/ui/AdminPagination';
 
 const { Title } = Typography;
 

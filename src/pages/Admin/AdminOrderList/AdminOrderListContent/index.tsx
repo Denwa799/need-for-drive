@@ -7,13 +7,12 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderSelector } from 'store/selectors/selectors';
 import { dateString, durationDateString } from 'utils/date';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
-import { AppPagination } from 'components/ui/AppPagination';
 import { AdminContainer } from 'layouts/AdminContainer';
 import { AdminList } from 'components/ui/AdminList';
+import { AdminPagination } from 'components/ui/AdminPagination';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 import { AdminOrderListFilteres } from './AdminOrderListFilteres';
-import { AdminPagination } from '../../../../components/ui/AdminPagination';
 
 const { Title } = Typography;
 

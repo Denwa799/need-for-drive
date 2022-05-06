@@ -1,14 +1,13 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col } from 'antd';
 import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
+import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import styles from './styles.module.less';
-import { FilterOptionType } from '../type';
-import { IAdminCarsListFilteres } from './type';
-import { AdminFiltersContainer } from '../../../../components/ui/AdminFiltersContainer';
+import { FilterOptionType, IAdminCarsListFilteres } from './type';
 
 export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
   setCurrentPage,
