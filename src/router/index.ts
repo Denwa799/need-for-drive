@@ -9,6 +9,7 @@ import { Login } from 'pages/Login';
 import { OrderId } from 'pages/Order/OrderId';
 import { AdminCarsList } from 'pages/Admin/AdminCarsList';
 import { AdminOrderList } from 'pages/Admin/AdminOrderList';
+import { AdminCityList } from 'pages/Admin/AdminCityList';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -30,4 +31,5 @@ export const publicRoutes: IRoute[] = [
 export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_CARS_LIST, component: AdminCarsList },
   { path: RouteNames.ADMIN_ORDER_LIST, component: AdminOrderList },
+  { path: RouteNames.ADMIN_CITY_LIST, component: AdminCityList },
 ];

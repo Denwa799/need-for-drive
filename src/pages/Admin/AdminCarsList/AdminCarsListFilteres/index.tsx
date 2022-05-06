@@ -147,7 +147,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
         <Col xxl={18} xl={20} lg={16} md={14} sm={24} xs={24} className={styles.btnContainer}>
           <AdminBtn
             onClick={filterResetHandler}
-            color="red"
+            type="red"
             className={styles.resetBtn}
             containerClassName={styles.btn}
           >

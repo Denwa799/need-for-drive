@@ -22,7 +22,7 @@ const adminSidebarItems = [
     children: 'Города',
     value: 'города',
     icon: <HomeFilled />,
-    route: `/admin/${RouteNames.ADMIN_ORDER_LIST}`,
+    route: `/admin/${RouteNames.ADMIN_CITY_LIST}`,
   },
 ];
 

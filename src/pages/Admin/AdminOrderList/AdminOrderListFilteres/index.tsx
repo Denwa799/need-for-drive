@@ -270,7 +270,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
         <Col xxl={12} xl={16} lg={8} md={8} sm={24} xs={24} className={styles.applyBtnContainer}>
           <AdminBtn
             onClick={filterResetHandler}
-            color="red"
+            type="red"
             className={styles.resetBtn}
             containerClassName={styles.btn}
           >
