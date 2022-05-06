@@ -10,7 +10,6 @@ export const AdminTitle: FC = ({ children }) => {
       <Title level={3} className={styles.title}>
         {children}
       </Title>
-      ;
     </div>
   );
 };

@@ -6,5 +6,6 @@ export interface IAdminSidebarMobile {
     children: string;
     value: string;
     icon: React.ReactNode;
+    route: string;
   }[];
 }

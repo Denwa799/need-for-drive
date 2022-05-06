@@ -3,6 +3,7 @@ import { Menu, Row } from 'antd';
 import cn from 'classnames';
 import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
 import Icon from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
 import styles from './styles.module.less';
 
 import { IAdminSidebarDesktop } from './type';
@@ -31,7 +32,9 @@ export const Desktop: FC<IAdminSidebarDesktop> = ({ adminSidebarItems }) => {
                 }}
                 icon={item.icon}
               >
-                {item.children}
+                <NavLink to={item.route} className={styles.link}>
+                  {item.children}
+                </NavLink>
               </Menu.Item>
             );
           })}

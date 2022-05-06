@@ -1,8 +1,5 @@
 import React, { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Col, Row, Typography } from 'antd';
-import { AdminSidebar } from 'layouts/AdminSidebar';
-import { AdminHeader } from 'layouts/AdminHeader';
-import { AdminFooter } from 'layouts/AdminFooter';
 import { AdminContainer } from 'layouts/AdminContainer';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
@@ -66,97 +63,80 @@ export const AdminCarsList = () => {
 
   return (
     <div className={styles.AdminCarsList}>
-      <Row className={styles.content}>
-        <AdminSidebar />
-        <Col xl={20} lg={20} md={22} sm={22} xs={22}>
-          <AdminHeader />
-          <AdminContainer>
-            <AdminTitle>Машины</AdminTitle>
-            <AdminList>
-              <AdminCarsListFilters
-                setCurrentPage={setCurrentPage}
-                setFilteredCars={setFilteredCars}
-              />
-              {carsIsLoading || carsError ? (
-                <ErrorLoading loading={carsIsLoading} error={carsError} />
-              ) : (
-                <div>
-                  {paginationCars.map((car) => {
-                    return (
-                      <Row key={car.id} className={styles.car}>
-                        <Col xl={3} lg={3} md={12} sm={12} xs={24} className={styles.imgBlock}>
-                          <img
-                            src={car.thumbnail.path}
-                            alt={car.name ? car.name : 'машина'}
-                            className={styles.img}
-                            onError={imageOnErrorHandler}
-                          />
-                          <CarNumber
-                            number={car.number ? car.number : errorMessage}
-                            className={styles.number}
-                            containerClassName={styles.numberContainer}
-                          />
-                        </Col>
-                        <Col xl={10} lg={8} md={12} sm={12} xs={24}>
-                          <Title level={5} className={styles.title}>
-                            {car.name}
-                          </Title>
-                          <p className={styles.description}>
-                            Описание: <b>{car.description}</b>
-                          </p>
-                          <p className={styles.description}>
-                            Категория: <b>{car.categoryId ? car.categoryId.name : errorMessage}</b>
-                          </p>
-                          <p className={styles.description}>
-                            Бензин: <b>{car.tank ? `${car.tank} %` : errorMessage}</b>
-                          </p>
-                          <p className={styles.description}>
-                            Цвета:{' '}
-                            {car.colors && car.colors.length > 0
-                              ? car.colors.map((color) => {
-                                  return <b key={`${Math.random()}${color}`}>{color}, </b>;
-                                })
-                              : errorMessage}
-                          </p>
-                        </Col>
-                        <Col xl={7} lg={9} md={24} sm={24} xs={24} className={styles.priceBlock}>
-                          <p className={styles.price}>
-                            Минимальная цена:{' '}
-                            <b>
-                              {car.priceMin ? `${car.priceMin.toLocaleString()} ₽` : errorMessage}
-                            </b>
-                          </p>
-                          <p className={styles.price}>
-                            Максимальная цена:{' '}
-                            <b>
-                              {car.priceMax ? `${car.priceMax.toLocaleString()} ₽` : errorMessage}
-                            </b>
-                          </p>
-                        </Col>
-                        <Col xl={4} lg={4} md={24} sm={24} xs={24} className={styles.btns}>
-                          <Button
-                            className={styles.btn}
-                            icon={<MoreOutlined className={styles.icn} />}
-                          >
-                            Изменить
-                          </Button>
-                        </Col>
-                      </Row>
-                    );
-                  })}
-                </div>
-              )}
-            </AdminList>
-            <AdminPagination
-              total={filteredCars.length}
-              onChange={pageChangeHandler}
-              pageSizeOptions={pageSizeOptions}
-              page={currentPage}
-            />
-          </AdminContainer>
-          <AdminFooter />
-        </Col>
-      </Row>
+      <AdminContainer>
+        <AdminTitle>Машины</AdminTitle>
+        <AdminList>
+          <AdminCarsListFilters setCurrentPage={setCurrentPage} setFilteredCars={setFilteredCars} />
+          {carsIsLoading || carsError ? (
+            <ErrorLoading loading={carsIsLoading} error={carsError} />
+          ) : (
+            <div>
+              {paginationCars.map((car) => {
+                return (
+                  <Row key={car.id} className={styles.car}>
+                    <Col xl={3} lg={3} md={12} sm={12} xs={24} className={styles.imgBlock}>
+                      <img
+                        src={car.thumbnail.path}
+                        alt={car.name ? car.name : 'машина'}
+                        className={styles.img}
+                        onError={imageOnErrorHandler}
+                      />
+                      <CarNumber
+                        number={car.number ? car.number : errorMessage}
+                        className={styles.number}
+                        containerClassName={styles.numberContainer}
+                      />
+                    </Col>
+                    <Col xl={10} lg={8} md={12} sm={12} xs={24}>
+                      <Title level={5} className={styles.title}>
+                        {car.name}
+                      </Title>
+                      <p className={styles.description}>
+                        Описание: <b>{car.description}</b>
+                      </p>
+                      <p className={styles.description}>
+                        Категория: <b>{car.categoryId ? car.categoryId.name : errorMessage}</b>
+                      </p>
+                      <p className={styles.description}>
+                        Бензин: <b>{car.tank ? `${car.tank} %` : errorMessage}</b>
+                      </p>
+                      <p className={styles.description}>
+                        Цвета:{' '}
+                        {car.colors && car.colors.length > 0
+                          ? car.colors.map((color) => {
+                              return <b key={`${Math.random()}${color}`}>{color}, </b>;
+                            })
+                          : errorMessage}
+                      </p>
+                    </Col>
+                    <Col xl={7} lg={9} md={24} sm={24} xs={24} className={styles.priceBlock}>
+                      <p className={styles.price}>
+                        Минимальная цена:{' '}
+                        <b>{car.priceMin ? `${car.priceMin.toLocaleString()} ₽` : errorMessage}</b>
+                      </p>
+                      <p className={styles.price}>
+                        Максимальная цена:{' '}
+                        <b>{car.priceMax ? `${car.priceMax.toLocaleString()} ₽` : errorMessage}</b>
+                      </p>
+                    </Col>
+                    <Col xl={4} lg={4} md={24} sm={24} xs={24} className={styles.btns}>
+                      <Button className={styles.btn} icon={<MoreOutlined className={styles.icn} />}>
+                        Изменить
+                      </Button>
+                    </Col>
+                  </Row>
+                );
+              })}
+            </div>
+          )}
+        </AdminList>
+        <AdminPagination
+          total={filteredCars.length}
+          onChange={pageChangeHandler}
+          pageSizeOptions={pageSizeOptions}
+          page={currentPage}
+        />
+      </AdminContainer>
     </div>
   );
 };
