@@ -1,52 +1,43 @@
 @import 'styles/consts';
 
 .AdminCarsListFilters {
-  .filters {
-    height: 59px;
-    border-bottom: 1px solid @app-color__smokyWhite;
+  .filter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
 
-    .filter {
-      width: 100%;
-      display: flex;
-      align-items: center;
-    }
-
-    .btnContainer {
-      display: flex;
-      justify-content: right;
-      align-items: center;
-    }
+  .btnContainer {
+    display: flex;
+    justify-content: right;
+    align-items: center;
   }
 }
 
 @media (max-width: @app-screen-md) {
   .AdminCarsListFilters {
-    .filters {
-      height: 100%;
+    .filter {
+      padding-top: 10px;
 
-      .filter {
-        padding-top: 10px;
+      .autocomplete {
+        width: 100%;
 
-        .autocomplete {
+        .input {
           width: 100%;
-
-          .input {
-            width: 100%;
-          }
         }
       }
+    }
 
-      .btnContainer {
-        padding-top: 10px;
-        justify-content: left;
+    .btnContainer {
+      padding-top: 10px;
+      justify-content: left;
 
-        .btn {
-          width: 100%;
-        }
+      .btn {
+        width: 100%;
+      }
 
-        .resetBtn {
-          width: 99%;
-        }
+      .resetBtn {
+        width: 99%;
       }
     }
   }

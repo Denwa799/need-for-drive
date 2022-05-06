@@ -8,6 +8,7 @@ import useDebounce from 'hooks/useDebounce';
 import styles from './styles.module.less';
 import { FilterOptionType } from '../type';
 import { IAdminCarsListFilteres } from './type';
+import { AdminFiltersContainer } from '../../../../components/ui/AdminFiltersContainer';
 
 export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
   setCurrentPage,
@@ -24,23 +25,32 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
   }, [debouncedCarNameFilter, debouncedCarCategoryNameFilter]);
 
   // Создаю массив для поля фильтрации
-  const carsName = useMemo(() => cars.map((car) => car.name), [cars]);
-  const carsCategory = useMemo(() => cars.map((car) => car.categoryId.name), [cars]);
+  const carsName = useMemo(() => cars.map((car) => (car.name ? car.name : '')), [cars]);
+  const carsCategory = useMemo(
+    () => cars.map((car) => (car.categoryId ? car.categoryId.name : '')),
+    [cars]
+  );
 
-  // Удаляю все дубли из массива
+  // Удаляю все дубли и null из массива
   const cleanCarsName = useMemo(
-    () => carsName.filter((item, index) => carsName.indexOf(item) === index),
+    () =>
+      carsName.filter(
+        (item, index) => carsName.indexOf(item) === index && item !== null && item !== ''
+      ),
     [carsName]
   );
 
   const cleanCarsCategory = useMemo(
-    () => carsCategory.filter((item, index) => carsCategory.indexOf(item) === index),
+    () =>
+      carsCategory.filter(
+        (item, index) => carsCategory.indexOf(item) === index && item !== null && item !== ''
+      ),
     [carsCategory]
   );
 
   // Создаю массив объектов для передачи в поле options для компоненты autocomplete
   const optionsCarsName = useMemo(() => {
-    return cleanCarsName.map((name) => {
+    return cleanCarsName.map((name: string) => {
       return {
         value: name,
       };
@@ -57,7 +67,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
 
   // Обработчики ввода данных в поля фильтрации
   const carNameFilterHandler = useCallback(
-    (value: string) => {
+    (value) => {
       setCarNameFilter(value);
     },
     [carNameFilter]
@@ -88,14 +98,18 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
     if (debouncedCarNameFilter && debouncedCarCategoryNameFilter)
       return cars.filter(
         (car) =>
-          car.name === debouncedCarNameFilter &&
-          car.categoryId.name === debouncedCarCategoryNameFilter
+          (car.name ? car.name === debouncedCarNameFilter : car.name !== null) &&
+          (car.categoryId
+            ? car.categoryId.name === debouncedCarCategoryNameFilter
+            : car.categoryId !== null)
       );
     if (debouncedCarNameFilter || debouncedCarCategoryNameFilter)
       return cars.filter(
         (car) =>
-          car.name === debouncedCarNameFilter ||
-          car.categoryId.name === debouncedCarCategoryNameFilter
+          (car.name ? car.name === debouncedCarNameFilter : car.name !== null) ||
+          (car.categoryId
+            ? car.categoryId.name === debouncedCarCategoryNameFilter
+            : car.categoryId !== null)
       );
     return cars;
   }, [cars, debouncedCarNameFilter, debouncedCarCategoryNameFilter]);
@@ -106,7 +120,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
 
   return (
     <div className={styles.AdminCarsListFilters}>
-      <Row className={styles.filters}>
+      <AdminFiltersContainer>
         <Col xxl={3} xl={2} lg={4} md={5} sm={12} xs={24} className={styles.filter}>
           <AdminAutocomplete
             options={optionsCarsName}
@@ -141,7 +155,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
             Сбросить
           </AdminBtn>
         </Col>
-      </Row>
+      </AdminFiltersContainer>
     </div>
   );
 };

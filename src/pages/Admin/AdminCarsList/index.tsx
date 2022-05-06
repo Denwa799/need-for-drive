@@ -21,6 +21,7 @@ import { ICar } from 'models/ICar';
 import styles from './styles.module.less';
 import { FilterOptionType, PageChangeHandlerType } from './type';
 import { AdminCarsListFilters } from './AdminCarsListFilteres';
+import { AdminPagination } from '../../../components/ui/AdminPagination';
 
 const { Title } = Typography;
 
@@ -150,15 +151,12 @@ export const AdminCarsList = () => {
                 </div>
               )}
             </AdminList>
-            <Row className={styles.pagination}>
-              <AppPagination
-                total={filteredCars.length}
-                onChange={pageChangeHandler}
-                pageSizeOptions={pageSizeOptions}
-                page={currentPage}
-                type="blue"
-              />
-            </Row>
+            <AdminPagination
+              total={filteredCars.length}
+              onChange={pageChangeHandler}
+              pageSizeOptions={pageSizeOptions}
+              page={currentPage}
+            />
           </AdminContainer>
           <AdminFooter />
         </Col>

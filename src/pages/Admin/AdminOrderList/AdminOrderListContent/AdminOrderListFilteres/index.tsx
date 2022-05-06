@@ -9,6 +9,7 @@ import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { useCookies } from 'react-cookie';
 import styles from './styles.module.less';
 import { FilterOptionType, IAdminOrderListFilteres } from './type';
+import { AdminFiltersContainer } from '../../../../../components/ui/AdminFiltersContainer';
 
 export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   limit,
@@ -216,8 +217,8 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   }, [carNameId, cityId, orderStatusId, debouncedCarColorFilter]);
 
   return (
-    <div className={styles.AdminOrderListFilteres}>
-      <Row className={styles.filters}>
+    <div className={styles.AdminOrderListFilters}>
+      <AdminFiltersContainer>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
           <AdminAutocomplete
             options={optionsCarsName}
@@ -283,7 +284,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
             Применить
           </AdminBtn>
         </Col>
-      </Row>
+      </AdminFiltersContainer>
     </div>
   );
 };

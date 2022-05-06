@@ -3,15 +3,17 @@ import { Button, Checkbox, Col, Row, Typography } from 'antd';
 import { CheckOutlined, CloseOutlined, MoreOutlined } from '@ant-design/icons/lib';
 import defaultImg from 'assets/img/cars/image-1.webp';
 import cn from 'classnames';
-import AppContainer from 'layouts/AppContainer/AppContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderSelector } from 'store/selectors/selectors';
 import { dateString, durationDateString } from 'utils/date';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { AppPagination } from 'components/ui/AppPagination';
+import { AdminContainer } from 'layouts/AdminContainer';
+import { AdminList } from 'components/ui/AdminList';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 import { AdminOrderListFilteres } from './AdminOrderListFilteres';
+import { AdminPagination } from '../../../../components/ui/AdminPagination';
 
 const { Title } = Typography;
 
@@ -44,17 +46,17 @@ export const AdminOrderListContent: FC = () => {
   );
 
   return (
-    <AppContainer classNames={styles.container}>
+    <AdminContainer>
       <Title level={3} className={styles.title}>
         Заказы
       </Title>
-      <div className={styles.content}>
+      <AdminList>
         <AdminOrderListFilteres
           limit={limit}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
-        {orderIsLoading ? (
+        {orderIsLoading || orderError ? (
           <ErrorLoading loading={orderIsLoading} error={orderError} />
         ) : (
           <div>
@@ -138,17 +140,14 @@ export const AdminOrderListContent: FC = () => {
             })}
           </div>
         )}
-      </div>
-      <Row className={styles.pagination}>
-        <AppPagination
-          total={totalOrders}
-          onChange={pageChangeHandler}
-          pageSizeOptions={pageSizeOptions}
-          page={currentPage}
-          type="blue"
-          sizeChangerInvisibleWidth={332}
-        />
-      </Row>
-    </AppContainer>
+      </AdminList>
+      <AdminPagination
+        total={totalOrders}
+        onChange={pageChangeHandler}
+        pageSizeOptions={pageSizeOptions}
+        page={currentPage}
+        sizeChangerInvisibleWidth={332}
+      />
+    </AdminContainer>
   );
 };
