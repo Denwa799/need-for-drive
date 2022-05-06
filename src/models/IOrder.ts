@@ -4,11 +4,11 @@ export interface IOrder {
   orderStatusId: {
     name: string;
     id: string;
-  };
+  } | null;
   cityId: {
     name: string;
     id: string;
-  };
+  } | null;
   pointId: {
     name: string;
     address: string;
@@ -46,7 +46,7 @@ export interface IOrder {
       id: string;
     };
     id: string;
-  };
+  } | null;
   price: number;
   isFullTank: boolean;
   isNeedChildChair: boolean;

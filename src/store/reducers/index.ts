@@ -6,6 +6,8 @@ import auth from './auth';
 import order from './order';
 import language from './language';
 import rates from './rates';
+import city from './city';
+import orderStatus from './order-status';
 
 export default {
   mapPoints,
@@ -16,4 +18,6 @@ export default {
   order,
   language,
   rates,
+  city,
+  orderStatus,
 };

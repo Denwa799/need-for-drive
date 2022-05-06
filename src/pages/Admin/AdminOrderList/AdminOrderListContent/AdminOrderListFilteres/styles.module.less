@@ -1,0 +1,93 @@
+@import 'styles/consts';
+
+.AdminOrderListFilteres {
+  .filters {
+    height: 59px;
+    border-bottom: 1px solid @app-color__smokyWhite;
+
+    .filter {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .errorTxt {
+      font-size: 13px;
+    }
+  }
+
+  .applyBtnContainer {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    .resetBtn {
+      margin-right: 15px;
+    }
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminOrderListFilteres {
+    .filters {
+      .filter {
+        padding-top: 10px;
+
+        .autocomplete {
+          width: 100%;
+
+          .input {
+            width: 100%;
+          }
+        }
+      }
+
+      .applyBtnContainer {
+        padding-top: 10px;
+        justify-content: left;
+
+        .btn {
+          width: 100%;
+        }
+
+        .resetBtn {
+          width: 97%;
+        }
+
+        .applyBtn {
+          width: 98%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .AdminOrderListFilteres {
+    .filters {
+      .filter {
+
+        .autocomplete {
+          width: 90%;
+
+          .input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminOrderListFilteres {
+    .filters {
+      .filter {
+
+        .autocomplete {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

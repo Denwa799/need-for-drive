@@ -1,15 +1,15 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Col, Drawer, Menu } from 'antd';
+import { Drawer, Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
 import Icon from '@ant-design/icons';
+import { RouteNames } from 'router/routes';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { languageSelector } from 'store/selectors/selectors';
+import { useActions } from 'hooks/useActions';
+import MenuToggle from 'components/ui/MenuToggle/MenuToggle';
+import TelegramSvg from 'components/ui/CustomIcns/TelegramSvg';
+import ButtonChange from 'components/ui/ButtonChange/ButtonChange';
 import styles from './Navbar.module.less';
-import MenuToggle from './MenuToggle/MenuToggle';
-import { RouteNames } from '../../../../router/routes';
-import TelegramSvg from '../../CustomIcns/TelegramSvg';
-import ButtonChange from '../../ButtonChange/ButtonChange';
-import { useTypedSelector } from '../../../../hooks/useTypesSelector';
-import { languageSelector } from '../../../../store/selectors/selectors';
-import { useActions } from '../../../../hooks/useActions';
 
 const Navbar: FC = () => {
   const { language } = useTypedSelector(languageSelector);

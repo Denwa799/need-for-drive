@@ -4,4 +4,5 @@ export interface IAppPagination {
   pageSizeOptions: string[];
   page: number;
   type?: string;
+  sizeChangerInvisibleWidth?: number;
 }

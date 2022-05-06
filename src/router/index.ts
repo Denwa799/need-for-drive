@@ -8,7 +8,7 @@ import Service from 'pages/Service/Service';
 import { Login } from 'pages/Login';
 import { OrderId } from 'pages/Order/OrderId';
 import { AdminCarsList } from 'pages/Admin/AdminCarsList';
-import { OrderList } from 'pages/Admin/OrderList';
+import { AdminOrderList } from 'pages/Admin/AdminOrderList';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -28,6 +28,6 @@ export const publicRoutes: IRoute[] = [
 ];
 
 export const privateRoutes: IRoute[] = [
-  { path: RouteNames.ADMIN_ORDER_LIST, component: OrderList },
   { path: RouteNames.ADMIN_CARS_LIST, component: AdminCarsList },
+  { path: RouteNames.ADMIN_ORDER_LIST, component: AdminOrderList },
 ];
