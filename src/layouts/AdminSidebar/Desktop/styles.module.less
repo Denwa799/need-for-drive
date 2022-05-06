@@ -1,0 +1,67 @@
+@import 'styles/consts';
+
+.Desktop {
+  color: @app-color__darkGrayBlue;
+  background-color: @app-primary-white;
+  height: 100vh;
+  -webkit-box-shadow: @app-box-shadow;
+  -moz-box-shadow: @app-box-shadow;
+  box-shadow: @app-box-shadow;
+
+  .title {
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+    height: 68px;
+    border-bottom: 1px solid @app-color__smokyWhite;
+    font-size: 16px;
+    color: @app-color__darkGrayBlue;
+
+    .logo {
+      padding-right: 10px;
+
+      svg {
+        width: 21px;
+        height: 21px;
+      }
+    }
+  }
+
+  .menu {
+    width: 100%;
+
+    .item {
+      height: 57px;
+      border-bottom: 1px solid @app-color__smokyWhite;
+      margin: 0;
+      color: @app-color__darkGrayBlue;
+      font-size: 15px;
+      padding: 8px 26px 0 26px;
+
+      svg {
+        font-size: 15px;
+        color: @app-color__lightGrey;
+      }
+    }
+
+    .item:hover {
+      color: @app-primary-blue;
+      background-color: @app-third-white;
+      border-left: 4px solid @app-primary-blue;
+    }
+
+    .item:hover svg {
+      color: @app-primary-blue;
+    }
+
+    .selected {
+      color: @app-primary-blue;
+      background-color: @app-third-white;
+      border-left: 4px solid @app-primary-blue;
+    }
+
+    .selected svg {
+      color: @app-primary-blue;
+    }
+  }
+}

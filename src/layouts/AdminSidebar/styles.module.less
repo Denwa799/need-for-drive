@@ -1,0 +1,31 @@
+@import 'styles/consts';
+
+.AdminSidebar {
+  z-index: 10;
+
+  .desktop {
+    width: 100%;
+  }
+
+  .mobile {
+    display: none;
+    background-color: @app-primary-white;
+    -webkit-box-shadow: @app-box-shadow;
+    -moz-box-shadow: @app-box-shadow;
+    box-shadow: @app-box-shadow;
+    height: 68px;
+    text-align: center;
+  }
+}
+
+@media (max-width: @app-screen-lg) {
+  .AdminSidebar {
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: block;
+    }
+  }
+}

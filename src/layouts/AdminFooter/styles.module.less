@@ -1,0 +1,55 @@
+@import 'styles/consts';
+
+.AdminFooter {
+  position: fixed;
+  bottom: 0;
+  height: 68px;
+  width: 84%;
+  background-color: @app-primary-white;
+  box-shadow: @app-box-shadow__white;
+  padding: 0 32px 0 32px;
+  z-index: 5;
+
+  .content {
+    height: 100%;
+    align-items: center;
+
+    .leftBlock {
+      .link {
+        color: @app-primary-blue;
+        padding-right: 16px;
+      }
+    }
+
+    .rightBlock {
+      text-align: right;
+
+      .copyright {
+        font-family: Roboto, sans-serif;
+        color: @app-color__greyBlue;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-lg) {
+  .AdminFooter {
+    margin-left: -8vw;
+    width: 100vw;
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminFooter {
+    .content {
+      .leftBlock {
+        padding-top: 5px;
+      }
+
+      .rightBlock {
+        text-align: left;
+      }
+    }
+  }
+}

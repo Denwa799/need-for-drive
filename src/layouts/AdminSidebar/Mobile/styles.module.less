@@ -1,0 +1,80 @@
+@import 'styles/consts';
+
+.AdminMobileSidebar {
+  height: 60px;
+  width: 100%;
+  color: @app-color__darkGrayBlue;
+
+  .burger {
+    color: @app-color__darkGrayBlue;
+  }
+
+
+}
+.Drawer {
+  .title {
+    display: flex;
+    align-items: center;
+    height: 68px;
+    padding-left: 25px;
+    border-bottom: 1px solid @app-color__smokyWhite;
+    font-size: 16px;
+    color: @app-color__darkGrayBlue;
+
+    .logo {
+      padding-right: 10px;
+
+      svg {
+        top: auto;
+        width: 21px;
+        height: 21px;
+      }
+    }
+  }
+
+  svg {
+    position: relative;
+    top: 8px;
+    font-size: 20px;
+    color: @app-color__darkGrayBlue;
+  }
+
+  .menu {
+    width: 100%;
+
+    .item {
+      height: 57px;
+      border-bottom: 1px solid @app-color__smokyWhite;
+      margin: 0;
+      color: @app-color__darkGrayBlue;
+      font-size: 15px;
+      padding: 8px 26px 0 26px;
+
+      svg {
+        top: 0;
+        font-size: 15px;
+        color: @app-color__lightGrey;
+      }
+    }
+
+    .item:hover {
+      color: @app-primary-blue;
+      background-color: @app-third-white;
+      border-left: 4px solid @app-primary-blue;
+    }
+
+    .item:hover svg {
+      color: @app-primary-blue;
+    }
+
+    .selected {
+      color: @app-primary-blue;
+      background-color: @app-third-white;
+      border-left: 4px solid @app-primary-blue;
+    }
+
+    .selected svg {
+      color: @app-primary-blue;
+    }
+  }
+}

@@ -1,61 +1,10 @@
+import { IOrder } from 'models/IOrder';
 import { OrderAction, OrderActionEnum, OrderState } from './types';
 
 const initialState: OrderState = {
-  order: {
-    updatedAt: 0,
-    createdAt: 0,
-    orderStatusId: {
-      name: '',
-      id: '',
-    },
-    cityId: {
-      name: '',
-      id: '',
-    },
-    pointId: {
-      name: '',
-      address: '',
-      id: '',
-    },
-    carId: {
-      description: '',
-      priceMin: 0,
-      priceMax: 0,
-      name: '',
-      number: '',
-      categoryId: {
-        name: '',
-        description: '',
-        id: '',
-      },
-      thumbnail: {
-        size: 0,
-        path: '',
-        originalname: '',
-        mimetype: '',
-      },
-      tank: 0,
-      colors: [],
-      id: '',
-    },
-    color: '',
-    dateFrom: 0,
-    dateTo: 0,
-    rateId: {
-      price: 0,
-      rateTypeId: {
-        unit: '',
-        name: '',
-        id: '',
-      },
-      id: '',
-    },
-    price: 0,
-    isFullTank: false,
-    isNeedChildChair: false,
-    isRightWheel: false,
-    id: '',
-  },
+  orders: [] as IOrder[],
+  ordersCount: 0,
+  order: {} as IOrder,
   orderId: '',
   orderError: '',
   orderIsLoading: false,
@@ -63,6 +12,12 @@ const initialState: OrderState = {
 
 export default function OrderReducer(state = initialState, action: OrderAction): OrderState {
   switch (action.type) {
+    case OrderActionEnum.GET_ALL_ORDERS:
+      return { ...state, orders: action.payload };
+
+    case OrderActionEnum.GET_ORDERS_COUNT:
+      return { ...state, ordersCount: action.payload };
+
     case OrderActionEnum.GET_ORDER:
       return { ...state, order: action.payload };
 

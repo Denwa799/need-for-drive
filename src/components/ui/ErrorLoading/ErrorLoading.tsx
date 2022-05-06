@@ -6,9 +6,16 @@ import { IErrorLoading } from './type';
 
 const antIcon = <LoadingOutlined className={styles.Loader} spin />;
 
-const ErrorLoading: FC<IErrorLoading> = ({ loading, error, content, type = 'primary' }) => {
+const ErrorLoading: FC<IErrorLoading> = ({
+  loading,
+  error,
+  content,
+  type = 'primary',
+  isLarge,
+  errorClassName,
+}) => {
   const [modalVisible, setModalVisible] = useState(true);
-  const loader = <Spin indicator={antIcon} />;
+  const loader = <Spin indicator={antIcon} size={isLarge ? 'large' : 'default'} />;
 
   const modalCancelHandler = useCallback(() => {
     setModalVisible(false);
@@ -22,7 +29,7 @@ const ErrorLoading: FC<IErrorLoading> = ({ loading, error, content, type = 'prim
   switch (type) {
     case 'primary':
       if (error) {
-        return <h1>{error}</h1>;
+        return <h1 className={errorClassName}>{error}</h1>;
       }
       if (loading) {
         return loader;
@@ -48,7 +55,7 @@ const ErrorLoading: FC<IErrorLoading> = ({ loading, error, content, type = 'prim
       return null;
     default:
       if (error) {
-        return <h1>{error}</h1>;
+        return <h1 className={errorClassName}>{error}</h1>;
       }
       if (loading) {
         return loader;

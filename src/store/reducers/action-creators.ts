@@ -6,6 +6,8 @@ import { AuthActionCreators } from './auth/action-creators';
 import { OrderActionCreators } from './order/action-creators';
 import { LanguageActionCreators } from './language/action-creators';
 import { RatesActionCreators } from './rates/action-creators';
+import { CityActionCreators } from './city/action-creators';
+import { OrderStatusActionCreators } from './order-status/action-creators';
 
 export const allActionCreators = {
   ...CarsActionCreators,
@@ -16,4 +18,6 @@ export const allActionCreators = {
   ...OrderActionCreators,
   ...LanguageActionCreators,
   ...RatesActionCreators,
+  ...CityActionCreators,
+  ...OrderStatusActionCreators,
 };
