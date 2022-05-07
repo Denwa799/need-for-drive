@@ -86,8 +86,10 @@ export const AdminCategoryList = () => {
                   return (
                     <tr className={styles.body} key={item.id}>
                       <td className={cn(styles.firstItem, styles.item)}>{item.id}</td>
-                      <td className={styles.item}>{item.name ? item.name : errorMessage}</td>
-                      <td className={cn(styles.item, styles.description)}>
+                      <td className={cn(styles.item, styles.name)}>
+                        {item.name ? item.name : errorMessage}
+                      </td>
+                      <td className={styles.item}>
                         {item.description ? item.description : errorMessage}
                       </td>
                       <td className={styles.btnsBlock}>
