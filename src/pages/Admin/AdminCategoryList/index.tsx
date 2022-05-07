@@ -2,59 +2,49 @@ import { AdminContainer } from 'layouts/AdminContainer';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
-import { useTypedSelector } from 'hooks/useTypesSelector';
-import { mapPointsSelector } from 'store/selectors/selectors';
-import { useActions } from 'hooks/useActions';
-import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import cn from 'classnames';
-import { AdminBtn } from 'components/ui/AdminBtn';
-import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { errorMessage } from 'utils/errorMessage';
-import { Col } from 'antd';
-import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
+import { AdminBtn } from 'components/ui/AdminBtn';
+import { useTypedSelector } from 'hooks/useTypesSelector';
+import { categoriesSelector } from 'store/selectors/selectors';
+import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { useActions } from 'hooks/useActions';
+import { pageSizeOptions, paginationItems } from 'utils/pagination';
+import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { AdminPagination } from 'components/ui/AdminPagination';
+import { Col } from 'antd';
 import { PageChangeHandlerType } from './type';
 import styles from './styles.module.less';
+import { AdminFiltersContainer } from '../../../components/ui/AdminFiltersContainer';
 
-export const AdminPointList = () => {
-  const { points, mapPointsIsLoading, mapPointsError } = useTypedSelector(mapPointsSelector);
+export const AdminCategoryList = () => {
+  const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
-  const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 
-  const { fetchPoints } = useActions();
+  const { fetchCategories } = useActions();
 
   useEffect(() => {
-    fetchPoints();
+    fetchCategories();
   }, []);
 
-  const addPointHandler = useCallback(() => {
-    alert('Добавить пункт выдачи');
+  const addHandler = useCallback(() => {
+    alert('Добавить категорию');
   }, []);
 
   const changeBtnHandler = useCallback(() => {
-    alert('Изменить пункт выдачи');
+    alert('Изменить категорию');
   }, []);
 
   const deleteBtnHandler = useCallback(() => {
-    alert('Удалить пункт выдачи');
+    alert('Удалить категорию');
   }, []);
 
-  // Переменные для реализации пагинации
-  const lastPaginationIndex = useMemo(() => {
-    return currentPage * limit;
-  }, [currentPage, limit]);
+  const paginationCategories = useMemo(
+    () => paginationItems(categories, currentPage, limit),
+    [categories, currentPage, limit]
+  );
 
-  const firstPaginationIndex = useMemo(() => {
-    return lastPaginationIndex - limit;
-  }, [lastPaginationIndex, limit]);
-
-  // Отфильтрованный массив, исходя из пагинации
-  const paginationPoints = useMemo(() => {
-    return points.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [points, firstPaginationIndex, lastPaginationIndex]);
-
-  // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
     (pageNumber, pageSize) => {
       setCurrentPage(pageNumber);
@@ -64,14 +54,14 @@ export const AdminPointList = () => {
   );
 
   return (
-    <div className={styles.AdminPointList}>
+    <div className={styles.AdminCategoryList}>
       <AdminContainer>
-        <AdminTitle>Пункты выдачи</AdminTitle>
+        <AdminTitle>Категории машин</AdminTitle>
         <AdminList>
           <AdminFiltersContainer className={styles.header}>
             <Col span={24} className={styles.addBtnBlock}>
               <AdminBtn
-                onClick={addPointHandler}
+                onClick={addHandler}
                 className={styles.addBtn}
                 containerClassName={styles.addBtnContainer}
               >
@@ -79,29 +69,27 @@ export const AdminPointList = () => {
               </AdminBtn>
             </Col>
           </AdminFiltersContainer>
-          {mapPointsIsLoading || mapPointsError ? (
-            <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />
+          {categoriesIsLoading || categoriesError ? (
+            <ErrorLoading loading={categoriesIsLoading} error={categoriesError} />
           ) : (
             <table className={styles.table}>
               <thead>
                 <tr className={styles.head}>
                   <th>Id</th>
                   <th>Название</th>
-                  <th>Город</th>
-                  <th>Адрес</th>
+                  <th>Описание</th>
                   <th className={styles.text__right}>Действия</th>
                 </tr>
               </thead>
               <tbody>
-                {paginationPoints.map((item) => {
+                {paginationCategories.map((item) => {
                   return (
                     <tr className={styles.body} key={item.id}>
                       <td className={cn(styles.firstItem, styles.item)}>{item.id}</td>
                       <td className={styles.item}>{item.name ? item.name : errorMessage}</td>
-                      <td className={styles.item}>
-                        {item.cityId ? item.cityId.name : errorMessage}
+                      <td className={cn(styles.item, styles.description)}>
+                        {item.description ? item.description : errorMessage}
                       </td>
-                      <td className={styles.item}>{item.address ? item.address : errorMessage}</td>
                       <td className={styles.btnsBlock}>
                         <AdminBtn
                           onClick={deleteBtnHandler}
@@ -130,7 +118,7 @@ export const AdminPointList = () => {
           )}
         </AdminList>
         <AdminPagination
-          total={points.length}
+          total={categories.length}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}

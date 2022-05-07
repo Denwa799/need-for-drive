@@ -12,4 +12,5 @@ export enum RouteNames {
   ADMIN_ORDER_LIST = 'order-list',
   ADMIN_CITY_LIST = 'city-list',
   ADMIN_POINT_LIST = 'point-list',
+  ADMIN_CATEGORY_LIST = 'category-list',
 }

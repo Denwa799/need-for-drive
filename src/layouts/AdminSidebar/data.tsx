@@ -1,5 +1,11 @@
 import React from 'react';
-import { CarFilled, HomeFilled, ShopFilled, ShoppingFilled } from '@ant-design/icons';
+import {
+  CarFilled,
+  HomeFilled,
+  ProfileFilled,
+  ShopFilled,
+  ShoppingFilled,
+} from '@ant-design/icons';
 import { RouteNames } from 'router/routes';
 
 const adminSidebarItems = [
@@ -30,6 +36,13 @@ const adminSidebarItems = [
     value: 'пункты',
     icon: <ShopFilled />,
     route: `/admin/${RouteNames.ADMIN_POINT_LIST}`,
+  },
+  {
+    key: 4,
+    children: 'Категории машин',
+    value: 'категории',
+    icon: <ProfileFilled />,
+    route: `/admin/${RouteNames.ADMIN_CATEGORY_LIST}`,
   },
 ];
 

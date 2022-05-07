@@ -11,6 +11,7 @@ import { AdminCarsList } from 'pages/Admin/AdminCarsList';
 import { AdminOrderList } from 'pages/Admin/AdminOrderList';
 import { AdminCityList } from 'pages/Admin/AdminCityList';
 import { AdminPointList } from 'pages/Admin/AdminPointList';
+import { AdminCategoryList } from 'pages/Admin/AdminCategoryList';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -34,4 +35,5 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_ORDER_LIST, component: AdminOrderList },
   { path: RouteNames.ADMIN_CITY_LIST, component: AdminCityList },
   { path: RouteNames.ADMIN_POINT_LIST, component: AdminPointList },
+  { path: RouteNames.ADMIN_CATEGORY_LIST, component: AdminCategoryList },
 ];
