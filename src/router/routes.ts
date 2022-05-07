@@ -11,4 +11,5 @@ export enum RouteNames {
   ADMIN_CARS_LIST = 'cars-list',
   ADMIN_ORDER_LIST = 'order-list',
   ADMIN_CITY_LIST = 'city-list',
+  ADMIN_POINT_LIST = 'point-list',
 }

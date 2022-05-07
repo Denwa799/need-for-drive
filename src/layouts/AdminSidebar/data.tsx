@@ -1,5 +1,5 @@
 import React from 'react';
-import { CarFilled, HomeFilled, ShoppingFilled } from '@ant-design/icons';
+import { CarFilled, HomeFilled, ShopFilled, ShoppingFilled } from '@ant-design/icons';
 import { RouteNames } from 'router/routes';
 
 const adminSidebarItems = [
@@ -23,6 +23,13 @@ const adminSidebarItems = [
     value: 'города',
     icon: <HomeFilled />,
     route: `/admin/${RouteNames.ADMIN_CITY_LIST}`,
+  },
+  {
+    key: 3,
+    children: 'Пункты выдачи',
+    value: 'пункты',
+    icon: <ShopFilled />,
+    route: `/admin/${RouteNames.ADMIN_POINT_LIST}`,
   },
 ];
 
