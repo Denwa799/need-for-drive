@@ -3,6 +3,7 @@ import {
   CarFilled,
   HomeFilled,
   ProfileFilled,
+  ReconciliationFilled,
   ShopFilled,
   ShoppingFilled,
 } from '@ant-design/icons';
@@ -43,6 +44,13 @@ const adminSidebarItems = [
     value: 'категории',
     icon: <ProfileFilled />,
     route: `/admin/${RouteNames.ADMIN_CATEGORY_LIST}`,
+  },
+  {
+    key: 5,
+    children: 'Тарифы',
+    value: 'тарифы',
+    icon: <ReconciliationFilled />,
+    route: `/admin/${RouteNames.ADMIN_RATE_LIST}`,
   },
 ];
 
