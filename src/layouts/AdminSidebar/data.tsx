@@ -3,6 +3,7 @@ import {
   CarFilled,
   HomeFilled,
   ProfileFilled,
+  ReadFilled,
   ReconciliationFilled,
   ScheduleFilled,
   ShopFilled,
@@ -59,6 +60,13 @@ const adminSidebarItems = [
     value: 'типы тарифов',
     icon: <ScheduleFilled />,
     route: `/admin/${RouteNames.ADMIN_RATE_TYPE_LIST}`,
+  },
+  {
+    key: 7,
+    children: 'Статус заказа',
+    value: 'статус заказа',
+    icon: <ReadFilled />,
+    route: `/admin/${RouteNames.ADMIN_ORDER_STATUS_LIST}`,
   },
 ];
 
