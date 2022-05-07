@@ -14,4 +14,5 @@ export enum RouteNames {
   ADMIN_POINT_LIST = 'point-list',
   ADMIN_CATEGORY_LIST = 'category-list',
   ADMIN_RATE_LIST = 'rate-list',
+  ADMIN_RATE_TYPE_LIST = 'rate-type-list',
 }

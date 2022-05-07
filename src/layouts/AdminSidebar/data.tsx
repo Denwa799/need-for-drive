@@ -4,6 +4,7 @@ import {
   HomeFilled,
   ProfileFilled,
   ReconciliationFilled,
+  ScheduleFilled,
   ShopFilled,
   ShoppingFilled,
 } from '@ant-design/icons';
@@ -51,6 +52,13 @@ const adminSidebarItems = [
     value: 'тарифы',
     icon: <ReconciliationFilled />,
     route: `/admin/${RouteNames.ADMIN_RATE_LIST}`,
+  },
+  {
+    key: 6,
+    children: 'Типы тарифов',
+    value: 'типы тарифов',
+    icon: <ScheduleFilled />,
+    route: `/admin/${RouteNames.ADMIN_RATE_TYPE_LIST}`,
   },
 ];
 
