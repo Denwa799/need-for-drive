@@ -3,23 +3,23 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderStatusSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { pageSizeOptions, paginationItems } from 'utils/pagination';
-import { Col } from 'antd';
 import cn from 'classnames';
 import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
-import { PageChangeHandlerType } from './type';
-import { AdminTitle } from '../../../components/ui/AdminTitle';
-import { AdminList } from '../../../components/ui/AdminList';
-import { AdminFiltersContainer } from '../../../components/ui/AdminFiltersContainer';
+import { AdminTitle } from 'components/ui/AdminTitle';
+import { AdminList } from 'components/ui/AdminList';
+import { AdminBtn } from 'components/ui/AdminBtn';
+import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { errorMessage } from 'utils/errorMessage';
+import { AdminPagination } from 'components/ui/AdminPagination';
+import { AdminContainer } from 'layouts/AdminContainer';
+import { IOrderStatus } from 'models/IOrderStatus';
 import styles from './styles.module.less';
-import { AdminBtn } from '../../../components/ui/AdminBtn';
-import ErrorLoading from '../../../components/ui/ErrorLoading/ErrorLoading';
-import { errorMessage } from '../../../utils/errorMessage';
-import { AdminPagination } from '../../../components/ui/AdminPagination';
-import { AdminContainer } from '../../../layouts/AdminContainer';
+import { PageChangeHandlerType } from './type';
+import { AdminOrderStatusListFilters } from './AdminOrderStatusListFilters';
 
 export const AdminOrderStatusList = () => {
-  const { allOrderStatus, orderStatusIsLoading, orderStatusError } =
-    useTypedSelector(orderStatusSelector);
+  const { orderStatusIsLoading, orderStatusError } = useTypedSelector(orderStatusSelector);
+  const [filteredOrdersStatus, setFilteredOrdersStatus] = useState<IOrderStatus[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
@@ -27,10 +27,6 @@ export const AdminOrderStatusList = () => {
 
   useEffect(() => {
     fetchAllOrderStatus();
-  }, []);
-
-  const addHandler = useCallback(() => {
-    alert('Добавить статус заказа');
   }, []);
 
   const changeBtnHandler = useCallback(() => {
@@ -42,8 +38,8 @@ export const AdminOrderStatusList = () => {
   }, []);
 
   const paginationRatesType = useMemo(
-    () => paginationItems(allOrderStatus, currentPage, limit),
-    [allOrderStatus, currentPage, limit]
+    () => paginationItems(filteredOrdersStatus, currentPage, limit),
+    [filteredOrdersStatus, currentPage, limit]
   );
 
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -59,17 +55,10 @@ export const AdminOrderStatusList = () => {
       <AdminContainer>
         <AdminTitle>Статус заказа</AdminTitle>
         <AdminList>
-          <AdminFiltersContainer className={styles.header}>
-            <Col span={24} className={styles.addBtnBlock}>
-              <AdminBtn
-                onClick={addHandler}
-                className={styles.addBtn}
-                containerClassName={styles.addBtnContainer}
-              >
-                Добавить
-              </AdminBtn>
-            </Col>
-          </AdminFiltersContainer>
+          <AdminOrderStatusListFilters
+            setCurrentPage={setCurrentPage}
+            setFilteredOrdersStatus={setFilteredOrdersStatus}
+          />
           {orderStatusIsLoading || orderStatusError ? (
             <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
           ) : (
@@ -115,7 +104,7 @@ export const AdminOrderStatusList = () => {
           )}
         </AdminList>
         <AdminPagination
-          total={allOrderStatus.length}
+          total={filteredOrdersStatus.length}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}
