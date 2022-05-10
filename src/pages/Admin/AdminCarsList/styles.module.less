@@ -68,7 +68,8 @@
       }
 
       .btns {
-        text-align: right;
+        display: flex;
+        justify-content: right;
 
         .btn {
           color: @app-color__blueberry;
@@ -100,8 +101,18 @@
     padding-top: 20px;
   }
 
-  .btn {
+  .btns {
     width: 100%;
+    padding-top: 10px;
+    .btnContainer {
+      width: 100%;
+
+      .btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 }
 

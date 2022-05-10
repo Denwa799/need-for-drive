@@ -57,9 +57,9 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
   }, [cleanPointName]);
 
   const optionsPointCity = useMemo(() => {
-    return cleanPointCity.map((name: string) => {
+    return cleanPointCity.map((city: string) => {
       return {
-        value: name,
+        value: city,
       };
     });
   }, [cleanPointCity]);

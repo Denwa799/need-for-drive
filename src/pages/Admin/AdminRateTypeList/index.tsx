@@ -18,7 +18,7 @@ import styles from './styles.module.less';
 import { AdminRateTypeListFilters } from './AdminRateTypeListFilters';
 
 export const AdminRateType = () => {
-  const { ratesType, ratesTypeIsLoading, ratesTypeError } = useTypedSelector(ratesTypeSelector);
+  const { ratesTypeIsLoading, ratesTypeError } = useTypedSelector(ratesTypeSelector);
   const [filteredRatesType, setFilteredRatesType] = useState<IRateType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);

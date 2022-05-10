@@ -12,6 +12,11 @@
     justify-content: right;
     align-items: center;
   }
+
+  .resetBtn {
+    margin-right: 10px;
+    width: 130px;
+  }
 }
 
 @media (max-width: @app-screen-md) {
@@ -32,12 +37,32 @@
       padding-top: 10px;
       justify-content: left;
 
-      .btn {
+      .resetBtnContainer {
         width: 100%;
+
+        .resetBtn {
+          width: 98%;
+        }
       }
 
-      .resetBtn {
-        width: 99%;
+      .addBtnContainer {
+        width: 100%;
+
+        .addBtn {
+          width: 98%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .AdminCarsListFilters {
+    .btnContainer {
+      flex-direction: column;
+
+      .resetBtnContainer {
+        padding-bottom: 10px;
       }
     }
   }

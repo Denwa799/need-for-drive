@@ -53,50 +53,8 @@
     }
 
     .btns {
-      text-align: right;
-
-      .btn {
-        color: @app-color__blueberry;
-        font-size: 11px;
-        line-height: 13px;
-        border-color: @app-color__paleBlue;
-        padding: 0 16px 0 8px;
-
-        span {
-          margin: 0;
-        }
-
-        .icn {
-          font-size: 12px;
-          padding-right: 5px;
-        }
-
-        .checkIcn {
-          color: @app-primary-color;
-        }
-
-        .cancelIcn {
-          color: @app-color__vinous;
-        }
-
-        .moreIcn {
-          color: @app-color__greyBlue;
-        }
-      }
-
-      .finishBtn {
-        border-radius: 4px 0px 0px 4px;
-        border-right: 0;
-      }
-
-      .cancelBtn {
-        border-right: 0;
-        border-radius: 0;
-      }
-
-      .moreBtn {
-        border-radius: 0px 4px 4px 0px;
-      }
+      display: flex;
+      justify-content: right;
     }
   }
 }
@@ -121,9 +79,15 @@
         flex-grow: 1;
         padding-top: 20px;
 
-        .btn {
+        .btnContainer {
           width: 100%;
-          font-size: 11px;
+
+          .btn {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            font-size: 11px;
+          }
         }
       }
     }
@@ -133,7 +97,6 @@
 @media (max-width: @app-screen-md) {
   .AdminOrderList {
     .car {
-
       .img {
         max-width: 100%;
         max-height: 100%;
@@ -165,20 +128,8 @@
 
         .btn {
           margin-bottom: 5px;
-        }
-
-        .finishBtn {
           border-radius: 4px;
-        }
-
-        .cancelBtn {
-          border: 1px solid @app-color__paleBlue;
-          border-radius: 4px;
-        }
-
-        .moreBtn {
-          border: 1px solid @app-color__paleBlue;
-          border-radius: 4px;
+          border-right: 1px solid @app-color__paleBlue; ;
         }
       }
     }

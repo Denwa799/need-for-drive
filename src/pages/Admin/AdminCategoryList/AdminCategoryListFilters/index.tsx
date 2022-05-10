@@ -13,7 +13,7 @@ export const AdminCategoryListFilters: FC<IAdminCategoryListFilters> = ({
   setCurrentPage,
   setFilteredCategories,
 }) => {
-  const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
+  const { categories, categoriesIsLoading } = useTypedSelector(categoriesSelector);
   const [categoriesNameFilter, setCategoriesNameFilter] = useState('');
   const debouncedCategoriesNameFilter = useDebounce<string>(categoriesNameFilter, 500);
 
@@ -53,7 +53,7 @@ export const AdminCategoryListFilters: FC<IAdminCategoryListFilters> = ({
     [categoriesNameFilter]
   );
 
-  // Отфильтровываю города
+  // Отфильтровываю категории
   const filteredCategories = useMemo(() => {
     if (debouncedCategoriesNameFilter)
       return categories.filter((item) =>

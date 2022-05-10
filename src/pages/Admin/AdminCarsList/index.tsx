@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Col, Row, Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import { AdminContainer } from 'layouts/AdminContainer';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
@@ -12,6 +12,8 @@ import { useActions } from 'hooks/useActions';
 import noImage from 'assets/img/noImage.webp';
 import { ICar } from 'models/ICar';
 import { AdminPagination } from 'components/ui/AdminPagination';
+import { paginationItems } from 'utils/pagination';
+import { AdminBtn } from 'components/ui/AdminBtn';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 import { AdminCarsListFilters } from './AdminCarsListFilters';
@@ -19,7 +21,7 @@ import { AdminCarsListFilters } from './AdminCarsListFilters';
 const { Title } = Typography;
 
 export const AdminCarsList = () => {
-  const { cars, carsIsLoading, carsError } = useTypedSelector(carsSelector);
+  const { carsIsLoading, carsError } = useTypedSelector(carsSelector);
   const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
@@ -38,19 +40,14 @@ export const AdminCarsList = () => {
     event.currentTarget.src = noImage;
   }, []);
 
-  // Переменные для реализации пагинации
-  const lastPaginationIndex = useMemo(() => {
-    return currentPage * limit;
-  }, [currentPage, limit]);
+  const changeBtnHandler = useCallback(() => {
+    alert('Изменить машину');
+  }, []);
 
-  const firstPaginationIndex = useMemo(() => {
-    return lastPaginationIndex - limit;
-  }, [lastPaginationIndex, limit]);
-
-  // Отфильтрованный массив, исходя из пагинации
-  const paginationCars = useMemo(() => {
-    return filteredCars.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [cars, firstPaginationIndex, lastPaginationIndex, filteredCars]);
+  const paginationCars = useMemo(
+    () => paginationItems(filteredCars, currentPage, limit),
+    [filteredCars, currentPage, limit]
+  );
 
   // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -120,9 +117,15 @@ export const AdminCarsList = () => {
                       </p>
                     </Col>
                     <Col xl={4} lg={4} md={24} sm={24} xs={24} className={styles.btns}>
-                      <Button className={styles.btn} icon={<MoreOutlined className={styles.icn} />}>
+                      <AdminBtn
+                        onClick={changeBtnHandler}
+                        type="more"
+                        icon={<MoreOutlined />}
+                        containerClassName={styles.btnContainer}
+                        className={styles.btn}
+                      >
                         Изменить
-                      </Button>
+                      </AdminBtn>
                     </Col>
                   </Row>
                 );

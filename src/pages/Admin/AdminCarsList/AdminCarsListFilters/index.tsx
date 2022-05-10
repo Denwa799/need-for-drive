@@ -7,7 +7,7 @@ import { carsSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
 import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import styles from './styles.module.less';
-import { FilterOptionType, IAdminCarsListFilters } from './type';
+import { IAdminCarsListFilters } from './type';
 
 export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   setCurrentPage,
@@ -57,9 +57,9 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   }, [cleanCarsName]);
 
   const optionsCarsCategory = useMemo(() => {
-    return cleanCarsCategory.map((name) => {
+    return cleanCarsCategory.map((category) => {
       return {
-        value: name,
+        value: category,
       };
     });
   }, [cleanCarsCategory]);
@@ -79,17 +79,15 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
     [carCategoryNameFilter]
   );
 
-  // Фильтрация выводимой подсказки в autocomplete
-  const filterOption = useCallback<FilterOptionType>(
-    (inputValue, option) => option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1,
-    []
-  );
-
   // Обработчик кнопки сброса полей фильтрации
   const filterResetHandler = useCallback(() => {
     setCarNameFilter('');
     setCarCategoryNameFilter('');
     setCurrentPage(1);
+  }, []);
+
+  const addCarHandler = useCallback(() => {
+    alert('Добавить машину');
   }, []);
 
   // Отфильтровываю машины
@@ -123,7 +121,6 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
         <Col xxl={3} xl={2} lg={4} md={5} sm={12} xs={24} className={styles.filter}>
           <AdminAutocomplete
             options={optionsCarsName}
-            filterOption={filterOption}
             value={carNameFilter}
             onChange={carNameFilterHandler}
             placeholder="Название"
@@ -135,7 +132,6 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
         <Col xxl={3} xl={2} lg={4} md={5} sm={12} xs={24} className={styles.filter}>
           <AdminAutocomplete
             options={optionsCarsCategory}
-            filterOption={filterOption}
             value={carCategoryNameFilter}
             onChange={carCategoryNameFilterHandler}
             placeholder="Категория"
@@ -149,9 +145,16 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
             onClick={filterResetHandler}
             type="red"
             className={styles.resetBtn}
-            containerClassName={styles.btn}
+            containerClassName={styles.resetBtnContainer}
           >
-            Сбросить
+            Сбросить фильтр
+          </AdminBtn>
+          <AdminBtn
+            onClick={addCarHandler}
+            className={styles.addBtn}
+            containerClassName={styles.addBtnContainer}
+          >
+            Добавить
           </AdminBtn>
         </Col>
       </AdminFiltersContainer>

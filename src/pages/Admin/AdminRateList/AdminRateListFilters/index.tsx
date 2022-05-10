@@ -78,7 +78,7 @@ export const AdminRateListFilters: FC<IAdminRateListFilters> = ({
     [ratePriceFilter]
   );
 
-  // Отфильтровываю пункты
+  // Отфильтровываю тарифы
   const filteredRates = useMemo(() => {
     if (debouncedRateNameFilter && debouncedRatePriceFilter)
       return rates.filter(

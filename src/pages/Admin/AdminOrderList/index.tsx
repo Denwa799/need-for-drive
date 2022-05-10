@@ -1,6 +1,5 @@
 import React, { FC, SyntheticEvent, useCallback, useMemo, useState } from 'react';
 import { Button, Checkbox, Col, Row } from 'antd';
-import cn from 'classnames';
 import { CheckOutlined, CloseOutlined, MoreOutlined } from '@ant-design/icons/lib';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
@@ -14,6 +13,7 @@ import { dateString, durationDateString } from 'utils/date';
 import { AdminOrderListFilters } from './AdminOrderListFilters';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
+import { AdminBtn } from 'components/ui/AdminBtn';
 
 export const AdminOrderList: FC = () => {
   const { orders, ordersCount, orderIsLoading, orderError } = useTypedSelector(orderSelector);
@@ -32,6 +32,18 @@ export const AdminOrderList: FC = () => {
   // Установка дефолтной картинки при ошибке пути к изображению
   const imageOnErrorHandler = useCallback((event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = noImage;
+  }, []);
+
+  const checkBtnHandler = useCallback(() => {
+    alert('Подтвердить заказ');
+  }, []);
+
+  const cancleBtnHandler = useCallback(() => {
+    alert('Отменить заказ');
+  }, []);
+
+  const changeBtnHandler = useCallback(() => {
+    alert('Изменить заказ');
   }, []);
 
   // Обработка нажатия на кнопки смены страницы в пагинации
@@ -110,28 +122,36 @@ export const AdminOrderList: FC = () => {
                     </Col>
                     <Col xl={6} lg={8} md={24} sm={24} xs={24} className={styles.btns}>
                       {order.orderStatusId && order.orderStatusId.name !== 'Подтвержденные' ? (
-                        <Button
-                          className={cn(styles.btn, styles.finishBtn)}
-                          icon={<CheckOutlined className={cn(styles.icn, styles.checkIcn)} />}
+                        <AdminBtn
+                          onClick={checkBtnHandler}
+                          type="check"
+                          icon={<CheckOutlined />}
+                          containerClassName={styles.btnContainer}
+                          className={styles.btn}
                         >
                           Готово
-                        </Button>
+                        </AdminBtn>
                       ) : null}
                       {order.orderStatusId && order.orderStatusId.name !== 'Отмененые' ? (
-                        <Button
-                          className={cn(styles.btn, styles.cancelBtn)}
-                          icon={<CloseOutlined className={cn(styles.icn, styles.cancelIcn)} />}
+                        <AdminBtn
+                          onClick={cancleBtnHandler}
+                          type="close"
+                          icon={<CloseOutlined />}
+                          containerClassName={styles.btnContainer}
+                          className={styles.btn}
                         >
                           Отмена
-                        </Button>
+                        </AdminBtn>
                       ) : null}
-
-                      <Button
-                        className={cn(styles.btn, styles.moreBtn)}
-                        icon={<MoreOutlined className={cn(styles.icn, styles.moreIcn)} />}
+                      <AdminBtn
+                        onClick={changeBtnHandler}
+                        type="more"
+                        icon={<MoreOutlined />}
+                        containerClassName={styles.btnContainer}
+                        className={styles.btn}
                       >
                         Изменить
-                      </Button>
+                      </AdminBtn>
                     </Col>
                   </Row>
                 );

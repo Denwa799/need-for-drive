@@ -15,9 +15,10 @@ import { IMapPoint } from 'models/IMapPoint';
 import { PageChangeHandlerType } from './type';
 import styles from './styles.module.less';
 import { AdminPointListFilters } from './AdminPointListFilters';
+import { paginationItems } from 'utils/pagination';
 
 export const AdminPointList = () => {
-  const { points, mapPointsIsLoading, mapPointsError } = useTypedSelector(mapPointsSelector);
+  const { mapPointsIsLoading, mapPointsError } = useTypedSelector(mapPointsSelector);
   const [filteredPoints, setFilteredPoints] = useState<IMapPoint[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
@@ -37,19 +38,10 @@ export const AdminPointList = () => {
     alert('Удалить пункт выдачи');
   }, []);
 
-  // Переменные для реализации пагинации
-  const lastPaginationIndex = useMemo(() => {
-    return currentPage * limit;
-  }, [currentPage, limit]);
-
-  const firstPaginationIndex = useMemo(() => {
-    return lastPaginationIndex - limit;
-  }, [lastPaginationIndex, limit]);
-
-  // Отфильтрованный массив, исходя из пагинации
-  const paginationPoints = useMemo(() => {
-    return filteredPoints.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [points, filteredPoints, firstPaginationIndex, lastPaginationIndex]);
+  const paginationPoints = useMemo(
+    () => paginationItems(filteredPoints, currentPage, limit),
+    [filteredPoints, currentPage, limit]
+  );
 
   // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(

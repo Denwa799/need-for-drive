@@ -20,6 +20,7 @@ export const AdminBtn: FC<IAdminBtn> = ({
           styles.btn,
           { [styles.red]: type === 'red' },
           { [styles.blue]: type === 'blue' },
+          { [styles.check]: type === 'check' },
           { [styles.more]: type === 'more' },
           { [styles.close]: type === 'close' },
           className

@@ -21,8 +21,8 @@ const adminSidebarItems = [
   },
   {
     key: 1,
-    children: 'Список авто',
-    value: 'списов авто',
+    children: 'Список машин',
+    value: 'списов машин',
     icon: <CarFilled />,
     route: `/admin/${RouteNames.ADMIN_CARS_LIST}`,
   },
