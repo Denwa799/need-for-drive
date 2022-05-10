@@ -1,0 +1,70 @@
+@import 'styles/consts';
+
+.AdminCategoryListFilters {
+  .filter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .btnContainer {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+
+  .resetBtn {
+    width: 130px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminCategoryListFilters {
+    .filter {
+      padding-top: 10px;
+
+      .autocomplete {
+        width: 100%;
+
+        .input {
+          width: 100%;
+        }
+      }
+    }
+
+    .btnContainer {
+      padding-top: 10px;
+      justify-content: left;
+
+      .resetBtnContainer {
+        width: 100%;
+
+        .resetBtn {
+          width: 98%;
+        }
+      }
+
+      .addBtnContainer {
+        width: 100%;
+
+        .addBtn {
+          width: 98%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .AdminCategoryListFilters {
+    .btnContainer {
+      flex-direction: column;
+
+      .resetBtnContainer {
+        padding-bottom: 10px;
+      }
+
+    }
+  }
+}

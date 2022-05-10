@@ -12,13 +12,14 @@ import { useActions } from 'hooks/useActions';
 import { pageSizeOptions, paginationItems } from 'utils/pagination';
 import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { AdminPagination } from 'components/ui/AdminPagination';
-import { Col } from 'antd';
+import { ICategory } from 'models/ICategory';
 import { PageChangeHandlerType } from './type';
 import styles from './styles.module.less';
-import { AdminFiltersContainer } from '../../../components/ui/AdminFiltersContainer';
+import { AdminCategoryListFilters } from './AdminCategoryListFilters';
 
 export const AdminCategoryList = () => {
-  const { categories, categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
+  const { categoriesIsLoading, categoriesError } = useTypedSelector(categoriesSelector);
+  const [filteredCategories, setFilteredCategories] = useState<ICategory[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
@@ -26,10 +27,6 @@ export const AdminCategoryList = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
-
-  const addHandler = useCallback(() => {
-    alert('Добавить категорию');
   }, []);
 
   const changeBtnHandler = useCallback(() => {
@@ -41,8 +38,8 @@ export const AdminCategoryList = () => {
   }, []);
 
   const paginationCategories = useMemo(
-    () => paginationItems(categories, currentPage, limit),
-    [categories, currentPage, limit]
+    () => paginationItems(filteredCategories, currentPage, limit),
+    [filteredCategories, currentPage, limit]
   );
 
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -58,17 +55,10 @@ export const AdminCategoryList = () => {
       <AdminContainer>
         <AdminTitle>Категории машин</AdminTitle>
         <AdminList>
-          <AdminFiltersContainer className={styles.header}>
-            <Col span={24} className={styles.addBtnBlock}>
-              <AdminBtn
-                onClick={addHandler}
-                className={styles.addBtn}
-                containerClassName={styles.addBtnContainer}
-              >
-                Добавить
-              </AdminBtn>
-            </Col>
-          </AdminFiltersContainer>
+          <AdminCategoryListFilters
+            setCurrentPage={setCurrentPage}
+            setFilteredCategories={setFilteredCategories}
+          />
           {categoriesIsLoading || categoriesError ? (
             <ErrorLoading loading={categoriesIsLoading} error={categoriesError} />
           ) : (
@@ -120,7 +110,7 @@ export const AdminCategoryList = () => {
           )}
         </AdminList>
         <AdminPagination
-          total={categories.length}
+          total={filteredCategories.length}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}

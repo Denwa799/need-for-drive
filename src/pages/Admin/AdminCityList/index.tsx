@@ -17,7 +17,7 @@ import { PageChangeHandlerType } from './type';
 import { AdminCityListFilters } from './AdminCityListFilters';
 
 export const AdminCityList = () => {
-  const { city, cityIsLoading, cityError } = useTypedSelector(citySelector);
+  const { cityIsLoading, cityError } = useTypedSelector(citySelector);
   const [filteredCity, setFilteredCity] = useState<ICity[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
