@@ -10,14 +10,15 @@ import cn from 'classnames';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { errorMessage } from 'utils/errorMessage';
-import { Col } from 'antd';
-import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { AdminPagination } from 'components/ui/AdminPagination';
+import { IMapPoint } from 'models/IMapPoint';
 import { PageChangeHandlerType } from './type';
 import styles from './styles.module.less';
+import { AdminPointListFilters } from './AdminPointListFilters';
 
 export const AdminPointList = () => {
   const { points, mapPointsIsLoading, mapPointsError } = useTypedSelector(mapPointsSelector);
+  const [filteredPoints, setFilteredPoints] = useState<IMapPoint[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
@@ -26,10 +27,6 @@ export const AdminPointList = () => {
 
   useEffect(() => {
     fetchPoints();
-  }, []);
-
-  const addPointHandler = useCallback(() => {
-    alert('Добавить пункт выдачи');
   }, []);
 
   const changeBtnHandler = useCallback(() => {
@@ -51,8 +48,8 @@ export const AdminPointList = () => {
 
   // Отфильтрованный массив, исходя из пагинации
   const paginationPoints = useMemo(() => {
-    return points.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [points, firstPaginationIndex, lastPaginationIndex]);
+    return filteredPoints.slice(firstPaginationIndex, lastPaginationIndex);
+  }, [points, filteredPoints, firstPaginationIndex, lastPaginationIndex]);
 
   // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -68,17 +65,10 @@ export const AdminPointList = () => {
       <AdminContainer>
         <AdminTitle>Пункты выдачи</AdminTitle>
         <AdminList>
-          <AdminFiltersContainer className={styles.header}>
-            <Col span={24} className={styles.addBtnBlock}>
-              <AdminBtn
-                onClick={addPointHandler}
-                className={styles.addBtn}
-                containerClassName={styles.addBtnContainer}
-              >
-                Добавить
-              </AdminBtn>
-            </Col>
-          </AdminFiltersContainer>
+          <AdminPointListFilters
+            setCurrentPage={setCurrentPage}
+            setFilteredPoints={setFilteredPoints}
+          />
           {mapPointsIsLoading || mapPointsError ? (
             <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />
           ) : (
@@ -130,7 +120,7 @@ export const AdminPointList = () => {
           )}
         </AdminList>
         <AdminPagination
-          total={points.length}
+          total={filteredPoints.length}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}

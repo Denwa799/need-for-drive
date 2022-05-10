@@ -11,6 +11,7 @@ import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { AdminPagination } from 'components/ui/AdminPagination';
 import { ICity } from 'models/ICity';
+import { paginationItems } from 'utils/pagination';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 import { AdminCityListFilters } from './AdminCityListFilters';
@@ -36,21 +37,11 @@ export const AdminCityList = () => {
     alert('Удалить город');
   }, []);
 
-  // Переменные для реализации пагинации
-  const lastPaginationIndex = useMemo(() => {
-    return currentPage * limit;
-  }, [currentPage, limit]);
+  const paginationCity = useMemo(
+    () => paginationItems(filteredCity, currentPage, limit),
+    [filteredCity, currentPage, limit]
+  );
 
-  const firstPaginationIndex = useMemo(() => {
-    return lastPaginationIndex - limit;
-  }, [lastPaginationIndex, limit]);
-
-  // Отфильтрованный массив, исходя из пагинации
-  const paginationCity = useMemo(() => {
-    return filteredCity.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [city, filteredCity, firstPaginationIndex, lastPaginationIndex]);
-
-  // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
     (pageNumber, pageSize) => {
       setCurrentPage(pageNumber);
@@ -110,7 +101,7 @@ export const AdminCityList = () => {
           )}
         </AdminList>
         <AdminPagination
-          total={city.length}
+          total={filteredCity.length}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}
