@@ -11,7 +11,7 @@ import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import styles from './styles.module.less';
 import { FilterOptionType, IAdminOrderListFilteres } from './type';
 
-export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
+export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
   limit,
   currentPage,
   setCurrentPage,

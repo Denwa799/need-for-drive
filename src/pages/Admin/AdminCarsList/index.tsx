@@ -14,7 +14,7 @@ import { ICar } from 'models/ICar';
 import { AdminPagination } from 'components/ui/AdminPagination';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
-import { AdminCarsListFilters } from './AdminCarsListFilteres';
+import { AdminCarsListFilters } from './AdminCarsListFilters';
 
 const { Title } = Typography;
 

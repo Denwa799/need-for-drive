@@ -10,13 +10,14 @@ import { AdminBtn } from 'components/ui/AdminBtn';
 import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { AdminPagination } from 'components/ui/AdminPagination';
-import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
-import { Col } from 'antd';
+import { ICity } from 'models/ICity';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
+import { AdminCityListFilters } from './AdminCityListFilters';
 
 export const AdminCityList = () => {
   const { city, cityIsLoading, cityError } = useTypedSelector(citySelector);
+  const [filteredCity, setFilteredCity] = useState<ICity[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
@@ -25,10 +26,6 @@ export const AdminCityList = () => {
 
   useEffect(() => {
     fetchCity();
-  }, []);
-
-  const addCityHandler = useCallback(() => {
-    alert('Добавить город');
   }, []);
 
   const changeBtnHandler = useCallback(() => {
@@ -50,8 +47,8 @@ export const AdminCityList = () => {
 
   // Отфильтрованный массив, исходя из пагинации
   const paginationCity = useMemo(() => {
-    return city.slice(firstPaginationIndex, lastPaginationIndex);
-  }, [city, firstPaginationIndex, lastPaginationIndex]);
+    return filteredCity.slice(firstPaginationIndex, lastPaginationIndex);
+  }, [city, filteredCity, firstPaginationIndex, lastPaginationIndex]);
 
   // Обработка нажатия на кнопки смены страницы в пагинации
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -67,17 +64,7 @@ export const AdminCityList = () => {
       <AdminContainer>
         <AdminTitle>Города</AdminTitle>
         <AdminList>
-          <AdminFiltersContainer className={styles.header}>
-            <Col span={24} className={styles.addBtnBlock}>
-              <AdminBtn
-                onClick={addCityHandler}
-                className={styles.addBtn}
-                containerClassName={styles.addBtnContainer}
-              >
-                Добавить
-              </AdminBtn>
-            </Col>
-          </AdminFiltersContainer>
+          <AdminCityListFilters setCurrentPage={setCurrentPage} setFilteredCity={setFilteredCity} />
           {cityIsLoading || cityError ? (
             <ErrorLoading loading={cityIsLoading} error={cityError} />
           ) : (

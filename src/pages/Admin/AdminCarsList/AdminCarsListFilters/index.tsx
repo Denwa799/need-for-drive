@@ -7,9 +7,9 @@ import { carsSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
 import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import styles from './styles.module.less';
-import { FilterOptionType, IAdminCarsListFilteres } from './type';
+import { FilterOptionType, IAdminCarsListFilters } from './type';
 
-export const AdminCarsListFilters: FC<IAdminCarsListFilteres> = ({
+export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   setCurrentPage,
   setFilteredCars,
 }) => {

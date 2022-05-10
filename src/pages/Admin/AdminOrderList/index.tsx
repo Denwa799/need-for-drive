@@ -11,7 +11,7 @@ import { AdminContainer } from 'layouts/AdminContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderSelector } from 'store/selectors/selectors';
 import { dateString, durationDateString } from 'utils/date';
-import { AdminOrderListFilteres } from './AdminOrderListFilteres';
+import { AdminOrderListFilters } from './AdminOrderListFilters';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 
@@ -48,7 +48,7 @@ export const AdminOrderList: FC = () => {
       <AdminContainer>
         <AdminTitle>Заказы</AdminTitle>
         <AdminList>
-          <AdminOrderListFilteres
+          <AdminOrderListFilters
             limit={limit}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
