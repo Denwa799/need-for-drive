@@ -2,19 +2,16 @@ import { AdminContainer } from 'layouts/AdminContainer';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
-import cn from 'classnames';
 import { errorMessage } from 'utils/errorMessage';
-import { AdminBtn } from 'components/ui/AdminBtn';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { categoriesSelector } from 'store/selectors/selectors';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { useActions } from 'hooks/useActions';
 import { pageSizeOptions, paginationItems } from 'utils/pagination';
-import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { AdminPagination } from 'components/ui/AdminPagination';
 import { ICategory } from 'models/ICategory';
+import { AdminTable } from 'components/ui/AdminTable';
 import { PageChangeHandlerType } from './type';
-import styles from './styles.module.less';
 import { AdminCategoryListFilters } from './AdminCategoryListFilters';
 
 export const AdminCategoryList = () => {
@@ -50,72 +47,46 @@ export const AdminCategoryList = () => {
     [currentPage, limit]
   );
 
+  const tableHead = useMemo(() => {
+    return ['Id', 'Название', 'Описание'];
+  }, []);
+
+  const tableBody = useMemo(() => {
+    return paginationCategories.map((item) => {
+      return {
+        id: item.id,
+        name: item.name ? item.name : errorMessage,
+        description: item.description ? item.description : errorMessage,
+      };
+    });
+  }, [paginationCategories]);
+
   return (
-    <div className={styles.AdminCategoryList}>
-      <AdminContainer>
-        <AdminTitle>Категории машин</AdminTitle>
-        <AdminList>
-          <AdminCategoryListFilters
-            setCurrentPage={setCurrentPage}
-            setFilteredCategories={setFilteredCategories}
-          />
-          {categoriesIsLoading || categoriesError ? (
-            <ErrorLoading loading={categoriesIsLoading} error={categoriesError} />
-          ) : (
-            <table className={styles.table}>
-              <thead>
-                <tr className={styles.head}>
-                  <th>Id</th>
-                  <th>Название</th>
-                  <th>Описание</th>
-                  <th className={styles.text__right}>Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginationCategories.map((item) => {
-                  return (
-                    <tr className={styles.body} key={item.id}>
-                      <td className={cn(styles.firstItem, styles.item)}>{item.id}</td>
-                      <td className={cn(styles.item, styles.name)}>
-                        {item.name ? item.name : errorMessage}
-                      </td>
-                      <td className={styles.item}>
-                        {item.description ? item.description : errorMessage}
-                      </td>
-                      <td className={styles.btnsBlock}>
-                        <AdminBtn
-                          onClick={deleteBtnHandler}
-                          type="close"
-                          icon={<CloseOutlined />}
-                          containerClassName={styles.btnContainer}
-                          className={styles.btn}
-                        >
-                          Удалить
-                        </AdminBtn>
-                        <AdminBtn
-                          onClick={changeBtnHandler}
-                          type="more"
-                          icon={<MoreOutlined />}
-                          containerClassName={styles.btnContainer}
-                          className={styles.btn}
-                        >
-                          Изменить
-                        </AdminBtn>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </AdminList>
-        <AdminPagination
-          total={filteredCategories.length}
-          onChange={pageChangeHandler}
-          pageSizeOptions={pageSizeOptions}
-          page={currentPage}
+    <AdminContainer>
+      <AdminTitle>Категории машин</AdminTitle>
+      <AdminList>
+        <AdminCategoryListFilters
+          setCurrentPage={setCurrentPage}
+          setFilteredCategories={setFilteredCategories}
         />
-      </AdminContainer>
-    </div>
+        {categoriesIsLoading || categoriesError ? (
+          <ErrorLoading loading={categoriesIsLoading} error={categoriesError} />
+        ) : (
+          <AdminTable
+            head={tableHead}
+            body={tableBody}
+            isBtns
+            onChangeClick={changeBtnHandler}
+            onDeleteClick={deleteBtnHandler}
+          />
+        )}
+      </AdminList>
+      <AdminPagination
+        total={filteredCategories.length}
+        onChange={pageChangeHandler}
+        pageSizeOptions={pageSizeOptions}
+        page={currentPage}
+      />
+    </AdminContainer>
   );
 };

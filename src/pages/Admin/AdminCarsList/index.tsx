@@ -14,6 +14,7 @@ import { ICar } from 'models/ICar';
 import { AdminPagination } from 'components/ui/AdminPagination';
 import { paginationItems } from 'utils/pagination';
 import { AdminBtn } from 'components/ui/AdminBtn';
+import { errorMessage } from 'utils/errorMessage';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 import { AdminCarsListFilters } from './AdminCarsListFilters';
@@ -25,7 +26,6 @@ export const AdminCarsList = () => {
   const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
-  const errorMessage = 'Нет информации';
 
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 

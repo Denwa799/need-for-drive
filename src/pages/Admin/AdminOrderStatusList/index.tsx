@@ -3,17 +3,14 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderStatusSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { pageSizeOptions, paginationItems } from 'utils/pagination';
-import cn from 'classnames';
-import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
-import { AdminBtn } from 'components/ui/AdminBtn';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { errorMessage } from 'utils/errorMessage';
 import { AdminPagination } from 'components/ui/AdminPagination';
 import { AdminContainer } from 'layouts/AdminContainer';
 import { IOrderStatus } from 'models/IOrderStatus';
-import styles from './styles.module.less';
+import { AdminTable } from 'components/ui/AdminTable';
 import { PageChangeHandlerType } from './type';
 import { AdminOrderStatusListFilters } from './AdminOrderStatusListFilters';
 
@@ -50,66 +47,45 @@ export const AdminOrderStatusList = () => {
     [currentPage, limit]
   );
 
+  const tableHead = useMemo(() => {
+    return ['Id', 'Название'];
+  }, []);
+
+  const tableBody = useMemo(() => {
+    return paginationRatesType.map((item) => {
+      return {
+        id: item.id,
+        name: item.name ? item.name : errorMessage,
+      };
+    });
+  }, [paginationRatesType]);
+
   return (
-    <div className={styles.AdminOrderStatusList}>
-      <AdminContainer>
-        <AdminTitle>Статус заказа</AdminTitle>
-        <AdminList>
-          <AdminOrderStatusListFilters
-            setCurrentPage={setCurrentPage}
-            setFilteredOrdersStatus={setFilteredOrdersStatus}
-          />
-          {orderStatusIsLoading || orderStatusError ? (
-            <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
-          ) : (
-            <table className={styles.table}>
-              <thead>
-                <tr className={styles.head}>
-                  <th>Id</th>
-                  <th>Название</th>
-                  <th className={styles.text__right}>Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginationRatesType.map((item) => {
-                  return (
-                    <tr className={styles.body} key={item.id}>
-                      <td className={cn(styles.firstItem, styles.item)}>{item.id}</td>
-                      <td className={styles.item}>{item.name ? item.name : errorMessage}</td>
-                      <td className={styles.btnsBlock}>
-                        <AdminBtn
-                          onClick={deleteBtnHandler}
-                          type="close"
-                          icon={<CloseOutlined />}
-                          containerClassName={styles.btnContainer}
-                          className={styles.btn}
-                        >
-                          Удалить
-                        </AdminBtn>
-                        <AdminBtn
-                          onClick={changeBtnHandler}
-                          type="more"
-                          icon={<MoreOutlined />}
-                          containerClassName={styles.btnContainer}
-                          className={styles.btn}
-                        >
-                          Изменить
-                        </AdminBtn>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </AdminList>
-        <AdminPagination
-          total={filteredOrdersStatus.length}
-          onChange={pageChangeHandler}
-          pageSizeOptions={pageSizeOptions}
-          page={currentPage}
+    <AdminContainer>
+      <AdminTitle>Статус заказа</AdminTitle>
+      <AdminList>
+        <AdminOrderStatusListFilters
+          setCurrentPage={setCurrentPage}
+          setFilteredOrdersStatus={setFilteredOrdersStatus}
         />
-      </AdminContainer>
-    </div>
+        {orderStatusIsLoading || orderStatusError ? (
+          <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
+        ) : (
+          <AdminTable
+            head={tableHead}
+            body={tableBody}
+            isBtns
+            onChangeClick={changeBtnHandler}
+            onDeleteClick={deleteBtnHandler}
+          />
+        )}
+      </AdminList>
+      <AdminPagination
+        total={filteredOrdersStatus.length}
+        onChange={pageChangeHandler}
+        pageSizeOptions={pageSizeOptions}
+        page={currentPage}
+      />
+    </AdminContainer>
   );
 };

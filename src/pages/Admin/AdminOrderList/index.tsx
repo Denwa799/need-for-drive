@@ -10,14 +10,14 @@ import { AdminContainer } from 'layouts/AdminContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderSelector } from 'store/selectors/selectors';
 import { dateString, durationDateString } from 'utils/date';
+import { AdminBtn } from 'components/ui/AdminBtn';
+import { errorMessage } from 'utils/errorMessage';
 import { AdminOrderListFilters } from './AdminOrderListFilters';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
-import { AdminBtn } from 'components/ui/AdminBtn';
 
 export const AdminOrderList: FC = () => {
   const { orders, ordersCount, orderIsLoading, orderError } = useTypedSelector(orderSelector);
-  const errorMessage = 'Нет информации';
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
