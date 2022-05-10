@@ -2,9 +2,7 @@ import { AdminContainer } from 'layouts/AdminContainer';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
-import { Col } from 'antd';
 import { AdminBtn } from 'components/ui/AdminBtn';
-import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { useActions } from 'hooks/useActions';
 import { pageSizeOptions, paginationItems } from 'utils/pagination';
@@ -14,11 +12,14 @@ import cn from 'classnames';
 import { errorMessage } from 'utils/errorMessage';
 import { CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { AdminPagination } from 'components/ui/AdminPagination';
+import { IRate } from 'models/IRate';
 import { PageChangeHandlerType } from './type';
 import styles from './styles.module.less';
+import { AdminRateListFilters } from './AdminRateListFilters';
 
 export const AdminRateList = () => {
   const { rates, ratesIsLoading, ratesError } = useTypedSelector(ratesSelector);
+  const [filteredRates, setFilteredRates] = useState<IRate[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
@@ -26,10 +27,6 @@ export const AdminRateList = () => {
 
   useEffect(() => {
     fetchRates();
-  }, []);
-
-  const addHandler = useCallback(() => {
-    alert('Добавить тариф');
   }, []);
 
   const changeBtnHandler = useCallback(() => {
@@ -41,8 +38,8 @@ export const AdminRateList = () => {
   }, []);
 
   const paginationRates = useMemo(
-    () => paginationItems(rates, currentPage, limit),
-    [rates, currentPage, limit]
+    () => paginationItems(filteredRates, currentPage, limit),
+    [filteredRates, currentPage, limit]
   );
 
   const pageChangeHandler = useCallback<PageChangeHandlerType>(
@@ -58,17 +55,10 @@ export const AdminRateList = () => {
       <AdminContainer>
         <AdminTitle>Тарифы</AdminTitle>
         <AdminList>
-          <AdminFiltersContainer className={styles.header}>
-            <Col span={24} className={styles.addBtnBlock}>
-              <AdminBtn
-                onClick={addHandler}
-                className={styles.addBtn}
-                containerClassName={styles.addBtnContainer}
-              >
-                Добавить
-              </AdminBtn>
-            </Col>
-          </AdminFiltersContainer>
+          <AdminRateListFilters
+            setCurrentPage={setCurrentPage}
+            setFilteredRates={setFilteredRates}
+          />
           {ratesIsLoading || ratesError ? (
             <ErrorLoading loading={ratesIsLoading} error={ratesError} />
           ) : (
@@ -120,7 +110,7 @@ export const AdminRateList = () => {
           )}
         </AdminList>
         <AdminPagination
-          total={rates.length}
+          total={filteredRates.length}
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}
