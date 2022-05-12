@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector, citySelector, orderStatusSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
@@ -7,10 +7,11 @@ import useDebounce from 'hooks/useDebounce';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { useCookies } from 'react-cookie';
+import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import styles from './styles.module.less';
 import { FilterOptionType, IAdminOrderListFilteres } from './type';
 
-export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
+export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
   limit,
   currentPage,
   setCurrentPage,
@@ -216,8 +217,8 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
   }, [carNameId, cityId, orderStatusId, debouncedCarColorFilter]);
 
   return (
-    <div className={styles.AdminOrderListFilteres}>
-      <Row className={styles.filters}>
+    <div className={styles.AdminOrderListFilters}>
+      <AdminFiltersContainer>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>
           <AdminAutocomplete
             options={optionsCarsName}
@@ -269,7 +270,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
         <Col xxl={12} xl={16} lg={8} md={8} sm={24} xs={24} className={styles.applyBtnContainer}>
           <AdminBtn
             onClick={filterResetHandler}
-            color="red"
+            type="red"
             className={styles.resetBtn}
             containerClassName={styles.btn}
           >
@@ -283,7 +284,7 @@ export const AdminOrderListFilteres: FC<IAdminOrderListFilteres> = ({
             Применить
           </AdminBtn>
         </Col>
-      </Row>
+      </AdminFiltersContainer>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import 'antd/dist/antd.less';
 import { useCookies } from 'react-cookie';
-import styles from './App.module.less';
 import AppRouter from './components/AppRouter/AppRouter';
 import { useActions } from './hooks/useActions';
 import { useTypedSelector } from './hooks/useTypesSelector';

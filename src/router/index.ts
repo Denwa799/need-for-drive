@@ -7,7 +7,14 @@ import Petrol from 'pages/Petrol/Petrol';
 import Service from 'pages/Service/Service';
 import { Login } from 'pages/Login';
 import { OrderId } from 'pages/Order/OrderId';
+import { AdminCarsList } from 'pages/Admin/AdminCarsList';
 import { AdminOrderList } from 'pages/Admin/AdminOrderList';
+import { AdminCityList } from 'pages/Admin/AdminCityList';
+import { AdminPointList } from 'pages/Admin/AdminPointList';
+import { AdminCategoryList } from 'pages/Admin/AdminCategoryList';
+import { AdminRateList } from 'pages/Admin/AdminRateList';
+import { AdminRateType } from 'pages/Admin/AdminRateTypeList';
+import { AdminOrderStatusList } from 'pages/Admin/AdminOrderStatusList';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -27,5 +34,12 @@ export const publicRoutes: IRoute[] = [
 ];
 
 export const privateRoutes: IRoute[] = [
+  { path: RouteNames.ADMIN_CARS_LIST, component: AdminCarsList },
   { path: RouteNames.ADMIN_ORDER_LIST, component: AdminOrderList },
+  { path: RouteNames.ADMIN_CITY_LIST, component: AdminCityList },
+  { path: RouteNames.ADMIN_POINT_LIST, component: AdminPointList },
+  { path: RouteNames.ADMIN_CATEGORY_LIST, component: AdminCategoryList },
+  { path: RouteNames.ADMIN_RATE_LIST, component: AdminRateList },
+  { path: RouteNames.ADMIN_RATE_TYPE_LIST, component: AdminRateType },
+  { path: RouteNames.ADMIN_ORDER_STATUS_LIST, component: AdminOrderStatusList },
 ];

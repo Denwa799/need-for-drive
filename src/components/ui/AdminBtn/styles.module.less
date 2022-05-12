@@ -1,8 +1,6 @@
 @import 'styles/consts';
 
 .AdminBtn {
-
-
   .btn {
     width: 95px;
     height: 29px;
@@ -22,5 +20,82 @@
   .blue {
     background-color: @app-primary-blue;
     border: none;
+  }
+
+  .check {
+    width: auto;
+    height: auto;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    color: @app-color__blueberry;
+    font-size: 11px;
+    line-height: 13px;
+    border: 1px solid @app-color__paleBlue;
+    background-color: transparent;
+    padding: 0 16px 0 8px;
+    border-radius: 4px 0px 0px 4px;
+    border-right: 0;
+
+    span {
+      margin: 0;
+    }
+
+    svg {
+      font-size: 16px;
+      padding-right: 5px;
+      color: @app-primary-color;
+    }
+  }
+
+  .more {
+    width: auto;
+    height: auto;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    color: @app-color__blueberry;
+    font-size: 11px;
+    line-height: 13px;
+    border: 1px solid @app-color__paleBlue;
+    background-color: transparent;
+    padding: 0 16px 0 8px;
+    border-radius: 0px 4px 4px 0px;
+
+    span {
+      margin: 0;
+    }
+
+    svg {
+      font-size: 16px;
+      padding-right: 5px;
+      color: @app-color__greyBlue;
+    }
+  }
+
+  .close {
+    width: auto;
+    height: auto;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    color: @app-color__blueberry;
+    font-size: 11px;
+    line-height: 13px;
+    border: 1px solid @app-color__paleBlue;
+    background-color: transparent;
+    padding: 0 16px 0 8px;
+    border-radius: 0;
+    border-right: none;
+
+    span {
+      margin: 0;
+    }
+
+    svg {
+      font-size: 16px;
+      padding-right: 5px;
+      color: @app-color__vinous;
+    }
   }
 }

@@ -1,6 +1,9 @@
+import { ReactNode } from 'react';
+
 export interface IAdminBtn {
   onClick: () => void;
-  color?: string;
+  type?: string;
   className?: string;
   containerClassName?: string;
+  icon?: ReactNode;
 }

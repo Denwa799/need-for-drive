@@ -50,6 +50,10 @@
       font-size: 15px;
       padding: 8px 26px 0 26px;
 
+      .link {
+        color: @app-color__darkGrayBlue;;
+      }
+
       svg {
         top: 0;
         font-size: 15px;
@@ -63,6 +67,10 @@
       border-left: 4px solid @app-primary-blue;
     }
 
+    .item:hover .link {
+      color: @app-primary-blue;
+    }
+
     .item:hover svg {
       color: @app-primary-blue;
     }
@@ -71,6 +79,10 @@
       color: @app-primary-blue;
       background-color: @app-third-white;
       border-left: 4px solid @app-primary-blue;
+    }
+
+    .selected .link {
+      color: @app-primary-blue;
     }
 
     .selected svg {
