@@ -3,7 +3,7 @@ import { CategoriesAction, CategoriesActionEnum, CategoriesState } from './types
 const initialState: CategoriesState = {
   categories: [],
   categoriesError: '',
-  categoriesIsLoading: true,
+  categoriesIsLoading: false,
 };
 
 export default function CategoriesReducer(

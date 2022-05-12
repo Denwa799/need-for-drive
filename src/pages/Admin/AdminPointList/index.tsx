@@ -24,7 +24,7 @@ export const AdminPointList = () => {
   const { fetchPoints } = useActions();
 
   useEffect(() => {
-    fetchPoints();
+    if (!mapPointsIsLoading) fetchPoints();
   }, []);
 
   const changeBtnHandler = useCallback(() => {

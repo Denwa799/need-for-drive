@@ -23,7 +23,7 @@ export const AdminCategoryList = () => {
   const { fetchCategories } = useActions();
 
   useEffect(() => {
-    fetchCategories();
+    if (!categoriesIsLoading) fetchCategories();
   }, []);
 
   const changeBtnHandler = useCallback(() => {

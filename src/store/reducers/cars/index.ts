@@ -3,7 +3,7 @@ import { CarsAction, CarsActionEnum, CarsState } from './types';
 const initialState: CarsState = {
   cars: [],
   carsError: '',
-  carsIsLoading: true,
+  carsIsLoading: false,
 };
 
 export default function CarsReducer(state = initialState, action: CarsAction): CarsState {

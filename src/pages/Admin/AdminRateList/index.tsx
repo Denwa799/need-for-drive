@@ -23,7 +23,7 @@ export const AdminRateList = () => {
   const { fetchRates } = useActions();
 
   useEffect(() => {
-    fetchRates();
+    if (!ratesIsLoading) fetchRates();
   }, []);
 
   const changeBtnHandler = useCallback(() => {

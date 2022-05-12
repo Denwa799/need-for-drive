@@ -32,7 +32,7 @@ export const AdminCarsList = () => {
   const { fetchCars } = useActions();
 
   useEffect(() => {
-    fetchCars();
+    if (!carsIsLoading) fetchCars();
   }, []);
 
   // Установка дефолтной картинки при ошибке пути к изображению

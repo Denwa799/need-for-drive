@@ -3,7 +3,7 @@ import { CityAction, CityActionEnum, CityState } from './types';
 const initialState: CityState = {
   city: [],
   cityError: '',
-  cityIsLoading: true,
+  cityIsLoading: false,
 };
 
 export default function CityReducer(state = initialState, action: CityAction): CityState {

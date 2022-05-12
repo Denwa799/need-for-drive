@@ -3,7 +3,7 @@ import { RatesTypeAction, RatesTypeActionEnum, RatesTypeState } from './types';
 const initialState: RatesTypeState = {
   ratesType: [],
   ratesTypeError: '',
-  ratesTypeIsLoading: true,
+  ratesTypeIsLoading: false,
 };
 
 export default function RatesTypeReducer(

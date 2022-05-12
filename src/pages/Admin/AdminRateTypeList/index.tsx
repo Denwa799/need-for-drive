@@ -23,7 +23,7 @@ export const AdminRateType = () => {
   const { fetchRatesType } = useActions();
 
   useEffect(() => {
-    fetchRatesType();
+    if (!ratesTypeIsLoading) fetchRatesType();
   }, []);
 
   const changeBtnHandler = useCallback(() => {

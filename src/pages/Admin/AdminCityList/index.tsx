@@ -24,7 +24,7 @@ export const AdminCityList = () => {
   const { fetchCity } = useActions();
 
   useEffect(() => {
-    fetchCity();
+    if (!cityIsLoading) fetchCity();
   }, []);
 
   const changeBtnHandler = useCallback(() => {

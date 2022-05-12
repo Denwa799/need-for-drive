@@ -37,9 +37,9 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
   const { fetchAllOrders, fetchCars, fetchCity, fetchAllOrderStatus } = useActions();
 
   useEffect(() => {
-    fetchCars();
-    fetchCity();
-    fetchAllOrderStatus();
+    if (!carsIsLoading) fetchCars();
+    if (!cityIsLoading) fetchCity();
+    if (!orderStatusIsLoading) fetchAllOrderStatus();
   }, []);
 
   // Создаю массив для поля фильтрации

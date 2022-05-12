@@ -23,7 +23,7 @@ export const AdminOrderStatusList = () => {
   const { fetchAllOrderStatus } = useActions();
 
   useEffect(() => {
-    fetchAllOrderStatus();
+    if (!orderStatusIsLoading) fetchAllOrderStatus();
   }, []);
 
   const changeBtnHandler = useCallback(() => {

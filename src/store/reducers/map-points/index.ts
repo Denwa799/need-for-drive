@@ -3,7 +3,7 @@ import { MapPointsAction, MapPointsActionEnum, MapPointsState } from './types';
 const initialState: MapPointsState = {
   points: [],
   mapPointsError: '',
-  mapPointsIsLoading: true,
+  mapPointsIsLoading: false,
 };
 
 export default function MapPointsReducer(
