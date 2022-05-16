@@ -6,6 +6,8 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
 import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from 'router/routes';
 import styles from './styles.module.less';
 import { IAdminCarsListFilters } from './type';
 
@@ -14,6 +16,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   setFilteredCars,
 }) => {
   const { cars, carsIsLoading } = useTypedSelector(carsSelector);
+  const navigate = useNavigate();
   const [carNameFilter, setCarNameFilter] = useState('');
   const debouncedCarNameFilter = useDebounce<string>(carNameFilter, 500);
   const [carCategoryNameFilter, setCarCategoryNameFilter] = useState('');
@@ -87,7 +90,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   }, []);
 
   const addCarHandler = useCallback(() => {
-    alert('Добавить машину');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CAR_CREATE}`);
   }, []);
 
   // Отфильтровываю машины

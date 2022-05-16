@@ -21,3 +21,15 @@ export interface ICar {
   tank: number;
   colors: string[];
 }
+
+export interface ICarCreate {
+  name: string;
+  thumbnail: object;
+  description: string;
+  categoryId: string;
+  colors: string[];
+  tank: number;
+  number: string;
+  priceMin: number;
+  priceMax: number;
+}

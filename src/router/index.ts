@@ -15,6 +15,7 @@ import { AdminCategoryList } from 'pages/Admin/AdminCategoryList';
 import { AdminRateList } from 'pages/Admin/AdminRateList';
 import { AdminRateType } from 'pages/Admin/AdminRateTypeList';
 import { AdminOrderStatusList } from 'pages/Admin/AdminOrderStatusList';
+import { AdminCarCreate } from 'pages/Admin/AdminCarCreate';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -42,4 +43,5 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_RATE_LIST, component: AdminRateList },
   { path: RouteNames.ADMIN_RATE_TYPE_LIST, component: AdminRateType },
   { path: RouteNames.ADMIN_ORDER_STATUS_LIST, component: AdminOrderStatusList },
+  { path: RouteNames.ADMIN_CAR_CREATE, component: AdminCarCreate },
 ];

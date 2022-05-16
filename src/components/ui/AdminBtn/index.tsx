@@ -11,6 +11,7 @@ export const AdminBtn: FC<IAdminBtn> = ({
   className,
   containerClassName,
   icon,
+  isLoading,
 }) => {
   return (
     <div className={cn(styles.AdminBtn, containerClassName)}>
@@ -20,13 +21,16 @@ export const AdminBtn: FC<IAdminBtn> = ({
           styles.btn,
           { [styles.red]: type === 'red' },
           { [styles.blue]: type === 'blue' },
+          { [styles.gray]: type === 'gray' },
           { [styles.check]: type === 'check' },
           { [styles.more]: type === 'more' },
           { [styles.close]: type === 'close' },
+          { [styles.add]: type === 'add' },
           className
         )}
         onClick={onClick}
         icon={icon}
+        loading={isLoading}
       >
         {children}
       </Button>

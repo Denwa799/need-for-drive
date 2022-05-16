@@ -99,9 +99,13 @@ export const AdminCarsList = () => {
                       </p>
                       <p className={styles.description}>
                         Цвета:{' '}
-                        {car.colors && car.colors.length > 0
-                          ? car.colors.map((color) => {
-                              return <b key={`${Math.random()}${color}`}>{color}, </b>;
+                        {car.colors && car.colors.length > 0 && car.colors[0] !== ''
+                          ? car.colors.map((color, index, array) => {
+                              return index + 1 !== array.length ? (
+                                <b key={`${Math.random()}${color}`}>{color}, </b>
+                              ) : (
+                                <b key={`${Math.random()}${color}`}>{color}</b>
+                              );
                             })
                           : errorMessage}
                       </p>

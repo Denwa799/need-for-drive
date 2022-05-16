@@ -6,4 +6,5 @@ export interface IAdminBtn {
   className?: string;
   containerClassName?: string;
   icon?: ReactNode;
+  isLoading?: boolean;
 }

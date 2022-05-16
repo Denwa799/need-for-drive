@@ -1,0 +1,27 @@
+@import 'styles/consts';
+
+.AdminInputNumber {
+  width: 100%;
+
+  .inputNumber {
+    border-radius: 4px;
+    border: 1px solid @app-color__paleBlue;
+    font-size: 11px;
+    width: 100%;
+    height: 30px;
+
+    svg {
+      color: black;
+      font-size: 8px;
+    }
+  }
+
+  .inputNumber::placeholder {
+    font-size: 11px;
+    color: @app-color__concrete;
+  }
+
+  .danger {
+    border-color: @app-color__vinous;
+  }
+}

@@ -1,0 +1,49 @@
+@import 'styles/consts';
+
+.AdminInputImg {
+  width: 232.5px;
+
+  .imgInputLabel {
+    display: flex;
+    width: 232.5px;
+    height: 29px;
+
+    .imgInput {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+    }
+
+    .imgInputText {
+      cursor: pointer;
+      font-family: Roboto, sans-serif;
+      font-size: 10px;
+      color: @app-color__grayishBlue;
+      border: 0.5px solid @app-color__paleBlue;
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 5px 0 0 13px;
+      display: block;
+      width: 166px;
+      height: 29px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .imgInputBtn {
+      cursor: pointer;
+      font-family: Roboto, sans-serif;
+      font-size: 10px;
+      color: @app-color__grayishBlue;
+      background-color: @app-color__marble;
+      padding: 5px 18px;
+      border: 0.5px solid @app-color__paleBlue;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .danger {
+      border-color: @app-color__vinous;
+    }
+  }
+}
