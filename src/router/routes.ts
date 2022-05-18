@@ -18,4 +18,6 @@ export enum RouteNames {
   ADMIN_ORDER_STATUS_LIST = 'order-status-list',
   ADMIN_CAR = 'car',
   ADMIN_CAR_EDIT = 'car/:id',
+  ADMIN_CITY = 'city',
+  ADMIN_CITY_EDIT = 'city/:id',
 }

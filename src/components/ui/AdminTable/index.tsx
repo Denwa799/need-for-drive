@@ -10,6 +10,7 @@ export const AdminTable: FC<IAdminTable> = ({
   isBtns = false,
   onDeleteClick,
   onChangeClick,
+  deleteDisabled,
 }) => {
   return (
     <table className={styles.AdminTable}>
@@ -35,16 +36,17 @@ export const AdminTable: FC<IAdminTable> = ({
               {isBtns ? (
                 <td className={styles.btnsBlock}>
                   <AdminBtn
-                    onClick={onDeleteClick || (() => null)}
+                    onClick={(() => onDeleteClick!(Object.values(row)[0])) || (() => null)}
                     type="close"
                     icon={<CloseOutlined />}
                     containerClassName={styles.btnContainer}
                     className={styles.btn}
+                    disabled={deleteDisabled}
                   >
                     Удалить
                   </AdminBtn>
                   <AdminBtn
-                    onClick={onChangeClick || (() => null)}
+                    onClick={(() => onChangeClick!(Object.values(row)[0])) || (() => null)}
                     type="more"
                     icon={<MoreOutlined />}
                     containerClassName={styles.btnContainer}

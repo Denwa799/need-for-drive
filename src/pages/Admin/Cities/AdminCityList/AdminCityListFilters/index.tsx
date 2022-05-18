@@ -6,6 +6,8 @@ import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { citySelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
+import { RouteNames } from 'router/routes';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { FilterOptionType, IAdminCityListFilters } from './type';
 
@@ -13,6 +15,7 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
   setCurrentPage,
   setFilteredCity,
 }) => {
+  const navigate = useNavigate();
   const { city, cityIsLoading } = useTypedSelector(citySelector);
   const [cityNameFilter, setCityNameFilter] = useState('');
   const debouncedCityNameFilter = useDebounce<string>(cityNameFilter, 500);
@@ -76,7 +79,7 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
   }, []);
 
   const addCityHandler = useCallback(() => {
-    alert('Добавить город');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CITY}`);
   }, []);
 
   return (

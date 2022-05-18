@@ -1,5 +1,5 @@
 import { AdminContainer } from 'layouts/AdminContainer';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
@@ -17,7 +17,6 @@ export const AdminCar = () => {
 
   const {
     car,
-    carsIsLoading,
     carIdIsLoading,
     carIdError,
     carIsCreate,

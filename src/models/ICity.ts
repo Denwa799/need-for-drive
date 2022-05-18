@@ -4,3 +4,7 @@ export interface ICity {
   name: string;
   id: string;
 }
+
+export interface ICityCreate {
+  name: string;
+}

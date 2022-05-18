@@ -11,29 +11,59 @@ import { ICity } from 'models/ICity';
 import { paginationItems } from 'utils/pagination';
 import { errorMessage } from 'utils/errorMessage';
 import { AdminTable } from 'components/ui/AdminTable';
-import { PageChangeHandlerType } from './type';
+import { RouteNames } from 'router/routes';
+import { useNavigate } from 'react-router-dom';
+import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
+import { useCookies } from 'react-cookie';
+import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { AdminCityListFilters } from './AdminCityListFilters';
+import { PageChangeHandlerType } from './type';
+
+const { confirm } = Modal;
 
 export const AdminCityList = () => {
-  const { cityIsLoading, cityError } = useTypedSelector(citySelector);
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['auth']);
+  const tokenBearer = cookies.auth.access_token;
+
+  const { cityIsLoading, cityError, cityIsDelete, cityDeleteError } =
+    useTypedSelector(citySelector);
   const [filteredCity, setFilteredCity] = useState<ICity[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 
-  const { fetchCity } = useActions();
+  const { fetchCity, deleteCity, setCityIsDelete } = useActions();
 
   useEffect(() => {
     if (!cityIsLoading) fetchCity();
   }, []);
 
-  const changeBtnHandler = useCallback(() => {
-    alert('Изменить город');
+  const changeBtnHandler = useCallback((id: string) => {
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CITY}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback(() => {
-    alert('Удалить город');
+  const deleteBtnHandler = useCallback((id: string) => {
+    confirm({
+      title: 'Вы действительно хотите удалить город?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Да',
+      okType: 'danger',
+      cancelText: 'Нет',
+      onOk() {
+        deleteCity(id, tokenBearer);
+      },
+    });
   }, []);
+
+  useEffect(() => {
+    if (cityIsDelete)
+      setTimeout(() => {
+        setCityIsDelete(false);
+        fetchCity();
+      }, 3000);
+  }, [cityIsDelete]);
 
   const paginationCity = useMemo(
     () => paginationItems(filteredCity, currentPage, limit),
@@ -62,28 +92,33 @@ export const AdminCityList = () => {
   }, [paginationCity]);
 
   return (
-    <AdminContainer>
-      <AdminTitle>Города</AdminTitle>
-      <AdminList>
-        <AdminCityListFilters setCurrentPage={setCurrentPage} setFilteredCity={setFilteredCity} />
-        {cityIsLoading || cityError ? (
-          <ErrorLoading loading={cityIsLoading} error={cityError} />
-        ) : (
-          <AdminTable
-            head={tableHead}
-            body={tableBody}
-            isBtns
-            onChangeClick={changeBtnHandler}
-            onDeleteClick={deleteBtnHandler}
-          />
-        )}
-      </AdminList>
-      <AdminPagination
-        total={filteredCity.length}
-        onChange={pageChangeHandler}
-        pageSizeOptions={pageSizeOptions}
-        page={currentPage}
-      />
-    </AdminContainer>
+    <div>
+      {cityIsDelete ? <AdminSuccessMsg type="success">Успех! Город удален</AdminSuccessMsg> : null}
+      {cityDeleteError ? <AdminSuccessMsg type="error">{cityDeleteError}</AdminSuccessMsg> : null}
+      <AdminContainer>
+        <AdminTitle>Города</AdminTitle>
+        <AdminList>
+          <AdminCityListFilters setCurrentPage={setCurrentPage} setFilteredCity={setFilteredCity} />
+          {cityIsLoading || cityError ? (
+            <ErrorLoading loading={cityIsLoading} error={cityError} />
+          ) : (
+            <AdminTable
+              head={tableHead}
+              body={tableBody}
+              isBtns
+              onChangeClick={changeBtnHandler}
+              onDeleteClick={deleteBtnHandler}
+              deleteDisabled={cityIsDelete}
+            />
+          )}
+        </AdminList>
+        <AdminPagination
+          total={filteredCity.length}
+          onChange={pageChangeHandler}
+          pageSizeOptions={pageSizeOptions}
+          page={currentPage}
+        />
+      </AdminContainer>
+    </div>
   );
 };

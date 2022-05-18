@@ -35,8 +35,6 @@ export const AdminCarsList = () => {
 
   const { fetchCars } = useActions();
 
-  console.log(carsIsLoading);
-
   useEffect(() => {
     if (!carsIsLoading) fetchCars();
   }, []);
