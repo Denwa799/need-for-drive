@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { AdminBackground } from 'components/ui/AdminBackground';
 import noImage from 'assets/img/noImage.webp';
 import { AdminTitle } from 'components/ui/AdminTitle';
@@ -18,12 +18,12 @@ export const InfoBlock: FC<IInfoBlock> = ({
   setImgName,
   setImgSrc,
   descriptionValue,
-  setImgFile,
   setImgBase64,
   imgValidationError,
   imgErrorText,
   setImgValidationError,
   progressPercent,
+  setImgSize,
 }) => {
   return (
     <Col xxl={6} xl={8} lg={10} md={12} sm={24} xs={24} className={styles.InfoBlock}>
@@ -44,8 +44,8 @@ export const InfoBlock: FC<IInfoBlock> = ({
           imgName={imgName}
           setImgName={setImgName}
           setImgSrc={setImgSrc}
-          setImgFile={setImgFile}
           setImgBase64={setImgBase64}
+          setImgSize={setImgSize}
           danger={imgValidationError}
           setImgValidationError={setImgValidationError}
         />

@@ -90,7 +90,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   }, []);
 
   const addCarHandler = useCallback(() => {
-    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CAR_CREATE}`);
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CAR}`);
   }, []);
 
   // Отфильтровываю машины

@@ -15,6 +15,8 @@ import { AdminPagination } from 'components/ui/AdminPagination';
 import { paginationItems } from 'utils/pagination';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { errorMessage } from 'utils/errorMessage';
+import { RouteNames } from 'router/routes';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { PageChangeHandlerType } from './type';
 import { AdminCarsListFilters } from './AdminCarsListFilters';
@@ -22,6 +24,8 @@ import { AdminCarsListFilters } from './AdminCarsListFilters';
 const { Title } = Typography;
 
 export const AdminCarsList = () => {
+  const navigate = useNavigate();
+
   const { carsIsLoading, carsError } = useTypedSelector(carsSelector);
   const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,8 +44,8 @@ export const AdminCarsList = () => {
     event.currentTarget.src = noImage;
   }, []);
 
-  const changeBtnHandler = useCallback(() => {
-    alert('Изменить машину');
+  const changeBtnHandler = useCallback((id: string) => {
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CAR}/${id}`);
   }, []);
 
   const paginationCars = useMemo(
@@ -122,7 +126,7 @@ export const AdminCarsList = () => {
                     </Col>
                     <Col xl={4} lg={4} md={24} sm={24} xs={24} className={styles.btns}>
                       <AdminBtn
-                        onClick={changeBtnHandler}
+                        onClick={() => changeBtnHandler(car.id)}
                         type="more"
                         icon={<MoreOutlined />}
                         containerClassName={styles.btnContainer}

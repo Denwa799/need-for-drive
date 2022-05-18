@@ -8,8 +8,9 @@ export interface ISettingsBlock {
   setCarTypeValue: (value: string) => void;
   setCarTypeSelectValue: (value: string) => void;
   carTypeSelectValue: string;
-  imgFile: File | undefined;
   imgBase64: string;
+  imgSize: number;
   imgName: string;
+  imgMimetype: string;
   setProgressPercent: (value: number) => void;
 }

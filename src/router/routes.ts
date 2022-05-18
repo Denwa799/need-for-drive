@@ -16,5 +16,6 @@ export enum RouteNames {
   ADMIN_RATE_LIST = 'rate-list',
   ADMIN_RATE_TYPE_LIST = 'rate-type-list',
   ADMIN_ORDER_STATUS_LIST = 'order-status-list',
-  ADMIN_CAR_CREATE = 'car-create',
+  ADMIN_CAR = 'car',
+  ADMIN_CAR_EDIT = 'car/:id',
 }

@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { AdminBackground } from 'components/ui/AdminBackground';
 import { AdminTitle } from 'components/ui/AdminTitle';
-import { Col, Row } from 'antd';
+import { Col, Modal, Row } from 'antd';
 import cn from 'classnames';
 import { AdminText } from 'components/ui/AdminText';
 import { AdminInput } from 'components/ui/AdminInput';
@@ -15,10 +15,13 @@ import { carsSelector, categoriesSelector } from 'store/selectors/selectors';
 import { onlyLettersReg } from 'utils/regularExpressions';
 import { useCookies } from 'react-cookie';
 import { useActions } from 'hooks/useActions';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RouteNames } from 'router/routes';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import styles from './styles.module.less';
 import { ISettingsBlock } from './type';
-import { RouteNames } from '../../../../router/routes';
+
+const { confirm } = Modal;
 
 export const SettingsBlock: FC<ISettingsBlock> = ({
   setImgValidationError,
@@ -30,16 +33,19 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   setCarTypeValue,
   setCarTypeSelectValue,
   carTypeSelectValue,
-  imgFile,
   imgBase64,
+  imgSize,
   imgName,
+  imgMimetype,
   setProgressPercent,
 }) => {
   const [cookies] = useCookies(['auth']);
   const tokenBearer = cookies.auth.access_token;
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const { carIsCreate, carsIsLoading } = useTypedSelector(carsSelector);
+  const { car, carIsCreate, carsIsLoading, carIsDelete, carDeleteIsLoading } =
+    useTypedSelector(carsSelector);
   const { categories, categoriesIsLoading } = useTypedSelector(categoriesSelector);
 
   const [carNameValidationError, setCarNameValidationError] = useState(false);
@@ -72,14 +78,25 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   const [maxPriceValidationError, setMaxPriceValidationError] = useState(false);
   const [maxPriceErrorText, setMaxPriceErrorText] = useState('Пустое поле');
 
-  const { createCar, setCarIsCreate } = useActions();
+  const { createCar, updateCar, deleteCar, setCarIsCreate, setCarIsDelete } = useActions();
+
+  useEffect(() => {
+    if (Object.keys(car).length > 0 && id) {
+      if (car.description) setDescriptionValue(car.description);
+      if (car.colors) setColors(car.colors);
+      if (car.number) setNumberValue(car.number);
+      if (car.tank) setTankValue(car.tank);
+      if (car.priceMin) setMinPriceValue(car.priceMin);
+      if (car.priceMax) setMaxPriceValue(car.priceMax);
+    }
+  }, [car]);
 
   useEffect(() => {
     let percent = 0;
     const maxPercent = 100;
     const fieldsNumber = 9;
 
-    if (imgFile) percent += Math.ceil(maxPercent / fieldsNumber);
+    if (imgBase64) percent += Math.ceil(maxPercent / fieldsNumber);
     if (carNameValue) percent += Math.round(maxPercent / fieldsNumber);
     if (carTypeSelectValue) percent += Math.round(maxPercent / fieldsNumber);
     if (colors.length > 0) percent += Math.round(maxPercent / fieldsNumber);
@@ -92,7 +109,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
     setProgressPercent(percent);
   }, [
     carNameValue,
-    imgFile,
+    imgBase64,
     carTypeSelectValue,
     colors,
     descriptionValue,
@@ -108,7 +125,12 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`);
         setCarIsCreate(false);
       }, 3000);
-  }, [carIsCreate]);
+    if (carIsDelete)
+      setTimeout(() => {
+        navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`);
+        setCarIsDelete(false);
+      }, 3000);
+  }, [carIsCreate, carIsDelete]);
 
   // Создаю массив для поля фильтрации
   const categoriesName = useMemo(
@@ -239,7 +261,6 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
     if (
       carNameValue &&
       imgBase64 &&
-      imgFile &&
       imgName &&
       descriptionValue &&
       selectCategories &&
@@ -253,9 +274,9 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
         name: carNameValue,
         thumbnail: {
           path: imgBase64,
-          size: imgFile.size,
+          size: imgSize,
           originalname: imgName,
-          mimetype: imgFile.type,
+          mimetype: imgMimetype,
         },
         description: descriptionValue,
         categoryId: selectCategories.id,
@@ -268,7 +289,6 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
     return null;
   }, [
     carNameValue,
-    imgFile,
     imgBase64,
     descriptionValue,
     selectCategories,
@@ -280,7 +300,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   ]);
 
   const saveBtnHandler = useCallback(() => {
-    if (!imgFile) setImgValidationError(true);
+    if (!imgBase64) setImgValidationError(true);
     if (!carNameValue) setCarNameValidationError(true);
     if (!carTypeSelectValue) setCarTypeValidationError(true);
     if (colors.length === 0) {
@@ -293,10 +313,11 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
     if (!minPriceValue) setMinPriceValidationError(true);
     if (!maxPriceValue) setMaxPriceValidationError(true);
 
-    if (postData) createCar(postData, tokenBearer);
+    if (postData && !id) createCar(postData, tokenBearer);
+    if (postData && id) updateCar(id, postData, tokenBearer);
   }, [
     postData,
-    imgFile,
+    imgBase64,
     carNameValue,
     carTypeSelectValue,
     colors,
@@ -311,6 +332,21 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
     () => navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`),
     []
   );
+
+  const deleteBtnHandler = useCallback(() => {
+    confirm({
+      title: 'Вы действительно хотите удалить машину?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Да',
+      okType: 'danger',
+      cancelText: 'Нет',
+      onOk() {
+        if (id) {
+          deleteCar(id, tokenBearer);
+        }
+      },
+    });
+  }, []);
 
   return (
     <Col xxl={18} xl={16} lg={14} md={12} sm={24} xs={24} className={styles.SettingsBlock}>
@@ -461,20 +497,34 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
         <Row className={styles.btns}>
           <AdminBtn
             onClick={saveBtnHandler}
-            containerClassName={styles.saveBtnContainer}
+            containerClassName={cn(styles.saveBtnContainer, { [styles.editPage]: id })}
             className={styles.saveBtn}
             isLoading={carsIsLoading}
+            disabled={carIsCreate || carIsDelete}
           >
             Сохранить
           </AdminBtn>
           <AdminBtn
             onClick={cancelBtnHandler}
             type="gray"
-            containerClassName={styles.cancelBtnContainer}
+            containerClassName={cn(styles.cancelBtnContainer, { [styles.editPage]: id })}
             className={styles.cancelBtn}
+            disabled={carIsCreate || carIsDelete}
           >
             Отменить
           </AdminBtn>
+          {id ? (
+            <AdminBtn
+              onClick={deleteBtnHandler}
+              type="pink"
+              containerClassName={styles.deleteBtnContainer}
+              className={styles.deleteBtn}
+              isLoading={carDeleteIsLoading}
+              disabled={carIsCreate || carIsDelete}
+            >
+              Удалить
+            </AdminBtn>
+          ) : null}
         </Row>
       </AdminBackground>
     </Col>

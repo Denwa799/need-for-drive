@@ -7,15 +7,15 @@ import Petrol from 'pages/Petrol/Petrol';
 import Service from 'pages/Service/Service';
 import { Login } from 'pages/Login';
 import { OrderId } from 'pages/Order/OrderId';
-import { AdminCarsList } from 'pages/Admin/AdminCarsList';
-import { AdminOrderList } from 'pages/Admin/AdminOrderList';
-import { AdminCityList } from 'pages/Admin/AdminCityList';
-import { AdminPointList } from 'pages/Admin/AdminPointList';
-import { AdminCategoryList } from 'pages/Admin/AdminCategoryList';
-import { AdminRateList } from 'pages/Admin/AdminRateList';
-import { AdminRateType } from 'pages/Admin/AdminRateTypeList';
-import { AdminOrderStatusList } from 'pages/Admin/AdminOrderStatusList';
-import { AdminCarCreate } from 'pages/Admin/AdminCarCreate';
+import { AdminCarsList } from 'pages/Admin/Cars/AdminCarsList';
+import { AdminOrderList } from 'pages/Admin/Orders/AdminOrderList';
+import { AdminCityList } from 'pages/Admin/Cities/AdminCityList';
+import { AdminPointList } from 'pages/Admin/Points/AdminPointList';
+import { AdminCategoryList } from 'pages/Admin/Categories/AdminCategoryList';
+import { AdminRateList } from 'pages/Admin/Rates/AdminRateList';
+import { AdminRateType } from 'pages/Admin/Rates/AdminRateTypeList';
+import { AdminOrderStatusList } from 'pages/Admin/Orders/AdminOrderStatusList';
+import { AdminCar } from 'pages/Admin/Cars/AdminCar';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -43,5 +43,6 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_RATE_LIST, component: AdminRateList },
   { path: RouteNames.ADMIN_RATE_TYPE_LIST, component: AdminRateType },
   { path: RouteNames.ADMIN_ORDER_STATUS_LIST, component: AdminOrderStatusList },
-  { path: RouteNames.ADMIN_CAR_CREATE, component: AdminCarCreate },
+  { path: RouteNames.ADMIN_CAR, component: AdminCar },
+  { path: RouteNames.ADMIN_CAR_EDIT, component: AdminCar },
 ];

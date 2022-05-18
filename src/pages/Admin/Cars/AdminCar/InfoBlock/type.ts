@@ -6,8 +6,8 @@ export interface IInfoBlock {
   descriptionValue: string;
   setImgName: (value: string) => void;
   setImgSrc: (value: string) => void;
-  setImgFile: (file: File) => void;
   setImgBase64: (value: string) => void;
+  setImgSize: (value: number) => void;
   imgValidationError: boolean;
   imgErrorText: string;
   setImgValidationError: (value: boolean) => void;

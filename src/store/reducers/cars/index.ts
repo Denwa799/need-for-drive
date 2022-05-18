@@ -1,11 +1,18 @@
+import { ICar } from 'models/ICar';
 import { CarsAction, CarsActionEnum, CarsState } from './types';
 
 const initialState: CarsState = {
   cars: [],
+  car: {} as ICar,
   carsError: '',
+  carIdError: '',
   carsIsLoading: false,
+  carIdIsLoading: false,
   carIsCreate: false,
   carCreateError: '',
+  carIsDelete: false,
+  carDeleteIsLoading: false,
+  carDeleteError: '',
 };
 
 export default function CarsReducer(state = initialState, action: CarsAction): CarsState {
@@ -13,17 +20,35 @@ export default function CarsReducer(state = initialState, action: CarsAction): C
     case CarsActionEnum.GET_CARS:
       return { ...state, cars: action.payload, carsIsLoading: false };
 
+    case CarsActionEnum.GET_CAR:
+      return { ...state, car: action.payload, carsIsLoading: false };
+
     case CarsActionEnum.SET_CARS_IS_LOADING:
       return { ...state, carsIsLoading: action.payload };
 
+    case CarsActionEnum.SET_CAR_ID_IS_LOADING:
+      return { ...state, carIdIsLoading: action.payload };
+
     case CarsActionEnum.SET_CARS_ERROR:
       return { ...state, carsError: action.payload, carsIsLoading: false };
+
+    case CarsActionEnum.SET_CAR_ID_ERROR:
+      return { ...state, carIdError: action.payload, carIdIsLoading: false };
 
     case CarsActionEnum.SET_CAR_IS_CREATE:
       return { ...state, carIsCreate: action.payload };
 
     case CarsActionEnum.SET_CAR_CREATE_ERROR:
-      return { ...state, carsError: action.payload, carsIsLoading: false };
+      return { ...state, carCreateError: action.payload, carsIsLoading: false };
+
+    case CarsActionEnum.SET_CAR_IS_DELETE:
+      return { ...state, carIsDelete: action.payload };
+
+    case CarsActionEnum.SET_CAR_DELETE_IS_LOADING:
+      return { ...state, carDeleteIsLoading: action.payload };
+
+    case CarsActionEnum.SET_CAR_DELETE_ERROR:
+      return { ...state, carDeleteError: action.payload, carDeleteIsLoading: false };
 
     default:
       return state;

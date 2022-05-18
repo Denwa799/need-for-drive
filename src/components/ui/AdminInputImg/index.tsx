@@ -8,20 +8,24 @@ export const AdminInputImg: FC<IAdminInputImg> = ({
   imgName,
   setImgName,
   setImgSrc,
-  setImgFile,
   className,
   setImgBase64,
   danger,
   setImgValidationError,
+  setImgSize,
+  setImgMimetype,
 }) => {
   const imgRef = useRef<any>();
 
   const imgChangeHandler = useCallback(async () => {
     if (imgRef.current) {
-      setImgName(imgRef.current.files[0].name);
-      if (setImgSrc) setImgSrc(URL.createObjectURL(imgRef.current.files[0]));
-      if (setImgFile) setImgFile(imgRef.current.files[0]);
-      if (setImgBase64) setImgBase64((await convertBase64(imgRef.current.files[0])) as string);
+      const img = imgRef.current.files[0];
+
+      setImgName(img.name);
+      if (setImgSrc) setImgSrc(URL.createObjectURL(img));
+      if (setImgBase64) setImgBase64((await convertBase64(img)) as string);
+      if (setImgSize) setImgSize(img.size);
+      if (setImgMimetype) setImgMimetype(img.type);
       if (setImgValidationError) setImgValidationError(false);
     }
   }, []);
