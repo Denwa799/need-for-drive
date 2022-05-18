@@ -7,6 +7,7 @@ const initialState: CarsState = {
   carsError: '',
   carIdError: '',
   carsIsLoading: false,
+  carCreateIsLoading: false,
   carIdIsLoading: false,
   carIsCreate: false,
   carCreateError: '',
@@ -21,7 +22,7 @@ export default function CarsReducer(state = initialState, action: CarsAction): C
       return { ...state, cars: action.payload, carsIsLoading: false };
 
     case CarsActionEnum.GET_CAR:
-      return { ...state, car: action.payload, carsIsLoading: false };
+      return { ...state, car: action.payload, carIdIsLoading: false };
 
     case CarsActionEnum.SET_CARS_IS_LOADING:
       return { ...state, carsIsLoading: action.payload };
@@ -38,8 +39,11 @@ export default function CarsReducer(state = initialState, action: CarsAction): C
     case CarsActionEnum.SET_CAR_IS_CREATE:
       return { ...state, carIsCreate: action.payload };
 
+    case CarsActionEnum.SET_CAR_CREATE_IS_LOADING:
+      return { ...state, carCreateIsLoading: action.payload };
+
     case CarsActionEnum.SET_CAR_CREATE_ERROR:
-      return { ...state, carCreateError: action.payload, carsIsLoading: false };
+      return { ...state, carCreateError: action.payload, carCreateIsLoading: false };
 
     case CarsActionEnum.SET_CAR_IS_DELETE:
       return { ...state, carIsDelete: action.payload };

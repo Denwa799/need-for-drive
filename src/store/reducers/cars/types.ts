@@ -3,6 +3,7 @@ import { ICar } from 'models/ICar';
 export interface CarsState {
   cars: ICar[];
   car: ICar;
+  carCreateIsLoading: boolean;
   carsIsLoading: boolean;
   carIdIsLoading: boolean;
   carsError: string;
@@ -20,6 +21,7 @@ export enum CarsActionEnum {
   SET_CARS_ERROR = 'SET_CARS_ERROR',
   SET_CAR_ID_ERROR = 'SET_CAR_ID_ERROR',
   SET_CARS_IS_LOADING = 'SET_CARS_IS_LOADING',
+  SET_CAR_CREATE_IS_LOADING = 'SET_CAR_CREATE_IS_LOADING',
   SET_CAR_ID_IS_LOADING = 'SET_CAR_ID_IS_LOADING',
   SET_CAR_IS_CREATE = 'SET_CAR_IS_CREATE',
   SET_CAR_CREATE_ERROR = 'SET_CAR_CREATE_ERROR',
@@ -50,6 +52,11 @@ export interface SetCarIdErrorAction {
 
 export interface SetCarsIsLoadingAction {
   type: CarsActionEnum.SET_CARS_IS_LOADING;
+  payload: boolean;
+}
+
+export interface SetCarCreateIsLoadingAction {
+  type: CarsActionEnum.SET_CAR_CREATE_IS_LOADING;
   payload: boolean;
 }
 
@@ -87,6 +94,7 @@ export type CarsAction =
   | GetCars
   | GetCar
   | SetCarsIsLoadingAction
+  | SetCarCreateIsLoadingAction
   | SetCarIdIsLoadingAction
   | SetCarsErrorAction
   | SetCarIdErrorAction

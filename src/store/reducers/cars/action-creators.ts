@@ -14,6 +14,7 @@ import {
   SetCarIsDeleteAction,
   SetCarDeleteErrorAction,
   SetCarDeleteIsLoadingAction,
+  SetCarCreateIsLoadingAction,
 } from './types';
 
 export const CarsActionCreators = {
@@ -43,6 +44,10 @@ export const CarsActionCreators = {
   }),
   setCarIsCreate: (payload: boolean): SetCarIsCreateAction => ({
     type: CarsActionEnum.SET_CAR_IS_CREATE,
+    payload,
+  }),
+  setCarCreateIsLoading: (payload: boolean): SetCarCreateIsLoadingAction => ({
+    type: CarsActionEnum.SET_CAR_CREATE_IS_LOADING,
     payload,
   }),
   setCarCreateError: (payload: string): SetCarCreateErrorAction => ({
@@ -85,11 +90,11 @@ export const CarsActionCreators = {
   createCar: (data: ICarCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(CarsActionCreators.setCarCreateError(''));
-      dispatch(CarsActionCreators.setCarsIsLoading(true));
+      dispatch(CarsActionCreators.setCarCreateIsLoading(true));
       dispatch(CarsActionCreators.setCarIsCreate(false));
       await PostService(process.env.REACT_APP_CARS_API, data, tokenBearer);
       dispatch(CarsActionCreators.setCarIsCreate(true));
-      dispatch(CarsActionCreators.setCarsIsLoading(false));
+      dispatch(CarsActionCreators.setCarCreateIsLoading(false));
     } catch (e) {
       dispatch(CarsActionCreators.setCarIsCreate(false));
       dispatch(CarsActionCreators.setCarCreateError('Произошла ошибка при создании машины'));
@@ -99,11 +104,11 @@ export const CarsActionCreators = {
     (id: string, data: ICarCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(CarsActionCreators.setCarCreateError(''));
-        dispatch(CarsActionCreators.setCarsIsLoading(true));
+        dispatch(CarsActionCreators.setCarCreateIsLoading(true));
         dispatch(CarsActionCreators.setCarIsCreate(false));
         await PutService(`${process.env.REACT_APP_CARS_API}/${id}`, data, tokenBearer);
         dispatch(CarsActionCreators.setCarIsCreate(true));
-        dispatch(CarsActionCreators.setCarsIsLoading(false));
+        dispatch(CarsActionCreators.setCarCreateIsLoading(false));
       } catch (e) {
         dispatch(CarsActionCreators.setCarIsCreate(false));
         dispatch(CarsActionCreators.setCarCreateError('Произошла ошибка при обновлении машины'));

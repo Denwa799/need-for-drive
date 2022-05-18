@@ -17,6 +17,7 @@ export const AdminCar = () => {
 
   const {
     car,
+    carsIsLoading,
     carIdIsLoading,
     carIdError,
     carIsCreate,
