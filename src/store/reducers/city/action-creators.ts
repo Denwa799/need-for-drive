@@ -16,7 +16,6 @@ import {
   SetCityIsDeleteAction,
   SetCityIsLoadingAction,
 } from './types';
-import { ICarCreate } from '../../../models/ICar';
 
 export const CityActionCreators = {
   getCity: (payload: ICity[]): GetCity => ({

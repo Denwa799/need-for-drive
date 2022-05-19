@@ -10,14 +10,22 @@
     .specifications {
       padding-top: 42.5px;
 
+      .leftBlock {
+        padding-right: 21px;
+      }
+
       .item {
         padding-bottom: 26px;
+      }
+
+      .lastItem {
+        margin-bottom: 30px;
       }
 
       .inputContainer {
         width: 100%;
         margin-top: 4.5px;
-        margin-bottom: 50px;
+        margin-bottom: 5px;
       }
 
       .buttonAdd {
@@ -96,6 +104,12 @@
 @media (max-width: @app-screen-sm) {
   .SettingsBlock {
     .settingsCard {
+      .specifications {
+        .leftBlock {
+          padding-right: 0;
+        }
+      }
+
       .btns {
         .saveBtnContainer {
           width: 100%;
@@ -148,12 +162,12 @@
 @media (max-width: @app-screen-lg) and (max-height: 645px) {
   .SettingsBlock {
     .settingsCard {
-      height: 214px;
+      height: 300px;
     }
   }
 }
 
-@media (max-width: @app-screen-lg) and (max-height: 430px) {
+@media (max-width: @app-screen-lg) and (max-height: 518px) {
   .SettingsBlock {
     .settingsCard {
       height: 125%;
@@ -173,6 +187,14 @@
   .SettingsBlock {
     .settingsCard {
       height: 125%;
+    }
+  }
+}
+
+@media (max-width: @app-screen-sm) and (max-height: 720px) {
+  .SettingsBlock {
+    .settingsCard {
+      height: 115%;
     }
   }
 }

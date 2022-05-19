@@ -6,6 +6,8 @@ import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { mapPointsSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
+import { RouteNames } from 'router/routes';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { IAdminPointListFilters } from './type';
 
@@ -13,6 +15,7 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
   setCurrentPage,
   setFilteredPoints,
 }) => {
+  const navigate = useNavigate();
   const { points, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
   const [pointNameFilter, setPointNameFilter] = useState('');
   const debouncedPointNameFilter = useDebounce<string>(pointNameFilter, 500);
@@ -108,7 +111,7 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
   }, []);
 
   const addPointHandler = useCallback(() => {
-    alert('Добавить пункт выдачи');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_POINT}`);
   }, []);
 
   return (

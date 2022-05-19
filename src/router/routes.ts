@@ -20,4 +20,6 @@ export enum RouteNames {
   ADMIN_CAR_EDIT = 'car/:id',
   ADMIN_CITY = 'city',
   ADMIN_CITY_EDIT = 'city/:id',
+  ADMIN_POINT = 'point',
+  ADMIN_POINT_EDIT = 'point/:id',
 }

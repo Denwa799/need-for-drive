@@ -44,7 +44,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { car, carIsCreate, carsIsLoading, carIdIsLoading, carIsDelete, carDeleteIsLoading } =
+  const { car, carIsCreate, carIdIsLoading, carIsDelete, carDeleteIsLoading } =
     useTypedSelector(carsSelector);
   const { categories, categoriesIsLoading } = useTypedSelector(categoriesSelector);
 

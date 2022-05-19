@@ -95,7 +95,7 @@ export const SettingsBlock: FC = () => {
       <AdminBackground className={styles.settingsCard}>
         <AdminTitle level={5}>Настройки города</AdminTitle>
         <Row className={styles.specifications}>
-          <Col span={24} className={cn(styles.item, styles.leftBlock)}>
+          <Col span={24} className={styles.item}>
             <AdminText>Название</AdminText>
             <div className={styles.inputContainer}>
               <AdminInput

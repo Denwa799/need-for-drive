@@ -7,3 +7,9 @@ export interface IMapPoint {
   };
   id: string;
 }
+
+export interface IMapPointCreate {
+  name: string;
+  cityId: string;
+  address: string;
+}
