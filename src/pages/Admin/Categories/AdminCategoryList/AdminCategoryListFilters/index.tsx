@@ -6,6 +6,8 @@ import { Col } from 'antd';
 import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
+import { RouteNames } from 'router/routes';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { IAdminCategoryListFilters } from './type';
 
@@ -13,6 +15,7 @@ export const AdminCategoryListFilters: FC<IAdminCategoryListFilters> = ({
   setCurrentPage,
   setFilteredCategories,
 }) => {
+  const navigate = useNavigate();
   const { categories, categoriesIsLoading } = useTypedSelector(categoriesSelector);
   const [categoriesNameFilter, setCategoriesNameFilter] = useState('');
   const debouncedCategoriesNameFilter = useDebounce<string>(categoriesNameFilter, 500);
@@ -73,7 +76,7 @@ export const AdminCategoryListFilters: FC<IAdminCategoryListFilters> = ({
   }, []);
 
   const addCityHandler = useCallback(() => {
-    alert('Добавить город');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CATEGORY}`);
   }, []);
 
   return (
