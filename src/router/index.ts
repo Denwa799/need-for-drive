@@ -19,6 +19,7 @@ import { AdminCar } from 'pages/Admin/Cars/AdminCar';
 import { AdminCity } from 'pages/Admin/Cities/AdminCity';
 import { AdminPoint } from 'pages/Admin/Points/AdminPoint';
 import { AdminCategory } from 'pages/Admin/Categories/AdminCategory';
+import { AdminRate } from 'pages/Admin/Rates/AdminRate';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -54,4 +55,6 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_POINT_EDIT, component: AdminPoint },
   { path: RouteNames.ADMIN_CATEGORY, component: AdminCategory },
   { path: RouteNames.ADMIN_CATEGORY_EDIT, component: AdminCategory },
+  { path: RouteNames.ADMIN_RATE, component: AdminRate },
+  { path: RouteNames.ADMIN_RATE_EDIT, component: AdminRate },
 ];

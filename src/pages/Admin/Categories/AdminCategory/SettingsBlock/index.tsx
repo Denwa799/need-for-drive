@@ -124,7 +124,7 @@ export const SettingsBlock: FC = () => {
   return (
     <Col span={24} className={styles.SettingsBlock}>
       <AdminBackground className={styles.settingsCard}>
-        <AdminTitle level={5}>Настройки города</AdminTitle>
+        <AdminTitle level={5}>Настройки категории машины</AdminTitle>
         <Row className={styles.specifications}>
           <Col
             xxl={12}

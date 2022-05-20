@@ -6,13 +6,16 @@ import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { IAdminRateListFilters } from './type';
+import { RouteNames } from '../../../../../router/routes';
 
 export const AdminRateListFilters: FC<IAdminRateListFilters> = ({
   setCurrentPage,
   setFilteredRates,
 }) => {
+  const navigate = useNavigate();
   const { rates, ratesIsLoading } = useTypedSelector(ratesSelector);
   const [rateNameFilter, setRateNameFilter] = useState('');
   const debouncedRateNameFilter = useDebounce<string>(rateNameFilter, 500);
@@ -111,7 +114,7 @@ export const AdminRateListFilters: FC<IAdminRateListFilters> = ({
   }, []);
 
   const addPointHandler = useCallback(() => {
-    alert('Добавить пункт выдачи');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE}`);
   }, []);
 
   return (

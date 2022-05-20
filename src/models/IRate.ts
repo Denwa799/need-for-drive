@@ -9,3 +9,8 @@ export interface IRate {
   };
   id: string;
 }
+
+export interface IRateCreate {
+  rateTypeId: string;
+  price: number;
+}
