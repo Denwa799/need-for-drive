@@ -80,22 +80,22 @@ export const AdminRateListFilters: FC<IAdminRateListFilters> = ({
 
   // Отфильтровываю тарифы
   const filteredRates = useMemo(() => {
-    if (debouncedRateNameFilter && debouncedRatePriceFilter)
-      return rates.filter(
-        (rate) =>
-          (rate.rateTypeId
-            ? rate.rateTypeId.name === debouncedRateNameFilter
-            : rate.rateTypeId !== null) &&
-          (rate.price ? rate.price.toString() === debouncedRatePriceFilter : rate.price !== null)
-      );
-    if (debouncedRateNameFilter || debouncedRatePriceFilter)
-      return rates.filter(
-        (rate) =>
-          (rate.rateTypeId
-            ? rate.rateTypeId.name === debouncedRateNameFilter
-            : rate.rateTypeId !== null) ||
-          (rate.price ? rate.price.toString() === debouncedRatePriceFilter : rate.price !== null)
-      );
+    if (debouncedRateNameFilter || debouncedRatePriceFilter) {
+      return rates.filter((rate) => {
+        const nameFiltered = rate.rateTypeId
+          ? rate.rateTypeId.name === debouncedRateNameFilter
+          : rate.rateTypeId !== null;
+
+        const priceFiltered = rate.price
+          ? rate.price.toString() === debouncedRatePriceFilter
+          : rate.price !== null;
+
+        if (debouncedRateNameFilter && debouncedRatePriceFilter)
+          return nameFiltered && priceFiltered;
+
+        return nameFiltered || priceFiltered;
+      });
+    }
     return rates;
   }, [rates, debouncedRateNameFilter, debouncedRatePriceFilter]);
 

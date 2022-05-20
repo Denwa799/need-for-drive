@@ -81,18 +81,22 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
 
   // Отфильтровываю пункты
   const filteredPoints = useMemo(() => {
-    if (debouncedPointNameFilter && debouncedPointCityFilter)
-      return points.filter(
-        (point) =>
-          (point.name ? point.name === debouncedPointNameFilter : point.name !== null) &&
-          (point.cityId ? point.cityId.name === debouncedPointCityFilter : point.cityId !== null)
-      );
-    if (debouncedPointNameFilter || debouncedPointCityFilter)
-      return points.filter(
-        (point) =>
-          (point.name ? point.name === debouncedPointNameFilter : point.name !== null) ||
-          (point.cityId ? point.cityId.name === debouncedPointCityFilter : point.cityId !== null)
-      );
+    if (debouncedPointNameFilter || debouncedPointCityFilter) {
+      return points.filter((point) => {
+        const nameFiltered = point.name
+          ? point.name === debouncedPointNameFilter
+          : point.name !== null;
+
+        const cityFiltered = point.cityId
+          ? point.cityId.name === debouncedPointCityFilter
+          : point.cityId !== null;
+
+        if (debouncedPointNameFilter && debouncedPointCityFilter)
+          return nameFiltered && cityFiltered;
+
+        return nameFiltered || cityFiltered;
+      });
+    }
     return points;
   }, [points, debouncedPointNameFilter, debouncedPointCityFilter]);
 

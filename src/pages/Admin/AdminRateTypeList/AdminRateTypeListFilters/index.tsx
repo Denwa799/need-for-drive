@@ -84,18 +84,22 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
 
   // Отфильтровываю типы тарифов
   const filteredRatesType = useMemo(() => {
-    if (debouncedRateTypeNameFilter && debouncedRateTypeUnitFilter)
-      return ratesType.filter(
-        (type) =>
-          (type.name ? type.name === debouncedRateTypeNameFilter : type.name !== null) &&
-          (type.unit ? type.unit === debouncedRateTypeUnitFilter : type.unit !== null)
-      );
-    if (debouncedRateTypeNameFilter || debouncedRateTypeUnitFilter)
-      return ratesType.filter(
-        (type) =>
-          (type.name ? type.name === debouncedRateTypeNameFilter : type.name !== null) ||
-          (type.unit ? type.unit === debouncedRateTypeUnitFilter : type.unit !== null)
-      );
+    if (debouncedRateTypeNameFilter || debouncedRateTypeUnitFilter) {
+      return ratesType.filter((type) => {
+        const nameFiltered = type.name
+          ? type.name === debouncedRateTypeNameFilter
+          : type.name !== null;
+
+        const unitFiltered = type.unit
+          ? type.unit === debouncedRateTypeUnitFilter
+          : type.unit !== null;
+
+        if (debouncedRateTypeNameFilter && debouncedRateTypeUnitFilter)
+          return nameFiltered && unitFiltered;
+
+        return nameFiltered || unitFiltered;
+      });
+    }
     return ratesType;
   }, [ratesType, debouncedRateTypeNameFilter, debouncedRateTypeUnitFilter]);
 

@@ -48,7 +48,7 @@ export const AdminOrderStatusList = () => {
   );
 
   const tableHead = useMemo(() => {
-    return ['Id', 'Название'];
+    return ['Название'];
   }, []);
 
   const tableBody = useMemo(() => {

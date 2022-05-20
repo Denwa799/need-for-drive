@@ -48,7 +48,7 @@ export const AdminRateList = () => {
   );
 
   const tableHead = useMemo(() => {
-    return ['Id', 'Название', 'Цена'];
+    return ['Название', 'Цена'];
   }, []);
 
   const tableBody = useMemo(() => {

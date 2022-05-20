@@ -49,7 +49,7 @@ export const AdminCityList = () => {
   );
 
   const tableHead = useMemo(() => {
-    return ['Id', 'Название'];
+    return ['Название'];
   }, []);
 
   const tableBody = useMemo(() => {

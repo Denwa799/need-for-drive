@@ -92,22 +92,20 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
 
   // Отфильтровываю машины
   const filteredCars = useMemo(() => {
-    if (debouncedCarNameFilter && debouncedCarCategoryNameFilter)
-      return cars.filter(
-        (car) =>
-          (car.name ? car.name === debouncedCarNameFilter : car.name !== null) &&
-          (car.categoryId
-            ? car.categoryId.name === debouncedCarCategoryNameFilter
-            : car.categoryId !== null)
-      );
-    if (debouncedCarNameFilter || debouncedCarCategoryNameFilter)
-      return cars.filter(
-        (car) =>
-          (car.name ? car.name === debouncedCarNameFilter : car.name !== null) ||
-          (car.categoryId
-            ? car.categoryId.name === debouncedCarCategoryNameFilter
-            : car.categoryId !== null)
-      );
+    if (debouncedCarNameFilter || debouncedCarCategoryNameFilter) {
+      return cars.filter((car) => {
+        const nameFiltered = car.name ? car.name === debouncedCarNameFilter : car.name !== null;
+
+        const categoryFiltered = car.categoryId
+          ? car.categoryId.name === debouncedCarCategoryNameFilter
+          : car.categoryId !== null;
+
+        if (debouncedCarNameFilter && debouncedCarCategoryNameFilter)
+          return nameFiltered && categoryFiltered;
+
+        return nameFiltered || categoryFiltered;
+      });
+    }
     return cars;
   }, [cars, debouncedCarNameFilter, debouncedCarCategoryNameFilter]);
 

@@ -25,13 +25,15 @@ export const AdminTable: FC<IAdminTable> = ({
         {body.map((row) => {
           return (
             <tr className={styles.body} key={`${Math.random()}${Object.keys(row)[0]}`}>
-              {Object.values(row).map((item) => {
-                return (
-                  <td className={styles.item} key={`${Math.random()}${item}`}>
-                    {item}
-                  </td>
-                );
-              })}
+              {Object.values(row)
+                .slice(1)
+                .map((item) => {
+                  return (
+                    <td className={styles.item} key={`${Math.random()}${item}`}>
+                      {item}
+                    </td>
+                  );
+                })}
               {isBtns ? (
                 <td className={styles.btnsBlock}>
                   <AdminBtn
