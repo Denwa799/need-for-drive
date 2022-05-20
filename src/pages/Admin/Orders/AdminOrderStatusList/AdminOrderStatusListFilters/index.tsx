@@ -6,13 +6,16 @@ import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderStatusSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { IAdminOrderStatusListFilters } from './type';
+import { RouteNames } from '../../../../../router/routes';
 
 export const AdminOrderStatusListFilters: FC<IAdminOrderStatusListFilters> = ({
   setCurrentPage,
   setFilteredOrdersStatus,
 }) => {
+  const navigate = useNavigate();
   const { allOrderStatus, orderStatusIsLoading } = useTypedSelector(orderStatusSelector);
   const [ordersStatusNameFilter, setOrdersStatusNameFilter] = useState('');
   const debouncedOrdersStatusNameFilter = useDebounce<string>(ordersStatusNameFilter, 500);
@@ -73,7 +76,7 @@ export const AdminOrderStatusListFilters: FC<IAdminOrderStatusListFilters> = ({
   }, []);
 
   const addPointHandler = useCallback(() => {
-    alert('Добавить пункт выдачи');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_ORDER_STATUS}`);
   }, []);
 
   return (

@@ -28,4 +28,6 @@ export enum RouteNames {
   ADMIN_RATE_EDIT = 'rate/:id',
   ADMIN_RATE_TYPE = 'rate-type',
   ADMIN_RATE_TYPE_EDIT = 'rate-type/:id',
+  ADMIN_ORDER_STATUS = 'order-status',
+  ADMIN_ORDER_STATUS_EDIT = 'order-status/:id',
 }

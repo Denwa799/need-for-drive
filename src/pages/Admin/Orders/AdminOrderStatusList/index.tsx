@@ -11,28 +11,59 @@ import { AdminPagination } from 'components/ui/AdminPagination';
 import { AdminContainer } from 'layouts/AdminContainer';
 import { IOrderStatus } from 'models/IOrderStatus';
 import { AdminTable } from 'components/ui/AdminTable';
-import { PageChangeHandlerType } from './type';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { Modal } from 'antd';
+import { RouteNames } from 'router/routes';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { AdminOrderStatusListFilters } from './AdminOrderStatusListFilters';
+import { PageChangeHandlerType } from './type';
+
+const { confirm } = Modal;
 
 export const AdminOrderStatusList = () => {
-  const { orderStatusIsLoading, orderStatusError } = useTypedSelector(orderStatusSelector);
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['auth']);
+  const tokenBearer = cookies.auth.access_token;
+
+  const { orderStatusIsLoading, orderStatusError, orderStatusIsDelete, orderStatusDeleteError } =
+    useTypedSelector(orderStatusSelector);
   const [filteredOrdersStatus, setFilteredOrdersStatus] = useState<IOrderStatus[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
-  const { fetchAllOrderStatus } = useActions();
+  const { fetchAllOrderStatus, deleteOrderStatus, setOrderStatusIsDelete } = useActions();
 
   useEffect(() => {
     if (!orderStatusIsLoading) fetchAllOrderStatus();
   }, []);
 
-  const changeBtnHandler = useCallback(() => {
-    alert('Изменить статус заказа');
+  const changeBtnHandler = useCallback((id: string) => {
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_ORDER_STATUS}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback(() => {
-    alert('Удалить статус заказа');
+  const deleteBtnHandler = useCallback((id: string) => {
+    confirm({
+      title: 'Вы действительно хотите удалить статус заказа?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Да',
+      okType: 'danger',
+      cancelText: 'Нет',
+      onOk() {
+        deleteOrderStatus(id, tokenBearer);
+      },
+    });
   }, []);
+
+  useEffect(() => {
+    if (orderStatusIsDelete)
+      setTimeout(() => {
+        setOrderStatusIsDelete(false);
+        fetchAllOrderStatus();
+        setCurrentPage(1);
+      }, 3000);
+  }, [orderStatusIsDelete]);
 
   const paginationRatesType = useMemo(
     () => paginationItems(filteredOrdersStatus, currentPage, limit),
@@ -61,31 +92,39 @@ export const AdminOrderStatusList = () => {
   }, [paginationRatesType]);
 
   return (
-    <AdminContainer>
-      <AdminTitle>Статус заказа</AdminTitle>
-      <AdminList>
-        <AdminOrderStatusListFilters
-          setCurrentPage={setCurrentPage}
-          setFilteredOrdersStatus={setFilteredOrdersStatus}
-        />
-        {orderStatusIsLoading || orderStatusError ? (
-          <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
-        ) : (
-          <AdminTable
-            head={tableHead}
-            body={tableBody}
-            isBtns
-            onChangeClick={changeBtnHandler}
-            onDeleteClick={deleteBtnHandler}
+    <div>
+      {orderStatusIsDelete ? (
+        <AdminSuccessMsg type="success">Успех! Статус заказа удален</AdminSuccessMsg>
+      ) : null}
+      {orderStatusDeleteError ? (
+        <AdminSuccessMsg type="error">{orderStatusDeleteError}</AdminSuccessMsg>
+      ) : null}
+      <AdminContainer>
+        <AdminTitle>Статус заказа</AdminTitle>
+        <AdminList>
+          <AdminOrderStatusListFilters
+            setCurrentPage={setCurrentPage}
+            setFilteredOrdersStatus={setFilteredOrdersStatus}
           />
-        )}
-      </AdminList>
-      <AdminPagination
-        total={filteredOrdersStatus.length}
-        onChange={pageChangeHandler}
-        pageSizeOptions={pageSizeOptions}
-        page={currentPage}
-      />
-    </AdminContainer>
+          {orderStatusIsLoading || orderStatusError ? (
+            <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
+          ) : (
+            <AdminTable
+              head={tableHead}
+              body={tableBody}
+              isBtns
+              onChangeClick={changeBtnHandler}
+              onDeleteClick={deleteBtnHandler}
+            />
+          )}
+        </AdminList>
+        <AdminPagination
+          total={filteredOrdersStatus.length}
+          onChange={pageChangeHandler}
+          pageSizeOptions={pageSizeOptions}
+          page={currentPage}
+        />
+      </AdminContainer>
+    </div>
   );
 };
