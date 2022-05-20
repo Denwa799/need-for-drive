@@ -11,28 +11,59 @@ import { AdminPagination } from 'components/ui/AdminPagination';
 import { AdminContainer } from 'layouts/AdminContainer';
 import { IRateType } from 'models/IRateType';
 import { AdminTable } from 'components/ui/AdminTable';
-import { PageChangeHandlerType } from './type';
+import { Modal } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { RouteNames } from 'router/routes';
+import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { AdminRateTypeListFilters } from './AdminRateTypeListFilters';
+import { PageChangeHandlerType } from './type';
 
-export const AdminRateType = () => {
-  const { ratesTypeIsLoading, ratesTypeError } = useTypedSelector(ratesTypeSelector);
+const { confirm } = Modal;
+
+export const AdminRateTypeList = () => {
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['auth']);
+  const tokenBearer = cookies.auth.access_token;
+
+  const { ratesTypeIsLoading, ratesTypeError, rateTypeIsDelete, rateTypeDeleteError } =
+    useTypedSelector(ratesTypeSelector);
   const [filteredRatesType, setFilteredRatesType] = useState<IRateType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
-  const { fetchRatesType } = useActions();
+  const { fetchRatesType, deleteRateType, setRateTypeIsDelete } = useActions();
 
   useEffect(() => {
     if (!ratesTypeIsLoading) fetchRatesType();
   }, []);
 
-  const changeBtnHandler = useCallback(() => {
-    alert('Изменить тип тарифа');
+  const changeBtnHandler = useCallback((id: string) => {
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE_TYPE}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback(() => {
-    alert('Удалить тип тарифа');
+  const deleteBtnHandler = useCallback((id: string) => {
+    confirm({
+      title: 'Вы действительно хотите удалить тип тарифа?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Да',
+      okType: 'danger',
+      cancelText: 'Нет',
+      onOk() {
+        deleteRateType(id, tokenBearer);
+      },
+    });
   }, []);
+
+  useEffect(() => {
+    if (rateTypeIsDelete)
+      setTimeout(() => {
+        setRateTypeIsDelete(false);
+        fetchRatesType();
+        setCurrentPage(1);
+      }, 3000);
+  }, [rateTypeIsDelete]);
 
   const paginationRatesType = useMemo(
     () => paginationItems(filteredRatesType, currentPage, limit),
@@ -62,31 +93,39 @@ export const AdminRateType = () => {
   }, [paginationRatesType]);
 
   return (
-    <AdminContainer>
-      <AdminTitle>Типы тарифов</AdminTitle>
-      <AdminList>
-        <AdminRateTypeListFilters
-          setCurrentPage={setCurrentPage}
-          setFilteredRatesType={setFilteredRatesType}
-        />
-        {ratesTypeIsLoading || ratesTypeError ? (
-          <ErrorLoading loading={ratesTypeIsLoading} error={ratesTypeError} />
-        ) : (
-          <AdminTable
-            head={tableHead}
-            body={tableBody}
-            isBtns
-            onChangeClick={changeBtnHandler}
-            onDeleteClick={deleteBtnHandler}
+    <div>
+      {rateTypeIsDelete ? (
+        <AdminSuccessMsg type="success">Успех! Тип тарифа удален</AdminSuccessMsg>
+      ) : null}
+      {rateTypeDeleteError ? (
+        <AdminSuccessMsg type="error">{rateTypeDeleteError}</AdminSuccessMsg>
+      ) : null}
+      <AdminContainer>
+        <AdminTitle>Типы тарифов</AdminTitle>
+        <AdminList>
+          <AdminRateTypeListFilters
+            setCurrentPage={setCurrentPage}
+            setFilteredRatesType={setFilteredRatesType}
           />
-        )}
-      </AdminList>
-      <AdminPagination
-        total={filteredRatesType.length}
-        onChange={pageChangeHandler}
-        pageSizeOptions={pageSizeOptions}
-        page={currentPage}
-      />
-    </AdminContainer>
+          {ratesTypeIsLoading || ratesTypeError ? (
+            <ErrorLoading loading={ratesTypeIsLoading} error={ratesTypeError} />
+          ) : (
+            <AdminTable
+              head={tableHead}
+              body={tableBody}
+              isBtns
+              onChangeClick={changeBtnHandler}
+              onDeleteClick={deleteBtnHandler}
+            />
+          )}
+        </AdminList>
+        <AdminPagination
+          total={filteredRatesType.length}
+          onChange={pageChangeHandler}
+          pageSizeOptions={pageSizeOptions}
+          page={currentPage}
+        />
+      </AdminContainer>
+    </div>
   );
 };

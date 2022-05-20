@@ -6,6 +6,8 @@ import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesTypeSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
+import { RouteNames } from 'router/routes';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.less';
 import { IAdminRateTypeListFilters } from './type';
 
@@ -13,6 +15,7 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
   setCurrentPage,
   setFilteredRatesType,
 }) => {
+  const navigate = useNavigate();
   const { ratesType, ratesTypeIsLoading } = useTypedSelector(ratesTypeSelector);
   const [rateTypeNameFilter, setRateTypeNameFilter] = useState('');
   const debouncedRateTypeNameFilter = useDebounce<string>(rateTypeNameFilter, 500);
@@ -111,7 +114,7 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
   }, []);
 
   const addPointHandler = useCallback(() => {
-    alert('Добавить тип тарифа');
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE_TYPE}`);
   }, []);
 
   return (

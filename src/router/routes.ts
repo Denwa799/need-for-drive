@@ -26,4 +26,6 @@ export enum RouteNames {
   ADMIN_CATEGORY_EDIT = 'category/:id',
   ADMIN_RATE = 'rate',
   ADMIN_RATE_EDIT = 'rate/:id',
+  ADMIN_RATE_TYPE = 'rate-type',
+  ADMIN_RATE_TYPE_EDIT = 'rate-type/:id',
 }

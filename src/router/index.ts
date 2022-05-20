@@ -13,13 +13,14 @@ import { AdminCityList } from 'pages/Admin/Cities/AdminCityList';
 import { AdminPointList } from 'pages/Admin/Points/AdminPointList';
 import { AdminCategoryList } from 'pages/Admin/Categories/AdminCategoryList';
 import { AdminRateList } from 'pages/Admin/Rates/AdminRateList';
-import { AdminRateType } from 'pages/Admin/Rates/AdminRateTypeList';
 import { AdminOrderStatusList } from 'pages/Admin/Orders/AdminOrderStatusList';
 import { AdminCar } from 'pages/Admin/Cars/AdminCar';
 import { AdminCity } from 'pages/Admin/Cities/AdminCity';
 import { AdminPoint } from 'pages/Admin/Points/AdminPoint';
 import { AdminCategory } from 'pages/Admin/Categories/AdminCategory';
 import { AdminRate } from 'pages/Admin/Rates/AdminRate';
+import { AdminRateTypeList } from 'pages/Admin/Rates/AdminRateTypeList';
+import { AdminRateType } from 'pages/Admin/Rates/AdminRateType';
 import { RouteNames } from './routes';
 
 interface IRoute {
@@ -45,7 +46,7 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_POINT_LIST, component: AdminPointList },
   { path: RouteNames.ADMIN_CATEGORY_LIST, component: AdminCategoryList },
   { path: RouteNames.ADMIN_RATE_LIST, component: AdminRateList },
-  { path: RouteNames.ADMIN_RATE_TYPE_LIST, component: AdminRateType },
+  { path: RouteNames.ADMIN_RATE_TYPE_LIST, component: AdminRateTypeList },
   { path: RouteNames.ADMIN_ORDER_STATUS_LIST, component: AdminOrderStatusList },
   { path: RouteNames.ADMIN_CAR, component: AdminCar },
   { path: RouteNames.ADMIN_CAR_EDIT, component: AdminCar },
@@ -57,4 +58,6 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.ADMIN_CATEGORY_EDIT, component: AdminCategory },
   { path: RouteNames.ADMIN_RATE, component: AdminRate },
   { path: RouteNames.ADMIN_RATE_EDIT, component: AdminRate },
+  { path: RouteNames.ADMIN_RATE_TYPE, component: AdminRateType },
+  { path: RouteNames.ADMIN_RATE_TYPE_EDIT, component: AdminRateType },
 ];
