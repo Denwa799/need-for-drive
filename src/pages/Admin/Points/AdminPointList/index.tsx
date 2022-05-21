@@ -82,7 +82,7 @@ export const AdminPointList = () => {
   );
 
   const tableHead = useMemo(() => {
-    return ['Id', 'Название', 'Город', 'Адрес'];
+    return ['Название', 'Город', 'Адрес'];
   }, []);
 
   const tableBody = useMemo(() => {

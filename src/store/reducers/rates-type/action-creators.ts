@@ -9,12 +9,12 @@ import {
   SetRatesTypeIsLoadingAction,
   SetRateTypeCreateErrorAction,
   SetRateTypeCreateIsLoadingAction,
-  SetRateTypeDeleteErrorAction,
+  SetRateTypeIsDeleteAction,
   SetRateTypeDeleteIsLoadingAction,
+  SetRateTypeDeleteErrorAction,
   SetRateTypeIdErrorAction,
   SetRateTypeIdIsLoadingAction,
   SetRateTypeIsCreateAction,
-  SetRateTypeIsDeleteAction,
 } from './types';
 
 export const RatesTypeActionCreators = {

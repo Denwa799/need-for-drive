@@ -7,9 +7,9 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
 import { useNavigate } from 'react-router-dom';
+import { RouteNames } from 'router/routes';
 import styles from './styles.module.less';
 import { IAdminRateListFilters } from './type';
-import { RouteNames } from '../../../../../router/routes';
 
 export const AdminRateListFilters: FC<IAdminRateListFilters> = ({
   setCurrentPage,
@@ -83,22 +83,22 @@ export const AdminRateListFilters: FC<IAdminRateListFilters> = ({
 
   // Отфильтровываю тарифы
   const filteredRates = useMemo(() => {
-    if (debouncedRateNameFilter && debouncedRatePriceFilter)
-      return rates.filter(
-        (rate) =>
-          (rate.rateTypeId
-            ? rate.rateTypeId.name === debouncedRateNameFilter
-            : rate.rateTypeId !== null) &&
-          (rate.price ? rate.price.toString() === debouncedRatePriceFilter : rate.price !== null)
-      );
-    if (debouncedRateNameFilter || debouncedRatePriceFilter)
-      return rates.filter(
-        (rate) =>
-          (rate.rateTypeId
-            ? rate.rateTypeId.name === debouncedRateNameFilter
-            : rate.rateTypeId !== null) ||
-          (rate.price ? rate.price.toString() === debouncedRatePriceFilter : rate.price !== null)
-      );
+    if (debouncedRateNameFilter || debouncedRatePriceFilter) {
+      return rates.filter((rate) => {
+        const nameFiltered = rate.rateTypeId
+          ? rate.rateTypeId.name === debouncedRateNameFilter
+          : rate.rateTypeId !== null;
+
+        const priceFiltered = rate.price
+          ? rate.price.toString() === debouncedRatePriceFilter
+          : rate.price !== null;
+
+        if (debouncedRateNameFilter && debouncedRatePriceFilter)
+          return nameFiltered && priceFiltered;
+
+        return nameFiltered || priceFiltered;
+      });
+    }
     return rates;
   }, [rates, debouncedRateNameFilter, debouncedRatePriceFilter]);
 

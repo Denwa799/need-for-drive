@@ -79,7 +79,7 @@ export const AdminRateTypeList = () => {
   );
 
   const tableHead = useMemo(() => {
-    return ['Id', 'Название', 'Единица измерения'];
+    return ['Название', 'Единица измерения'];
   }, []);
 
   const tableBody = useMemo(() => {

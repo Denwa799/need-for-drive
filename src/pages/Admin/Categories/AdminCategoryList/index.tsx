@@ -78,7 +78,7 @@ export const AdminCategoryList = () => {
   );
 
   const tableHead = useMemo(() => {
-    return ['Id', 'Название', 'Описание'];
+    return ['Название', 'Описание'];
   }, []);
 
   const tableBody = useMemo(() => {

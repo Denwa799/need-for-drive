@@ -118,7 +118,7 @@ export const AdminOrderList: FC = () => {
                       </Checkbox>
                     </Col>
                     <Col xl={4} lg={3} md={6} sm={12} xs={24} className={styles.price}>
-                      {order.price ? order.price.toLocaleString() : errorMessage} ₽
+                      {order.price ? `${order.price.toLocaleString()} ₽` : errorMessage}
                     </Col>
                     <Col xl={6} lg={8} md={24} sm={24} xs={24} className={styles.btns}>
                       {order.orderStatusId && order.orderStatusId.name !== 'Подтвержденные' ? (
