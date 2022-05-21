@@ -1,11 +1,136 @@
 @import 'styles/consts';
 
 .AdminOrderList {
-  background-color: @app-color__smokyWhite;
-  font-family: Helvetica, Roboto, sans-serif;
-  font-style: normal;
+  .car {
+    padding-top: 18px;
+    align-items: center;
 
-  .container {
-    min-height: 100vh;
+    .img {
+      max-width: 138px;
+      max-height: 63px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      padding-right: 5px;
+    }
+
+    .description {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: -0.408571px;
+      color: @app-color__concrete2;
+      margin: 0;
+      padding: 2px 0;
+
+      b {
+        color: @app-primary-black;
+      }
+    }
+
+    .additional {
+      display: flex;
+      flex-flow: column;
+
+      .checkbox {
+        margin: 0;
+
+        span {
+          ::after {
+            border-width: 1px;
+            width: 5px;
+            height: 10px;
+          }
+        }
+      }
+    }
+
+    .price {
+      font-size: 24px;
+      line-height: 28px;
+      letter-spacing: -0.754286px;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: right;
+    }
+  }
+}
+
+@media (max-width: 1036px) {
+  .AdminOrderList {
+    .car {
+      .btns {
+        .btn {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-lg) {
+  .AdminOrderList {
+    .car {
+      .btns {
+        display: flex;
+        flex-grow: 1;
+        padding-top: 20px;
+
+        .btnContainer {
+          width: 100%;
+
+          .btn {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminOrderList {
+    .car {
+      .img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .additional {
+        padding-top: 20px;
+        flex-flow: row;
+        flex-wrap: wrap;
+
+        .checkbox {
+          padding: 0 20px 5px 0;
+        }
+      }
+
+      .price {
+        padding-top: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-sm) {
+  .AdminOrderList {
+    .car {
+      .btns {
+        flex-flow: column;
+
+        .btn {
+          margin-bottom: 5px;
+          border-radius: 4px;
+          border-right: 1px solid @app-color__paleBlue; ;
+        }
+      }
+    }
   }
 }

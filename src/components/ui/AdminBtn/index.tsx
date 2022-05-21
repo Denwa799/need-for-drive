@@ -7,9 +7,10 @@ import { IAdminBtn } from './type';
 export const AdminBtn: FC<IAdminBtn> = ({
   children,
   onClick,
-  color = 'blue',
+  type = 'blue',
   className,
   containerClassName,
+  icon,
 }) => {
   return (
     <div className={cn(styles.AdminBtn, containerClassName)}>
@@ -17,11 +18,15 @@ export const AdminBtn: FC<IAdminBtn> = ({
         type="primary"
         className={cn(
           styles.btn,
-          { [styles.red]: color === 'red' },
-          { [styles.blue]: color === 'blue' },
+          { [styles.red]: type === 'red' },
+          { [styles.blue]: type === 'blue' },
+          { [styles.check]: type === 'check' },
+          { [styles.more]: type === 'more' },
+          { [styles.close]: type === 'close' },
           className
         )}
         onClick={onClick}
+        icon={icon}
       >
         {children}
       </Button>

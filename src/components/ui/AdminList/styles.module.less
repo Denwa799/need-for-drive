@@ -1,0 +1,23 @@
+@import 'styles/consts';
+
+.AdminList {
+  overflow-y: auto;
+  height: 386px;
+  position: relative;
+  z-index: 10;
+  background-color: @app-primary-white;
+  box-shadow: @app-box-shadow__second;
+  -webkit-box-shadow: @app-box-shadow__second;
+  -moz-box-shadow: @app-box-shadow__second;
+  border-radius: 9px 9px 0 0;
+  padding: 0 22px 12px 22px;
+}
+
+.AdminList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.AdminList::-webkit-scrollbar-thumb {
+  border-radius: 9px;
+  background-color: @app-primary-blue;
+}

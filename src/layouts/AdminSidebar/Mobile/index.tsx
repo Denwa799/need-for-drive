@@ -3,7 +3,8 @@ import { Drawer, Menu, Row } from 'antd';
 import cn from 'classnames';
 import MenuToggle from 'components/ui/MenuToggle/MenuToggle';
 import LogoSvg from 'components/ui/CustomIcns/LogoSvg';
-import Icon, { CarFilled, HomeFilled, ShoppingFilled } from '@ant-design/icons';
+import Icon from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
 import styles from './styles.module.less';
 import { IAdminSidebarMobile } from './type';
 
@@ -25,6 +26,7 @@ export const Mobile: FC<IAdminSidebarMobile> = ({ adminSidebarItems }) => {
 
   const menuItemHandler = (value: string) => {
     setSelected(value);
+    setVisible(false);
   };
 
   return (
@@ -54,7 +56,9 @@ export const Mobile: FC<IAdminSidebarMobile> = ({ adminSidebarItems }) => {
                   }}
                   icon={item.icon}
                 >
-                  {item.children}
+                  <NavLink to={item.route} className={styles.link}>
+                    {item.children}
+                  </NavLink>
                 </Menu.Item>
               );
             })}
