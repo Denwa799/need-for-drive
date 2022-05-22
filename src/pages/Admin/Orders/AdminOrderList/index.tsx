@@ -1,6 +1,11 @@
 import React, { FC, SyntheticEvent, useCallback, useMemo, useState } from 'react';
-import { Button, Checkbox, Col, Row } from 'antd';
-import { CheckOutlined, CloseOutlined, MoreOutlined } from '@ant-design/icons/lib';
+import { Checkbox, Col, Modal, Row } from 'antd';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  ExclamationCircleOutlined,
+  MoreOutlined,
+} from '@ant-design/icons/lib';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
@@ -12,16 +17,30 @@ import { orderSelector } from 'store/selectors/selectors';
 import { dateString, durationDateString } from 'utils/date';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { errorMessage } from 'utils/errorMessage';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from 'router/routes';
+import { useActions } from 'hooks/useActions';
+import { useCookies } from 'react-cookie';
+import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { AdminOrderListFilters } from './AdminOrderListFilters';
 import styles from './styles.module.less';
-import { PageChangeHandlerType } from './type';
+import { PageChangeHandlerType, CheckCancelBtnHandlerType } from './type';
+
+const { confirm } = Modal;
 
 export const AdminOrderList: FC = () => {
-  const { orders, ordersCount, orderIsLoading, orderError } = useTypedSelector(orderSelector);
+  const [cookies] = useCookies(['auth']);
+  const tokenBearer = cookies.auth.access_token;
+  const navigate = useNavigate();
+
+  const { orders, ordersCount, ordersIsLoading, orderError, orderIsCreate, orderCreateError } =
+    useTypedSelector(orderSelector);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
 
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
+
+  const { updateOrder } = useActions();
 
   const totalOrders = useMemo(() => {
     // Исправляет пустую последнюю страницу в пагинации.
@@ -34,16 +53,68 @@ export const AdminOrderList: FC = () => {
     event.currentTarget.src = noImage;
   }, []);
 
-  const checkBtnHandler = useCallback(() => {
-    alert('Подтвердить заказ');
-  }, []);
+  const checkCancelBtnHandler = useCallback<CheckCancelBtnHandlerType>(
+    (
+      isCheck,
+      id,
+      cityName,
+      cityId,
+      pointId,
+      carId,
+      color,
+      dateFrom,
+      dateTo,
+      rateId,
+      price,
+      isFullTank,
+      isNeedChildChair,
+      isRightWheel
+    ) => {
+      const postData = {
+        orderStatusId: {
+          name: isCheck ? 'Подтвержденные' : 'Отмененные',
+          id: isCheck ? '5e26a1f0099b810b946c5d8b' : '5e26a1f5099b810b946c5d8c',
+        },
+        cityId: {
+          name: cityName,
+          id: cityId,
+        },
+        pointId,
+        carId,
+        color,
+        dateFrom,
+        dateTo,
+        rateId,
+        price,
+        isFullTank,
+        isNeedChildChair,
+        isRightWheel,
+      };
+      confirm({
+        title: `Вы действительно хотите ${isCheck ? 'подтвердить' : 'отменить'} заказ?`,
+        icon: <ExclamationCircleOutlined />,
+        okText: 'Да',
+        cancelText: 'Нет',
+        className: 'appConfirmModal',
+        onOk() {
+          if (!cityId || !cityName) return alert('В заказе нет информации о городе');
+          if (!pointId) return alert('В заказе нет информации о пункте выдачи');
+          if (!carId) return alert('В заказе нет информации о машине');
+          if (!color) return alert('В заказе нет информации о цвете');
+          if (dateFrom <= 0) return alert('В заказе нет информации, с какой даты действует заказ');
+          if (dateTo <= 0) return alert('В заказе нет информации, до какой даты действует заказ');
+          if (!rateId) return alert('В заказе нет информации о тарифе');
+          if (price <= 0) return alert('В заказе нет информации о цене');
 
-  const cancleBtnHandler = useCallback(() => {
-    alert('Отменить заказ');
-  }, []);
+          return updateOrder(id, postData, tokenBearer);
+        },
+      });
+    },
+    []
+  );
 
-  const changeBtnHandler = useCallback(() => {
-    alert('Изменить заказ');
+  const changeBtnHandler = useCallback((id: string) => {
+    navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_ORDER}/${id}`);
   }, []);
 
   // Обработка нажатия на кнопки смены страницы в пагинации
@@ -57,6 +128,10 @@ export const AdminOrderList: FC = () => {
 
   return (
     <div className={styles.AdminOrderList}>
+      {orderIsCreate ? (
+        <AdminSuccessMsg type="success">Успех! Заказ сохранен</AdminSuccessMsg>
+      ) : null}
+      {orderCreateError ? <AdminSuccessMsg type="error">{orderCreateError}</AdminSuccessMsg> : null}
       <AdminContainer>
         <AdminTitle>Заказы</AdminTitle>
         <AdminList>
@@ -65,8 +140,8 @@ export const AdminOrderList: FC = () => {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
-          {orderIsLoading || orderError ? (
-            <ErrorLoading loading={orderIsLoading} error={orderError} />
+          {ordersIsLoading || orderError ? (
+            <ErrorLoading loading={ordersIsLoading} error={orderError} />
           ) : (
             <div>
               {orders.map((order) => {
@@ -123,7 +198,25 @@ export const AdminOrderList: FC = () => {
                     <Col xl={6} lg={8} md={24} sm={24} xs={24} className={styles.btns}>
                       {order.orderStatusId && order.orderStatusId.name !== 'Подтвержденные' ? (
                         <AdminBtn
-                          onClick={checkBtnHandler}
+                          onClick={() =>
+                            checkCancelBtnHandler(
+                              true,
+                              order.id,
+                              order.cityId ? order.cityId.name : '',
+                              order.cityId ? order.cityId.id : '',
+                              order.pointId ? order.pointId.id : '',
+                              order.carId ? order.carId.id : '',
+                              order.color ? order.color : '',
+                              order.dateFrom ? order.dateFrom : 0,
+                              order.dateTo ? order.dateTo : 0,
+                              order.rateId ? order.rateId.id : '',
+                              order.price ? order.price : 0,
+                              order.isFullTank,
+                              order.isNeedChildChair,
+                              order.isRightWheel
+                            )
+                          }
+                          disabled={orderIsCreate}
                           type="check"
                           icon={<CheckOutlined />}
                           containerClassName={styles.btnContainer}
@@ -132,9 +225,27 @@ export const AdminOrderList: FC = () => {
                           Готово
                         </AdminBtn>
                       ) : null}
-                      {order.orderStatusId && order.orderStatusId.name !== 'Отмененые' ? (
+                      {order.orderStatusId && order.orderStatusId.name !== 'Отмененные' ? (
                         <AdminBtn
-                          onClick={cancleBtnHandler}
+                          onClick={() =>
+                            checkCancelBtnHandler(
+                              false,
+                              order.id,
+                              order.cityId ? order.cityId.name : '',
+                              order.cityId ? order.cityId.id : '',
+                              order.pointId ? order.pointId.id : '',
+                              order.carId ? order.carId.id : '',
+                              order.color ? order.color : '',
+                              order.dateFrom ? order.dateFrom : 0,
+                              order.dateTo ? order.dateTo : 0,
+                              order.rateId ? order.rateId.id : '',
+                              order.price ? order.price : 0,
+                              order.isFullTank,
+                              order.isNeedChildChair,
+                              order.isRightWheel
+                            )
+                          }
+                          disabled={orderIsCreate}
                           type="close"
                           icon={<CloseOutlined />}
                           containerClassName={styles.btnContainer}
@@ -144,7 +255,8 @@ export const AdminOrderList: FC = () => {
                         </AdminBtn>
                       ) : null}
                       <AdminBtn
-                        onClick={changeBtnHandler}
+                        onClick={() => changeBtnHandler(order.id)}
+                        disabled={orderIsCreate}
                         type="more"
                         icon={<MoreOutlined />}
                         containerClassName={styles.btnContainer}

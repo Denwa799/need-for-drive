@@ -1,7 +1,12 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Col } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { carsSelector, citySelector, orderStatusSelector } from 'store/selectors/selectors';
+import {
+  carsSelector,
+  citySelector,
+  orderSelector,
+  orderStatusSelector,
+} from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import useDebounce from 'hooks/useDebounce';
 import { AdminBtn } from 'components/ui/AdminBtn';
@@ -18,6 +23,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
 }) => {
   const [cookies] = useCookies(['auth']);
   const tokenBearer = cookies.auth.access_token;
+  const { orderIsCreate } = useTypedSelector(orderSelector);
   const { cars, carsIsLoading } = useTypedSelector(carsSelector);
   const { city, cityIsLoading } = useTypedSelector(citySelector);
   const { allOrderStatus, orderStatusIsLoading } = useTypedSelector(orderStatusSelector);
@@ -34,7 +40,8 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
   const [carColorFilter, setCarColorFilter] = useState('');
   const debouncedCarColorFilter = useDebounce<string>(carColorFilter, 500);
 
-  const { fetchAllOrders, fetchCars, fetchCity, fetchAllOrderStatus } = useActions();
+  const { fetchAllOrders, fetchCars, fetchCity, fetchAllOrderStatus, setOrderIsCreate } =
+    useActions();
 
   useEffect(() => {
     if (!carsIsLoading) fetchCars();
@@ -216,6 +223,24 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
     setCurrentPage(1);
   }, [carNameId, cityId, orderStatusId, debouncedCarColorFilter]);
 
+  // Если заказ был подтвержден
+  useEffect(() => {
+    if (orderIsCreate)
+      setTimeout(() => {
+        setOrderIsCreate(false);
+        fetchAllOrders(
+          tokenBearer,
+          limit,
+          currentPage,
+          carNameId ? carNameId.id : null,
+          cityId ? cityId.id : null,
+          orderStatusId ? orderStatusId.id : null,
+          debouncedCarColorFilter || null
+        );
+        setCurrentPage(1);
+      }, 3000);
+  }, [orderIsCreate]);
+
   return (
     <div className={styles.AdminOrderListFilters}>
       <AdminFiltersContainer>
@@ -273,6 +298,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
             type="red"
             className={styles.resetBtn}
             containerClassName={styles.btn}
+            disabled={orderIsCreate}
           >
             Сбросить
           </AdminBtn>
@@ -280,6 +306,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
             onClick={filterApplyHandler}
             className={styles.applyBtn}
             containerClassName={styles.btn}
+            disabled={orderIsCreate}
           >
             Применить
           </AdminBtn>
