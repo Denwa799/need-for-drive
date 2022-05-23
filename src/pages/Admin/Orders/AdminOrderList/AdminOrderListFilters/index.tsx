@@ -25,7 +25,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
   const tokenBearer = cookies.auth.access_token;
   const { orderIsCreate } = useTypedSelector(orderSelector);
   const { cars, carsIsLoading } = useTypedSelector(carsSelector);
-  const { city, cityIsLoading } = useTypedSelector(citySelector);
+  const { cities, citiesIsLoading } = useTypedSelector(citySelector);
   const { allOrderStatus, orderStatusIsLoading } = useTypedSelector(orderStatusSelector);
 
   const [carNameFilter, setCarNameFilter] = useState('');
@@ -40,18 +40,18 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
   const [carColorFilter, setCarColorFilter] = useState('');
   const debouncedCarColorFilter = useDebounce<string>(carColorFilter, 500);
 
-  const { fetchAllOrders, fetchCars, fetchCity, fetchAllOrderStatus, setOrderIsCreate } =
+  const { fetchAllOrders, fetchCars, fetchCities, fetchAllOrderStatus, setOrderIsCreate } =
     useActions();
 
   useEffect(() => {
     if (!carsIsLoading) fetchCars();
-    if (!cityIsLoading) fetchCity();
+    if (!citiesIsLoading) fetchCities();
     if (!orderStatusIsLoading) fetchAllOrderStatus();
   }, []);
 
   // Создаю массив для поля фильтрации
   const carsName = useMemo(() => cars.map((car) => car.name), [cars]);
-  const cityName = useMemo(() => city.map((item) => item.name), [city]);
+  const cityName = useMemo(() => cities.map((item) => item.name), [cities]);
   const orderStatusName = useMemo(
     () => allOrderStatus.map((order) => order.name),
     [allOrderStatus]
@@ -100,7 +100,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
         value: name,
       };
     });
-  }, [city]);
+  }, [cities]);
 
   const optionsOrderStatus = useMemo(() => {
     return cleanOrderStatusName.map((name) => {
@@ -129,10 +129,10 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
 
   const cityId = useMemo(
     () =>
-      city.find(
+      cities.find(
         (item) => item.name.toLocaleLowerCase() === debouncedCityFilter.toLocaleLowerCase()
       ),
-    [city, debouncedCityFilter]
+    [cities, debouncedCityFilter]
   );
 
   const orderStatusId = useMemo(
@@ -223,7 +223,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
     setCurrentPage(1);
   }, [carNameId, cityId, orderStatusId, debouncedCarColorFilter]);
 
-  // Если заказ был подтвержден
+  // Если заказ был обновлен
   useEffect(() => {
     if (orderIsCreate)
       setTimeout(() => {
@@ -265,7 +265,7 @@ export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
             placeholder="Город"
             className={styles.autocomplete}
             inputClassName={styles.input}
-            isLoading={cityIsLoading}
+            isLoading={citiesIsLoading}
           />
         </Col>
         <Col xxl={3} xl={2} lg={4} md={4} sm={12} xs={24} className={styles.filter}>

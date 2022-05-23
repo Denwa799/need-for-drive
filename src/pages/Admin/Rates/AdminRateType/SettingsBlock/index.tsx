@@ -25,7 +25,7 @@ export const SettingsBlock: FC = () => {
   const { id } = useParams();
 
   const {
-    rateTypeId,
+    rateType,
     rateTypeIsCreate,
     rateTypeIsDelete,
     rateTypeCreateIsLoading,
@@ -55,11 +55,11 @@ export const SettingsBlock: FC = () => {
   }, [rateTypeNameValue]);
 
   useEffect(() => {
-    if (Object.keys(rateTypeId).length > 0 && id) {
-      if (rateTypeId.name) setRateTypeNameValue(rateTypeId.name);
-      if (rateTypeId.unit) setUnitValue(rateTypeId.unit);
+    if (Object.keys(rateType).length > 0 && id) {
+      if (rateType.name) setRateTypeNameValue(rateType.name);
+      if (rateType.unit) setUnitValue(rateType.unit);
     }
-  }, [rateTypeId, id]);
+  }, [rateType, id]);
 
   useEffect(() => {
     if (rateTypeIsCreate)

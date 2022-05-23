@@ -4,9 +4,9 @@ export interface CategoriesState {
   categories: ICategory[];
   categoriesIsLoading: boolean;
   categoriesError: string;
-  categoryId: ICategory;
-  categoryIdIsLoading: boolean;
-  categoryIdError: string;
+  category: ICategory;
+  categoryIsLoading: boolean;
+  categoryError: string;
   categoryIsCreate: boolean;
   categoryCreateIsLoading: boolean;
   categoryCreateError: string;
@@ -19,9 +19,9 @@ export enum CategoriesActionEnum {
   GET_CATEGORIES = 'GET_CATEGORIES',
   SET_CATEGORIES_ERROR = 'SET_CATEGORIES_ERROR',
   SET_CATEGORIES_IS_LOADING = 'SET_CATEGORIES_IS_LOADING',
-  GET_CATEGORY_ID = 'GET_CATEGORY_ID',
-  SET_CATEGORY_ID_IS_LOADING = 'SET_CATEGORY_ID_IS_LOADING',
-  SET_CATEGORY_ID_ERROR = 'SET_CATEGORY_ID_ERROR',
+  GET_CATEGORY = 'GET_CATEGORY',
+  SET_CATEGORY_IS_LOADING = 'SET_CATEGORY_IS_LOADING',
+  SET_CATEGORY_ERROR = 'SET_CATEGORY_ERROR',
   SET_CATEGORY_IS_CREATE = 'SET_CATEGORY_IS_CREATE',
   SET_CATEGORY_CREATE_IS_LOADING = 'SET_CATEGORY_CREATE_IS_LOADING',
   SET_CATEGORY_CREATE_ERROR = 'SET_CATEGORY_CREATE_ERROR',
@@ -45,18 +45,18 @@ export interface SetCategoriesIsLoadingAction {
   payload: boolean;
 }
 
-export interface GetCategoryId {
-  type: CategoriesActionEnum.GET_CATEGORY_ID;
+export interface GetCategory {
+  type: CategoriesActionEnum.GET_CATEGORY;
   payload: ICategory;
 }
 
-export interface SetCategoryIdIsLoadingAction {
-  type: CategoriesActionEnum.SET_CATEGORY_ID_IS_LOADING;
+export interface SetCategoryIsLoadingAction {
+  type: CategoriesActionEnum.SET_CATEGORY_IS_LOADING;
   payload: boolean;
 }
 
-export interface SetCategoryIdErrorAction {
-  type: CategoriesActionEnum.SET_CATEGORY_ID_ERROR;
+export interface SetCategoryErrorAction {
+  type: CategoriesActionEnum.SET_CATEGORY_ERROR;
   payload: string;
 }
 
@@ -94,9 +94,9 @@ export type CategoriesAction =
   | GetCategories
   | SetCategoriesErrorAction
   | SetCategoriesIsLoadingAction
-  | GetCategoryId
-  | SetCategoryIdIsLoadingAction
-  | SetCategoryIdErrorAction
+  | GetCategory
+  | SetCategoryIsLoadingAction
+  | SetCategoryErrorAction
   | SetCategoryIsCreateAction
   | SetCategoryCreateIsLoadingAction
   | SetCategoryCreateErrorAction

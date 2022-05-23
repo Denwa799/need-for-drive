@@ -16,26 +16,26 @@ export const AdminCity = () => {
 
   const {
     cityIsCreate,
-    cityId,
+    city,
     cityCreateError,
     cityIsDelete,
     cityDeleteError,
-    cityIdIsLoading,
-    cityIdError,
+    cityIsLoading,
+    cityError,
   } = useTypedSelector(citySelector);
 
   const {
-    fetchCityId,
+    fetchCity,
     setCityIsCreate,
     setCityCreateError,
-    cleanCityId,
+    cleanCity,
     setCityIsDelete,
     setCityDeleteError,
   } = useActions();
 
   useEffect(() => {
     return () => {
-      cleanCityId();
+      cleanCity();
       setCityIsCreate(false);
       setCityCreateError('');
       setCityIsDelete(false);
@@ -44,15 +44,15 @@ export const AdminCity = () => {
   }, []);
 
   useEffect(() => {
-    if (id && Object.keys(cityId).length === 0) {
-      fetchCityId(id);
+    if (id && Object.keys(city).length === 0) {
+      fetchCity(id);
     }
-  }, [id, cityId]);
+  }, [id, city]);
 
   return (
     <div>
-      {cityIdIsLoading ? (
-        <ErrorLoading loading={cityIdIsLoading} error={cityIdError} />
+      {cityIsLoading || cityError ? (
+        <ErrorLoading loading={cityIsLoading} error={cityError} />
       ) : (
         <div className={styles.AdminCityCreate}>
           {cityIsCreate ? (

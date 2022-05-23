@@ -16,26 +16,26 @@ export const AdminRate = () => {
 
   const {
     rateIsCreate,
-    rateId,
+    rate,
     rateCreateError,
     rateIsDelete,
     rateDeleteError,
-    rateIdIsLoading,
-    rateIdError,
+    rateIsLoading,
+    rateError,
   } = useTypedSelector(ratesSelector);
 
   const {
-    fetchRateId,
+    fetchRate,
     setRateIsCreate,
     setRateCreateError,
-    cleanRateId,
+    cleanRate,
     setRateIsDelete,
     setRateDeleteError,
   } = useActions();
 
   useEffect(() => {
     return () => {
-      cleanRateId();
+      cleanRate();
       setRateIsCreate(false);
       setRateCreateError('');
       setRateIsDelete(false);
@@ -44,15 +44,15 @@ export const AdminRate = () => {
   }, []);
 
   useEffect(() => {
-    if (id && Object.keys(rateId).length === 0) {
-      fetchRateId(id);
+    if (id && Object.keys(rate).length === 0) {
+      fetchRate(id);
     }
-  }, [id, rateId]);
+  }, [id, rate]);
 
   return (
     <div>
-      {rateIdIsLoading ? (
-        <ErrorLoading loading={rateIdIsLoading} error={rateIdError} />
+      {rateIsLoading || rateError ? (
+        <ErrorLoading loading={rateIsLoading} error={rateError} />
       ) : (
         <div className={styles.AdminRateCreate}>
           {rateIsCreate ? (

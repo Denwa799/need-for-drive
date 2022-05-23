@@ -15,9 +15,9 @@ export const AdminOrderStatus = () => {
   const { id } = useParams();
 
   const {
-    orderStatusId,
-    orderStatusIdIsLoading,
-    orderStatusIdError,
+    orderStatus,
+    orderStatusIsLoading,
+    orderStatusError,
     orderStatusIsCreate,
     orderStatusCreateError,
     orderStatusIsDelete,
@@ -25,8 +25,8 @@ export const AdminOrderStatus = () => {
   } = useTypedSelector(orderStatusSelector);
 
   const {
-    fetchOrderStatusId,
-    cleanOrderStatusId,
+    fetchOrderStatus,
+    cleanOrderStatus,
     setOrderStatusIsCreate,
     setOrderStatusCreateError,
     setOrderStatusIsDelete,
@@ -35,7 +35,7 @@ export const AdminOrderStatus = () => {
 
   useEffect(() => {
     return () => {
-      cleanOrderStatusId();
+      cleanOrderStatus();
       setOrderStatusIsCreate(false);
       setOrderStatusCreateError('');
       setOrderStatusIsDelete(false);
@@ -44,15 +44,15 @@ export const AdminOrderStatus = () => {
   }, []);
 
   useEffect(() => {
-    if (id && Object.keys(orderStatusId).length === 0) {
-      fetchOrderStatusId(id);
+    if (id && Object.keys(orderStatus).length === 0) {
+      fetchOrderStatus(id);
     }
-  }, [id, orderStatusId]);
+  }, [id, orderStatus]);
 
   return (
     <div>
-      {orderStatusIdIsLoading || orderStatusIdError ? (
-        <ErrorLoading loading={orderStatusIdIsLoading} error={orderStatusIdError} />
+      {orderStatusIsLoading || orderStatusError ? (
+        <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
       ) : (
         <div className={styles.AdminOrderStatus}>
           {orderStatusIsCreate ? (

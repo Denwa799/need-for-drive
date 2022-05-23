@@ -3,15 +3,15 @@ import { IOrderStatus, IOrderStatusCreate } from 'models/IOrderStatus';
 import { DeleteService, GetService, PostService, PutService } from 'api';
 import {
   GetAllOrderStatus,
-  GetOrderStatusId,
+  GetOrderStatus,
   OrderStatusActionEnum,
+  SetAllOrderStatusErrorAction,
+  SetAllOrderStatusIsLoadingAction,
   SetOrderStatusCreateErrorAction,
   SetOrderStatusCreateIsLoadingAction,
   SetOrderStatusDeleteErrorAction,
   SetOrderStatusDeleteIsLoadingAction,
   SetOrderStatusErrorAction,
-  SetOrderStatusIdErrorAction,
-  SetOrderStatusIdIsLoadingAction,
   SetOrderStatusIsCreateAction,
   SetOrderStatusIsDeleteAction,
   SetOrderStatusIsLoadingAction,
@@ -22,24 +22,24 @@ export const OrderStatusActionCreators = {
     type: OrderStatusActionEnum.GET_ALL_ORDER_STATUS,
     payload,
   }),
+  setAllOrderStatusIsLoading: (payload: boolean): SetAllOrderStatusIsLoadingAction => ({
+    type: OrderStatusActionEnum.SET_ALL_ORDER_STATUS_IS_LOADING,
+    payload,
+  }),
+  setAllOrderStatusError: (payload: string): SetAllOrderStatusErrorAction => ({
+    type: OrderStatusActionEnum.SET_ALL_ORDER_STATUS_ERROR,
+    payload,
+  }),
+  getOrderStatus: (payload: IOrderStatus): GetOrderStatus => ({
+    type: OrderStatusActionEnum.GET_ORDER_STATUS,
+    payload,
+  }),
   setOrderStatusIsLoading: (payload: boolean): SetOrderStatusIsLoadingAction => ({
     type: OrderStatusActionEnum.SET_ORDER_STATUS_IS_LOADING,
     payload,
   }),
   setOrderStatusError: (payload: string): SetOrderStatusErrorAction => ({
     type: OrderStatusActionEnum.SET_ORDER_STATUS_ERROR,
-    payload,
-  }),
-  getOrderStatusId: (payload: IOrderStatus): GetOrderStatusId => ({
-    type: OrderStatusActionEnum.GET_ORDER_STATUS_ID,
-    payload,
-  }),
-  setOrderStatusIdIsLoading: (payload: boolean): SetOrderStatusIdIsLoadingAction => ({
-    type: OrderStatusActionEnum.SET_ORDER_STATUS_ID_IS_LOADING,
-    payload,
-  }),
-  setOrderStatusIdError: (payload: string): SetOrderStatusIdErrorAction => ({
-    type: OrderStatusActionEnum.SET_ORDER_STATUS_ID_ERROR,
     payload,
   }),
   setOrderStatusIsCreate: (payload: boolean): SetOrderStatusIsCreateAction => ({
@@ -68,28 +68,29 @@ export const OrderStatusActionCreators = {
   }),
   fetchAllOrderStatus: () => async (dispatch: AppDispatch) => {
     try {
-      dispatch(OrderStatusActionCreators.setOrderStatusIsLoading(true));
+      dispatch(OrderStatusActionCreators.setAllOrderStatusError(''));
+      dispatch(OrderStatusActionCreators.setAllOrderStatusIsLoading(true));
       const response = await GetService(process.env.REACT_APP_ORDER_STATUS_API);
       dispatch(OrderStatusActionCreators.getAllOrderStatus(response.data.data));
-      dispatch(OrderStatusActionCreators.setOrderStatusIsLoading(false));
+      dispatch(OrderStatusActionCreators.setAllOrderStatusIsLoading(false));
     } catch (e) {
       dispatch(
-        OrderStatusActionCreators.setOrderStatusError(
-          'Произошла ошибка при загрузке статуса заказа'
+        OrderStatusActionCreators.setAllOrderStatusError(
+          'Произошла ошибка при загрузке статусов заказа'
         )
       );
     }
   },
-  fetchOrderStatusId: (id: string) => async (dispatch: AppDispatch) => {
+  fetchOrderStatus: (id: string) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(OrderStatusActionCreators.setOrderStatusIdError(''));
-      dispatch(OrderStatusActionCreators.setOrderStatusIdIsLoading(true));
+      dispatch(OrderStatusActionCreators.setOrderStatusError(''));
+      dispatch(OrderStatusActionCreators.setOrderStatusIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_ORDER_STATUS_API}/${id}`);
-      dispatch(OrderStatusActionCreators.getOrderStatusId(response.data.data));
-      dispatch(OrderStatusActionCreators.setOrderStatusIdIsLoading(false));
+      dispatch(OrderStatusActionCreators.getOrderStatus(response.data.data));
+      dispatch(OrderStatusActionCreators.setOrderStatusIsLoading(false));
     } catch (e) {
       dispatch(
-        OrderStatusActionCreators.setOrderStatusIdError(
+        OrderStatusActionCreators.setOrderStatusError(
           'Произошла ошибка при загрузке статуса заказа'
         )
       );
@@ -149,7 +150,7 @@ export const OrderStatusActionCreators = {
       );
     }
   },
-  cleanOrderStatusId: () => async (dispatch: AppDispatch) => {
-    dispatch(OrderStatusActionCreators.getOrderStatusId({} as IOrderStatus));
+  cleanOrderStatus: () => async (dispatch: AppDispatch) => {
+    dispatch(OrderStatusActionCreators.getOrderStatus({} as IOrderStatus));
   },
 };

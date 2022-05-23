@@ -2,15 +2,15 @@ import { AppDispatch } from 'store/index';
 import { DeleteService, GetService, PostService, PutService } from 'api';
 import { IRate, IRateCreate } from 'models/IRate';
 import {
-  GetRateId,
+  GetRate,
   GetRates,
   RatesActionEnum,
   SetRateCreateErrorAction,
   SetRateCreateIsLoadingAction,
   SetRateDeleteErrorAction,
   SetRateDeleteIsLoadingAction,
-  SetRateIdErrorAction,
-  SetRateIdIsLoadingAction,
+  SetRateErrorAction,
+  SetRateIsLoadingAction,
   SetRateIsCreateAction,
   SetRateIsDeleteAction,
   SetRatesErrorAction,
@@ -30,16 +30,16 @@ export const RatesActionCreators = {
     type: RatesActionEnum.SET_RATES_ERROR,
     payload,
   }),
-  getRateId: (payload: IRate): GetRateId => ({
-    type: RatesActionEnum.GET_RATE_ID,
+  getRate: (payload: IRate): GetRate => ({
+    type: RatesActionEnum.GET_RATE,
     payload,
   }),
-  setRateIdIsLoading: (payload: boolean): SetRateIdIsLoadingAction => ({
-    type: RatesActionEnum.SET_RATE_ID_IS_LOADING,
+  setRateIsLoading: (payload: boolean): SetRateIsLoadingAction => ({
+    type: RatesActionEnum.SET_RATE_IS_LOADING,
     payload,
   }),
-  setRateIdError: (payload: string): SetRateIdErrorAction => ({
-    type: RatesActionEnum.SET_RATE_ID_ERROR,
+  setRateError: (payload: string): SetRateErrorAction => ({
+    type: RatesActionEnum.SET_RATE_ERROR,
     payload,
   }),
   setRateIsCreate: (payload: boolean): SetRateIsCreateAction => ({
@@ -68,6 +68,7 @@ export const RatesActionCreators = {
   }),
   fetchRates: () => async (dispatch: AppDispatch) => {
     try {
+      dispatch(RatesActionCreators.setRatesError(''));
       dispatch(RatesActionCreators.setRatesIsLoading(true));
       const response = await GetService(process.env.REACT_APP_RATE_API);
       dispatch(RatesActionCreators.getRates(response.data.data));
@@ -76,15 +77,15 @@ export const RatesActionCreators = {
       dispatch(RatesActionCreators.setRatesError('Произошла ошибка при загрузке списка тарифов'));
     }
   },
-  fetchRateId: (id: string) => async (dispatch: AppDispatch) => {
+  fetchRate: (id: string) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(RatesActionCreators.setRateIdError(''));
-      dispatch(RatesActionCreators.setRateIdIsLoading(true));
+      dispatch(RatesActionCreators.setRateError(''));
+      dispatch(RatesActionCreators.setRateIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_RATE_API}/${id}`);
-      dispatch(RatesActionCreators.getRateId(response.data.data));
-      dispatch(RatesActionCreators.setRateIdIsLoading(false));
+      dispatch(RatesActionCreators.getRate(response.data.data));
+      dispatch(RatesActionCreators.setRateIsLoading(false));
     } catch (e) {
-      dispatch(RatesActionCreators.setRateIdError('Произошла ошибка при загрузке тарифа'));
+      dispatch(RatesActionCreators.setRateError('Произошла ошибка при загрузке тарифа'));
     }
   },
   createRate: (data: IRateCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
@@ -127,7 +128,7 @@ export const RatesActionCreators = {
       dispatch(RatesActionCreators.setRateDeleteError('Произошла ошибка при удалении тарифа'));
     }
   },
-  cleanRateId: () => async (dispatch: AppDispatch) => {
-    dispatch(RatesActionCreators.getRateId({} as IRate));
+  cleanRate: () => async (dispatch: AppDispatch) => {
+    dispatch(RatesActionCreators.getRate({} as IRate));
   },
 };

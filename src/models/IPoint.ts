@@ -1,4 +1,4 @@
-export interface IMapPoint {
+export interface IPoint {
   address: string;
   name: string;
   cityId?: {
@@ -8,7 +8,7 @@ export interface IMapPoint {
   id: string;
 }
 
-export interface IMapPointCreate {
+export interface IPointCreate {
   name: string;
   cityId: string;
   address: string;

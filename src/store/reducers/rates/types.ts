@@ -4,9 +4,9 @@ export interface RatesState {
   rates: IRate[];
   ratesIsLoading: boolean;
   ratesError: string;
-  rateId: IRate;
-  rateIdIsLoading: boolean;
-  rateIdError: string;
+  rate: IRate;
+  rateIsLoading: boolean;
+  rateError: string;
   rateIsCreate: boolean;
   rateCreateIsLoading: boolean;
   rateCreateError: string;
@@ -19,9 +19,9 @@ export enum RatesActionEnum {
   GET_RATES = 'GET_RATES',
   SET_RATES_ERROR = 'SET_RATES_ERROR',
   SET_RATES_IS_LOADING = 'SET_RATES_IS_LOADING',
-  GET_RATE_ID = 'GET_RATE_ID',
-  SET_RATE_ID_IS_LOADING = 'SET_RATE_ID_IS_LOADING',
-  SET_RATE_ID_ERROR = 'SET_RATE_ID_ERROR',
+  GET_RATE = 'GET_RATE',
+  SET_RATE_IS_LOADING = 'SET_RATE_IS_LOADING',
+  SET_RATE_ERROR = 'SET_RATE_ERROR',
   SET_RATE_IS_CREATE = 'SET_RATE_IS_CREATE',
   SET_RATE_CREATE_IS_LOADING = 'SET_RATE_CREATE_IS_LOADING',
   SET_RATE_CREATE_ERROR = 'SET_RATE_CREATE_ERROR',
@@ -45,18 +45,18 @@ export interface SetRatesIsLoadingAction {
   payload: boolean;
 }
 
-export interface GetRateId {
-  type: RatesActionEnum.GET_RATE_ID;
+export interface GetRate {
+  type: RatesActionEnum.GET_RATE;
   payload: IRate;
 }
 
-export interface SetRateIdIsLoadingAction {
-  type: RatesActionEnum.SET_RATE_ID_IS_LOADING;
+export interface SetRateIsLoadingAction {
+  type: RatesActionEnum.SET_RATE_IS_LOADING;
   payload: boolean;
 }
 
-export interface SetRateIdErrorAction {
-  type: RatesActionEnum.SET_RATE_ID_ERROR;
+export interface SetRateErrorAction {
+  type: RatesActionEnum.SET_RATE_ERROR;
   payload: string;
 }
 
@@ -94,9 +94,9 @@ export type RatesAction =
   | GetRates
   | SetRatesErrorAction
   | SetRatesIsLoadingAction
-  | GetRateId
-  | SetRateIdIsLoadingAction
-  | SetRateIdErrorAction
+  | GetRate
+  | SetRateIsLoadingAction
+  | SetRateErrorAction
   | SetRateIsCreateAction
   | SetRateCreateIsLoadingAction
   | SetRateCreateErrorAction

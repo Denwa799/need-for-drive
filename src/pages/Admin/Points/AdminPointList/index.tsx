@@ -3,12 +3,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { AdminList } from 'components/ui/AdminList';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { mapPointsSelector } from 'store/selectors/selectors';
+import { pointsSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { errorMessage } from 'utils/errorMessage';
 import { AdminPagination } from 'components/ui/AdminPagination';
-import { IMapPoint } from 'models/IMapPoint';
+import { IPoint } from 'models/IPoint';
 import { paginationItems } from 'utils/pagination';
 import { AdminTable } from 'components/ui/AdminTable';
 import { RouteNames } from 'router/routes';
@@ -27,9 +27,9 @@ export const AdminPointList = () => {
   const [cookies] = useCookies(['auth']);
   const tokenBearer = cookies.auth.access_token;
 
-  const { mapPointsIsLoading, mapPointsError, pointIsDelete, pointDeleteError } =
-    useTypedSelector(mapPointsSelector);
-  const [filteredPoints, setFilteredPoints] = useState<IMapPoint[]>([]);
+  const { pointsIsLoading, pointsError, pointIsDelete, pointDeleteError } =
+    useTypedSelector(pointsSelector);
+  const [filteredPoints, setFilteredPoints] = useState<IPoint[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
@@ -37,7 +37,7 @@ export const AdminPointList = () => {
   const { fetchPoints, deletePoint, setPointIsDelete } = useActions();
 
   useEffect(() => {
-    if (!mapPointsIsLoading) fetchPoints();
+    if (!pointsIsLoading) fetchPoints();
   }, []);
 
   const changeBtnHandler = useCallback((id: string) => {
@@ -109,8 +109,8 @@ export const AdminPointList = () => {
             setCurrentPage={setCurrentPage}
             setFilteredPoints={setFilteredPoints}
           />
-          {mapPointsIsLoading || mapPointsError ? (
-            <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />
+          {pointsIsLoading || pointsError ? (
+            <ErrorLoading loading={pointsIsLoading} error={pointsError} />
           ) : (
             <AdminTable
               head={tableHead}

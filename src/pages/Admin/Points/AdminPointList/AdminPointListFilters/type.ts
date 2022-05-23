@@ -1,6 +1,6 @@
-import { IMapPoint } from 'models/IMapPoint';
+import { IPoint } from 'models/IPoint';
 
 export interface IAdminPointListFilters {
   setCurrentPage: (value: number) => void;
-  setFilteredPoints: (value: IMapPoint[]) => void;
+  setFilteredPoints: (value: IPoint[]) => void;
 }

@@ -9,12 +9,12 @@ import {
   SetCarIsCreateAction,
   SetCarCreateErrorAction,
   GetCar,
-  SetCarIdIsLoadingAction,
-  SetCarIdErrorAction,
   SetCarIsDeleteAction,
   SetCarDeleteErrorAction,
   SetCarDeleteIsLoadingAction,
   SetCarCreateIsLoadingAction,
+  SetCarIsLoadingAction,
+  SetCarErrorAction,
 } from './types';
 
 export const CarsActionCreators = {
@@ -22,24 +22,24 @@ export const CarsActionCreators = {
     type: CarsActionEnum.GET_CARS,
     payload,
   }),
-  getCar: (payload: ICar): GetCar => ({
-    type: CarsActionEnum.GET_CAR,
-    payload,
-  }),
   setCarsIsLoading: (payload: boolean): SetCarsIsLoadingAction => ({
     type: CarsActionEnum.SET_CARS_IS_LOADING,
-    payload,
-  }),
-  setCarIdIsLoading: (payload: boolean): SetCarIdIsLoadingAction => ({
-    type: CarsActionEnum.SET_CAR_ID_IS_LOADING,
     payload,
   }),
   setCarsError: (payload: string): SetCarsErrorAction => ({
     type: CarsActionEnum.SET_CARS_ERROR,
     payload,
   }),
-  setCarIdError: (payload: string): SetCarIdErrorAction => ({
-    type: CarsActionEnum.SET_CAR_ID_ERROR,
+  getCar: (payload: ICar): GetCar => ({
+    type: CarsActionEnum.GET_CAR,
+    payload,
+  }),
+  setCarIsLoading: (payload: boolean): SetCarIsLoadingAction => ({
+    type: CarsActionEnum.SET_CAR_IS_LOADING,
+    payload,
+  }),
+  setCarError: (payload: string): SetCarErrorAction => ({
+    type: CarsActionEnum.SET_CAR_ERROR,
     payload,
   }),
   setCarIsCreate: (payload: boolean): SetCarIsCreateAction => ({
@@ -68,6 +68,7 @@ export const CarsActionCreators = {
   }),
   fetchCars: () => async (dispatch: AppDispatch) => {
     try {
+      dispatch(CarsActionCreators.setCarsError(''));
       dispatch(CarsActionCreators.setCarsIsLoading(true));
       const response = await GetService(process.env.REACT_APP_CARS_API);
       dispatch(CarsActionCreators.getCars(response.data.data));
@@ -78,13 +79,14 @@ export const CarsActionCreators = {
   },
   fetchCar: (id: string) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(CarsActionCreators.setCarIdError(''));
-      dispatch(CarsActionCreators.setCarIdIsLoading(true));
+      dispatch(CarsActionCreators.setCarError(''));
+      dispatch(CarsActionCreators.setCarError(''));
+      dispatch(CarsActionCreators.setCarIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_CARS_API}/${id}`);
       dispatch(CarsActionCreators.getCar(response.data.data));
-      dispatch(CarsActionCreators.setCarIdIsLoading(false));
+      dispatch(CarsActionCreators.setCarIsLoading(false));
     } catch (e) {
-      dispatch(CarsActionCreators.setCarIdError('Произошла ошибка при загрузке машины'));
+      dispatch(CarsActionCreators.setCarError('Произошла ошибка при загрузке машины'));
     }
   },
   createCar: (data: ICarCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {

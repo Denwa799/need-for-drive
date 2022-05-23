@@ -5,9 +5,9 @@ const initialState: CategoriesState = {
   categories: [],
   categoriesError: '',
   categoriesIsLoading: false,
-  categoryId: {} as ICategory,
-  categoryIdIsLoading: false,
-  categoryIdError: '',
+  category: {} as ICategory,
+  categoryIsLoading: false,
+  categoryError: '',
   categoryIsCreate: false,
   categoryCreateIsLoading: false,
   categoryCreateError: '',
@@ -30,14 +30,14 @@ export default function CategoriesReducer(
     case CategoriesActionEnum.SET_CATEGORIES_ERROR:
       return { ...state, categoriesError: action.payload, categoriesIsLoading: false };
 
-    case CategoriesActionEnum.GET_CATEGORY_ID:
-      return { ...state, categoryId: action.payload, categoryIdIsLoading: false };
+    case CategoriesActionEnum.GET_CATEGORY:
+      return { ...state, category: action.payload, categoryIsLoading: false };
 
-    case CategoriesActionEnum.SET_CATEGORY_ID_IS_LOADING:
-      return { ...state, categoryIdIsLoading: action.payload };
+    case CategoriesActionEnum.SET_CATEGORY_IS_LOADING:
+      return { ...state, categoryIsLoading: action.payload };
 
-    case CategoriesActionEnum.SET_CATEGORY_ID_ERROR:
-      return { ...state, categoryIdError: action.payload, categoryIdIsLoading: false };
+    case CategoriesActionEnum.SET_CATEGORY_ERROR:
+      return { ...state, categoryError: action.payload, categoryIsLoading: false };
 
     case CategoriesActionEnum.SET_CATEGORY_IS_CREATE:
       return { ...state, categoryIsCreate: action.payload };

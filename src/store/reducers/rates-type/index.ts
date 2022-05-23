@@ -2,12 +2,12 @@ import { IRateType } from 'models/IRateType';
 import { RatesTypeAction, RatesTypeActionEnum, RatesTypeState } from './types';
 
 const initialState: RatesTypeState = {
-  ratesType: [],
-  ratesTypeError: '',
-  ratesTypeIsLoading: false,
-  rateTypeId: {} as IRateType,
-  rateTypeIdIsLoading: false,
-  rateTypeIdError: '',
+  allRateType: [],
+  allRateTypeError: '',
+  allRateTypeIsLoading: false,
+  rateType: {} as IRateType,
+  rateTypeIsLoading: false,
+  rateTypeError: '',
   rateTypeIsCreate: false,
   rateTypeCreateIsLoading: false,
   rateTypeCreateError: '',
@@ -21,23 +21,23 @@ export default function RatesTypeReducer(
   action: RatesTypeAction
 ): RatesTypeState {
   switch (action.type) {
-    case RatesTypeActionEnum.GET_RATES_TYPE:
-      return { ...state, ratesType: action.payload, ratesTypeIsLoading: false };
+    case RatesTypeActionEnum.GET_ALL_RATE_TYPE:
+      return { ...state, allRateType: action.payload, allRateTypeIsLoading: false };
 
-    case RatesTypeActionEnum.SET_RATES_TYPE_IS_LOADING:
-      return { ...state, ratesTypeIsLoading: action.payload };
+    case RatesTypeActionEnum.SET_ALL_RATE_TYPE_IS_LOADING:
+      return { ...state, allRateTypeIsLoading: action.payload };
 
-    case RatesTypeActionEnum.SET_RATES_TYPE_ERROR:
-      return { ...state, ratesTypeError: action.payload, ratesTypeIsLoading: false };
+    case RatesTypeActionEnum.SET_ALL_RATE_TYPE_ERROR:
+      return { ...state, allRateTypeError: action.payload, allRateTypeIsLoading: false };
 
-    case RatesTypeActionEnum.GET_RATE_TYPE_ID:
-      return { ...state, rateTypeId: action.payload, rateTypeIdIsLoading: false };
+    case RatesTypeActionEnum.GET_RATE_TYPE:
+      return { ...state, rateType: action.payload, rateTypeIsLoading: false };
 
-    case RatesTypeActionEnum.SET_RATE_TYPE_ID_IS_LOADING:
-      return { ...state, rateTypeIdIsLoading: action.payload };
+    case RatesTypeActionEnum.SET_RATE_TYPE_IS_LOADING:
+      return { ...state, rateTypeIsLoading: action.payload };
 
-    case RatesTypeActionEnum.SET_RATE_TYPE_ID_ERROR:
-      return { ...state, rateTypeIdError: action.payload, rateTypeIdIsLoading: false };
+    case RatesTypeActionEnum.SET_RATE_TYPE_ERROR:
+      return { ...state, rateTypeError: action.payload, rateTypeIsLoading: false };
 
     case RatesTypeActionEnum.SET_RATE_TYPE_IS_CREATE:
       return { ...state, rateTypeIsCreate: action.payload };

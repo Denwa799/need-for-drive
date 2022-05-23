@@ -4,15 +4,15 @@ import { DeleteService, GetService, PostService, PutService } from 'api';
 import {
   CategoriesActionEnum,
   GetCategories,
-  GetCategoryId,
+  GetCategory,
   SetCategoriesErrorAction,
   SetCategoriesIsLoadingAction,
   SetCategoryCreateErrorAction,
   SetCategoryCreateIsLoadingAction,
   SetCategoryDeleteErrorAction,
   SetCategoryDeleteIsLoadingAction,
-  SetCategoryIdErrorAction,
-  SetCategoryIdIsLoadingAction,
+  SetCategoryErrorAction,
+  SetCategoryIsLoadingAction,
   SetCategoryIsCreateAction,
   SetCategoryIsDeleteAction,
 } from './types';
@@ -30,16 +30,16 @@ export const CategoriesActionCreators = {
     type: CategoriesActionEnum.SET_CATEGORIES_ERROR,
     payload,
   }),
-  getCategoryId: (payload: ICategory): GetCategoryId => ({
-    type: CategoriesActionEnum.GET_CATEGORY_ID,
+  getCategory: (payload: ICategory): GetCategory => ({
+    type: CategoriesActionEnum.GET_CATEGORY,
     payload,
   }),
-  setCategoryIdIsLoading: (payload: boolean): SetCategoryIdIsLoadingAction => ({
-    type: CategoriesActionEnum.SET_CATEGORY_ID_IS_LOADING,
+  setCategoryIsLoading: (payload: boolean): SetCategoryIsLoadingAction => ({
+    type: CategoriesActionEnum.SET_CATEGORY_IS_LOADING,
     payload,
   }),
-  setCategoryIdError: (payload: string): SetCategoryIdErrorAction => ({
-    type: CategoriesActionEnum.SET_CATEGORY_ID_ERROR,
+  setCategoryError: (payload: string): SetCategoryErrorAction => ({
+    type: CategoriesActionEnum.SET_CATEGORY_ERROR,
     payload,
   }),
   setCategoryIsCreate: (payload: boolean): SetCategoryIsCreateAction => ({
@@ -68,6 +68,7 @@ export const CategoriesActionCreators = {
   }),
   fetchCategories: () => async (dispatch: AppDispatch) => {
     try {
+      dispatch(CategoriesActionCreators.setCategoriesError(''));
       dispatch(CategoriesActionCreators.setCategoriesIsLoading(true));
       const response = await GetService(process.env.REACT_APP_CATEGORY_API);
       dispatch(CategoriesActionCreators.getCategories(response.data.data));
@@ -80,18 +81,16 @@ export const CategoriesActionCreators = {
       );
     }
   },
-  fetchCategoryId: (id: string) => async (dispatch: AppDispatch) => {
+  fetchCategory: (id: string) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(CategoriesActionCreators.setCategoryIdError(''));
-      dispatch(CategoriesActionCreators.setCategoryIdIsLoading(true));
+      dispatch(CategoriesActionCreators.setCategoryError(''));
+      dispatch(CategoriesActionCreators.setCategoryIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_CATEGORY_API}/${id}`);
-      dispatch(CategoriesActionCreators.getCategoryId(response.data.data));
-      dispatch(CategoriesActionCreators.setCategoryIdIsLoading(false));
+      dispatch(CategoriesActionCreators.getCategory(response.data.data));
+      dispatch(CategoriesActionCreators.setCategoryIsLoading(false));
     } catch (e) {
       dispatch(
-        CategoriesActionCreators.setCategoryIdError(
-          'Произошла ошибка при загрузке категории машины'
-        )
+        CategoriesActionCreators.setCategoryError('Произошла ошибка при загрузке категории машины')
       );
     }
   },
@@ -147,7 +146,7 @@ export const CategoriesActionCreators = {
       );
     }
   },
-  cleanCategoryId: () => async (dispatch: AppDispatch) => {
-    dispatch(CategoriesActionCreators.getCategoryId({} as ICategory));
+  cleanCategory: () => async (dispatch: AppDispatch) => {
+    dispatch(CategoriesActionCreators.getCategory({} as ICategory));
   },
 };

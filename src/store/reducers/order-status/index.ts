@@ -3,11 +3,11 @@ import { OrderStatusAction, OrderStatusActionEnum, OrderStatusState } from './ty
 
 const initialState: OrderStatusState = {
   allOrderStatus: [] as IOrderStatus[],
-  orderStatusError: '',
+  allOrderStatusError: '',
+  allOrderStatusIsLoading: false,
+  orderStatus: {} as IOrderStatus,
   orderStatusIsLoading: false,
-  orderStatusId: {} as IOrderStatus,
-  orderStatusIdIsLoading: false,
-  orderStatusIdError: '',
+  orderStatusError: '',
   orderStatusIsCreate: false,
   orderStatusCreateIsLoading: false,
   orderStatusCreateError: '',
@@ -24,20 +24,20 @@ export default function OrderStatusReducer(
     case OrderStatusActionEnum.GET_ALL_ORDER_STATUS:
       return { ...state, allOrderStatus: action.payload };
 
+    case OrderStatusActionEnum.SET_ALL_ORDER_STATUS_IS_LOADING:
+      return { ...state, allOrderStatusIsLoading: action.payload };
+
+    case OrderStatusActionEnum.SET_ALL_ORDER_STATUS_ERROR:
+      return { ...state, allOrderStatusError: action.payload, allOrderStatusIsLoading: false };
+
+    case OrderStatusActionEnum.GET_ORDER_STATUS:
+      return { ...state, orderStatus: action.payload, orderStatusIsLoading: false };
+
     case OrderStatusActionEnum.SET_ORDER_STATUS_IS_LOADING:
       return { ...state, orderStatusIsLoading: action.payload };
 
     case OrderStatusActionEnum.SET_ORDER_STATUS_ERROR:
       return { ...state, orderStatusError: action.payload, orderStatusIsLoading: false };
-
-    case OrderStatusActionEnum.GET_ORDER_STATUS_ID:
-      return { ...state, orderStatusId: action.payload, orderStatusIdIsLoading: false };
-
-    case OrderStatusActionEnum.SET_ORDER_STATUS_ID_IS_LOADING:
-      return { ...state, orderStatusIdIsLoading: action.payload };
-
-    case OrderStatusActionEnum.SET_ORDER_STATUS_ID_ERROR:
-      return { ...state, orderStatusIdError: action.payload, orderStatusIdIsLoading: false };
 
     case OrderStatusActionEnum.SET_ORDER_STATUS_IS_CREATE:
       return { ...state, orderStatusIsCreate: action.payload };

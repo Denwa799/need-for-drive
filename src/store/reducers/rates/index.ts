@@ -5,9 +5,9 @@ const initialState: RatesState = {
   rates: [],
   ratesError: '',
   ratesIsLoading: false,
-  rateId: {} as IRate,
-  rateIdIsLoading: false,
-  rateIdError: '',
+  rate: {} as IRate,
+  rateIsLoading: false,
+  rateError: '',
   rateIsCreate: false,
   rateCreateIsLoading: false,
   rateCreateError: '',
@@ -27,14 +27,14 @@ export default function RatesReducer(state = initialState, action: RatesAction):
     case RatesActionEnum.SET_RATES_ERROR:
       return { ...state, ratesError: action.payload, ratesIsLoading: false };
 
-    case RatesActionEnum.GET_RATE_ID:
-      return { ...state, rateId: action.payload, rateIdIsLoading: false };
+    case RatesActionEnum.GET_RATE:
+      return { ...state, rate: action.payload, rateIsLoading: false };
 
-    case RatesActionEnum.SET_RATE_ID_IS_LOADING:
-      return { ...state, rateIdIsLoading: action.payload };
+    case RatesActionEnum.SET_RATE_IS_LOADING:
+      return { ...state, rateIsLoading: action.payload };
 
-    case RatesActionEnum.SET_RATE_ID_ERROR:
-      return { ...state, rateIdError: action.payload, rateIdIsLoading: false };
+    case RatesActionEnum.SET_RATE_ERROR:
+      return { ...state, rateError: action.payload, rateIsLoading: false };
 
     case RatesActionEnum.SET_RATE_IS_CREATE:
       return { ...state, rateIsCreate: action.payload };

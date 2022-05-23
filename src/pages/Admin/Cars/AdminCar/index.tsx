@@ -15,15 +15,8 @@ import { SettingsBlock } from './SettingsBlock';
 export const AdminCar = () => {
   const { id } = useParams();
 
-  const {
-    car,
-    carIdIsLoading,
-    carIdError,
-    carIsCreate,
-    carCreateError,
-    carIsDelete,
-    carDeleteError,
-  } = useTypedSelector(carsSelector);
+  const { car, carIsLoading, carError, carIsCreate, carCreateError, carIsDelete, carDeleteError } =
+    useTypedSelector(carsSelector);
   const { categoriesIsLoading } = useTypedSelector(categoriesSelector);
 
   const [imgName, setImgName] = useState('');
@@ -94,8 +87,8 @@ export const AdminCar = () => {
 
   return (
     <div>
-      {carIdIsLoading ? (
-        <ErrorLoading loading={carIdIsLoading} error={carIdError} />
+      {carIsLoading || carError ? (
+        <ErrorLoading loading={carIsLoading} error={carError} />
       ) : (
         <div className={styles.AdminCarCreate}>
           {carIsCreate ? (

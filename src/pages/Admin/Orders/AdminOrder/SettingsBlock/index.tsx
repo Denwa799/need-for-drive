@@ -9,7 +9,7 @@ import { DangerText } from 'components/ui/DangerText';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import {
   carsSelector,
-  mapPointsSelector,
+  pointsSelector,
   orderSelector,
   orderStatusSelector,
   ratesSelector,
@@ -21,7 +21,7 @@ import { RouteNames } from 'router/routes';
 import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
 import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { ICar } from 'models/ICar';
-import { IMapPoint } from 'models/IMapPoint';
+import { IPoint } from 'models/IPoint';
 import { AdminDatePicker } from 'components/ui/AdminDatePicker';
 import moment, { Moment } from 'moment';
 import { durationMonth, durationWeek, durationYear } from 'utils/date';
@@ -38,7 +38,7 @@ export const SettingsBlock: FC = () => {
   const { order, orderIsCreate, orderIsDelete, orderCreateIsLoading, orderDeleteIsLoading } =
     useTypedSelector(orderSelector);
   const { cars, carsIsLoading } = useTypedSelector(carsSelector);
-  const { points, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
+  const { points, pointsIsLoading } = useTypedSelector(pointsSelector);
   const { allOrderStatus, orderStatusIsLoading } = useTypedSelector(orderStatusSelector);
   const { rates, ratesIsLoading } = useTypedSelector(ratesSelector);
 
@@ -60,7 +60,7 @@ export const SettingsBlock: FC = () => {
   const [colorValidationError, setColorValidationError] = useState(false);
   const [colorErrorText, setColorErrorText] = useState('Выберите цвет');
 
-  const [pointsInCity, setPointsInCity] = useState([{} as IMapPoint]);
+  const [pointsInCity, setPointsInCity] = useState([{} as IPoint]);
   const [addressValue, setAddressValue] = useState('');
   const [addressSelectValue, setAddressSelectValue] = useState('');
   const [addressValidationError, setAddressValidationError] = useState(false);
@@ -105,6 +105,7 @@ export const SettingsBlock: FC = () => {
 
   const { updateOrder, deleteOrder, setOrderIsDelete, setOrderIsCreate } = useActions();
 
+  // При очистке поля ввода, чистится select state
   useEffect(() => {
     if (!carNameValue) {
       setCarNameSelectValue('');
@@ -123,6 +124,7 @@ export const SettingsBlock: FC = () => {
     if (!statusValue) setStatusSelectValue('');
   }, [carNameValue, cityNameValue, colorValue, addressValue, rateValue, statusValue]);
 
+  // Если есть данные заказа, то подставляет их
   useEffect(() => {
     if (Object.keys(order).length > 0 && id) {
       if (order.carId) {
@@ -173,7 +175,7 @@ export const SettingsBlock: FC = () => {
       }, 3000);
   }, [orderIsCreate, orderIsDelete]);
 
-  // Создаю массив для поля фильтрации
+  /* Создаю массивы для полей autocomplete */
   const carsName = useMemo(() => cars.map((item) => (item.name ? item.name : '')), [cars]);
   const citiesName = useMemo(
     () => filteredPoints.map((item) => (item.cityId ? item.cityId.name : '')),
@@ -327,6 +329,7 @@ export const SettingsBlock: FC = () => {
     if (foundStatus) setStatusId(foundStatus.id);
   }, [foundCar, foundPoints, foundRate, foundStatus]);
 
+  /* Обработчики */
   const carNameHandler = useCallback(
     (value) => {
       setCarNameValue(value);
@@ -417,6 +420,7 @@ export const SettingsBlock: FC = () => {
     [statusSelectValue]
   );
 
+  /* Работа с датой */
   // Отключаю даты, меньше стартовой даты. Для второго поля, до какой даты аренда
   const disabledEndDate = useCallback(
     (current: Moment) => current < moment(startDate),
@@ -451,8 +455,7 @@ export const SettingsBlock: FC = () => {
   );
   const rightWheelChangeHandler = useCallback(() => setIsRightWheel(!isRightWheel), [isRightWheel]);
 
-  // Подсчитываю итоговую цену
-
+  /* Подсчет цены */
   const duration = useMemo(
     () => (endDate && startDate ? endDate.diff(startDate) : ''),
     [startDate, endDate]
@@ -488,6 +491,7 @@ export const SettingsBlock: FC = () => {
     setPriceTotal(price);
   }, [carSelected, rateActivePrice, isFullTank, isNeedChildChair, isRightWheel]);
 
+  /* Отправка итоговых данных */
   const postData = useMemo(() => {
     if (
       statusId &&
@@ -618,7 +622,7 @@ export const SettingsBlock: FC = () => {
               placeholder="Выберите город"
               className={styles.inputContainer}
               onSelect={cityNameSelectHandler}
-              isLoading={mapPointsIsLoading}
+              isLoading={pointsIsLoading}
               type="second"
               danger={cityNameValidationError}
             />
@@ -656,7 +660,7 @@ export const SettingsBlock: FC = () => {
               placeholder="Выберите адрес"
               className={styles.inputContainer}
               onSelect={addressSelectHandler}
-              isLoading={mapPointsIsLoading}
+              isLoading={pointsIsLoading}
               type="second"
               danger={addressValidationError}
             />

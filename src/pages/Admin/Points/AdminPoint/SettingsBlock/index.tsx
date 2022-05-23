@@ -8,7 +8,7 @@ import { AdminInput } from 'components/ui/AdminInput';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { DangerText } from 'components/ui/DangerText';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { citySelector, mapPointsSelector } from 'store/selectors/selectors';
+import { citySelector, pointsSelector } from 'store/selectors/selectors';
 import { useCookies } from 'react-cookie';
 import { useActions } from 'hooks/useActions';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -25,9 +25,9 @@ export const SettingsBlock: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { pointId, pointIsCreate, pointIsDelete, pointCreateIsLoading, pointDeleteIsLoading } =
-    useTypedSelector(mapPointsSelector);
-  const { city, cityIsLoading } = useTypedSelector(citySelector);
+  const { point, pointIsCreate, pointIsDelete, pointCreateIsLoading, pointDeleteIsLoading } =
+    useTypedSelector(pointsSelector);
+  const { cities, citiesIsLoading } = useTypedSelector(citySelector);
 
   const [pointNameValue, setPointNameValue] = useState('');
   const [pointNameValidationError, setPointNameValidationError] = useState(false);
@@ -42,10 +42,11 @@ export const SettingsBlock: FC = () => {
   const [addressValidationError, setAddressValidationError] = useState(false);
   const [addressErrorText, setAddressErrorText] = useState('Пустое поле');
 
-  const { fetchCity, createPoint, updatePoint, deletePoint } = useActions();
+  const { fetchCities, createPoint, updatePoint, deletePoint, setPointIsCreate, setPointIsDelete } =
+    useActions();
 
   useEffect(() => {
-    if (!cityIsLoading) fetchCity();
+    if (!citiesIsLoading) fetchCities();
   }, []);
 
   useEffect(() => {
@@ -55,29 +56,31 @@ export const SettingsBlock: FC = () => {
   }, [cityNameValue]);
 
   useEffect(() => {
-    if (Object.keys(pointId).length > 0 && id) {
-      if (pointId.name) setPointNameValue(pointId.name);
-      if (pointId.cityId) {
-        setCityNameValue(pointId.cityId.name);
-        setCityNameSelectValue(pointId.cityId.name);
+    if (Object.keys(point).length > 0 && id) {
+      if (point.name) setPointNameValue(point.name);
+      if (point.cityId) {
+        setCityNameValue(point.cityId.name);
+        setCityNameSelectValue(point.cityId.name);
       }
-      if (pointId.address) setAddressValue(pointId.address);
+      if (point.address) setAddressValue(point.address);
     }
-  }, [pointId, id]);
+  }, [point, id]);
 
   useEffect(() => {
     if (pointIsCreate)
       setTimeout(() => {
+        setPointIsCreate(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_POINT_LIST}`);
       }, 3000);
     if (pointIsDelete)
       setTimeout(() => {
+        setPointIsDelete(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_POINT_LIST}`);
       }, 3000);
   }, [pointIsCreate, pointIsDelete]);
 
   // Создаю массив для поля автозаполнения
-  const citiesName = useMemo(() => city.map((item) => (item.name ? item.name : '')), [city]);
+  const citiesName = useMemo(() => cities.map((item) => (item.name ? item.name : '')), [cities]);
 
   // Удаляю все дубли и null из массива
   const cleanCitiesName = useMemo(
@@ -98,7 +101,7 @@ export const SettingsBlock: FC = () => {
   }, [cleanCitiesName]);
 
   const selectCity = useMemo(() => {
-    return city.find((item) => item.name === cityNameSelectValue);
+    return cities.find((item) => item.name === cityNameSelectValue);
   }, [cityNameSelectValue]);
 
   const pointNameValueHandler = useCallback((event) => {
@@ -199,7 +202,7 @@ export const SettingsBlock: FC = () => {
               placeholder="Выберите город"
               className={styles.inputContainer}
               onSelect={cityNameSelectHandler}
-              isLoading={cityIsLoading}
+              isLoading={citiesIsLoading}
               type="second"
               danger={cityNameValidationError}
             />

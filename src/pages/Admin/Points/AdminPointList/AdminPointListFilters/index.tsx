@@ -4,7 +4,7 @@ import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { AdminBtn } from 'components/ui/AdminBtn';
 import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { mapPointsSelector } from 'store/selectors/selectors';
+import { pointsSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
 import { RouteNames } from 'router/routes';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
   setFilteredPoints,
 }) => {
   const navigate = useNavigate();
-  const { points, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
+  const { points, pointsIsLoading } = useTypedSelector(pointsSelector);
   const [pointNameFilter, setPointNameFilter] = useState('');
   const debouncedPointNameFilter = useDebounce<string>(pointNameFilter, 500);
   const [pointCityFilter, setPointCityFilter] = useState('');
@@ -127,7 +127,7 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
             value={pointNameFilter}
             onChange={pointNameFilterHandler}
             placeholder="Название"
-            isLoading={mapPointsIsLoading}
+            isLoading={pointsIsLoading}
             className={styles.autocomplete}
             inputClassName={styles.input}
           />
@@ -138,7 +138,7 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
             value={pointCityFilter}
             onChange={pointCityFilterHandler}
             placeholder="Город"
-            isLoading={mapPointsIsLoading}
+            isLoading={pointsIsLoading}
             className={styles.autocomplete}
             inputClassName={styles.input}
           />

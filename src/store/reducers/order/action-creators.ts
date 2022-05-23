@@ -88,6 +88,7 @@ export const OrderActionCreators = {
     ) =>
     async (dispatch: AppDispatch) => {
       try {
+        dispatch(OrderActionCreators.setOrdersError(''));
         dispatch(OrderActionCreators.setOrdersIsLoading(true));
         const response = await GetService(process.env.REACT_APP_ORDER_API, tokenBearer, {
           limit,
@@ -107,6 +108,7 @@ export const OrderActionCreators = {
     },
   fetchOrder: (id: string) => async (dispatch: AppDispatch) => {
     try {
+      dispatch(OrderActionCreators.setOrderError(''));
       dispatch(OrderActionCreators.setOrderIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_ORDER_API}/${id}`);
       dispatch(OrderActionCreators.getOrder(response.data.data));
@@ -115,8 +117,9 @@ export const OrderActionCreators = {
       dispatch(OrderActionCreators.setOrderError('Произошла ошибка при загрузке данных заказа'));
     }
   },
-  sendOrder: (data: IOrderPost) => async (dispatch: AppDispatch) => {
+  createOrder: (data: IOrderPost) => async (dispatch: AppDispatch) => {
     try {
+      dispatch(OrderActionCreators.setOrderCreateError(''));
       dispatch(OrderActionCreators.setOrderCreateIsLoading(true));
       const response = await PostService(process.env.REACT_APP_ORDER_API, data);
       dispatch(OrderActionCreators.getOrder(response.data.data));

@@ -27,7 +27,7 @@ export const AdminRateTypeList = () => {
   const [cookies] = useCookies(['auth']);
   const tokenBearer = cookies.auth.access_token;
 
-  const { ratesTypeIsLoading, ratesTypeError, rateTypeIsDelete, rateTypeDeleteError } =
+  const { allRateTypeIsLoading, allRateTypeError, rateTypeIsDelete, rateTypeDeleteError } =
     useTypedSelector(ratesTypeSelector);
   const [filteredRatesType, setFilteredRatesType] = useState<IRateType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +36,7 @@ export const AdminRateTypeList = () => {
   const { fetchRatesType, deleteRateType, setRateTypeIsDelete } = useActions();
 
   useEffect(() => {
-    if (!ratesTypeIsLoading) fetchRatesType();
+    if (!allRateTypeIsLoading) fetchRatesType();
   }, []);
 
   const changeBtnHandler = useCallback((id: string) => {
@@ -107,8 +107,8 @@ export const AdminRateTypeList = () => {
             setCurrentPage={setCurrentPage}
             setFilteredRatesType={setFilteredRatesType}
           />
-          {ratesTypeIsLoading || ratesTypeError ? (
-            <ErrorLoading loading={ratesTypeIsLoading} error={ratesTypeError} />
+          {allRateTypeIsLoading || allRateTypeError ? (
+            <ErrorLoading loading={allRateTypeIsLoading} error={allRateTypeError} />
           ) : (
             <AdminTable
               head={tableHead}

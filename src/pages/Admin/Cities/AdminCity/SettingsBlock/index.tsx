@@ -24,28 +24,30 @@ export const SettingsBlock: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { cityId, cityCreateIsLoading, cityIsCreate, cityIsDelete, cityDeleteIsLoading } =
+  const { city, cityCreateIsLoading, cityIsCreate, cityIsDelete, cityDeleteIsLoading } =
     useTypedSelector(citySelector);
 
   const [cityNameValue, setCityNameValue] = useState('');
   const [cityNameValidationError, setCityNameValidationError] = useState(false);
   const [cityNameErrorText, setCityNameErrorText] = useState('Пустое поле');
 
-  const { createCity, updateCity, deleteCity } = useActions();
+  const { createCity, updateCity, deleteCity, setCityIsCreate, setCityIsDelete } = useActions();
 
   useEffect(() => {
-    if (Object.keys(cityId).length > 0 && id) {
-      if (cityId.name) setCityNameValue(cityId.name);
+    if (Object.keys(city).length > 0 && id) {
+      if (city.name) setCityNameValue(city.name);
     }
-  }, [cityId]);
+  }, [city]);
 
   useEffect(() => {
     if (cityIsCreate)
       setTimeout(() => {
+        setCityIsCreate(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CITY_LIST}`);
       }, 3000);
     if (cityIsDelete)
       setTimeout(() => {
+        setCityIsDelete(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CITY_LIST}`);
       }, 3000);
   }, [cityIsCreate, cityIsDelete]);

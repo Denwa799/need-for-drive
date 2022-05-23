@@ -27,17 +27,17 @@ export const AdminCityList = () => {
   const [cookies] = useCookies(['auth']);
   const tokenBearer = cookies.auth.access_token;
 
-  const { cityIsLoading, cityError, cityIsDelete, cityDeleteError } =
+  const { citiesIsLoading, citiesError, cityIsDelete, cityDeleteError } =
     useTypedSelector(citySelector);
   const [filteredCity, setFilteredCity] = useState<ICity[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const pageSizeOptions = useMemo(() => ['4', '10', '25', '50', '75', '100'], []);
 
-  const { fetchCity, deleteCity, setCityIsDelete } = useActions();
+  const { fetchCities, deleteCity, setCityIsDelete } = useActions();
 
   useEffect(() => {
-    if (!cityIsLoading) fetchCity();
+    if (!citiesIsLoading) fetchCities();
   }, []);
 
   const changeBtnHandler = useCallback((id: string) => {
@@ -61,7 +61,7 @@ export const AdminCityList = () => {
     if (cityIsDelete)
       setTimeout(() => {
         setCityIsDelete(false);
-        fetchCity();
+        fetchCities();
       }, 3000);
   }, [cityIsDelete]);
 
@@ -99,8 +99,8 @@ export const AdminCityList = () => {
         <AdminTitle>Города</AdminTitle>
         <AdminList>
           <AdminCityListFilters setCurrentPage={setCurrentPage} setFilteredCity={setFilteredCity} />
-          {cityIsLoading || cityError ? (
-            <ErrorLoading loading={cityIsLoading} error={cityError} />
+          {citiesIsLoading || citiesError ? (
+            <ErrorLoading loading={citiesIsLoading} error={citiesError} />
           ) : (
             <AdminTable
               head={tableHead}

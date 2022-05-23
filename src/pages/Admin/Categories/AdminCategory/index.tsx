@@ -15,9 +15,9 @@ export const AdminCategory = () => {
   const { id } = useParams();
 
   const {
-    categoryId,
-    categoryIdIsLoading,
-    categoryIdError,
+    category,
+    categoryIsLoading,
+    categoryError,
     categoryIsCreate,
     categoryCreateError,
     categoryIsDelete,
@@ -25,8 +25,8 @@ export const AdminCategory = () => {
   } = useTypedSelector(categoriesSelector);
 
   const {
-    fetchCategoryId,
-    cleanCategoryId,
+    fetchCategory,
+    cleanCategory,
     setCategoryIsCreate,
     setCategoryCreateError,
     setCategoryIsDelete,
@@ -35,7 +35,7 @@ export const AdminCategory = () => {
 
   useEffect(() => {
     return () => {
-      cleanCategoryId();
+      cleanCategory();
       setCategoryIsCreate(false);
       setCategoryCreateError('');
       setCategoryIsDelete(false);
@@ -44,15 +44,15 @@ export const AdminCategory = () => {
   }, []);
 
   useEffect(() => {
-    if (id && Object.keys(categoryId).length === 0) {
-      fetchCategoryId(id);
+    if (id && Object.keys(category).length === 0) {
+      fetchCategory(id);
     }
-  }, [id, categoryId]);
+  }, [id, category]);
 
   return (
     <div>
-      {categoryIdIsLoading || categoryIdError ? (
-        <ErrorLoading loading={categoryIdIsLoading} error={categoryIdError} />
+      {categoryIsLoading || categoryError ? (
+        <ErrorLoading loading={categoryIsLoading} error={categoryError} />
       ) : (
         <div className={styles.AdminCategory}>
           {categoryIsCreate ? (

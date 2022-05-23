@@ -16,7 +16,7 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
   setFilteredRatesType,
 }) => {
   const navigate = useNavigate();
-  const { ratesType, ratesTypeIsLoading } = useTypedSelector(ratesTypeSelector);
+  const { allRateType, allRateTypeIsLoading } = useTypedSelector(ratesTypeSelector);
   const [rateTypeNameFilter, setRateTypeNameFilter] = useState('');
   const debouncedRateTypeNameFilter = useDebounce<string>(rateTypeNameFilter, 500);
   const [rateTypeUnitFilter, setRateTypeUnitFilter] = useState('');
@@ -28,12 +28,12 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
 
   // Создаю массив для поля фильтрации
   const rateTypeNames = useMemo(
-    () => ratesType.map((item) => (item.name ? item.name : '')),
-    [ratesType]
+    () => allRateType.map((item) => (item.name ? item.name : '')),
+    [allRateType]
   );
   const rateTypeUnits = useMemo(
-    () => ratesType.map((item) => (item.unit ? item.unit : '')),
-    [ratesType]
+    () => allRateType.map((item) => (item.unit ? item.unit : '')),
+    [allRateType]
   );
 
   // Удаляю все дубли и null из массива
@@ -88,7 +88,7 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
   // Отфильтровываю типы тарифов
   const filteredRatesType = useMemo(() => {
     if (debouncedRateTypeNameFilter || debouncedRateTypeUnitFilter) {
-      return ratesType.filter((type) => {
+      return allRateType.filter((type) => {
         const nameFiltered = type.name
           ? type.name === debouncedRateTypeNameFilter
           : type.name !== null;
@@ -103,8 +103,8 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
         return nameFiltered || unitFiltered;
       });
     }
-    return ratesType;
-  }, [ratesType, debouncedRateTypeNameFilter, debouncedRateTypeUnitFilter]);
+    return allRateType;
+  }, [allRateType, debouncedRateTypeNameFilter, debouncedRateTypeUnitFilter]);
 
   useEffect(() => {
     setFilteredRatesType(filteredRatesType);
@@ -130,7 +130,7 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
             value={rateTypeNameFilter}
             onChange={rateTypeNameFilterHandler}
             placeholder="Название"
-            isLoading={ratesTypeIsLoading}
+            isLoading={allRateTypeIsLoading}
             className={styles.autocomplete}
             inputClassName={styles.input}
           />
@@ -141,7 +141,7 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
             value={rateTypeUnitFilter}
             onChange={rateTypeUnitFilterHandler}
             placeholder="Единица измерения"
-            isLoading={ratesTypeIsLoading}
+            isLoading={allRateTypeIsLoading}
             className={styles.autocomplete}
             inputClassName={styles.input}
           />

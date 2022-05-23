@@ -276,7 +276,7 @@ export const AdminOrderList: FC = () => {
           onChange={pageChangeHandler}
           pageSizeOptions={pageSizeOptions}
           page={currentPage}
-          sizeChangerInvisibleWidth={332}
+          sizeChangerInvisibleWidth={460}
         />
       </AdminContainer>
     </div>

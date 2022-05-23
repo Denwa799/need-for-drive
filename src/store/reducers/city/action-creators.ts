@@ -3,22 +3,34 @@ import { ICity, ICityCreate } from 'models/ICity';
 import { AppDispatch } from 'store';
 import {
   CityActionEnum,
+  GetCities,
   GetCity,
-  GetCityId,
+  SetCitiesErrorAction,
+  SetCitiesIsLoadingAction,
   SetCityCreateErrorAction,
   SetCityCreateIsLoadingAction,
   SetCityDeleteErrorAction,
   SetCityDeleteIsLoadingAction,
   SetCityErrorAction,
-  SetCityIdErrorAction,
-  SetCityIdIsLoadingAction,
   SetCityIsCreateAction,
   SetCityIsDeleteAction,
   SetCityIsLoadingAction,
 } from './types';
 
 export const CityActionCreators = {
-  getCity: (payload: ICity[]): GetCity => ({
+  getCities: (payload: ICity[]): GetCities => ({
+    type: CityActionEnum.GET_CITIES,
+    payload,
+  }),
+  setCitiesIsLoading: (payload: boolean): SetCitiesIsLoadingAction => ({
+    type: CityActionEnum.SET_CITIES_IS_LOADING,
+    payload,
+  }),
+  setCitiesError: (payload: string): SetCitiesErrorAction => ({
+    type: CityActionEnum.SET_CITIES_ERROR,
+    payload,
+  }),
+  getCity: (payload: ICity): GetCity => ({
     type: CityActionEnum.GET_CITY,
     payload,
   }),
@@ -28,18 +40,6 @@ export const CityActionCreators = {
   }),
   setCityError: (payload: string): SetCityErrorAction => ({
     type: CityActionEnum.SET_CITY_ERROR,
-    payload,
-  }),
-  getCityId: (payload: ICity): GetCityId => ({
-    type: CityActionEnum.GET_CITY_ID,
-    payload,
-  }),
-  setCityIdIsLoading: (payload: boolean): SetCityIdIsLoadingAction => ({
-    type: CityActionEnum.SET_CITY_ID_IS_LOADING,
-    payload,
-  }),
-  setCityIdError: (payload: string): SetCityIdErrorAction => ({
-    type: CityActionEnum.SET_CITY_ID_ERROR,
     payload,
   }),
   setCityIsCreate: (payload: boolean): SetCityIsCreateAction => ({
@@ -66,25 +66,26 @@ export const CityActionCreators = {
     type: CityActionEnum.SET_CITY_DELETE_ERROR,
     payload,
   }),
-  fetchCity: () => async (dispatch: AppDispatch) => {
+  fetchCities: () => async (dispatch: AppDispatch) => {
     try {
-      dispatch(CityActionCreators.setCityIsLoading(true));
+      dispatch(CityActionCreators.setCitiesError(''));
+      dispatch(CityActionCreators.setCitiesIsLoading(true));
       const response = await GetService(process.env.REACT_APP_MAP_CITY_API);
+      dispatch(CityActionCreators.getCities(response.data.data));
+      dispatch(CityActionCreators.setCitiesIsLoading(false));
+    } catch (e) {
+      dispatch(CityActionCreators.setCitiesError('Произошла ошибка при загрузке списка городов'));
+    }
+  },
+  fetchCity: (id: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(CityActionCreators.setCityError(''));
+      dispatch(CityActionCreators.setCityIsLoading(true));
+      const response = await GetService(`${process.env.REACT_APP_MAP_CITY_API}/${id}`);
       dispatch(CityActionCreators.getCity(response.data.data));
       dispatch(CityActionCreators.setCityIsLoading(false));
     } catch (e) {
-      dispatch(CityActionCreators.setCityError('Произошла ошибка при загрузке списка городов'));
-    }
-  },
-  fetchCityId: (id: string) => async (dispatch: AppDispatch) => {
-    try {
-      dispatch(CityActionCreators.setCityIdError(''));
-      dispatch(CityActionCreators.setCityIdIsLoading(true));
-      const response = await GetService(`${process.env.REACT_APP_MAP_CITY_API}/${id}`);
-      dispatch(CityActionCreators.getCityId(response.data.data));
-      dispatch(CityActionCreators.setCityIdIsLoading(false));
-    } catch (e) {
-      dispatch(CityActionCreators.setCityIdError('Произошла ошибка при загрузке города'));
+      dispatch(CityActionCreators.setCityError('Произошла ошибка при загрузке города'));
     }
   },
   createCity: (data: ICityCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
@@ -127,7 +128,7 @@ export const CityActionCreators = {
       dispatch(CityActionCreators.setCityDeleteError('Произошла ошибка при удалении города'));
     }
   },
-  cleanCityId: () => async (dispatch: AppDispatch) => {
-    dispatch(CityActionCreators.getCityId({} as ICity));
+  cleanCity: () => async (dispatch: AppDispatch) => {
+    dispatch(CityActionCreators.getCity({} as ICity));
   },
 };

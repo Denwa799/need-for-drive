@@ -5,7 +5,7 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import {
   carsSelector,
-  mapPointsSelector,
+  pointsSelector,
   orderSelector,
   orderStatusSelector,
   ratesSelector,
@@ -30,7 +30,7 @@ export const AdminOrder = () => {
     orderDeleteError,
   } = useTypedSelector(orderSelector);
   const { carsIsLoading } = useTypedSelector(carsSelector);
-  const { mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
+  const { pointsIsLoading } = useTypedSelector(pointsSelector);
   const { orderStatusIsLoading } = useTypedSelector(orderStatusSelector);
   const { ratesIsLoading } = useTypedSelector(ratesSelector);
 
@@ -61,7 +61,7 @@ export const AdminOrder = () => {
     if (id && Object.keys(order).length === 0) {
       fetchOrder(id);
       if (!carsIsLoading) fetchCars();
-      if (!mapPointsIsLoading) fetchPoints();
+      if (!pointsIsLoading) fetchPoints();
       if (!orderStatusIsLoading) fetchAllOrderStatus();
       if (!ratesIsLoading) fetchRates();
     }

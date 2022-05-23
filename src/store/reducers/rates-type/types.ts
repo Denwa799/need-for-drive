@@ -1,12 +1,12 @@
 import { IRateType } from 'models/IRateType';
 
 export interface RatesTypeState {
-  ratesType: IRateType[];
-  ratesTypeIsLoading: boolean;
-  ratesTypeError: string;
-  rateTypeId: IRateType;
-  rateTypeIdIsLoading: boolean;
-  rateTypeIdError: string;
+  allRateType: IRateType[];
+  allRateTypeIsLoading: boolean;
+  allRateTypeError: string;
+  rateType: IRateType;
+  rateTypeIsLoading: boolean;
+  rateTypeError: string;
   rateTypeIsCreate: boolean;
   rateTypeCreateIsLoading: boolean;
   rateTypeCreateError: string;
@@ -16,12 +16,12 @@ export interface RatesTypeState {
 }
 
 export enum RatesTypeActionEnum {
-  GET_RATES_TYPE = 'GET_RATES_TYPE',
-  SET_RATES_TYPE_ERROR = 'SET_RATES_TYPE_ERROR',
-  SET_RATES_TYPE_IS_LOADING = 'SET_RATES_TYPE_IS_LOADING',
-  GET_RATE_TYPE_ID = 'GET_RATE_TYPE_ID',
-  SET_RATE_TYPE_ID_IS_LOADING = 'SET_RATE_TYPE_ID_IS_LOADING',
-  SET_RATE_TYPE_ID_ERROR = 'SET_RATE_TYPE_ID_ERROR',
+  GET_ALL_RATE_TYPE = 'GET_ALL_RATE_TYPE',
+  SET_ALL_RATE_TYPE_ERROR = 'SET_ALL_RATE_TYPE_ERROR',
+  SET_ALL_RATE_TYPE_IS_LOADING = 'SET_ALL_RATE_TYPE_IS_LOADING',
+  GET_RATE_TYPE = 'GET_RATE_TYPE',
+  SET_RATE_TYPE_IS_LOADING = 'SET_RATE_TYPE_IS_LOADING',
+  SET_RATE_TYPE_ERROR = 'SET_RATE_TYPE_ERROR',
   SET_RATE_TYPE_IS_CREATE = 'SET_RATE_TYPE_IS_CREATE',
   SET_RATE_TYPE_CREATE_IS_LOADING = 'SET_RATE_TYPE_CREATE_IS_LOADING',
   SET_RATE_TYPE_CREATE_ERROR = 'SET_RATE_TYPE_CREATE_ERROR',
@@ -30,33 +30,33 @@ export enum RatesTypeActionEnum {
   SET_RATE_TYPE_DELETE_ERROR = 'SET_RATE_TYPE_DELETE_ERROR',
 }
 
-export interface GetRatesType {
-  type: RatesTypeActionEnum.GET_RATES_TYPE;
+export interface GetAllRateType {
+  type: RatesTypeActionEnum.GET_ALL_RATE_TYPE;
   payload: IRateType[];
 }
 
-export interface SetRatesTypeErrorAction {
-  type: RatesTypeActionEnum.SET_RATES_TYPE_ERROR;
+export interface SetAllRateTypeErrorAction {
+  type: RatesTypeActionEnum.SET_ALL_RATE_TYPE_ERROR;
   payload: string;
 }
 
-export interface SetRatesTypeIsLoadingAction {
-  type: RatesTypeActionEnum.SET_RATES_TYPE_IS_LOADING;
+export interface SetAllRateTypeIsLoadingAction {
+  type: RatesTypeActionEnum.SET_ALL_RATE_TYPE_IS_LOADING;
   payload: boolean;
 }
 
-export interface GetRateTypeId {
-  type: RatesTypeActionEnum.GET_RATE_TYPE_ID;
+export interface GetRateType {
+  type: RatesTypeActionEnum.GET_RATE_TYPE;
   payload: IRateType;
 }
 
-export interface SetRateTypeIdIsLoadingAction {
-  type: RatesTypeActionEnum.SET_RATE_TYPE_ID_IS_LOADING;
+export interface SetRateTypeIsLoadingAction {
+  type: RatesTypeActionEnum.SET_RATE_TYPE_IS_LOADING;
   payload: boolean;
 }
 
-export interface SetRateTypeIdErrorAction {
-  type: RatesTypeActionEnum.SET_RATE_TYPE_ID_ERROR;
+export interface SetRateTypeErrorAction {
+  type: RatesTypeActionEnum.SET_RATE_TYPE_ERROR;
   payload: string;
 }
 
@@ -91,12 +91,12 @@ export interface SetRateTypeDeleteErrorAction {
 }
 
 export type RatesTypeAction =
-  | GetRatesType
-  | SetRatesTypeErrorAction
-  | SetRatesTypeIsLoadingAction
-  | GetRateTypeId
-  | SetRateTypeIdIsLoadingAction
-  | SetRateTypeIdErrorAction
+  | GetAllRateType
+  | SetAllRateTypeErrorAction
+  | SetAllRateTypeIsLoadingAction
+  | GetRateType
+  | SetRateTypeIsLoadingAction
+  | SetRateTypeErrorAction
   | SetRateTypeIsCreateAction
   | SetRateTypeCreateIsLoadingAction
   | SetRateTypeCreateErrorAction

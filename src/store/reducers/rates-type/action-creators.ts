@@ -2,44 +2,44 @@ import { AppDispatch } from 'store/index';
 import { DeleteService, GetService, PostService, PutService } from 'api';
 import { IRateType, IRateTypeCreate } from 'models/IRateType';
 import {
-  GetRatesType,
-  GetRateTypeId,
+  GetAllRateType,
+  GetRateType,
   RatesTypeActionEnum,
-  SetRatesTypeErrorAction,
-  SetRatesTypeIsLoadingAction,
+  SetAllRateTypeErrorAction,
+  SetAllRateTypeIsLoadingAction,
   SetRateTypeCreateErrorAction,
   SetRateTypeCreateIsLoadingAction,
   SetRateTypeIsDeleteAction,
   SetRateTypeDeleteIsLoadingAction,
   SetRateTypeDeleteErrorAction,
-  SetRateTypeIdErrorAction,
-  SetRateTypeIdIsLoadingAction,
+  SetRateTypeErrorAction,
+  SetRateTypeIsLoadingAction,
   SetRateTypeIsCreateAction,
 } from './types';
 
 export const RatesTypeActionCreators = {
-  getRatesType: (payload: IRateType[]): GetRatesType => ({
-    type: RatesTypeActionEnum.GET_RATES_TYPE,
+  getAllRateType: (payload: IRateType[]): GetAllRateType => ({
+    type: RatesTypeActionEnum.GET_ALL_RATE_TYPE,
     payload,
   }),
-  setRatesTypeIsLoading: (payload: boolean): SetRatesTypeIsLoadingAction => ({
-    type: RatesTypeActionEnum.SET_RATES_TYPE_IS_LOADING,
+  setAllRateTypeIsLoading: (payload: boolean): SetAllRateTypeIsLoadingAction => ({
+    type: RatesTypeActionEnum.SET_ALL_RATE_TYPE_IS_LOADING,
     payload,
   }),
-  setRatesTypeError: (payload: string): SetRatesTypeErrorAction => ({
-    type: RatesTypeActionEnum.SET_RATES_TYPE_ERROR,
+  setAllRateTypeError: (payload: string): SetAllRateTypeErrorAction => ({
+    type: RatesTypeActionEnum.SET_ALL_RATE_TYPE_ERROR,
     payload,
   }),
-  getRateTypeId: (payload: IRateType): GetRateTypeId => ({
-    type: RatesTypeActionEnum.GET_RATE_TYPE_ID,
+  getRateType: (payload: IRateType): GetRateType => ({
+    type: RatesTypeActionEnum.GET_RATE_TYPE,
     payload,
   }),
-  setRateTypeIdIsLoading: (payload: boolean): SetRateTypeIdIsLoadingAction => ({
-    type: RatesTypeActionEnum.SET_RATE_TYPE_ID_IS_LOADING,
+  setRateTypeIsLoading: (payload: boolean): SetRateTypeIsLoadingAction => ({
+    type: RatesTypeActionEnum.SET_RATE_TYPE_IS_LOADING,
     payload,
   }),
-  setRateTypeIdError: (payload: string): SetRateTypeIdErrorAction => ({
-    type: RatesTypeActionEnum.SET_RATE_TYPE_ID_ERROR,
+  setRateTypeError: (payload: string): SetRateTypeErrorAction => ({
+    type: RatesTypeActionEnum.SET_RATE_TYPE_ERROR,
     payload,
   }),
   setRateTypeIsCreate: (payload: boolean): SetRateTypeIsCreateAction => ({
@@ -68,29 +68,30 @@ export const RatesTypeActionCreators = {
   }),
   fetchRatesType: () => async (dispatch: AppDispatch) => {
     try {
-      dispatch(RatesTypeActionCreators.setRatesTypeIsLoading(true));
+      dispatch(RatesTypeActionCreators.setAllRateTypeError(''));
+      dispatch(RatesTypeActionCreators.setAllRateTypeIsLoading(true));
       const response = await GetService(process.env.REACT_APP_RATE_TYPE_API);
-      dispatch(RatesTypeActionCreators.getRatesType(response.data.data));
-      dispatch(RatesTypeActionCreators.setRatesTypeIsLoading(false));
-      dispatch(RatesTypeActionCreators.setRatesTypeError(''));
+      dispatch(RatesTypeActionCreators.getAllRateType(response.data.data));
+      dispatch(RatesTypeActionCreators.setAllRateTypeIsLoading(false));
+      dispatch(RatesTypeActionCreators.setAllRateTypeError(''));
     } catch (e) {
       dispatch(
-        RatesTypeActionCreators.setRatesTypeError(
+        RatesTypeActionCreators.setAllRateTypeError(
           'Произошла ошибка при загрузке списка типа тарифов'
         )
       );
     }
   },
-  fetchRateTypeId: (id: string) => async (dispatch: AppDispatch) => {
+  fetchRateType: (id: string) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(RatesTypeActionCreators.setRateTypeIdError(''));
-      dispatch(RatesTypeActionCreators.setRateTypeIdIsLoading(true));
+      dispatch(RatesTypeActionCreators.setRateTypeError(''));
+      dispatch(RatesTypeActionCreators.setRateTypeIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_RATE_TYPE_API}/${id}`);
-      dispatch(RatesTypeActionCreators.getRateTypeId(response.data.data));
-      dispatch(RatesTypeActionCreators.setRateTypeIdIsLoading(false));
+      dispatch(RatesTypeActionCreators.getRateType(response.data.data));
+      dispatch(RatesTypeActionCreators.setRateTypeIsLoading(false));
     } catch (e) {
       dispatch(
-        RatesTypeActionCreators.setRateTypeIdError('Произошла ошибка при загрузке типа тарифа')
+        RatesTypeActionCreators.setRateTypeError('Произошла ошибка при загрузке типа тарифа')
       );
     }
   },
@@ -142,7 +143,7 @@ export const RatesTypeActionCreators = {
       );
     }
   },
-  cleanRateTypeId: () => async (dispatch: AppDispatch) => {
-    dispatch(RatesTypeActionCreators.getRateTypeId({} as IRateType));
+  cleanRateType: () => async (dispatch: AppDispatch) => {
+    dispatch(RatesTypeActionCreators.getRateType({} as IRateType));
   },
 };

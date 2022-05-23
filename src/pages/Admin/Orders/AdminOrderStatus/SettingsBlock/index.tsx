@@ -25,7 +25,7 @@ export const SettingsBlock: FC = () => {
   const { id } = useParams();
 
   const {
-    orderStatusId,
+    orderStatus,
     orderStatusIsCreate,
     orderStatusIsDelete,
     orderStatusCreateIsLoading,
@@ -51,10 +51,10 @@ export const SettingsBlock: FC = () => {
   }, [orderStatusNameValue]);
 
   useEffect(() => {
-    if (Object.keys(orderStatusId).length > 0 && id) {
-      if (orderStatusId.name) setOrderStatusNameValue(orderStatusId.name);
+    if (Object.keys(orderStatus).length > 0 && id) {
+      if (orderStatus.name) setOrderStatusNameValue(orderStatus.name);
     }
-  }, [orderStatusId, id]);
+  }, [orderStatus, id]);
 
   useEffect(() => {
     if (orderStatusIsCreate)

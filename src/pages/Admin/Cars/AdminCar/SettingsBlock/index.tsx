@@ -44,7 +44,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { car, carIsCreate, carIdIsLoading, carIsDelete, carDeleteIsLoading } =
+  const { car, carIsCreate, carIsLoading, carIsDelete, carDeleteIsLoading } =
     useTypedSelector(carsSelector);
   const { categories, categoriesIsLoading } = useTypedSelector(categoriesSelector);
 
@@ -122,13 +122,13 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   useEffect(() => {
     if (carIsCreate)
       setTimeout(() => {
-        navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`);
         setCarIsCreate(false);
+        navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`);
       }, 3000);
     if (carIsDelete)
       setTimeout(() => {
-        navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`);
         setCarIsDelete(false);
+        navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CARS_LIST}`);
       }, 3000);
   }, [carIsCreate, carIsDelete]);
 
@@ -499,7 +499,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
             onClick={saveBtnHandler}
             containerClassName={cn(styles.saveBtnContainer, { [styles.editPage]: id })}
             className={styles.saveBtn}
-            isLoading={carIdIsLoading}
+            isLoading={carIsLoading}
             disabled={carIsCreate || carIsDelete}
           >
             Сохранить

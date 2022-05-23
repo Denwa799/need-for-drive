@@ -25,9 +25,9 @@ export const SettingsBlock: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { rateId, rateCreateIsLoading, rateIsCreate, rateIsDelete, rateDeleteIsLoading } =
+  const { rate, rateCreateIsLoading, rateIsCreate, rateIsDelete, rateDeleteIsLoading } =
     useTypedSelector(ratesSelector);
-  const { ratesType, ratesTypeIsLoading } = useTypedSelector(ratesTypeSelector);
+  const { allRateType, allRateTypeIsLoading } = useTypedSelector(ratesTypeSelector);
 
   const [rateTypeValue, setRateTypeValue] = useState('');
   const [rateTypeSelectValue, setRateTypeSelectValue] = useState('');
@@ -38,10 +38,11 @@ export const SettingsBlock: FC = () => {
   const [priceValidationError, setPriceValidationError] = useState(false);
   const [priceErrorText, setPriceErrorText] = useState('Пустое поле');
 
-  const { fetchRatesType, createRate, updateRate, deleteRate } = useActions();
+  const { fetchRatesType, createRate, updateRate, deleteRate, setRateIsCreate, setRateIsDelete } =
+    useActions();
 
   useEffect(() => {
-    if (!ratesTypeIsLoading) fetchRatesType();
+    if (!allRateTypeIsLoading) fetchRatesType();
   }, []);
 
   useEffect(() => {
@@ -51,30 +52,32 @@ export const SettingsBlock: FC = () => {
   }, [rateTypeValue]);
 
   useEffect(() => {
-    if (Object.keys(rateId).length > 0 && id) {
-      if (rateId.price) setPriceValue(rateId.price);
-      if (rateId.rateTypeId) {
-        setRateTypeValue(rateId.rateTypeId.name);
-        setRateTypeSelectValue(rateId.rateTypeId.name);
+    if (Object.keys(rate).length > 0 && id) {
+      if (rate.price) setPriceValue(rate.price);
+      if (rate.rateTypeId) {
+        setRateTypeValue(rate.rateTypeId.name);
+        setRateTypeSelectValue(rate.rateTypeId.name);
       }
     }
-  }, [rateId]);
+  }, [rate]);
 
   useEffect(() => {
     if (rateIsCreate)
       setTimeout(() => {
+        setRateIsCreate(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE_LIST}`);
       }, 3000);
     if (rateIsDelete)
       setTimeout(() => {
+        setRateIsDelete(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE_LIST}`);
       }, 3000);
   }, [rateIsCreate, rateIsDelete]);
 
   // Создаю массив для поля автодополнения
   const ratesTypeName = useMemo(
-    () => ratesType.map((item) => (item.name ? item.name : '')),
-    [ratesType]
+    () => allRateType.map((item) => (item.name ? item.name : '')),
+    [allRateType]
   );
 
   // Удаляю все дубли и null из массива
@@ -96,7 +99,7 @@ export const SettingsBlock: FC = () => {
   }, [cleanRatesTypeName]);
 
   const selectRatesType = useMemo(() => {
-    return ratesType.find((item) => item.name === rateTypeSelectValue);
+    return allRateType.find((item) => item.name === rateTypeSelectValue);
   }, [rateTypeSelectValue]);
 
   const rateTypeHandler = useCallback(
@@ -178,7 +181,7 @@ export const SettingsBlock: FC = () => {
               placeholder="Выберите тип тарифа"
               className={styles.inputContainer}
               onSelect={rateTypeSelectHandler}
-              isLoading={ratesTypeIsLoading}
+              isLoading={allRateTypeIsLoading}
               type="second"
               danger={rateTypeValidationError}
             />

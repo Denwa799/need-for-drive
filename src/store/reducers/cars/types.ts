@@ -2,13 +2,13 @@ import { ICar } from 'models/ICar';
 
 export interface CarsState {
   cars: ICar[];
-  car: ICar;
-  carCreateIsLoading: boolean;
   carsIsLoading: boolean;
-  carIdIsLoading: boolean;
   carsError: string;
-  carIdError: string;
+  car: ICar;
+  carIsLoading: boolean;
+  carError: string;
   carIsCreate: boolean;
+  carCreateIsLoading: boolean;
   carCreateError: string;
   carIsDelete: boolean;
   carDeleteIsLoading: boolean;
@@ -17,13 +17,13 @@ export interface CarsState {
 
 export enum CarsActionEnum {
   GET_CARS = 'GET_CARS',
-  GET_CAR = 'GET_CAR',
-  SET_CARS_ERROR = 'SET_CARS_ERROR',
-  SET_CAR_ID_ERROR = 'SET_CAR_ID_ERROR',
   SET_CARS_IS_LOADING = 'SET_CARS_IS_LOADING',
-  SET_CAR_CREATE_IS_LOADING = 'SET_CAR_CREATE_IS_LOADING',
-  SET_CAR_ID_IS_LOADING = 'SET_CAR_ID_IS_LOADING',
+  SET_CARS_ERROR = 'SET_CARS_ERROR',
+  GET_CAR = 'GET_CAR',
+  SET_CAR_IS_LOADING = 'SET_CAR_IS_LOADING',
+  SET_CAR_ERROR = 'SET_CAR_ERROR',
   SET_CAR_IS_CREATE = 'SET_CAR_IS_CREATE',
+  SET_CAR_CREATE_IS_LOADING = 'SET_CAR_CREATE_IS_LOADING',
   SET_CAR_CREATE_ERROR = 'SET_CAR_CREATE_ERROR',
   SET_CAR_IS_DELETE = 'SET_CAR_IS_DELETE',
   SET_CAR_DELETE_IS_LOADING = 'SET_CAR_DELETE_IS_LOADING',
@@ -35,9 +35,9 @@ export interface GetCars {
   payload: ICar[];
 }
 
-export interface GetCar {
-  type: CarsActionEnum.GET_CAR;
-  payload: ICar;
+export interface SetCarsIsLoadingAction {
+  type: CarsActionEnum.SET_CARS_IS_LOADING;
+  payload: boolean;
 }
 
 export interface SetCarsErrorAction {
@@ -45,28 +45,28 @@ export interface SetCarsErrorAction {
   payload: string;
 }
 
-export interface SetCarIdErrorAction {
-  type: CarsActionEnum.SET_CAR_ID_ERROR;
+export interface GetCar {
+  type: CarsActionEnum.GET_CAR;
+  payload: ICar;
+}
+
+export interface SetCarIsLoadingAction {
+  type: CarsActionEnum.SET_CAR_IS_LOADING;
+  payload: boolean;
+}
+
+export interface SetCarErrorAction {
+  type: CarsActionEnum.SET_CAR_ERROR;
   payload: string;
 }
 
-export interface SetCarsIsLoadingAction {
-  type: CarsActionEnum.SET_CARS_IS_LOADING;
+export interface SetCarIsCreateAction {
+  type: CarsActionEnum.SET_CAR_IS_CREATE;
   payload: boolean;
 }
 
 export interface SetCarCreateIsLoadingAction {
   type: CarsActionEnum.SET_CAR_CREATE_IS_LOADING;
-  payload: boolean;
-}
-
-export interface SetCarIdIsLoadingAction {
-  type: CarsActionEnum.SET_CAR_ID_IS_LOADING;
-  payload: boolean;
-}
-
-export interface SetCarIsCreateAction {
-  type: CarsActionEnum.SET_CAR_IS_CREATE;
   payload: boolean;
 }
 
@@ -92,13 +92,13 @@ export interface SetCarDeleteErrorAction {
 
 export type CarsAction =
   | GetCars
-  | GetCar
   | SetCarsIsLoadingAction
-  | SetCarCreateIsLoadingAction
-  | SetCarIdIsLoadingAction
   | SetCarsErrorAction
-  | SetCarIdErrorAction
+  | GetCar
+  | SetCarIsLoadingAction
+  | SetCarErrorAction
   | SetCarIsCreateAction
+  | SetCarCreateIsLoadingAction
   | SetCarCreateErrorAction
   | SetCarIsDeleteAction
   | SetCarDeleteIsLoadingAction

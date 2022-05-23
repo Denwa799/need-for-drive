@@ -25,7 +25,7 @@ export const SettingsBlock: FC = () => {
   const { id } = useParams();
 
   const {
-    categoryId,
+    category,
     categoryIsCreate,
     categoryIsDelete,
     categoryCreateIsLoading,
@@ -41,7 +41,14 @@ export const SettingsBlock: FC = () => {
   const [descriptionValidationError, setDescriptionValidationError] = useState(false);
   const [descriptionErrorText, setDescriptionErrorText] = useState('Пустое поле');
 
-  const { fetchCategories, createCategory, updateCategory, deleteCategory } = useActions();
+  const {
+    fetchCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
+    setCategoryIsCreate,
+    setCategoryIsDelete,
+  } = useActions();
 
   useEffect(() => {
     if (!categoriesIsLoading) fetchCategories();
@@ -54,19 +61,21 @@ export const SettingsBlock: FC = () => {
   }, [categoryNameValue]);
 
   useEffect(() => {
-    if (Object.keys(categoryId).length > 0 && id) {
-      if (categoryId.name) setCategoryNameValue(categoryId.name);
-      if (categoryId.description) setDescriptionValue(categoryId.description);
+    if (Object.keys(category).length > 0 && id) {
+      if (category.name) setCategoryNameValue(category.name);
+      if (category.description) setDescriptionValue(category.description);
     }
-  }, [categoryId, id]);
+  }, [category, id]);
 
   useEffect(() => {
     if (categoryIsCreate)
       setTimeout(() => {
+        setCategoryIsCreate(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CATEGORY_LIST}`);
       }, 3000);
     if (categoryIsDelete)
       setTimeout(() => {
+        setCategoryIsDelete(false);
         navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CATEGORY_LIST}`);
       }, 3000);
   }, [categoryIsCreate, categoryIsDelete]);

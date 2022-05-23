@@ -15,9 +15,9 @@ export const AdminRateType = () => {
   const { id } = useParams();
 
   const {
-    rateTypeId,
-    rateTypeIdIsLoading,
-    rateTypeIdError,
+    rateType,
+    rateTypeIsLoading,
+    rateTypeError,
     rateTypeIsCreate,
     rateTypeCreateError,
     rateTypeIsDelete,
@@ -25,8 +25,8 @@ export const AdminRateType = () => {
   } = useTypedSelector(ratesTypeSelector);
 
   const {
-    fetchRateTypeId,
-    cleanRateTypeId,
+    fetchRateType,
+    cleanRateType,
     setRateTypeIsCreate,
     setRateTypeCreateError,
     setRateTypeIsDelete,
@@ -35,7 +35,7 @@ export const AdminRateType = () => {
 
   useEffect(() => {
     return () => {
-      cleanRateTypeId();
+      cleanRateType();
       setRateTypeIsCreate(false);
       setRateTypeCreateError('');
       setRateTypeIsDelete(false);
@@ -44,15 +44,15 @@ export const AdminRateType = () => {
   }, []);
 
   useEffect(() => {
-    if (id && Object.keys(rateTypeId).length === 0) {
-      fetchRateTypeId(id);
+    if (id && Object.keys(rateType).length === 0) {
+      fetchRateType(id);
     }
-  }, [id, rateTypeId]);
+  }, [id, rateType]);
 
   return (
     <div>
-      {rateTypeIdIsLoading || rateTypeIdError ? (
-        <ErrorLoading loading={rateTypeIdIsLoading} error={rateTypeIdError} />
+      {rateTypeIsLoading || rateTypeError ? (
+        <ErrorLoading loading={rateTypeIsLoading} error={rateTypeError} />
       ) : (
         <div className={styles.AdminRateType}>
           {rateTypeIsCreate ? (

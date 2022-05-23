@@ -16,7 +16,7 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
   setFilteredCity,
 }) => {
   const navigate = useNavigate();
-  const { city, cityIsLoading } = useTypedSelector(citySelector);
+  const { cities, citiesIsLoading } = useTypedSelector(citySelector);
   const [cityNameFilter, setCityNameFilter] = useState('');
   const debouncedCityNameFilter = useDebounce<string>(cityNameFilter, 500);
 
@@ -25,7 +25,7 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
   }, [debouncedCityNameFilter]);
 
   // Создаю массив для поля фильтрации
-  const cityName = useMemo(() => city.map((item) => (item.name ? item.name : '')), [city]);
+  const cityName = useMemo(() => cities.map((item) => (item.name ? item.name : '')), [cities]);
 
   // Удаляю все дубли и null из массива
   const cleanCityName = useMemo(
@@ -62,11 +62,11 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
   // Отфильтровываю города
   const filteredCity = useMemo(() => {
     if (debouncedCityNameFilter)
-      return city.filter((item) =>
+      return cities.filter((item) =>
         item.name ? item.name === debouncedCityNameFilter : item.name !== null
       );
-    return city;
-  }, [city, debouncedCityNameFilter]);
+    return cities;
+  }, [cities, debouncedCityNameFilter]);
 
   useEffect(() => {
     setFilteredCity(filteredCity);
@@ -92,7 +92,7 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
             value={cityNameFilter}
             onChange={cityNameFilterHandler}
             placeholder="Название"
-            isLoading={cityIsLoading}
+            isLoading={citiesIsLoading}
             className={styles.autocomplete}
             inputClassName={styles.input}
           />

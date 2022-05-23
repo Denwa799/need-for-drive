@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { AdminTitle } from 'components/ui/AdminTitle';
 import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
-import { mapPointsSelector } from 'store/selectors/selectors';
+import { pointsSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
@@ -15,18 +15,18 @@ export const AdminPoint = () => {
   const { id } = useParams();
 
   const {
-    pointId,
-    pointIdIsLoading,
-    pointIdError,
+    point,
+    pointIsLoading,
+    pointError,
     pointIsCreate,
     pointCreateError,
     pointIsDelete,
     pointDeleteError,
-  } = useTypedSelector(mapPointsSelector);
+  } = useTypedSelector(pointsSelector);
 
   const {
-    fetchPointId,
-    cleanPointId,
+    fetchPoint,
+    cleanPoint,
     setPointIsCreate,
     setPointCreateError,
     setPointIsDelete,
@@ -35,7 +35,7 @@ export const AdminPoint = () => {
 
   useEffect(() => {
     return () => {
-      cleanPointId();
+      cleanPoint();
       setPointIsCreate(false);
       setPointCreateError('');
       setPointIsDelete(false);
@@ -44,15 +44,15 @@ export const AdminPoint = () => {
   }, []);
 
   useEffect(() => {
-    if (id && Object.keys(pointId).length === 0) {
-      fetchPointId(id);
+    if (id && Object.keys(point).length === 0) {
+      fetchPoint(id);
     }
-  }, [id, pointId]);
+  }, [id, point]);
 
   return (
     <div>
-      {pointIdIsLoading || pointIdError ? (
-        <ErrorLoading loading={pointIdIsLoading} error={pointIdError} />
+      {pointIsLoading || pointError ? (
+        <ErrorLoading loading={pointIsLoading} error={pointError} />
       ) : (
         <div className={styles.AdminPointCreate}>
           {pointIsCreate ? (
