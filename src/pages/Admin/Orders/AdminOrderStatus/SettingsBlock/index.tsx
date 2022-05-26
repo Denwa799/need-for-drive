@@ -78,11 +78,7 @@ export const SettingsBlock: FC = () => {
   );
 
   const postData = useMemo(() => {
-    if (orderStatusNameValue)
-      return {
-        name: orderStatusNameValue,
-      };
-    return null;
+    return orderStatusNameValue ? { name: orderStatusNameValue } : null;
   }, [orderStatusNameValue]);
 
   const saveBtnHandler = useCallback(() => {

@@ -44,7 +44,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { car, carIsCreate, carIsLoading, carIsDelete, carDeleteIsLoading } =
+  const { car, carIsCreate, carCreateIsLoading, carIsDelete, carDeleteIsLoading } =
     useTypedSelector(carsSelector);
   const { categories, categoriesIsLoading } = useTypedSelector(categoriesSelector);
 
@@ -499,7 +499,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
             onClick={saveBtnHandler}
             containerClassName={cn(styles.saveBtnContainer, { [styles.editPage]: id })}
             className={styles.saveBtn}
-            isLoading={carIsLoading}
+            isLoading={carCreateIsLoading}
             disabled={carIsCreate || carIsDelete}
           >
             Сохранить

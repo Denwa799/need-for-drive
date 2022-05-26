@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
 import { useCookies } from 'react-cookie';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminCityListFilters } from './AdminCityListFilters';
 import { PageChangeHandlerType } from './type';
 
@@ -93,8 +93,12 @@ export const AdminCityList = () => {
 
   return (
     <div>
-      {cityIsDelete ? <AdminSuccessMsg type="success">Успех! Город удален</AdminSuccessMsg> : null}
-      {cityDeleteError ? <AdminSuccessMsg type="error">{cityDeleteError}</AdminSuccessMsg> : null}
+      <AdminSuccessError
+        successText="Успех! Город удален"
+        isSuccess={cityIsDelete}
+        errorText={cityDeleteError}
+        isError={!!cityDeleteError}
+      />
       <AdminContainer>
         <AdminTitle>Города</AdminTitle>
         <AdminList>

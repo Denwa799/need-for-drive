@@ -7,9 +7,9 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderStatusSelector } from 'store/selectors/selectors';
 import useDebounce from 'hooks/useDebounce';
 import { useNavigate } from 'react-router-dom';
+import { RouteNames } from 'router/routes';
 import styles from './styles.module.less';
 import { IAdminOrderStatusListFilters } from './type';
-import { RouteNames } from '../../../../../router/routes';
 
 export const AdminOrderStatusListFilters: FC<IAdminOrderStatusListFilters> = ({
   setCurrentPage,
@@ -26,7 +26,7 @@ export const AdminOrderStatusListFilters: FC<IAdminOrderStatusListFilters> = ({
 
   // Создаю массив для поля фильтрации
   const ordersStatusName = useMemo(
-    () => allOrderStatus.map((item) => (item.name ? item.name : '')),
+    () => allOrderStatus.map((item) => item.name || ''),
     [allOrderStatus]
   );
 

@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { RouteNames } from 'router/routes';
 import { useActions } from 'hooks/useActions';
 import { useCookies } from 'react-cookie';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminOrderListFilters } from './AdminOrderListFilters';
 import styles from './styles.module.less';
 import { PageChangeHandlerType, CheckCancelBtnHandlerType } from './type';
@@ -128,10 +128,12 @@ export const AdminOrderList: FC = () => {
 
   return (
     <div className={styles.AdminOrderList}>
-      {orderIsCreate ? (
-        <AdminSuccessMsg type="success">Успех! Заказ сохранен</AdminSuccessMsg>
-      ) : null}
-      {orderCreateError ? <AdminSuccessMsg type="error">{orderCreateError}</AdminSuccessMsg> : null}
+      <AdminSuccessError
+        successText="Успех! Заказ сохранен"
+        isSuccess={orderIsCreate}
+        errorText={orderCreateError}
+        isError={!!orderCreateError}
+      />
       <AdminContainer>
         <AdminTitle>Заказы</AdminTitle>
         <AdminList>

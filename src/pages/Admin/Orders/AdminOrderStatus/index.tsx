@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { orderStatusSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -55,18 +55,18 @@ export const AdminOrderStatus = () => {
         <ErrorLoading loading={orderStatusIsLoading} error={orderStatusError} />
       ) : (
         <div className={styles.AdminOrderStatus}>
-          {orderStatusIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Статус заказа сохранен</AdminSuccessMsg>
-          ) : null}
-          {orderStatusCreateError ? (
-            <AdminSuccessMsg type="error">{orderStatusCreateError}</AdminSuccessMsg>
-          ) : null}
-          {orderStatusIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Статус заказа удален</AdminSuccessMsg>
-          ) : null}
-          {orderStatusDeleteError ? (
-            <AdminSuccessMsg type="error">{orderStatusDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Статус заказа сохранен"
+            isSuccess={orderStatusIsCreate}
+            errorText={orderStatusCreateError}
+            isError={!!orderStatusCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Статус заказа удален"
+            isSuccess={orderStatusIsDelete}
+            errorText={orderStatusDeleteError}
+            isError={!!orderStatusDeleteError}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить статус заказа</AdminTitle>

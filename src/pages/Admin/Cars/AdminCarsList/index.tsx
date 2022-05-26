@@ -105,10 +105,10 @@ export const AdminCarsList = () => {
                         Цвета:{' '}
                         {car.colors && car.colors.length > 0 && car.colors[0] !== ''
                           ? car.colors.map((color, index, array) => {
-                              return index + 1 !== array.length ? (
-                                <b key={`${Math.random()}${color}`}>{color}, </b>
-                              ) : (
-                                <b key={`${Math.random()}${color}`}>{color}</b>
+                              return (
+                                <b key={`${Math.random()}${color}`}>
+                                  {index + 1 !== array.length ? `${color}, ` : `${color}`}
+                                </b>
                               );
                             })
                           : errorMessage}

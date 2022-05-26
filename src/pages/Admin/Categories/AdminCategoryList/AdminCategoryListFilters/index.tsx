@@ -25,10 +25,7 @@ export const AdminCategoryListFilters: FC<IAdminCategoryListFilters> = ({
   }, [debouncedCategoriesNameFilter]);
 
   // Создаю массив для поля фильтрации
-  const categoriesName = useMemo(
-    () => categories.map((item) => (item.name ? item.name : '')),
-    [categories]
-  );
+  const categoriesName = useMemo(() => categories.map((item) => item.name || ''), [categories]);
 
   // Удаляю все дубли и null из массива
   const cleanCategoriesName = useMemo(

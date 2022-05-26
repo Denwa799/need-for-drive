@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { pointsSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -55,18 +55,18 @@ export const AdminPoint = () => {
         <ErrorLoading loading={pointIsLoading} error={pointError} />
       ) : (
         <div className={styles.AdminPointCreate}>
-          {pointIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Пункт выдачи сохранен</AdminSuccessMsg>
-          ) : null}
-          {pointCreateError ? (
-            <AdminSuccessMsg type="error">{pointCreateError}</AdminSuccessMsg>
-          ) : null}
-          {pointIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Пункт выдачи удален</AdminSuccessMsg>
-          ) : null}
-          {pointDeleteError ? (
-            <AdminSuccessMsg type="error">{pointDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Пункт выдачи сохранен"
+            isSuccess={pointIsCreate}
+            errorText={pointCreateError}
+            isError={!!pointCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Пункт выдачи удален"
+            isSuccess={pointIsDelete}
+            errorText={pointDeleteError}
+            isError={!!pointDeleteError}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить пункт выдачи</AdminTitle>

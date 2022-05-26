@@ -25,7 +25,7 @@ export const AdminCityListFilters: FC<IAdminCityListFilters> = ({
   }, [debouncedCityNameFilter]);
 
   // Создаю массив для поля фильтрации
-  const cityName = useMemo(() => cities.map((item) => (item.name ? item.name : '')), [cities]);
+  const cityName = useMemo(() => cities.map((item) => item.name || ''), [cities]);
 
   // Удаляю все дубли и null из массива
   const cleanCityName = useMemo(

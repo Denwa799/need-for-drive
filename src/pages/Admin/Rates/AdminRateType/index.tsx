@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesTypeSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -55,23 +55,23 @@ export const AdminRateType = () => {
         <ErrorLoading loading={rateTypeIsLoading} error={rateTypeError} />
       ) : (
         <div className={styles.AdminRateType}>
-          {rateTypeIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Тип тарифа сохранен</AdminSuccessMsg>
-          ) : null}
-          {rateTypeCreateError ? (
-            <AdminSuccessMsg type="error">{rateTypeCreateError}</AdminSuccessMsg>
-          ) : null}
-          {rateTypeIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Тип тарифа удален</AdminSuccessMsg>
-          ) : null}
-          {rateTypeDeleteError ? (
-            <AdminSuccessMsg type="error">{rateTypeDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Тип тарифа сохранен"
+            isSuccess={rateTypeIsCreate}
+            errorText={rateTypeCreateError}
+            isError={!!rateTypeCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Тип тарифа удален"
+            isSuccess={rateTypeIsDelete}
+            errorText={rateTypeDeleteError}
+            isError={!!rateTypeDeleteError}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить тип тарифа</AdminTitle>
             ) : (
-              <AdminTitle>Карточка категории машины</AdminTitle>
+              <AdminTitle>Карточка типа тарифа</AdminTitle>
             )}
             <Row>
               <SettingsBlock />

@@ -11,9 +11,9 @@ import {
   ratesSelector,
 } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -73,18 +73,18 @@ export const AdminOrder = () => {
         <ErrorLoading loading={orderIsLoading} error={orderError} />
       ) : (
         <div className={styles.AdminOrder}>
-          {orderIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Заказ сохранен</AdminSuccessMsg>
-          ) : null}
-          {orderCreateError ? (
-            <AdminSuccessMsg type="error">{orderCreateError}</AdminSuccessMsg>
-          ) : null}
-          {orderIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Заказ удален</AdminSuccessMsg>
-          ) : null}
-          {orderDeleteError ? (
-            <AdminSuccessMsg type="error">{orderDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Заказ сохранен"
+            isSuccess={orderIsCreate}
+            errorText={orderCreateError}
+            isError={!!orderCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Заказ удален"
+            isSuccess={orderIsDelete}
+            errorText={orderDeleteError}
+            isError={!!orderDeleteError}
+          />
           <AdminContainer>
             <AdminTitle>Карточка заказа</AdminTitle>
             <Row>

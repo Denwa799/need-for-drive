@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { categoriesSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -55,18 +55,18 @@ export const AdminCategory = () => {
         <ErrorLoading loading={categoryIsLoading} error={categoryError} />
       ) : (
         <div className={styles.AdminCategory}>
-          {categoryIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Категория машины сохранена</AdminSuccessMsg>
-          ) : null}
-          {categoryCreateError ? (
-            <AdminSuccessMsg type="error">{categoryCreateError}</AdminSuccessMsg>
-          ) : null}
-          {categoryIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Категория машины удалена</AdminSuccessMsg>
-          ) : null}
-          {categoryDeleteError ? (
-            <AdminSuccessMsg type="error">{categoryDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Категория машины сохранена"
+            isSuccess={categoryIsCreate}
+            errorText={categoryCreateError}
+            isError={!!categoryCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Категория машины удалена"
+            isSuccess={categoryIsDelete}
+            errorText={categoryDeleteError}
+            isError={!!categoryDeleteError}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить категорию машины</AdminTitle>

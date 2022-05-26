@@ -27,7 +27,7 @@ export const AdminPointListFilters: FC<IAdminPointListFilters> = ({
   }, [debouncedPointNameFilter, debouncedPointCityFilter]);
 
   // Создаю массив для поля фильтрации
-  const pointName = useMemo(() => points.map((item) => (item.name ? item.name : '')), [points]);
+  const pointName = useMemo(() => points.map((item) => item.name || ''), [points]);
   const pointCity = useMemo(
     () => points.map((item) => (item.cityId ? item.cityId.name : '')),
     [points]

@@ -58,11 +58,7 @@ export const SettingsBlock: FC = () => {
   }, []);
 
   const postData = useMemo(() => {
-    if (cityNameValue)
-      return {
-        name: cityNameValue,
-      };
-    return null;
+    return cityNameValue ? { name: cityNameValue } : null;
   }, [cityNameValue]);
 
   const saveBtnHandler = useCallback(() => {

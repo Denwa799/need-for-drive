@@ -16,7 +16,7 @@ import { useCookies } from 'react-cookie';
 import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
 import { RouteNames } from 'router/routes';
 import { Modal } from 'antd';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminRateListFilters } from './AdminRateListFilters';
 import { PageChangeHandlerType } from './type';
 
@@ -94,8 +94,12 @@ export const AdminRateList = () => {
 
   return (
     <div>
-      {rateIsDelete ? <AdminSuccessMsg type="success">Успех! Тариф удален</AdminSuccessMsg> : null}
-      {rateDeleteError ? <AdminSuccessMsg type="error">{rateDeleteError}</AdminSuccessMsg> : null}
+      <AdminSuccessError
+        successText="Успех! Тариф удален"
+        isSuccess={rateIsDelete}
+        errorText={rateDeleteError}
+        isError={!!rateDeleteError}
+      />
       <AdminContainer>
         <AdminTitle>Тарифы</AdminTitle>
         <AdminList>

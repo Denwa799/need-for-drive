@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { useCookies } from 'react-cookie';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminCategoryListFilters } from './AdminCategoryListFilters';
 import { PageChangeHandlerType } from './type';
 
@@ -93,12 +93,12 @@ export const AdminCategoryList = () => {
 
   return (
     <div>
-      {categoryIsDelete ? (
-        <AdminSuccessMsg type="success">Успех! Категория машины удалена</AdminSuccessMsg>
-      ) : null}
-      {categoryDeleteError ? (
-        <AdminSuccessMsg type="error">{categoryDeleteError}</AdminSuccessMsg>
-      ) : null}
+      <AdminSuccessError
+        successText="Успех! Категория машины удалена"
+        isSuccess={categoryIsDelete}
+        errorText={categoryDeleteError}
+        isError={!!categoryDeleteError}
+      />
       <AdminContainer>
         <AdminTitle>Категории машин</AdminTitle>
         <AdminList>

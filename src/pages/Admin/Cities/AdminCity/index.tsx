@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { citySelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -55,18 +55,18 @@ export const AdminCity = () => {
         <ErrorLoading loading={cityIsLoading} error={cityError} />
       ) : (
         <div className={styles.AdminCityCreate}>
-          {cityIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Город сохранен</AdminSuccessMsg>
-          ) : null}
-          {cityCreateError ? (
-            <AdminSuccessMsg type="error">{cityCreateError}</AdminSuccessMsg>
-          ) : null}
-          {cityIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Город удален</AdminSuccessMsg>
-          ) : null}
-          {cityDeleteError ? (
-            <AdminSuccessMsg type="error">{cityDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Город сохранен"
+            isSuccess={cityIsCreate}
+            errorText={cityCreateError}
+            isError={!!cityCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Город удален"
+            isSuccess={cityIsDelete}
+            errorText={cityDeleteError}
+            isError={!!cityDeleteError}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить город</AdminTitle>

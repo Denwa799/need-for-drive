@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { RouteNames } from 'router/routes';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminRateTypeListFilters } from './AdminRateTypeListFilters';
 import { PageChangeHandlerType } from './type';
 
@@ -94,12 +94,12 @@ export const AdminRateTypeList = () => {
 
   return (
     <div>
-      {rateTypeIsDelete ? (
-        <AdminSuccessMsg type="success">Успех! Тип тарифа удален</AdminSuccessMsg>
-      ) : null}
-      {rateTypeDeleteError ? (
-        <AdminSuccessMsg type="error">{rateTypeDeleteError}</AdminSuccessMsg>
-      ) : null}
+      <AdminSuccessError
+        successText="Успех! Тип тарифа удален"
+        isSuccess={rateTypeIsDelete}
+        errorText={rateTypeDeleteError}
+        isError={!!rateTypeDeleteError}
+      />
       <AdminContainer>
         <AdminTitle>Типы тарифов</AdminTitle>
         <AdminList>

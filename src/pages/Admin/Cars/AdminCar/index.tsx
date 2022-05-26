@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector, categoriesSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { InfoBlock } from './InfoBlock';
 import { SettingsBlock } from './SettingsBlock';
@@ -91,18 +91,18 @@ export const AdminCar = () => {
         <ErrorLoading loading={carIsLoading} error={carError} />
       ) : (
         <div className={styles.AdminCarCreate}>
-          {carIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Машина сохранена</AdminSuccessMsg>
-          ) : null}
-          {carCreateError && progressPercent === 100 ? (
-            <AdminSuccessMsg type="error">{carCreateError}</AdminSuccessMsg>
-          ) : null}
-          {carIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Машина удалена</AdminSuccessMsg>
-          ) : null}
-          {carDeleteError && progressPercent === 100 ? (
-            <AdminSuccessMsg type="error">{carDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Машина сохранена"
+            isSuccess={carIsCreate}
+            errorText={carCreateError}
+            isError={!!(carCreateError && progressPercent === 100)}
+          />
+          <AdminSuccessError
+            successText="Успех! Машина удалена"
+            isSuccess={carIsDelete}
+            errorText={carDeleteError}
+            isError={!!(carDeleteError && progressPercent === 100)}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить автомобиль</AdminTitle>

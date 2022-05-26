@@ -16,7 +16,7 @@ import { useCookies } from 'react-cookie';
 import { Modal } from 'antd';
 import { RouteNames } from 'router/routes';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminOrderStatusListFilters } from './AdminOrderStatusListFilters';
 import { PageChangeHandlerType } from './type';
 
@@ -93,12 +93,12 @@ export const AdminOrderStatusList = () => {
 
   return (
     <div>
-      {orderStatusIsDelete ? (
-        <AdminSuccessMsg type="success">Успех! Статус заказа удален</AdminSuccessMsg>
-      ) : null}
-      {orderStatusDeleteError ? (
-        <AdminSuccessMsg type="error">{orderStatusDeleteError}</AdminSuccessMsg>
-      ) : null}
+      <AdminSuccessError
+        successText="Успех! Статус заказа удален"
+        isSuccess={orderStatusIsDelete}
+        errorText={orderStatusDeleteError}
+        isError={!!orderStatusDeleteError}
+      />
       <AdminContainer>
         <AdminTitle>Статус заказа</AdminTitle>
         <AdminList>

@@ -27,7 +27,7 @@ export const AdminCarsListFilters: FC<IAdminCarsListFilters> = ({
   }, [debouncedCarNameFilter, debouncedCarCategoryNameFilter]);
 
   // Создаю массив для поля фильтрации
-  const carsName = useMemo(() => cars.map((car) => (car.name ? car.name : '')), [cars]);
+  const carsName = useMemo(() => cars.map((car) => car.name || ''), [cars]);
   const carsCategory = useMemo(
     () => cars.map((car) => (car.categoryId ? car.categoryId.name : '')),
     [cars]

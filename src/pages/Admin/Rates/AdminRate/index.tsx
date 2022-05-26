@@ -5,9 +5,9 @@ import { Row } from 'antd';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
 import { useParams } from 'react-router-dom';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -55,18 +55,18 @@ export const AdminRate = () => {
         <ErrorLoading loading={rateIsLoading} error={rateError} />
       ) : (
         <div className={styles.AdminRateCreate}>
-          {rateIsCreate ? (
-            <AdminSuccessMsg type="success">Успех! Тариф сохранен</AdminSuccessMsg>
-          ) : null}
-          {rateCreateError ? (
-            <AdminSuccessMsg type="error">{rateCreateError}</AdminSuccessMsg>
-          ) : null}
-          {rateIsDelete ? (
-            <AdminSuccessMsg type="success">Успех! Тариф удален</AdminSuccessMsg>
-          ) : null}
-          {rateDeleteError ? (
-            <AdminSuccessMsg type="error">{rateDeleteError}</AdminSuccessMsg>
-          ) : null}
+          <AdminSuccessError
+            successText="Успех! Тариф сохранен"
+            isSuccess={rateIsCreate}
+            errorText={rateCreateError}
+            isError={!!rateCreateError}
+          />
+          <AdminSuccessError
+            successText="Успех! Тариф удален"
+            isSuccess={rateIsDelete}
+            errorText={rateDeleteError}
+            isError={!!rateDeleteError}
+          />
           <AdminContainer>
             {!id ? (
               <AdminTitle>Добавить тариф</AdminTitle>

@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons/lib';
 import { Modal } from 'antd';
 import { useCookies } from 'react-cookie';
-import { AdminSuccessMsg } from 'components/ui/AdminSuccessMsg';
+import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import { AdminPointListFilters } from './AdminPointListFilters';
 import { PageChangeHandlerType } from './type';
 
@@ -98,10 +98,12 @@ export const AdminPointList = () => {
 
   return (
     <div>
-      {pointIsDelete ? (
-        <AdminSuccessMsg type="success">Успех! Пункт выдачи удален</AdminSuccessMsg>
-      ) : null}
-      {pointDeleteError ? <AdminSuccessMsg type="error">{pointDeleteError}</AdminSuccessMsg> : null}
+      <AdminSuccessError
+        successText="Успех! Пункт выдачи удален"
+        isSuccess={pointIsDelete}
+        errorText={pointDeleteError}
+        isError={!!pointDeleteError}
+      />
       <AdminContainer>
         <AdminTitle>Пункты выдачи</AdminTitle>
         <AdminList>

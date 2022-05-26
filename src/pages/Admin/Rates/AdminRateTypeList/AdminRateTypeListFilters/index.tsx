@@ -27,14 +27,8 @@ export const AdminRateTypeListFilters: FC<IAdminRateTypeListFilters> = ({
   }, [debouncedRateTypeNameFilter, debouncedRateTypeUnitFilter]);
 
   // Создаю массив для поля фильтрации
-  const rateTypeNames = useMemo(
-    () => allRateType.map((item) => (item.name ? item.name : '')),
-    [allRateType]
-  );
-  const rateTypeUnits = useMemo(
-    () => allRateType.map((item) => (item.unit ? item.unit : '')),
-    [allRateType]
-  );
+  const rateTypeNames = useMemo(() => allRateType.map((item) => item.name || ''), [allRateType]);
+  const rateTypeUnits = useMemo(() => allRateType.map((item) => item.unit || ''), [allRateType]);
 
   // Удаляю все дубли и null из массива
   const cleanRateTypeNames = useMemo(
