@@ -1,0 +1,59 @@
+@import 'styles/consts';
+
+.Loader {
+  margin:auto;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  position:absolute;
+  font-size: 80px;
+  z-index: 998;
+}
+
+.AdminErrorLoading {
+  height: calc(100vh - 68px - 68px); // Минус высота навбара и высота футера
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 20px;
+  text-align: center;
+
+  .errorCode {
+    font-size: 75px;
+    line-height: 88px;
+    font-weight: 500;
+    color: @app-color__lightGrey;
+    font-family: Roboto, sans-serif;
+  }
+
+  .errorMsg {
+    font-size: 50px;
+    line-height: 57px;
+    color: @app-color__darkGrayBlue;
+  }
+
+  .text {
+    color: @app-color__greyBlue;
+    font-size: 20px;
+    line-height: 23px;
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminErrorLoading {
+    .errorCode {
+      font-size: 50px;
+      line-height: 50px;
+    }
+
+    .errorMsg {
+      font-size: 30px;
+      line-height: 30px;
+      padding-bottom: 10px;
+    }
+  }
+
+
+}
