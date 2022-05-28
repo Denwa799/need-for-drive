@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { LoginForm } from 'components/ui/LoginForm';
 import { setAuthCookie } from 'utils/setAuthCookie';
+import { RouteNames } from 'router/routes';
 import styles from './styles.module.less';
 
 const { Title } = Typography;
@@ -25,7 +26,7 @@ export const Login: FC = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/admin/order-list');
+      navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_ORDER_LIST}`);
     }
   }, [isAuth]);
 

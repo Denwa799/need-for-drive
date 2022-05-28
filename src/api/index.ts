@@ -15,10 +15,37 @@ export const GetService = (
   });
 };
 
-export const PostService = <T>(api: string | undefined, data: T) => {
+export const PostService = <T>(
+  api: string | undefined,
+  data: T,
+  tokenBearer: string | undefined = ''
+) => {
   return axios.post<AxiosResponse>(`${api}`, data, {
     headers: {
       'X-Api-Factory-Application-Id': `${process.env.REACT_APP_API_ID}`,
+      Authorization: `Bearer ${tokenBearer}`,
+    },
+  });
+};
+
+export const PutService = <T>(
+  api: string | undefined,
+  data: T,
+  tokenBearer: string | undefined = ''
+) => {
+  return axios.put<AxiosResponse>(`${api}`, data, {
+    headers: {
+      'X-Api-Factory-Application-Id': `${process.env.REACT_APP_API_ID}`,
+      Authorization: `Bearer ${tokenBearer}`,
+    },
+  });
+};
+
+export const DeleteService = <T>(api: string | undefined, tokenBearer: string | undefined = '') => {
+  return axios.delete<AxiosResponse>(`${api}`, {
+    headers: {
+      'X-Api-Factory-Application-Id': `${process.env.REACT_APP_API_ID}`,
+      Authorization: `Bearer ${tokenBearer}`,
     },
   });
 };

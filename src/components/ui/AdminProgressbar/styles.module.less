@@ -1,0 +1,75 @@
+@import 'styles/consts';
+
+.AdminProgressbar {
+  border: 1px solid @app-primary-gray__light;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+
+  .progressContainer {
+    padding: 0 10px 0 10px;
+    max-width: 310.5px;
+    margin: 0 auto;
+
+
+    .progressText {
+      font-family: Helvetica, Roboto, sans-serif;
+      font-size: 13px;
+      line-height: 14.95px;
+      color: @app-color__concrete;
+      padding: 14px 0 10px 0;
+    }
+
+    .progressPercent {
+      text-align: right;
+      font-family: Roboto, sans-serif;
+      font-size: 11px;
+      line-height: 12.89px;
+      padding: 16px 0 10px 0;
+    }
+
+    .progress {
+      padding-bottom: 16px;
+    }
+  }
+}
+
+@media (max-width: 1760px) {
+  .AdminProgressbar {
+    .progressContainer {
+      max-width: 250px;
+    }
+  }
+}
+
+@media (max-width: @app-screen-xl) {
+  .AdminProgressbar {
+    .progressContainer {
+      max-width: 310.5px;
+    }
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .AdminProgressbar {
+    .progressContainer {
+      max-width: 434px;
+    }
+  }
+}
+
+@media (max-width: 473px) {
+  .AdminProgressbar {
+    .progressContainer {
+      max-width: 334px;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .AdminProgressbar {
+    .progressContainer {
+      max-width: 260px;
+    }
+  }
+}

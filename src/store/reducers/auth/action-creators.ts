@@ -33,6 +33,7 @@ export const AuthActionCreators = {
   }),
   login: (username: string, password: string, token: string) => async (dispatch: AppDispatch) => {
     try {
+      dispatch(AuthActionCreators.setAuthError(''));
       dispatch(AuthActionCreators.setAuthIsLoading(true));
       const response = await AuthService(
         process.env.REACT_APP_AUTH_LOGIN_API,
@@ -48,6 +49,7 @@ export const AuthActionCreators = {
     }
   },
   checkAuth: (token: string, refreshToken: string) => async (dispatch: AppDispatch) => {
+    dispatch(AuthActionCreators.setAuthError(''));
     dispatch(AuthActionCreators.setAuthIsLoading(true));
     try {
       const response = await RefreshAuthService(
