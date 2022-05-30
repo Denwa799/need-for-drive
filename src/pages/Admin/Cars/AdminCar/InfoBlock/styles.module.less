@@ -1,0 +1,103 @@
+@import 'styles/consts';
+
+.InfoBlock {
+  padding-right: 28px;
+
+  .infoCard {
+    min-height: 506px;
+    max-height: 614px;
+    padding-top: 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .img {
+      width: 243.5px;
+      height: 110px;
+      object-fit: cover;
+    }
+
+    .title {
+      padding-top: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 243.5px;
+    }
+
+    .subtitle {
+      padding-top: 4.5px;
+    }
+
+    .imgInputContainer {
+      padding-top: 10.5px;
+    }
+
+    .progressBlock {
+      margin-top: 22.5px;
+    }
+
+    .descriptionBlock {
+      padding: 22.5px 10px 0 10px;
+      width: 310.5px;
+      font-family: Roboto, sans-serif;
+
+      .descriptionTitle {
+        padding-bottom: 13.5px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1760px) {
+  .InfoBlock {
+    .infoCard {
+      .descriptionBlock {
+        width: 250px;
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-xl) {
+  .InfoBlock {
+    .infoCard {
+      .descriptionBlock {
+        width: 310.5px;
+      }
+    }
+  }
+}
+
+@media (max-width: @app-screen-md) {
+  .InfoBlock {
+    padding-right: 0;
+    margin-bottom: 20px;
+
+    .infoCard {
+      .descriptionBlock {
+        width: 434px;
+      }
+    }
+  }
+}
+
+@media (max-width: 473px) {
+  .InfoBlock {
+    .infoCard {
+      .descriptionBlock {
+        width: 334px;
+      }
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .InfoBlock {
+    .infoCard {
+      .descriptionBlock {
+        width: 260px;
+      }
+    }
+  }
+}

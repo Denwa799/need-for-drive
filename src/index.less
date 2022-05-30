@@ -224,6 +224,7 @@ code {
   }
 }
 
+/* Переписываю стили datepicker из библиотеки ant design */
 .ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
   .ant-picker-panel-container {
     .ant-picker-panel {
@@ -239,13 +240,52 @@ code {
     }
   }
 }
+.ant-picker-dropdown.ant-picker-dropdown-placement-bottomRight {
+  .ant-picker-panel-container {
+    .ant-picker-panel {
+      .ant-picker-datetime-panel {
+        .ant-picker-time-panel {
+          .ant-picker-content {
+            .ant-picker-time-panel-column::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
-/* Переписываю стили datepicker из библиотеки ant design */
 @media (max-width: 393px) {
   .ant-picker-dropdown.ant-picker-dropdown-placement-bottomLeft {
     .ant-picker-panel-container {
       .ant-picker-panel {
         .ant-picker-datetime-panel {
+          flex-wrap: wrap;
+
+          .ant-picker-date-panel {
+            width: 100%;
+
+            .ant-picker-body {
+              .ant-picker-content {
+                width: 100%;
+              }
+            }
+          }
+
+          .ant-picker-time-panel {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .ant-picker-dropdown.ant-picker-dropdown-placement-bottomRight {
+    .ant-picker-panel-container {
+      .ant-picker-panel {
+        .ant-picker-datetime-panel {
+          width: 100%;
           flex-wrap: wrap;
 
           .ant-picker-date-panel {
@@ -323,6 +363,20 @@ code {
 
       .ant-select-item.ant-select-item-option.ant-select-item-option-selected {
         color: @app-primary-blue;
+      }
+    }
+  }
+}
+
+/* Переписываю стили для confirm modal из библиотеки ant design */
+.appConfirmModal {
+  .ant-modal-content {
+    .ant-modal-body {
+      .ant-modal-confirm-body-wrapper {
+        .ant-modal-confirm-btns {
+          display: flex;
+          align-items: end;
+        }
       }
     }
   }

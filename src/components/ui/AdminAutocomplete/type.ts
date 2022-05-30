@@ -7,4 +7,12 @@ export interface IAdminAutocomplete {
   className?: string;
   inputClassName?: string;
   isLoading?: boolean;
+  onSelect?: (value: string) => void;
+  type?: string;
+  danger?: boolean;
 }
+
+export type FilterOptionType = (
+  inputValue: string,
+  option: { value: string } | undefined
+) => boolean;

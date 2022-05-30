@@ -3,8 +3,7 @@ import cn from 'classnames';
 import { AutoComplete, Input, Spin } from 'antd';
 import { CaretDownFilled, CaretUpFilled, LoadingOutlined } from '@ant-design/icons/lib';
 import styles from './styles.module.less';
-import { IAdminAutocomplete } from './type';
-import { FilterOptionType } from '../../../pages/Admin/AdminCityList/AdminCityListFilters/type';
+import { FilterOptionType, IAdminAutocomplete } from './type';
 
 export const AdminAutocomplete: FC<IAdminAutocomplete> = ({
   options,
@@ -15,6 +14,9 @@ export const AdminAutocomplete: FC<IAdminAutocomplete> = ({
   className,
   inputClassName,
   isLoading,
+  onSelect,
+  type,
+  danger,
 }) => {
   // Фильтрация выводимой подсказки в autocomplete
   const filterOptionDefault = useCallback<FilterOptionType>(
@@ -37,8 +39,18 @@ export const AdminAutocomplete: FC<IAdminAutocomplete> = ({
             'Не найдено'
           )
         }
+        onSelect={onSelect}
       >
-        <Input className={cn(styles.input, inputClassName)} placeholder={placeholder} />
+        <Input
+          className={cn(
+            styles.input,
+            inputClassName,
+            { [styles.secondType]: type === 'second' },
+            { [styles.danger]: danger }
+          )}
+          placeholder={placeholder}
+          status={danger ? 'error' : undefined}
+        />
       </AutoComplete>
       <div className={styles.filterIcn}>
         <CaretUpFilled />

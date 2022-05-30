@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Typography, Affix, Col, Layout, Row } from 'antd';
 import Navigation from 'components/ui/Navigation/Navigation';
-import { cityLocationSelector, mapPointsSelector, orderSelector } from 'store/selectors/selectors';
+import { cityLocationSelector, pointsSelector, orderSelector } from 'store/selectors/selectors';
 import { useTypedSelector } from 'hooks/useTypesSelector';
 import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import AppContainer from 'layouts/AppContainer/AppContainer';
@@ -34,7 +34,7 @@ const Order: FC = () => {
 
   /* Блок с данными для формы "местоположение" (FormLocation) */
   // Стейт для формы "местоположение" (FormLocation)
-  const { points, mapPointsError, mapPointsIsLoading } = useTypedSelector(mapPointsSelector);
+  const { points, pointsError, pointsIsLoading } = useTypedSelector(pointsSelector);
 
   // Локальный стейт для формы "местоположение" (FormLocation)
   const [cityValue, setCityValue] = useState(city);
@@ -213,7 +213,7 @@ const Order: FC = () => {
   const navigate = useNavigate();
 
   // Запрос на отправку данных заказа и выставляющий id выполненного order
-  const { sendOrder, setOrderId } = useActions();
+  const { createOrder, setOrderId } = useActions();
 
   // Сбрасываю активный order id при инициализации страницы
   // И если есть order id и есть 4 этап, то перенаправляю на страницу заказа
@@ -260,7 +260,7 @@ const Order: FC = () => {
 
   // Обработчики для кнопок подтверждения и отмены
   const confirmModalBtnHandler = useCallback(() => {
-    sendOrder(orderPost);
+    createOrder(orderPost);
     setModalActive(false);
   }, [modalActive]);
 
@@ -312,8 +312,8 @@ const Order: FC = () => {
   function renderForms() {
     switch (activeStage) {
       case 1:
-        if (mapPointsIsLoading || mapPointsError) {
-          return <ErrorLoading loading={mapPointsIsLoading} error={mapPointsError} />;
+        if (pointsIsLoading || pointsError) {
+          return <ErrorLoading loading={pointsIsLoading} error={pointsError} />;
         }
         return ComponentFormLoc;
 

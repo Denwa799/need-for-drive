@@ -3,3 +3,8 @@ export interface IRateType {
   name: string;
   id: string;
 }
+
+export interface IRateTypeCreate {
+  name: string;
+  unit: string;
+}
