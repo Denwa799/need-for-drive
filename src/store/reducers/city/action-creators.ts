@@ -81,7 +81,7 @@ export const CityActionCreators = {
     try {
       dispatch(CityActionCreators.setCityError(''));
       dispatch(CityActionCreators.setCityIsLoading(true));
-      const response = await GetService(`${process.env.REACT_APP_MAP_CITY_API}ОШИБКА/${id}`);
+      const response = await GetService(`${process.env.REACT_APP_MAP_CITY_API}/${id}`);
       dispatch(CityActionCreators.getCity(response.data.data));
       dispatch(CityActionCreators.setCityIsLoading(false));
     } catch (e) {
