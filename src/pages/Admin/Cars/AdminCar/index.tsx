@@ -6,8 +6,8 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { carsSelector, categoriesSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { useParams } from 'react-router-dom';
-import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { AdminSuccessError } from 'components/ui/AdminSuccessError';
+import { AdminErrorLoading } from 'components/ui/AdminErrorLoading';
 import styles from './styles.module.less';
 import { InfoBlock } from './InfoBlock';
 import { SettingsBlock } from './SettingsBlock';
@@ -88,7 +88,7 @@ export const AdminCar = () => {
   return (
     <div>
       {carIsLoading || carError ? (
-        <ErrorLoading loading={carIsLoading} error={carError} />
+        <AdminErrorLoading loading={carIsLoading} error={carError} />
       ) : (
         <div className={styles.AdminCarCreate}>
           <AdminSuccessError

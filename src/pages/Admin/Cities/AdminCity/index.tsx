@@ -6,7 +6,7 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { citySelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { useParams } from 'react-router-dom';
-import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
+import { AdminErrorLoading } from 'components/ui/AdminErrorLoading';
 import { AdminSuccessError } from 'components/ui/AdminSuccessError';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
@@ -52,7 +52,7 @@ export const AdminCity = () => {
   return (
     <div>
       {cityIsLoading || cityError ? (
-        <ErrorLoading loading={cityIsLoading} error={cityError} />
+        <AdminErrorLoading loading={cityIsLoading} error={cityError} />
       ) : (
         <div className={styles.AdminCityCreate}>
           <AdminSuccessError

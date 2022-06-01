@@ -6,8 +6,8 @@ import { useTypedSelector } from 'hooks/useTypesSelector';
 import { ratesSelector } from 'store/selectors/selectors';
 import { useActions } from 'hooks/useActions';
 import { useParams } from 'react-router-dom';
-import ErrorLoading from 'components/ui/ErrorLoading/ErrorLoading';
 import { AdminSuccessError } from 'components/ui/AdminSuccessError';
+import { AdminErrorLoading } from 'components/ui/AdminErrorLoading';
 import styles from './styles.module.less';
 import { SettingsBlock } from './SettingsBlock';
 
@@ -52,7 +52,7 @@ export const AdminRate = () => {
   return (
     <div>
       {rateIsLoading || rateError ? (
-        <ErrorLoading loading={rateIsLoading} error={rateError} />
+        <AdminErrorLoading loading={rateIsLoading} error={rateError} />
       ) : (
         <div className={styles.AdminRateCreate}>
           <AdminSuccessError
