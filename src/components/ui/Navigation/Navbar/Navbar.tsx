@@ -43,22 +43,22 @@ const Navbar: FC = () => {
       >
         <Menu className={styles.Menu} theme="dark">
           <Menu.Item key={0}>
-            <NavLink to={RouteNames.PARKING} onClick={handleClose} className={styles.link}>
+            <NavLink to={RouteNames.MAIN} onClick={handleClose}>
               ПАРКОВКА
             </NavLink>
           </Menu.Item>
           <Menu.Item key={1}>
-            <NavLink to={RouteNames.INSURANCE} onClick={handleClose}>
+            <NavLink to={RouteNames.MAIN} onClick={handleClose}>
               СТРАХОВАНИЕ
             </NavLink>
           </Menu.Item>
           <Menu.Item key={2}>
-            <NavLink to={RouteNames.PETROL} onClick={handleClose}>
+            <NavLink to={RouteNames.MAIN} onClick={handleClose}>
               БЕНЗИН
             </NavLink>
           </Menu.Item>
           <Menu.Item key={3}>
-            <NavLink to={RouteNames.SERVICE} onClick={handleClose}>
+            <NavLink to={RouteNames.MAIN} onClick={handleClose}>
               ОБСЛУЖИВАНИЕ
             </NavLink>
           </Menu.Item>
