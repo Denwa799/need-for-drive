@@ -45,7 +45,7 @@ export const AdminCategoryList = () => {
 
   const deleteBtnHandler = useCallback((id: number) => {
     confirm({
-      title: 'Вы действительно хотите удалить город?',
+      title: 'Вы действительно хотите удалить категорию?',
       icon: <ExclamationCircleOutlined />,
       okText: 'Да',
       okType: 'danger',

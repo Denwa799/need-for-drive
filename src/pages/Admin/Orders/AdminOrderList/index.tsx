@@ -101,8 +101,10 @@ export const AdminOrderList: FC = () => {
           if (!pointId) return alert('В заказе нет информации о пункте выдачи');
           if (!carId) return alert('В заказе нет информации о машине');
           if (!color) return alert('В заказе нет информации о цвете');
-          if (Number(dateFrom) <= 0) return alert('В заказе нет информации, с какой даты действует заказ');
-          if (Number(dateTo) <= 0) return alert('В заказе нет информации, до какой даты действует заказ');
+          if (Number(dateFrom) <= 0)
+            return alert('В заказе нет информации, с какой даты действует заказ');
+          if (Number(dateTo) <= 0)
+            return alert('В заказе нет информации, до какой даты действует заказ');
           if (!rateId) return alert('В заказе нет информации о тарифе');
           if (price <= 0) return alert('В заказе нет информации о цене');
 
