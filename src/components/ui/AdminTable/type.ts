@@ -2,7 +2,7 @@ export interface IAdminTable {
   head: string[];
   body: Object[];
   isBtns?: boolean;
-  onDeleteClick?: (id: string) => void;
-  onChangeClick?: (id: string) => void;
+  onDeleteClick?: (id: number) => void;
+  onChangeClick?: (id: number) => void;
   deleteDisabled?: boolean;
 }

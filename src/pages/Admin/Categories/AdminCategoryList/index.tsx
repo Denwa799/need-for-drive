@@ -39,11 +39,11 @@ export const AdminCategoryList = () => {
     if (!categoriesIsLoading) fetchCategories();
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CATEGORY}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback((id: string) => {
+  const deleteBtnHandler = useCallback((id: number) => {
     confirm({
       title: 'Вы действительно хотите удалить город?',
       icon: <ExclamationCircleOutlined />,

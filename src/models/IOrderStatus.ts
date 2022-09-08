@@ -1,6 +1,6 @@
 export interface IOrderStatus {
   name: string;
-  id: string;
+  id: number;
 }
 
 export interface IOrderStatusCreate {

@@ -78,7 +78,7 @@ export const PointsActionCreators = {
       );
     }
   },
-  fetchPoint: (id: string) => async (dispatch: AppDispatch) => {
+  fetchPoint: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(PointsActionCreators.setPointError(''));
       dispatch(PointsActionCreators.setPointIsLoading(true));
@@ -104,7 +104,7 @@ export const PointsActionCreators = {
     }
   },
   updatePoint:
-    (id: string, data: IPointCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: IPointCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(PointsActionCreators.setPointCreateError(''));
         dispatch(PointsActionCreators.setPointCreateIsLoading(true));
@@ -119,7 +119,7 @@ export const PointsActionCreators = {
         );
       }
     },
-  deletePoint: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deletePoint: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(PointsActionCreators.setPointDeleteError(''));
       dispatch(PointsActionCreators.setPointDeleteIsLoading(true));

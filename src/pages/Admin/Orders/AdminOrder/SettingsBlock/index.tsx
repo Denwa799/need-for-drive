@@ -51,7 +51,7 @@ export const SettingsBlock: FC = () => {
 
   const [cityNameValue, setCityNameValue] = useState('');
   const [cityNameSelectValue, setCityNameSelectValue] = useState('');
-  const [cityId, setCityId] = useState('');
+  const [cityId, setCityId] = useState(0);
   const [cityNameValidationError, setCityNameValidationError] = useState(false);
   const [cityNameErrorText, setCityNameErrorText] = useState('Выберите город');
 
@@ -78,13 +78,13 @@ export const SettingsBlock: FC = () => {
   const [rateSelectValue, setRateSelectValue] = useState('');
   const [rateUnit, setRateUnit] = useState('');
   const [ratePrice, setRatePrice] = useState(0);
-  const [rateId, setRateId] = useState('');
+  const [rateId, setRateId] = useState(0);
   const [rateValidationError, setRateValidationError] = useState(false);
   const [rateErrorText, setRateErrorText] = useState('Выберите тариф');
 
   const [statusValue, setStatusValue] = useState('');
   const [statusSelectValue, setStatusSelectValue] = useState('');
-  const [statusId, setStatusId] = useState('');
+  const [statusId, setStatusId] = useState(0);
   const [statusValidationError, setStatusValidationError] = useState(false);
   const [statusErrorText, setStatusErrorText] = useState('Выберите статус заказа');
 
@@ -518,8 +518,8 @@ export const SettingsBlock: FC = () => {
         pointId: foundPoint.id,
         carId: carSelected.id,
         color: colorSelectValue,
-        dateFrom: Date.parse(dateStartUtc),
-        dateTo: Date.parse(dateEndUtc),
+        dateFrom: String(Date.parse(dateStartUtc)),
+        dateTo: String(Date.parse(dateEndUtc)),
         rateId,
         price: priceTotal,
         isFullTank,
@@ -551,7 +551,7 @@ export const SettingsBlock: FC = () => {
     if (!rateSelectValue) setRateValidationError(true);
     if (!statusSelectValue) setStatusValidationError(true);
 
-    if (postData && id) updateOrder(id, postData, tokenBearer);
+    if (postData && id) updateOrder(Number(id), postData, tokenBearer);
   }, [
     postData,
     id,
@@ -579,7 +579,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteOrder(id, tokenBearer);
+          deleteOrder(Number(id), tokenBearer);
         }
       },
     });

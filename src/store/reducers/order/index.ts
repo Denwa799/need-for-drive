@@ -7,7 +7,7 @@ const initialState: OrderState = {
   ordersError: '',
   ordersCount: 0,
   order: {} as IOrder,
-  orderId: '',
+  orderId: 0,
   orderIsLoading: false,
   orderError: '',
   orderIsCreate: false,

@@ -81,7 +81,7 @@ export const OrderStatusActionCreators = {
       );
     }
   },
-  fetchOrderStatus: (id: string) => async (dispatch: AppDispatch) => {
+  fetchOrderStatus: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(OrderStatusActionCreators.setOrderStatusError(''));
       dispatch(OrderStatusActionCreators.setOrderStatusIsLoading(true));
@@ -115,7 +115,7 @@ export const OrderStatusActionCreators = {
       }
     },
   updateOrderStatus:
-    (id: string, data: IOrderStatusCreate, tokenBearer: string) =>
+    (id: number, data: IOrderStatusCreate, tokenBearer: string) =>
     async (dispatch: AppDispatch) => {
       try {
         dispatch(OrderStatusActionCreators.setOrderStatusCreateError(''));
@@ -133,7 +133,7 @@ export const OrderStatusActionCreators = {
         );
       }
     },
-  deleteOrderStatus: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteOrderStatus: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(OrderStatusActionCreators.setOrderStatusDeleteError(''));
       dispatch(OrderStatusActionCreators.setOrderStatusDeleteIsLoading(true));

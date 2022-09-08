@@ -107,7 +107,7 @@ export const SettingsBlock: FC = () => {
     if (!descriptionValue) setDescriptionValidationError(true);
 
     if (postData && !id) createCategory(postData, tokenBearer);
-    if (postData && id) updateCategory(id, postData, tokenBearer);
+    if (postData && id) updateCategory(Number(id), postData, tokenBearer);
   }, [postData, categoryNameValue, descriptionValue]);
 
   const cancelBtnHandler = useCallback(
@@ -124,7 +124,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteCategory(id, tokenBearer);
+          deleteCategory(Number(id), tokenBearer);
         }
       },
     });

@@ -39,11 +39,11 @@ export const AdminRateList = () => {
     if (!ratesIsLoading) fetchRates();
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback((id: string) => {
+  const deleteBtnHandler = useCallback((id: number) => {
     confirm({
       title: 'Вы действительно хотите удалить тариф?',
       icon: <ExclamationCircleOutlined />,

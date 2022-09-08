@@ -40,11 +40,11 @@ export const AdminPointList = () => {
     if (!pointsIsLoading) fetchPoints();
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_POINT}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback((id: string) => {
+  const deleteBtnHandler = useCallback((id: number) => {
     confirm({
       title: 'Вы действительно хотите удалить пункт выдачи?',
       icon: <ExclamationCircleOutlined />,

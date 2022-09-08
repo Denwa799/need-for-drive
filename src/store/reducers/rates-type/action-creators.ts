@@ -82,7 +82,7 @@ export const RatesTypeActionCreators = {
       );
     }
   },
-  fetchRateType: (id: string) => async (dispatch: AppDispatch) => {
+  fetchRateType: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(RatesTypeActionCreators.setRateTypeError(''));
       dispatch(RatesTypeActionCreators.setRateTypeIsLoading(true));
@@ -111,7 +111,7 @@ export const RatesTypeActionCreators = {
     }
   },
   updateRateType:
-    (id: string, data: IRateTypeCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: IRateTypeCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(RatesTypeActionCreators.setRateTypeCreateError(''));
         dispatch(RatesTypeActionCreators.setRateTypeCreateIsLoading(true));
@@ -128,7 +128,7 @@ export const RatesTypeActionCreators = {
         );
       }
     },
-  deleteRateType: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteRateType: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(RatesTypeActionCreators.setRateTypeDeleteError(''));
       dispatch(RatesTypeActionCreators.setRateTypeDeleteIsLoading(true));

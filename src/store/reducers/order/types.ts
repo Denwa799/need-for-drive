@@ -6,7 +6,7 @@ export interface OrderState {
   ordersError: string;
   ordersCount: number;
   order: IOrder;
-  orderId: string;
+  orderId: number;
   orderIsLoading: boolean;
   orderError: string;
   orderIsCreate: boolean;
@@ -61,7 +61,7 @@ export interface GetOrder {
 
 export interface SetOrderId {
   type: OrderActionEnum.SET_ORDER_ID;
-  payload: string;
+  payload: number;
 }
 
 export interface SetOrderIsLoadingAction {

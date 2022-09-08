@@ -60,7 +60,7 @@ export const AdminCar = () => {
 
   useEffect(() => {
     if (id && Object.keys(car).length === 0) {
-      fetchCar(id);
+      fetchCar(Number(id));
     }
   }, [id, car]);
 

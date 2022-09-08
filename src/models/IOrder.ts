@@ -1,18 +1,18 @@
 export interface IOrder {
-  updatedAt: number;
-  createdAt: number;
+  updatedAt: string;
+  createdAt: string;
   orderStatusId: {
     name: string;
-    id: string;
+    id: number;
   } | null;
   cityId: {
     name: string;
-    id: string;
+    id: number;
   } | null;
   pointId: {
     name: string;
     address: string;
-    id: string;
+    id: number;
   };
   carId: {
     description: string;
@@ -23,7 +23,7 @@ export interface IOrder {
     categoryId: {
       name: string;
       description: string;
-      id: string;
+      id: number;
     };
     thumbnail: {
       size: number;
@@ -33,42 +33,42 @@ export interface IOrder {
     };
     tank: number;
     colors: string[];
-    id: string;
+    id: number;
   };
   color: string;
-  dateFrom: number;
-  dateTo: number;
+  dateFrom: string;
+  dateTo: string;
   rateId: {
     price: number;
     rateTypeId: {
       unit: string;
       name: string;
-      id: string;
+      id: number;
     };
-    id: string;
+    id: number;
   } | null;
   price: number;
   isFullTank: boolean;
   isNeedChildChair: boolean;
   isRightWheel: boolean;
-  id: string;
+  id: number;
 }
 
 export interface IOrderPost {
   orderStatusId: {
     name: string;
-    id: string;
+    id: number;
   };
   cityId: {
     name: string;
-    id: string;
+    id: number;
   };
-  pointId: string;
-  carId: string;
+  pointId: number;
+  carId: number;
   color: string;
-  dateFrom: number;
-  dateTo: number;
-  rateId: string;
+  dateFrom: string;
+  dateTo: string;
+  rateId: number;
   price: number;
   isFullTank: boolean;
   isNeedChildChair: boolean;

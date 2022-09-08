@@ -42,9 +42,9 @@ const Order: FC = () => {
   const [pointValue, setPointValue] = useState('');
   const debouncedPointValue = useDebounce<string>(pointValue, 500);
   const [activePointAddress, setActivePointAddress] = useState('');
-  const [activePointId, setActivePointId] = useState('');
+  const [activePointId, setActivePointId] = useState(0);
   const [activePointCity, setActivePointCity] = useState(city);
-  const [activeCityId, setActiveCityId] = useState('');
+  const [activeCityId, setActiveCityId] = useState(0);
 
   // Устанавливаю значение города в шапку сайта
   const { setCityLocation } = useActions();
@@ -93,7 +93,7 @@ const Order: FC = () => {
 
   // Локальный стейт для формы "Модель" (FormModel)
   const [selectedCar, setSelectedCar] = useState<ICar>();
-  const [activeCarId, setActiveCarId] = useState('');
+  const [activeCarId, setActiveCarId] = useState(0);
   const [activeCar, setActiveCar] = useState('');
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
@@ -110,7 +110,7 @@ const Order: FC = () => {
   const [rate, setRate] = useState('');
   const [ratePrice, setRatePrice] = useState(0);
   const [rateUnit, setRateUnit] = useState('');
-  const [rateId, setRateId] = useState('');
+  const [rateId, setRateId] = useState(0);
   const [isFullTank, setIsFullTank] = useState(false);
   const [isNeedChildChair, setIsNeedChildChair] = useState(false);
   const [isRightWheel, setIsRightWheel] = useState(false);
@@ -122,8 +122,8 @@ const Order: FC = () => {
   const durationString = useMemo(() => {
     if (duration) {
       const days = Math.floor(moment.duration(duration).asDays());
-      const hourse = Math.floor(moment.duration(duration).asHours()) - 24 * days;
-      return `${days}д ${hourse}ч`;
+      const hours = Math.floor(moment.duration(duration).asHours()) - 24 * days;
+      return `${days}д ${hours}ч`;
     }
     return '';
   }, [duration]);
@@ -136,7 +136,7 @@ const Order: FC = () => {
 
   // Переводит разницу в количество дней
   const durationDays = useMemo(
-    () => (duration && rateUnit === 'сутки' ? Math.ceil(moment.duration(duration).asDays()) : 0),
+    () => (duration && rateUnit === '24 часа' ? Math.ceil(moment.duration(duration).asDays()) : 0),
     [duration, rateUnit]
   );
 
@@ -168,7 +168,7 @@ const Order: FC = () => {
         return durationMonth * ratePrice;
       case 'мин':
         return durationMin * ratePrice;
-      case 'сутки':
+      case '24 часа':
         return durationDays * ratePrice;
       case '7 дней':
         return durationWeek * ratePrice;
@@ -219,7 +219,7 @@ const Order: FC = () => {
   // И если есть order id и есть 4 этап, то перенаправляю на страницу заказа
   useEffect(() => {
     if (maxStage === 1) {
-      setOrderId('');
+      setOrderId(0);
     }
     if (maxStage >= 4 && orderId) {
       navigate(`/order/${orderId}`);
@@ -235,8 +235,8 @@ const Order: FC = () => {
 
   const orderPost = {
     orderStatusId: {
-      name: 'Новые',
-      id: '5e26a191099b810b946c5d89',
+      name: 'Новый',
+      id: 1,
     },
     cityId: {
       name: activePointCity,
@@ -245,8 +245,8 @@ const Order: FC = () => {
     pointId: activePointId,
     carId: activeCarId,
     color,
-    dateFrom: Date.parse(dateStartUtc),
-    dateTo: Date.parse(dateEndUtc),
+    dateFrom: String(Date.parse(dateStartUtc)),
+    dateTo: String(Date.parse(dateEndUtc)),
     rateId,
     price,
     isFullTank,
@@ -269,7 +269,7 @@ const Order: FC = () => {
   }, [modalActive]);
 
   const clearFormModel = useCallback(() => {
-    setActiveCarId('');
+    setActiveCarId(0);
     setActiveCar('');
     setPriceMin(0);
     setPriceMax(0);

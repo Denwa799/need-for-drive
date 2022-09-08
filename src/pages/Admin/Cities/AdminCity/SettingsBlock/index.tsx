@@ -65,7 +65,7 @@ export const SettingsBlock: FC = () => {
     if (!cityNameValue) setCityNameValidationError(true);
 
     if (postData && !id) createCity(postData, tokenBearer);
-    if (postData && id) updateCity(id, postData, tokenBearer);
+    if (postData && id) updateCity(Number(id), postData, tokenBearer);
   }, [postData, cityNameValue]);
 
   const cancelBtnHandler = useCallback(
@@ -82,7 +82,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteCity(id, tokenBearer);
+          deleteCity(Number(id), tokenBearer);
         }
       },
     });

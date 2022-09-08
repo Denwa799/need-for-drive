@@ -1,7 +1,7 @@
 export interface IRateType {
   unit: string;
   name: string;
-  id: string;
+  id: number;
 }
 
 export interface IRateTypeCreate {

@@ -39,11 +39,11 @@ export const AdminOrderStatusList = () => {
     if (!orderStatusIsLoading) fetchAllOrderStatus();
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_ORDER_STATUS}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback((id: string) => {
+  const deleteBtnHandler = useCallback((id: number) => {
     confirm({
       title: 'Вы действительно хотите удалить статус заказа?',
       icon: <ExclamationCircleOutlined />,

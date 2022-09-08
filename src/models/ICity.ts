@@ -1,8 +1,8 @@
 export interface ICity {
-  updatedAt: number;
-  createdAt: number;
+  updatedAt: string;
+  createdAt: string;
   name: string;
-  id: string;
+  id: number;
 }
 
 export interface ICityCreate {

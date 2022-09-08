@@ -11,7 +11,7 @@ export const setAuthCookie: SetAuthCookieType = (
   authToken.key = authSecretKey;
   // Вычисляю дату, до которой будет жить cookie
   const millisecondsNow = moment().valueOf();
-  const millisecondsCookie = authToken.expires_in * 1000;
+  const millisecondsCookie = authToken.expires_in;
   const cookiesExpiresIn = moment(millisecondsNow + millisecondsCookie).toDate();
 
   setCookie(name, authToken, { path, expires: cookiesExpiresIn });

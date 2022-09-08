@@ -45,7 +45,7 @@ export const AdminRate = () => {
 
   useEffect(() => {
     if (id && Object.keys(rate).length === 0) {
-      fetchRate(id);
+      fetchRate(Number(id));
     }
   }, [id, rate]);
 

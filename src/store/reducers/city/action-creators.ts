@@ -77,7 +77,7 @@ export const CityActionCreators = {
       dispatch(CityActionCreators.setCitiesError('Произошла ошибка при загрузке списка городов'));
     }
   },
-  fetchCity: (id: string) => async (dispatch: AppDispatch) => {
+  fetchCity: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(CityActionCreators.setCityError(''));
       dispatch(CityActionCreators.setCityIsLoading(true));
@@ -102,7 +102,7 @@ export const CityActionCreators = {
     }
   },
   updateCity:
-    (id: string, data: ICityCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: ICityCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(CityActionCreators.setCityCreateError(''));
         dispatch(CityActionCreators.setCityCreateIsLoading(true));
@@ -115,7 +115,7 @@ export const CityActionCreators = {
         dispatch(CityActionCreators.setCityCreateError('Произошла ошибка при обновлении города'));
       }
     },
-  deleteCity: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteCity: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(CityActionCreators.setCityDeleteError(''));
       dispatch(CityActionCreators.setCityDeleteIsLoading(true));

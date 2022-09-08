@@ -37,7 +37,7 @@ export const OrderId: FC = () => {
   // Как только появляется id заказа, то происходит запрос на получение его данных
   useEffect(() => {
     if (id) {
-      setOrderId(id);
+      setOrderId(Number(id));
     }
     if (orderId) {
       fetchOrder(orderId);

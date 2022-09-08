@@ -45,7 +45,7 @@ export const AdminOrderStatus = () => {
 
   useEffect(() => {
     if (id && Object.keys(orderStatus).length === 0) {
-      fetchOrderStatus(id);
+      fetchOrderStatus(Number(id));
     }
   }, [id, orderStatus]);
 

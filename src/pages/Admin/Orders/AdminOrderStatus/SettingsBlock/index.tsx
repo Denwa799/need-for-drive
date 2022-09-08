@@ -85,7 +85,7 @@ export const SettingsBlock: FC = () => {
     if (!orderStatusNameValue) setOrderStatusNameValidationError(true);
 
     if (postData && !id) createOrderStatus(postData, tokenBearer);
-    if (postData && id) updateOrderStatus(id, postData, tokenBearer);
+    if (postData && id) updateOrderStatus(Number(id), postData, tokenBearer);
   }, [postData, orderStatusNameValue]);
 
   const cancelBtnHandler = useCallback(
@@ -102,7 +102,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteOrderStatus(id, tokenBearer);
+          deleteOrderStatus(Number(id), tokenBearer);
         }
       },
     });

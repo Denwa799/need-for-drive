@@ -77,7 +77,7 @@ export const RatesActionCreators = {
       dispatch(RatesActionCreators.setRatesError('Произошла ошибка при загрузке списка тарифов'));
     }
   },
-  fetchRate: (id: string) => async (dispatch: AppDispatch) => {
+  fetchRate: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(RatesActionCreators.setRateError(''));
       dispatch(RatesActionCreators.setRateIsLoading(true));
@@ -102,7 +102,7 @@ export const RatesActionCreators = {
     }
   },
   updateRate:
-    (id: string, data: IRateCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: IRateCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(RatesActionCreators.setRateCreateError(''));
         dispatch(RatesActionCreators.setRateCreateIsLoading(true));
@@ -115,7 +115,7 @@ export const RatesActionCreators = {
         dispatch(RatesActionCreators.setRateCreateError('Произошла ошибка при обновлении тарифа'));
       }
     },
-  deleteRate: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteRate: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(RatesActionCreators.setRateDeleteError(''));
       dispatch(RatesActionCreators.setRateDeleteIsLoading(true));

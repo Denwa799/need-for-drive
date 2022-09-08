@@ -1,7 +1,7 @@
 export interface ICar {
-  updatedAt: number;
-  createdAt: number;
-  id: string;
+  updatedAt: string;
+  createdAt: string;
+  id: number;
   description: string;
   priceMin: number;
   priceMax: number;
@@ -26,7 +26,7 @@ export interface ICarCreate {
   name: string;
   thumbnail: object;
   description: string;
-  categoryId: string;
+  categoryId: number;
   colors: string[];
   tank: number;
   number: string;

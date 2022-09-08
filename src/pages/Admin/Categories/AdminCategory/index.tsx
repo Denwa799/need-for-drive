@@ -45,7 +45,7 @@ export const AdminCategory = () => {
 
   useEffect(() => {
     if (id && Object.keys(category).length === 0) {
-      fetchCategory(id);
+      fetchCategory(Number(id));
     }
   }, [id, category]);
 

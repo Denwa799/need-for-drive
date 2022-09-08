@@ -45,7 +45,7 @@ export const AdminRateType = () => {
 
   useEffect(() => {
     if (id && Object.keys(rateType).length === 0) {
-      fetchRateType(id);
+      fetchRateType(Number(id));
     }
   }, [id, rateType]);
 

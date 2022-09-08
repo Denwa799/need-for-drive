@@ -136,7 +136,7 @@ export const SettingsBlock: FC = () => {
     if (!priceValue) setPriceValidationError(true);
 
     if (postData && !id) createRate(postData, tokenBearer);
-    if (postData && id) updateRate(id, postData, tokenBearer);
+    if (postData && id) updateRate(Number(id), postData, tokenBearer);
   }, [postData, priceValue]);
 
   const cancelBtnHandler = useCallback(
@@ -153,7 +153,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteRate(id, tokenBearer);
+          deleteRate(Number(id), tokenBearer);
         }
       },
     });

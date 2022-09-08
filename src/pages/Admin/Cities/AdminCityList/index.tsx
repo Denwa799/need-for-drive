@@ -40,11 +40,11 @@ export const AdminCityList = () => {
     if (!citiesIsLoading) fetchCities();
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CITY}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback((id: string) => {
+  const deleteBtnHandler = useCallback((id: number) => {
     confirm({
       title: 'Вы действительно хотите удалить город?',
       icon: <ExclamationCircleOutlined />,
@@ -52,7 +52,7 @@ export const AdminCityList = () => {
       okType: 'danger',
       cancelText: 'Нет',
       onOk() {
-        deleteCity(id, tokenBearer);
+        deleteCity(Number(id), tokenBearer);
       },
     });
   }, []);

@@ -45,7 +45,7 @@ export const AdminCity = () => {
 
   useEffect(() => {
     if (id && Object.keys(city).length === 0) {
-      fetchCity(id);
+      fetchCity(Number(id));
     }
   }, [id, city]);
 

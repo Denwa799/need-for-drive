@@ -101,7 +101,7 @@ export const SettingsBlock: FC = () => {
     if (!unitValue) setUnitValidationError(true);
 
     if (postData && !id) createRateType(postData, tokenBearer);
-    if (postData && id) updateRateType(id, postData, tokenBearer);
+    if (postData && id) updateRateType(Number(id), postData, tokenBearer);
   }, [postData, rateTypeNameValue, unitValue]);
 
   const cancelBtnHandler = useCallback(
@@ -118,7 +118,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteRateType(id, tokenBearer);
+          deleteRateType(Number(id), tokenBearer);
         }
       },
     });

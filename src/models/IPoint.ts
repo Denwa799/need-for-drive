@@ -3,13 +3,13 @@ export interface IPoint {
   name: string;
   cityId?: {
     name: string;
-    id: string;
+    id: number;
   };
-  id: string;
+  id: number;
 }
 
 export interface IPointCreate {
   name: string;
-  cityId: string;
+  cityId: number;
   address: string;
 }

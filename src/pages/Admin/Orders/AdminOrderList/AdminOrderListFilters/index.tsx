@@ -14,9 +14,9 @@ import { AdminAutocomplete } from 'components/ui/AdminAutocomplete';
 import { useCookies } from 'react-cookie';
 import { AdminFiltersContainer } from 'components/ui/AdminFiltersContainer';
 import styles from './styles.module.less';
-import { FilterOptionType, IAdminOrderListFilteres } from './type';
+import { FilterOptionType, IAdminOrderListFilters } from './type';
 
-export const AdminOrderListFilters: FC<IAdminOrderListFilteres> = ({
+export const AdminOrderListFilters: FC<IAdminOrderListFilters> = ({
   limit,
   currentPage,
   setCurrentPage,

@@ -59,7 +59,7 @@ export const AdminOrder = () => {
 
   useEffect(() => {
     if (id && Object.keys(order).length === 0) {
-      fetchOrder(id);
+      fetchOrder(Number(id));
       if (!carsIsLoading) fetchCars();
       if (!pointsIsLoading) fetchPoints();
       if (!orderStatusIsLoading) fetchAllOrderStatus();

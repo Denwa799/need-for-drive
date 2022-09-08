@@ -1,4 +1,4 @@
-export interface IAdminOrderListFilteres {
+export interface IAdminOrderListFilters {
   limit: number;
   currentPage: number;
   setCurrentPage: (value: number) => void;

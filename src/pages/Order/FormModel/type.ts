@@ -1,10 +1,10 @@
 import { ICar } from 'models/ICar';
 
 export interface IFormModel {
-  activeCarId: string;
+  activeCarId: number;
   activeCar: string;
   setActiveCar: (value: string) => void;
-  setActiveCarId: (value: string) => void;
+  setActiveCarId: (value: number) => void;
   setSelectedCar: (value: ICar) => void;
   setPriceMin: (value: number) => void;
   setPriceMax: (value: number) => void;
@@ -16,7 +16,7 @@ export interface IFormModel {
 
 export type CarClickHandlerType = (
   car: ICar,
-  id: string,
+  id: number,
   name: string,
   min: number,
   max: number,

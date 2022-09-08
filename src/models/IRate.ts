@@ -1,16 +1,16 @@
 export interface IRate {
-  updatedAt: number;
-  createdAt: number;
+  updatedAt: string;
+  createdAt: string;
   price: number;
   rateTypeId?: {
     unit: string;
     name: string;
-    id: string;
+    id: number;
   };
-  id: string;
+  id: number;
 }
 
 export interface IRateCreate {
-  rateTypeId: string;
+  rateTypeId: number;
   price: number;
 }

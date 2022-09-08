@@ -314,7 +314,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
     if (!maxPriceValue) setMaxPriceValidationError(true);
 
     if (postData && !id) createCar(postData, tokenBearer);
-    if (postData && id) updateCar(id, postData, tokenBearer);
+    if (postData && id) updateCar(Number(id), postData, tokenBearer);
   }, [
     postData,
     imgBase64,
@@ -342,7 +342,7 @@ export const SettingsBlock: FC<ISettingsBlock> = ({
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deleteCar(id, tokenBearer);
+          deleteCar(Number(id), tokenBearer);
         }
       },
     });

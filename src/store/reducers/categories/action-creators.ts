@@ -81,7 +81,7 @@ export const CategoriesActionCreators = {
       );
     }
   },
-  fetchCategory: (id: string) => async (dispatch: AppDispatch) => {
+  fetchCategory: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(CategoriesActionCreators.setCategoryError(''));
       dispatch(CategoriesActionCreators.setCategoryIsLoading(true));
@@ -112,7 +112,7 @@ export const CategoriesActionCreators = {
     }
   },
   updateCategory:
-    (id: string, data: ICategoryCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: ICategoryCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(CategoriesActionCreators.setCategoryCreateError(''));
         dispatch(CategoriesActionCreators.setCategoryCreateIsLoading(true));
@@ -129,7 +129,7 @@ export const CategoriesActionCreators = {
         );
       }
     },
-  deleteCategory: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteCategory: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(CategoriesActionCreators.setCategoryDeleteError(''));
       dispatch(CategoriesActionCreators.setCategoryDeleteIsLoading(true));

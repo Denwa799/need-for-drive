@@ -40,7 +40,7 @@ export const OrderActionCreators = {
     type: OrderActionEnum.GET_ORDER,
     payload,
   }),
-  setOrderId: (payload: string): SetOrderId => ({
+  setOrderId: (payload: number): SetOrderId => ({
     type: OrderActionEnum.SET_ORDER_ID,
     payload,
   }),
@@ -81,9 +81,9 @@ export const OrderActionCreators = {
       tokenBearer: string,
       limit: number,
       page: number,
-      carId?: string | null,
-      cityId?: string | null,
-      orderStatusId?: string | null,
+      carId?: number | null,
+      cityId?: number | null,
+      orderStatusId?: number | null,
       color?: string | null
     ) =>
     async (dispatch: AppDispatch) => {
@@ -106,7 +106,7 @@ export const OrderActionCreators = {
         dispatch(OrderActionCreators.setOrdersError('Произошла ошибка при загрузке данных заказа'));
       }
     },
-  fetchOrder: (id: string) => async (dispatch: AppDispatch) => {
+  fetchOrder: (id: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(OrderActionCreators.setOrderError(''));
       dispatch(OrderActionCreators.setOrderIsLoading(true));
@@ -130,7 +130,7 @@ export const OrderActionCreators = {
     }
   },
   updateOrder:
-    (id: string, data: IOrderPost, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: IOrderPost, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(OrderActionCreators.setOrderCreateError(''));
         dispatch(OrderActionCreators.setOrderCreateIsLoading(true));
@@ -143,7 +143,7 @@ export const OrderActionCreators = {
         dispatch(OrderActionCreators.setOrderCreateError('Произошла ошибка при обновлении заказа'));
       }
     },
-  deleteOrder: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteOrder: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(OrderActionCreators.setOrderDeleteError(''));
       dispatch(OrderActionCreators.setOrderDeleteIsLoading(true));

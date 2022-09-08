@@ -72,8 +72,8 @@ export const AdminOrderList: FC = () => {
     ) => {
       const postData = {
         orderStatusId: {
-          name: isCheck ? 'Подтвержденные' : 'Отмененные',
-          id: isCheck ? '5e26a1f0099b810b946c5d8b' : '5e26a1f5099b810b946c5d8c',
+          name: isCheck ? 'Подтвержденный' : 'Отмененный',
+          id: isCheck ? 5 : 7,
         },
         cityId: {
           name: cityName,
@@ -101,8 +101,8 @@ export const AdminOrderList: FC = () => {
           if (!pointId) return alert('В заказе нет информации о пункте выдачи');
           if (!carId) return alert('В заказе нет информации о машине');
           if (!color) return alert('В заказе нет информации о цвете');
-          if (dateFrom <= 0) return alert('В заказе нет информации, с какой даты действует заказ');
-          if (dateTo <= 0) return alert('В заказе нет информации, до какой даты действует заказ');
+          if (Number(dateFrom) <= 0) return alert('В заказе нет информации, с какой даты действует заказ');
+          if (Number(dateTo) <= 0) return alert('В заказе нет информации, до какой даты действует заказ');
           if (!rateId) return alert('В заказе нет информации о тарифе');
           if (price <= 0) return alert('В заказе нет информации о цене');
 
@@ -113,7 +113,7 @@ export const AdminOrderList: FC = () => {
     []
   );
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_ORDER}/${id}`);
   }, []);
 
@@ -164,8 +164,8 @@ export const AdminOrderList: FC = () => {
                         {order.pointId ? order.pointId.address : errorMessage}
                       </p>
                       <p className={styles.description}>
-                        {order.dateFrom ? dateString(order.dateFrom) : errorMessage} —{' '}
-                        {order.dateTo ? dateString(order.dateTo) : errorMessage}
+                        {order.dateFrom ? dateString(Number(order.dateFrom)) : errorMessage} —{' '}
+                        {order.dateTo ? dateString(Number(order.dateTo)) : errorMessage}
                       </p>
                       <p className={styles.description}>
                         Цвет: <b>{order.color ? order.color : errorMessage}</b>
@@ -174,7 +174,7 @@ export const AdminOrderList: FC = () => {
                         Длительность аренды:{' '}
                         <b>
                           {order.dateFrom && order.dateTo
-                            ? durationDateString(order.dateFrom, order.dateTo)
+                            ? durationDateString(Number(order.dateFrom), Number(order.dateTo))
                             : errorMessage}
                         </b>
                       </p>
@@ -205,13 +205,13 @@ export const AdminOrderList: FC = () => {
                               true,
                               order.id,
                               order.cityId ? order.cityId.name : '',
-                              order.cityId ? order.cityId.id : '',
-                              order.pointId ? order.pointId.id : '',
-                              order.carId ? order.carId.id : '',
+                              order.cityId ? order.cityId.id : 0,
+                              order.pointId ? order.pointId.id : 0,
+                              order.carId ? order.carId.id : 0,
                               order.color ? order.color : '',
-                              order.dateFrom ? order.dateFrom : 0,
-                              order.dateTo ? order.dateTo : 0,
-                              order.rateId ? order.rateId.id : '',
+                              order.dateFrom ? order.dateFrom : '',
+                              order.dateTo ? order.dateTo : '',
+                              order.rateId ? order.rateId.id : 0,
                               order.price ? order.price : 0,
                               order.isFullTank,
                               order.isNeedChildChair,
@@ -234,13 +234,13 @@ export const AdminOrderList: FC = () => {
                               false,
                               order.id,
                               order.cityId ? order.cityId.name : '',
-                              order.cityId ? order.cityId.id : '',
-                              order.pointId ? order.pointId.id : '',
-                              order.carId ? order.carId.id : '',
+                              order.cityId ? order.cityId.id : 0,
+                              order.pointId ? order.pointId.id : 0,
+                              order.carId ? order.carId.id : 0,
                               order.color ? order.color : '',
-                              order.dateFrom ? order.dateFrom : 0,
-                              order.dateTo ? order.dateTo : 0,
-                              order.rateId ? order.rateId.id : '',
+                              order.dateFrom ? order.dateFrom : '',
+                              order.dateTo ? order.dateTo : '',
+                              order.rateId ? order.rateId.id : 0,
                               order.price ? order.price : 0,
                               order.isFullTank,
                               order.isNeedChildChair,

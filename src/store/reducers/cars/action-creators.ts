@@ -77,9 +77,8 @@ export const CarsActionCreators = {
       dispatch(CarsActionCreators.setCarsError('Произошла ошибка при загрузке машин'));
     }
   },
-  fetchCar: (id: string) => async (dispatch: AppDispatch) => {
+  fetchCar: (id: number) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(CarsActionCreators.setCarError(''));
       dispatch(CarsActionCreators.setCarError(''));
       dispatch(CarsActionCreators.setCarIsLoading(true));
       const response = await GetService(`${process.env.REACT_APP_CARS_API}/${id}`);
@@ -103,7 +102,7 @@ export const CarsActionCreators = {
     }
   },
   updateCar:
-    (id: string, data: ICarCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
+    (id: number, data: ICarCreate, tokenBearer: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(CarsActionCreators.setCarCreateError(''));
         dispatch(CarsActionCreators.setCarCreateIsLoading(true));
@@ -116,7 +115,7 @@ export const CarsActionCreators = {
         dispatch(CarsActionCreators.setCarCreateError('Произошла ошибка при обновлении машины'));
       }
     },
-  deleteCar: (id: string, tokenBearer: string) => async (dispatch: AppDispatch) => {
+  deleteCar: (id: number, tokenBearer: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(CarsActionCreators.setCarDeleteError(''));
       dispatch(CarsActionCreators.setCarDeleteIsLoading(true));

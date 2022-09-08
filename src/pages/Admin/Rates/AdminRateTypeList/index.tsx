@@ -39,11 +39,11 @@ export const AdminRateTypeList = () => {
     if (!allRateTypeIsLoading) fetchRatesType();
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_RATE_TYPE}/${id}`);
   }, []);
 
-  const deleteBtnHandler = useCallback((id: string) => {
+  const deleteBtnHandler = useCallback((id: number) => {
     confirm({
       title: 'Вы действительно хотите удалить тип тарифа?',
       icon: <ExclamationCircleOutlined />,

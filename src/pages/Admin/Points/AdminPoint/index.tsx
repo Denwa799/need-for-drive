@@ -45,7 +45,7 @@ export const AdminPoint = () => {
 
   useEffect(() => {
     if (id && Object.keys(point).length === 0) {
-      fetchPoint(id);
+      fetchPoint(Number(id));
     }
   }, [id, point]);
 

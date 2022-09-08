@@ -145,7 +145,7 @@ export const SettingsBlock: FC = () => {
     if (!addressValue) setAddressValidationError(true);
 
     if (postData && !id) createPoint(postData, tokenBearer);
-    if (postData && id) updatePoint(id, postData, tokenBearer);
+    if (postData && id) updatePoint(Number(id), postData, tokenBearer);
   }, [postData, pointNameValue, cityNameSelectValue, addressValue]);
 
   const cancelBtnHandler = useCallback(
@@ -162,7 +162,7 @@ export const SettingsBlock: FC = () => {
       cancelText: 'Нет',
       onOk() {
         if (id) {
-          deletePoint(id, tokenBearer);
+          deletePoint(Number(id), tokenBearer);
         }
       },
     });

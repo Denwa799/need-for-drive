@@ -44,7 +44,7 @@ export const AdminCarsList = () => {
     event.currentTarget.src = noImage;
   }, []);
 
-  const changeBtnHandler = useCallback((id: string) => {
+  const changeBtnHandler = useCallback((id: number) => {
     navigate(`/${RouteNames.ADMIN}/${RouteNames.ADMIN_CAR}/${id}`);
   }, []);
 
